@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+  background-color: rgba(53, 102, 175, 0.562);
+  min-height: 100vh;
+  border-top: 1px solid transparent;
+  margin: 0;
+  padding: 0;
 }
 
 .App-logo {
