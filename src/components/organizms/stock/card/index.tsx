@@ -12,7 +12,7 @@ export const StockCard = () => {
         setIsAnswerVisible(!isAnswerVisible)
     }
     const onDoneClickHandle= ()=> {
-        setIsAnswerVisible(!isAnswerVisible)
+        alert('Done!');
     }
 
     return (

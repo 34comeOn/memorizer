@@ -12,5 +12,4 @@ export const StyledCard = styled.div`
     margin: 20px auto;
     border-radius: 10px;
     box-shadow: 4px 5px 8px 0px rgba(106, 122, 143, 1);
-
 `
