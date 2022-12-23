@@ -3,28 +3,39 @@ import { DoneButton } from '../../../atoms/doneButton';
 import { ShowButton } from '../../../atoms/showButton';
 import { StyledCard } from './styledCard';
 import { Answer } from '../../../atoms/answer';
-import { dataBase } from '../../../../mock/mockData';
 
 export const StockCard = () => {
     const [isAnswerVisible, setIsAnswerVisible] = useState(false);
+    const [isDivVisible, setIsDivVisible] = useState(false);
 
     const onShowClickHandle= ()=> {
         setIsAnswerVisible(!isAnswerVisible)
     }
-    const onDoneClickHandle= ()=> {
-        alert('Done!');
+    const onDoneClickHandle= async()=> {
+        const result = await fetch('http://localhost:3001/some')
+        console.log(result)
+        setIsDivVisible(!isDivVisible)
+        const json = await result.json()
+        console.log(json)
     }
 
     return (
+       
+        
         <StyledCard>
-            <h2>{dataBase[0].title}</h2>
+            <h2>Название карточки</h2>
             <ShowButton onClick={onShowClickHandle}/>
             <div style={{width: '400px', height: '500px'}}>
                 <Answer isVisible={isAnswerVisible}>
-                    {dataBase[0].answer}
+                    {'Ответ'}
                 </Answer>
             </div>
             <DoneButton onClick={onDoneClickHandle}/>
+            {isDivVisible && <div style={{width: '400px', height: '500px', backgroundColor: 'red'}}>
+
+            </div>}
         </StyledCard>
+        
+       
     )
 }

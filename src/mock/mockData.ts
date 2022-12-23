@@ -7,47 +7,7 @@ export type Tcard = {
     code?: string,
 }
 
-export const dataBase: Tcard[] = [
-    {
-        id: 1,
-        repeatedTimeStamp: 1671428196316,  
-        timesBeenRepeated: 0,      
-        title: 'Что такое this?',
-        answer: 'Ключевое слово this - это контекст вызова или ссылка на значение объекта, который в данный момент выполняет или вызывает функцию. Поэтому this может принимать абсолютно разные значения. Это может быть Глобальный объект, или объявленный, или объект события. То есть this способен меняться в соответствии от контекста выполнения. Из-за такой неопределенности возможна потеря функцией контекста вызова',
-        code: `function getName() {
-                return this.name
-               }
-               var name = 'Mikl'
-               getName()       // Mikl
-        
-               const obj = {name: 'Sasha'}
-               getName.call(obj)            // Sasha
-        
-               const obj666 = {
-                name: 'Vlad',
-                getName() {
-                 return this.name;
-                }
-               }
-               obj666.getName()             // Vlad`   
-    },    
-    {
-        id: 2,
-        repeatedTimeStamp: 1671428100000,  
-        timesBeenRepeated: 1,      
-        title: 'Что такое Замыкание?',
-        answer: 'Замыкание - это',
-    },    
-    {
-        id: 3,
-        repeatedTimeStamp: 1671428100000,  
-        timesBeenRepeated: 3,      
-        title: 'Что такое React?',
-        answer: 'React - это',
-    },    
-]
-
-export const repeatNowArray: Tcard[] = [];
+export let repeatNowArray: Tcard[] = [];
 export const repeatInHourArray: Tcard[] = [];
 export const repeatIn4HoursArray: Tcard[] = [];
 export const repeatIn8HoursArray: Tcard[] = [];
@@ -71,7 +31,8 @@ const getHoursSinceRepeat = (repeatedTimeStamp: number | null ) => {
     return false;
 }
 
-const spreadCards = (dataBase: Tcard[]) => {
+export const spreadCards = (dataBase: Tcard[]) => {
+    repeatNowArray = [];
     for (let card of dataBase) {
         switch (card.timesBeenRepeated) {
             case 0:
@@ -88,5 +49,3 @@ const spreadCards = (dataBase: Tcard[]) => {
         }
     }
 }
-
-spreadCards(dataBase);

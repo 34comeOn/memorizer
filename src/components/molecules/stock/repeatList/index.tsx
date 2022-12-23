@@ -4,6 +4,7 @@ import { StyledRepeatList } from './styledRepeatList';
 import './style.css';
 
 export const StockRepeatList = ({title, list}: {title: string, list: Tcard[]}) => {
+    console.log(list)
     return (
         <>
             <div className='title-wrapper'>
