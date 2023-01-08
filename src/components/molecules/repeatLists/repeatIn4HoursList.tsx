@@ -1,10 +1,10 @@
 import React from 'react';
-import { repeatIn4HoursArray, Tcard } from '../../../mock/mockData';
+import { Tcard } from '../../../utills/utills';
 import { StockRepeatList } from '../stock/repeatList';
 
 
-export const RepeatIn4HoursList = ({renderData}: {renderData:Tcard[]}) => {
+export const RepeatIn4HoursList = ({renderData, handleOpenCard}: {renderData:Tcard[], handleOpenCard: (id: number)=> void}) => {
     return(
-        <StockRepeatList title='Repeat in 4 hour' list={renderData} />
+        <StockRepeatList handleOpenCard={handleOpenCard} title='Repeat in 4 hour' list={renderData} />
     )
 }

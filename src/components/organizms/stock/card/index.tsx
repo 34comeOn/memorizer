@@ -3,39 +3,35 @@ import { DoneButton } from '../../../atoms/doneButton';
 import { ShowButton } from '../../../atoms/showButton';
 import { StyledCard } from './styledCard';
 import { Answer } from '../../../atoms/answer';
+import { Tcard } from '../../../../utills/utills';
 
-export const StockCard = () => {
+export const StockCard = ({card}: {card: Tcard}) => {
     const [isAnswerVisible, setIsAnswerVisible] = useState(false);
-    const [isDivVisible, setIsDivVisible] = useState(false);
 
     const onShowClickHandle= ()=> {
         setIsAnswerVisible(!isAnswerVisible)
     }
     const onDoneClickHandle= async()=> {
-        const result = await fetch('http://localhost:3001/some')
-        console.log(result)
-        setIsDivVisible(!isDivVisible)
-        const json = await result.json()
-        console.log(json)
+        fetch('http://localhost:3002/api/repeat',{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json;charset=utf-8'},
+            body: JSON.stringify({
+                timeStamp: Date.now(),
+                cardId: card.id
+            })
+        })
     }
 
-    return (
-       
-        
+    return (  
         <StyledCard>
-            <h2>Название карточки</h2>
+            <h2>{card.title}</h2>
             <ShowButton onClick={onShowClickHandle}/>
             <div style={{width: '400px', height: '500px'}}>
                 <Answer isVisible={isAnswerVisible}>
-                    {'Ответ'}
+                    {card.answer}
                 </Answer>
             </div>
             <DoneButton onClick={onDoneClickHandle}/>
-            {isDivVisible && <div style={{width: '400px', height: '500px', backgroundColor: 'red'}}>
-
-            </div>}
         </StyledCard>
-        
-       
     )
 }

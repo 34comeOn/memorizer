@@ -1,10 +1,14 @@
 import React from 'react';
-import { Tcard } from '../../../../mock/mockData';
+import { Tcard } from '../../../../utills/utills';
 import { StyledRepeatList } from './styledRepeatList';
 import './style.css';
 
-export const StockRepeatList = ({title, list}: {title: string, list: Tcard[]}) => {
-    console.log(list)
+export const StockRepeatList = ({title, list, handleOpenCard}: {title: string, list: Tcard[], handleOpenCard: (id: number)=> void}) => {
+    const handleItemClick = (id: number) => {
+        console.log('List Item Click')
+        handleOpenCard(id);
+    }
+
     return (
         <>
             <div className='title-wrapper'>
@@ -14,7 +18,7 @@ export const StockRepeatList = ({title, list}: {title: string, list: Tcard[]}) =
                 </span>
             </div>
             <StyledRepeatList>
-                {list.map(card => <li className='list--item' key={card.id}>{card.title}</li>)}
+                {list.map(card => <li onClick={()=> handleItemClick(card.id)} className='list--item' key={card.id}>{card.title}</li>)}
             </StyledRepeatList>
         </>
     )
