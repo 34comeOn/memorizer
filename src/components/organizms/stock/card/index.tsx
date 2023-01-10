@@ -20,6 +20,7 @@ export const StockCard = ({card}: {card: Tcard}) => {
                 cardId: card.id
             })
         })
+        
     }
 
     return (  

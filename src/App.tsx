@@ -30,8 +30,7 @@ function App() {
     setIsCardVisible(true);
     setCard(findCardInDataBase(id, repeatNowArray));
   }
-  const gg= '';
-  console.log(!!gg)
+  
   return (
     <div className="App App--container">
       <button style={{height: '50px', backgroundColor: 'red', marginTop: '20px', borderRadius: '10px', marginRight: '20px'}} onClick={() => handleGetDataClick() }>GET DATA</button>

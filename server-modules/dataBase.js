@@ -15,7 +15,7 @@ const dataBase = JSON.stringify([
     },    
     {
         id: 3,
-        repeatedTimeStamp: 1671428100000,  
+        repeatedTimeStamp: 1673354018170,  
         timesBeenRepeated: 3,      
         title: 'Что такое React?',
         answer: 'React - это',

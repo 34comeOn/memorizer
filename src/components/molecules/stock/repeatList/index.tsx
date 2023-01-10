@@ -5,7 +5,6 @@ import './style.css';
 
 export const StockRepeatList = ({title, list, handleOpenCard}: {title: string, list: Tcard[], handleOpenCard: (id: number)=> void}) => {
     const handleItemClick = (id: number) => {
-        console.log('List Item Click')
         handleOpenCard(id);
     }
 
