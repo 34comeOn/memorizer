@@ -3,15 +3,15 @@ import { DoneButton } from '../../../atoms/doneButton';
 import { ShowButton } from '../../../atoms/showButton';
 import { StyledCard } from './styledCard';
 import { Answer } from '../../../atoms/answer';
-import { Tcard } from '../../../../utills/utills';
+import { Tcard } from '../../../../utils/utils';
 
 export const StockCard = ({card}: {card: Tcard}) => {
     const [isAnswerVisible, setIsAnswerVisible] = useState(false);
-
+    console.log(card)
     const onShowClickHandle= ()=> {
         setIsAnswerVisible(!isAnswerVisible)
     }
-    const onDoneClickHandle= async()=> {
+    const onDoneClickHandle = async()=> {
         fetch('http://localhost:3002/api/repeat',{
             method: 'POST',
             headers: {'Content-Type': 'application/json;charset=utf-8'},

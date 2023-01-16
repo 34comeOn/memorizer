@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tcard } from '../../../../utills/utills';
+import { Tcard } from '../../../../utils/utils';
 import { StyledRepeatList } from './styledRepeatList';
 import './style.css';
 

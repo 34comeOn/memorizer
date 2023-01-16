@@ -1,5 +1,6 @@
 const express = require('express');
 const dataBase = require('./server-modules/dataBase');
+const refreshTimeStamp = require('./server-modules/serverUtills')
 const cors= require('cors');
 
 const app = express();
@@ -12,13 +13,14 @@ app.listen(PORT, (error) => {
 });
 
 app.get('/', (req, result)=> {
-    console.log('/')
+    console.log('/');
 })
 
 app.get('/data', (req, result)=> {
-    result.send(dataBase);
+    result.send(JSON.stringify(dataBase));
 })
 app.post('/api/repeat', (req, result)=> {
     console.log(req.body);
-    result.send(req.body)
+    refreshTimeStamp(dataBase, req.body.cardId, req.body.timeStamp);
+    result.send(JSON.stringify(dataBase));
 })

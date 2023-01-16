@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tcard } from '../../../utills/utills';
+import { Tcard } from '../../../utils/utils';
 import { StockRepeatList } from '../stock/repeatList';
 
 export const RepeatNowList = ({renderData, handleOpenCard}: {renderData:Tcard[], handleOpenCard: (id: number)=> void}) => {

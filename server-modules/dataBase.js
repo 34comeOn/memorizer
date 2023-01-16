@@ -1,4 +1,4 @@
-const dataBase = JSON.stringify([
+const dataBase = [
     {
         id: 1,
         repeatedTimeStamp: 1671428196316,  
@@ -8,7 +8,7 @@ const dataBase = JSON.stringify([
     },    
     {
         id: 2,
-        repeatedTimeStamp: 1671428100000,  
+        repeatedTimeStamp: 1673353096849,  
         timesBeenRepeated: 1,      
         title: 'Что такое Замыкание?',
         answer: 'Замыкание - это',
@@ -16,10 +16,10 @@ const dataBase = JSON.stringify([
     {
         id: 3,
         repeatedTimeStamp: 1673354018170,  
-        timesBeenRepeated: 3,      
+        timesBeenRepeated: 2,      
         title: 'Что такое React?',
         answer: 'React - это',
     },    
-]);
+];
 
 module.exports = dataBase;
