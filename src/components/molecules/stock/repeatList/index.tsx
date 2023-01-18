@@ -7,7 +7,7 @@ export const StockRepeatList = ({title, list, handleOpenCard}: {title: string, l
     const handleItemClick = (id: number) => {
         handleOpenCard(id);
     }
-
+    console.log('repeeeeeeeeeeeeeeeeeeeee list updddddddddddddaaaaattttteeeeeed')
     return (
         <>
             <div className='title-wrapper'>
@@ -17,7 +17,7 @@ export const StockRepeatList = ({title, list, handleOpenCard}: {title: string, l
                 </span>
             </div>
             <StyledRepeatList>
-                {list.map(card => <li onClick={()=> handleItemClick(card.id)} className='list--item' key={card.id}>{card.title}</li>)}
+                {list.map(card => <li onClick={()=> handleItemClick(card.id)} className={`list--item ${card.filter}`} key={card.id}>{card.title}</li>)}
             </StyledRepeatList>
         </>
     )

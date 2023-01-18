@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export const StyledCard = styled.div`
     width: 500px;
-    height: 700px;
+    min-height: 700px;
+    height: min-content;
     padding: 15px;
     box-sizing: border-box;
     display: flex;

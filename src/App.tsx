@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import './App.css';
 import { Card } from './components/organizms/card';
 import { RepeatContainer } from './components/organizms/repeatContainer';
-import { repeatIn4HoursArray, repeatInHourArray, repeatNowArray, Tcard } from './utils/utils';
+import { repeatIn12HoursArray, repeatIn24HoursArray, repeatIn3DaysArray, repeatIn4HoursArray, repeatIn8HoursArray, repeatInHourArray, repeatNowArray, Tcard } from './utils/utils';
 
 const stockCard = {
   id: 0,   
@@ -15,6 +15,7 @@ const stockCard = {
 const App = () => {
   const [isFetchedData, setIsFetchedData] = useState(false);
   const [isCardVisible, setIsCardVisible] = useState(false);
+  const [shouldRerander, setShouldRerander,] = useState(false);
   const [card, setCard] = useState<Tcard>(stockCard);
 
   const findCardInDataBase = (id: number, dataBaseArray: Tcard[]) => {
@@ -27,14 +28,19 @@ const App = () => {
 
   const handleOpenCard = (id: number) => {
     setIsCardVisible(true);
-    setCard(findCardInDataBase(id, [...repeatNowArray,...repeatInHourArray,...repeatIn4HoursArray]));
+    setCard(findCardInDataBase(id, [...repeatNowArray,...repeatInHourArray,...repeatIn4HoursArray,...repeatIn8HoursArray,...repeatIn12HoursArray,...repeatIn24HoursArray,...repeatIn3DaysArray]));
+  }
+
+  const handleDoneClick = () => {
+    setIsCardVisible(false);
+    setTimeout(() => setShouldRerander(!shouldRerander), 1000);
   }
 
   return (
     <div className="App App--container">
       <button style={{height: '50px', backgroundColor: 'red', marginTop: '20px', borderRadius: '10px', marginRight: '20px'}} onClick={() => handleGetDataClick() }>GET DATA</button>
-      {isFetchedData && <RepeatContainer handleOpenCard={handleOpenCard} />}
-      {isCardVisible && <Card card={card} />}
+      {isFetchedData && <RepeatContainer handleOpenCard={handleOpenCard} shouldRerander={shouldRerander} />}
+      {isCardVisible && <Card card={card} handleDoneClick= {handleDoneClick}/>}
     </div>
   );
 }

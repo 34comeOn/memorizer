@@ -3,9 +3,9 @@ import { DoneButton } from '../../../atoms/doneButton';
 import { ShowButton } from '../../../atoms/showButton';
 import { StyledCard } from './styledCard';
 import { Answer } from '../../../atoms/answer';
-import { Tcard } from '../../../../utils/utils';
+import { spreadCards, Tcard } from '../../../../utils/utils';
 
-export const StockCard = ({card}: {card: Tcard}) => {
+export const StockCard = ({card, handleDoneClick}: {card: Tcard, handleDoneClick: ()=> void}) => {
     const [isAnswerVisible, setIsAnswerVisible] = useState(false);
     console.log(card)
     const onShowClickHandle= ()=> {
@@ -20,14 +20,26 @@ export const StockCard = ({card}: {card: Tcard}) => {
                 cardId: card.id
             })
         })
-        
+        .then(res => res.json())
+        .then(
+          (result) => {
+            spreadCards(typeof result === 'string'? JSON.parse(result): result)
+            console.log(result)
+          },
+          (error) => {
+            alert(error);
+          }
+        )
+        ;
+
+        handleDoneClick();
     }
 
     return (  
         <StyledCard>
             <h2>{card.title}</h2>
             <ShowButton onClick={onShowClickHandle}/>
-            <div style={{width: '400px', height: '500px'}}>
+            <div style={{width: '400px', minHeight: '500px'}}>
                 <Answer isVisible={isAnswerVisible}>
                     {card.answer}
                 </Answer>

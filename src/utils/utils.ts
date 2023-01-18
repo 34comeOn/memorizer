@@ -5,6 +5,7 @@ export type Tcard = {
     title: string,
     answer: string,
     code?: string,
+    filter?: string,
 }
 
 export let repeatNowArray: Tcard[] = [];
@@ -46,7 +47,9 @@ export const spreadCards = (dataBase: Tcard[]) => {
                 repeatNowArray.push(card);
                 break;
             case 1:
-                if (getHoursSinceRepeat(card.repeatedTimeStamp) < 1) {
+                if (getHoursSinceRepeat(card.repeatedTimeStamp) < 0.5) {
+                    repeatInHourArray.push(card);
+                } else if (0.5 <= getHoursSinceRepeat(card.repeatedTimeStamp) && getHoursSinceRepeat(card.repeatedTimeStamp) < 1) {
                     repeatInHourArray.push(card);
                 } else if (1 <= getHoursSinceRepeat(card.repeatedTimeStamp) && getHoursSinceRepeat(card.repeatedTimeStamp) < 3) {
                     repeatNowArray.push(card);
@@ -56,8 +59,10 @@ export const spreadCards = (dataBase: Tcard[]) => {
                 // (getHoursSinceRepeat(card.repeatedTimeStamp) < 2) ? repeatInHourArray.push(card) : repeatNowArray.push(card);
                 break;
             case 2:
-                if (getHoursSinceRepeat(card.repeatedTimeStamp) < 3) {
+                if (getHoursSinceRepeat(card.repeatedTimeStamp) < 2) {
                     repeatIn4HoursArray.push(card);
+                } else if (2 <= getHoursSinceRepeat(card.repeatedTimeStamp) && getHoursSinceRepeat(card.repeatedTimeStamp) < 3) {
+                    repeatInHourArray.push(card);
                 } else if (3 <= getHoursSinceRepeat(card.repeatedTimeStamp) && getHoursSinceRepeat(card.repeatedTimeStamp) < 6) {
                     repeatNowArray.push(card);
                 } else if (6 < getHoursSinceRepeat(card.repeatedTimeStamp)) {
@@ -67,8 +72,12 @@ export const spreadCards = (dataBase: Tcard[]) => {
                 }
                 break;
             case 3:
-                if (getHoursSinceRepeat(card.repeatedTimeStamp) <= 7) {
+                if (getHoursSinceRepeat(card.repeatedTimeStamp) < 4) {
                     repeatIn8HoursArray.push(card);
+                } else if (4 <= getHoursSinceRepeat(card.repeatedTimeStamp) && getHoursSinceRepeat(card.repeatedTimeStamp) < 6) {
+                    repeatIn4HoursArray.push(card);
+                } else if (6 <= getHoursSinceRepeat(card.repeatedTimeStamp) && getHoursSinceRepeat(card.repeatedTimeStamp) < 8) {
+                    repeatInHourArray.push(card);
                 } else if (8 <= getHoursSinceRepeat(card.repeatedTimeStamp) && getHoursSinceRepeat(card.repeatedTimeStamp) < 11) {
                     repeatNowArray.push(card);
                 } else if (11 < getHoursSinceRepeat(card.repeatedTimeStamp)) {

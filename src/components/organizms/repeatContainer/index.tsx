@@ -10,10 +10,10 @@ import { RepeatNowList } from '../../molecules/repeatLists/repeatNowList';
 import { repeatIn3DaysArray, repeatIn24HoursArray, repeatIn12HoursArray, repeatIn8HoursArray, repeatIn4HoursArray, repeatInHourArray, repeatNowArray, spreadCards } from '../../../utils/utils';
 
 
-export const RepeatContainer = ({handleOpenCard}: {handleOpenCard: (id: number)=> void}) => {
+export const RepeatContainer = ({handleOpenCard, shouldRerander}: {handleOpenCard: (id: number)=> void, shouldRerander: boolean}) => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-  
+    console.log('RepeatContainer rerendered')
     useEffect(() => {
       fetch('http://localhost:3002/data')
         .then(res => res.json())
@@ -27,7 +27,7 @@ export const RepeatContainer = ({handleOpenCard}: {handleOpenCard: (id: number)=
             setError(error);
           }
         )
-    }, [])
+    }, [shouldRerander])
   
     if (error) {
       return (
