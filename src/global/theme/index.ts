@@ -1,4 +1,3 @@
-
 export const defaultTheme = {
     colorBlackForText: "#333333",
     colorWhite: "#ffffff",

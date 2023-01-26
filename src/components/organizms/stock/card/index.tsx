@@ -38,7 +38,7 @@ export const StockCard = ({card, handleDoneClick}: {card: Tcard, handleDoneClick
     return (  
         <StyledCard>
             <h2>{card.title}</h2>
-            <ShowButton onClick={onShowClickHandle}/>
+            <ShowButton hasClicked={isAnswerVisible} onClick={onShowClickHandle}/>
             <div style={{width: '400px', minHeight: '500px'}}>
                 <Answer isVisible={isAnswerVisible}>
                     {card.answer}

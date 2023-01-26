@@ -34,6 +34,13 @@
     background-color: rgb(105, 224, 230);
 }
 
+.list--filter__patterns {
+    background-color: rgb(144, 113, 74);
+}
+.list--filter__network {
+    background-color: rgb(243, 104, 231);
+}
+
 .list--item:hover {
     background-color: rgb(233, 42, 42);
     color: rgb(255, 255, 255);

@@ -38,7 +38,7 @@ const App = () => {
 
   return (
     <div className="App App--container">
-      <button style={{height: '50px', backgroundColor: 'red', marginTop: '20px', borderRadius: '10px', marginRight: '20px'}} onClick={() => handleGetDataClick() }>GET DATA</button>
+      <button className="App--button__getData" onClick={() => handleGetDataClick() }>GET DATA</button>
       {isFetchedData && <RepeatContainer handleOpenCard={handleOpenCard} shouldRerander={shouldRerander} />}
       {isCardVisible && <Card card={card} handleDoneClick= {handleDoneClick}/>}
     </div>
