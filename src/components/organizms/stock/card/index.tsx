@@ -16,8 +16,8 @@ export const StockCard = ({card, handleDoneClick}: {card: Tcard, handleDoneClick
             method: 'POST',
             headers: {'Content-Type': 'application/json;charset=utf-8'},
             body: JSON.stringify({
-                timeStamp: Date.now(),
-                cardId: card.id
+                repeatedTimeStamp: Date.now(),
+                id: card['_id']
             })
         })
         .then(res => res.json())

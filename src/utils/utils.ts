@@ -1,5 +1,5 @@
 export type Tcard = {
-    id: number,   
+   ['_id']: string,   
     repeatedTimeStamp: number | null,
     timesBeenRepeated: number,
     title: string,

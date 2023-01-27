@@ -5,7 +5,7 @@ import { RepeatContainer } from './components/organizms/repeatContainer';
 import { repeatIn12HoursArray, repeatIn24HoursArray, repeatIn3DaysArray, repeatIn4HoursArray, repeatIn8HoursArray, repeatInHourArray, repeatNowArray, Tcard } from './utils/utils';
 
 const stockCard = {
-  id: 0,   
+  ['_id']: '0',   
   repeatedTimeStamp: 1671420000000,
   timesBeenRepeated: 0,
   title: 'Test',
@@ -18,15 +18,15 @@ const App = () => {
   const [shouldRerander, setShouldRerander,] = useState(false);
   const [card, setCard] = useState<Tcard>(stockCard);
 
-  const findCardInDataBase = (id: number, dataBaseArray: Tcard[]) => {
-    return dataBaseArray.find(card => card.id === id) || stockCard;
+  const findCardInDataBase = (id: string, dataBaseArray: Tcard[]) => {
+    return dataBaseArray.find(card => card['_id'] === id) || stockCard;
   }
 
   const handleGetDataClick = () => {
     setIsFetchedData(!isFetchedData);
   }
 
-  const handleOpenCard = (id: number) => {
+  const handleOpenCard = (id: string) => {
     setIsCardVisible(true);
     setCard(findCardInDataBase(id, [...repeatNowArray,...repeatInHourArray,...repeatIn4HoursArray,...repeatIn8HoursArray,...repeatIn12HoursArray,...repeatIn24HoursArray,...repeatIn3DaysArray]));
   }
