@@ -7,7 +7,7 @@ type TisVisible = {
 
 export const StyledAnswer = styled.div<TisVisible>`
     width: 400px; 
-    height: 500px; 
+    min-height: 500px; 
     background-color: white;
     border-radius: 15px;
     padding: 15px;
