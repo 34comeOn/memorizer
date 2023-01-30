@@ -1,8 +1,10 @@
 import React,{useState} from 'react';
 import './App.css';
+import { CheckboxList } from './components/molecules/checkboxList';
 import { Card } from './components/organizms/card';
 import { RepeatContainer } from './components/organizms/repeatContainer';
 import { repeatIn12HoursArray, repeatIn24HoursArray, repeatIn3DaysArray, repeatIn4HoursArray, repeatIn8HoursArray, repeatInHourArray, repeatNowArray, Tcard } from './utils/utils';
+// import { filtersArray } from './utils/utils';
 
 const stockCard = {
   ['_id']: '0',   
@@ -37,8 +39,11 @@ const App = () => {
   }
 
   return (
-    <div className="App App--container">
-      <button className="App--button__getData" onClick={() => handleGetDataClick() }>GET DATA</button>
+    <div className='App App--container'>
+      <div className='App--button__wrapper'>
+        <button className='App--button__getData' onClick={() => handleGetDataClick() }>GET DATA</button>
+        {isFetchedData && <CheckboxList />}
+      </div>
       {isFetchedData && <RepeatContainer handleOpenCard={handleOpenCard} shouldRerander={shouldRerander} />}
       {isCardVisible && <Card card={card} handleDoneClick= {handleDoneClick}/>}
     </div>

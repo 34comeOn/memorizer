@@ -22,7 +22,7 @@ export const RepeatContainer = ({handleOpenCard, shouldRerander}: {handleOpenCar
           (result) => {
             setIsLoaded(true);
             spreadCards(typeof result === 'string'? JSON.parse(result): result)
-            console.log(result)
+            
           },
           (error) => {
             setIsLoaded(true);

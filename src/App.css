@@ -18,3 +18,8 @@
   margin-top: 20px; 
   margin-right: 20px;
 }
+
+.App--button__wrapper {
+  display: flex;
+  flex-direction: column;
+}

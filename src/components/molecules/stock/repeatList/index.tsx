@@ -19,10 +19,10 @@ export const StockRepeatList = ({title, list, handleOpenCard}: {title: string, l
                 </span>
             </div>
             <StyledRepeatList>
-                {list.map(card => <li onClick={()=> {
-                    handleItemClick(card['_id']) 
-                    console.log(card['_id'])
-                    }} className={`list--item ${card.filter}`} key={card['_id']}>{card.title}</li>)}
+                {list.map(item => <li onClick={()=> {
+                    handleItemClick(item['_id']) 
+                    console.log(item['_id'])
+                    }} className={`list--item ${item.filter}`} key={item['_id']}>{item.title}</li>)}
             </StyledRepeatList>
         </>
     )
