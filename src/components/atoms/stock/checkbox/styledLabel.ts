@@ -9,4 +9,8 @@ export const StyledLabel = styled.label`
     align-items: flex-start;
     flex-direction: row;
     line-height: 18px;
+
+    :hover {
+        text-decoration: underline;
+    }
 `

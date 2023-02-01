@@ -1,26 +1,21 @@
-import React from "react";
+import React, { SyntheticEvent } from "react";
+import { useAppDispatch } from "../../../../app/hooks";
+import { changeAll } from "../../../../store/reducers/checkboxReduser";
 import { StyledCheckbox } from "./styledCheckbox";
 import { StyledLabel } from "./styledLabel";
-
-type TOnToggleCheckbox = {
-    (checkboxName : string): void ;
-}
 
 export type TCheckbox = {
     labelValue: string, 
     defaultChecked?: boolean,
     name: string,
-    onChange: TOnToggleCheckbox ,
+    handleOnChange?: (event: SyntheticEvent<HTMLElement>)=> void
 }
 
-export const StockCheckbox = ({labelValue, 
-    onChange,
-    ...props}: TCheckbox) => {
-
+export const StockCheckbox = ({labelValue,handleOnChange, ...props}: TCheckbox) => {
     return (
         <StyledLabel>
             {labelValue}
-            <StyledCheckbox onChange={()=> onChange(labelValue)} type="checkbox" {...props}/>
+            <StyledCheckbox onChange={handleOnChange} type="checkbox" {...props}/>
         </StyledLabel>
     )
 } 

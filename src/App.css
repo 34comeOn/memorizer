@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   background-color: rgb(143, 137, 134);
+  background-image: url('/src/accets/background/920a66f7c593c9632b84b69d7bbcba8e.jpg');
   min-height: 100vh;
   border-top: 1px solid transparent;
   margin: 0;
@@ -17,6 +18,15 @@
   border-radius: 10px; 
   margin-top: 20px; 
   margin-right: 20px;
+  cursor: pointer;
+}
+
+.App--button__getData:hover {
+  background-color: rgb(235, 142, 142);
+}
+
+.App--button__getData:active {
+  background-color: rgb(103, 117, 103);
 }
 
 .App--button__wrapper {

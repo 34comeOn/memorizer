@@ -47,7 +47,7 @@ export const spreadCards = (dataBase: Tcard[]) => {
         if (card.filter && !filtersArray.includes(card.filter.slice(14))) {
             filtersArray.push(card.filter.slice(14))
         }
-console.log(filtersArray)
+
         switch (card.timesBeenRepeated) {
             case 0:
                 repeatNowArray.push(card);

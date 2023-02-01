@@ -1,24 +1,30 @@
-import React from "react";
+import React, { SyntheticEvent } from "react";
 import { StockCheckbox } from "../../atoms/stock/checkbox";
 import { StyledCheckboxList } from "./styledCheckboxList";
-import { filtersArray } from "../../../utils/utils";
-
-export let currentFilters = new Set()
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { addListItemsCategories, changeAll, getRefreshedFiltersState, getUpdatedlistItemsCategories, removeListItemsCategories } from "../../../store/reducers/checkboxReduser";
 
 export const CheckboxList = () => {
-    const onToggleCheckbox = (checkboxName: string) => {
-        if(currentFilters.has(checkboxName)){
-            currentFilters.delete(checkboxName)
+    const dispatch = useAppDispatch();
+    const currentFilters = useAppSelector(getRefreshedFiltersState);
+    const currentlistItemsCategories = useAppSelector(getUpdatedlistItemsCategories);
+    
+    const handleOnChange = (event: SyntheticEvent<HTMLElement>)=>{
+        const currentChangedCheckbox = (event.target as HTMLInputElement).name;
+        if( currentChangedCheckbox === 'all') {
+            dispatch(changeAll())
+        }
+        if (currentlistItemsCategories.includes(currentChangedCheckbox)) {
+            dispatch(removeListItemsCategories(currentChangedCheckbox));
         } else {
-            currentFilters.add(checkboxName)
+            dispatch(addListItemsCategories(currentChangedCheckbox));
         }
     }
-    
     return( 
         <StyledCheckboxList>
-            <StockCheckbox labelValue='All filters' name='all' onChange={onToggleCheckbox} />
-            {filtersArray.map((checkboxName, index) => 
-                <StockCheckbox key={index} labelValue={checkboxName} name={checkboxName} onChange={onToggleCheckbox}/>
+            <StockCheckbox handleOnChange={handleOnChange} labelValue='All filters' name='all'/>
+            {currentFilters.map((checkboxName, index) => 
+                <StockCheckbox handleOnChange={handleOnChange} key={index} labelValue={checkboxName} name={checkboxName}/>
                 )}
         </StyledCheckboxList>
     )

@@ -1,9 +1,18 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { configureStore, ThunkAction, Action, combineReducers } from '@reduxjs/toolkit';
+import filterCheckboxSlice from './reducers/checkboxReduser';
 
-export const store = configureStore({
-  reducer: {
-  },
+const rootReducer = combineReducers({
+  filterCheckboxSlice
 });
+
+const setupStore = () =>
+  configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware()
+  });
+
+export const store = setupStore();
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

@@ -11,7 +11,7 @@ import { spreadCards, Tcard } from '../../../../utils/utils';
 
 export const StockCard = ({card, handleDoneClick}: {card: Tcard, handleDoneClick: ()=> void}) => {
     const [isAnswerVisible, setIsAnswerVisible] = useState(false);
-    console.log(card)
+    
     const onShowClickHandle= ()=> {
         setIsAnswerVisible(!isAnswerVisible)
     }
@@ -29,7 +29,7 @@ export const StockCard = ({card, handleDoneClick}: {card: Tcard, handleDoneClick
         .then(
           (result) => {
             spreadCards(typeof result === 'string'? JSON.parse(result): result)
-            console.log(result)
+            
           },
           (error) => {
             alert(error);

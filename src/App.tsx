@@ -4,7 +4,6 @@ import { CheckboxList } from './components/molecules/checkboxList';
 import { Card } from './components/organizms/card';
 import { RepeatContainer } from './components/organizms/repeatContainer';
 import { repeatIn12HoursArray, repeatIn24HoursArray, repeatIn3DaysArray, repeatIn4HoursArray, repeatIn8HoursArray, repeatInHourArray, repeatNowArray, Tcard } from './utils/utils';
-// import { filtersArray } from './utils/utils';
 
 const stockCard = {
   ['_id']: '0',   
@@ -19,6 +18,7 @@ const App = () => {
   const [isCardVisible, setIsCardVisible] = useState(false);
   const [shouldRerander, setShouldRerander,] = useState(false);
   const [card, setCard] = useState<Tcard>(stockCard);
+  
 
   const findCardInDataBase = (id: string, dataBaseArray: Tcard[]) => {
     return dataBaseArray.find(card => card['_id'] === id) || stockCard;
@@ -35,7 +35,7 @@ const App = () => {
 
   const handleDoneClick = () => {
     setIsCardVisible(false);
-    setTimeout(() => setShouldRerander(!shouldRerander), 1000);
+    setShouldRerander(!shouldRerander);
   }
 
   return (
