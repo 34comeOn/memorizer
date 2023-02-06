@@ -1,6 +1,4 @@
 const express = require('express');
-const dataBase = require('./server-modules/dataBase');
-const refreshTimeStamp = require('./server-modules/serverUtills')
 const cors = require('cors');
 const mongoose = require('mongoose');
 const Question = require('./models/question');
@@ -25,36 +23,40 @@ app.get('/', (req, result)=> {
     console.log('/');
 })
 
-// app.get('/data', (req, result)=> {
-//     result.send(JSON.stringify(dataBase));
-// })
 app.get('/data', (req, res)=> {
     Question.find()
     .then(result=> res.send(result))
     .catch(err=> console.log(err))
 })
 
-app.post('/api/repeat', (req, res)=> {
-    // const{repeatedTimeStamp} =req.body;
+app.post('/api/post-question', (req, res)=> {
+    const{
+        answer,
+        filter,
+        repeatedTimeStamp,
+        title,
+        timesBeenRepeated,
+    } =req.body;
     
-    // const question = new Question({repeatedTimeStamp});
+    const question = new Question({
+        answer,
+        filter,
+        repeatedTimeStamp,
+        title,
+        timesBeenRepeated,
+    });
 
-    console.log(req.body)
-    // question.save()
-
-    // Question.find()
-    // .then(result=> res.send(result))
-    // .catch(err=> console.log(err))
-
-    // refreshTimeStamp(dataBase, req.body.id, req.body.repeatedTimeStamp);
-    // res.send(JSON.stringify(dataBase));
+    question.save()
+    .catch(err=> console.log(err))
 })
 
-// app.put('/api/repeat', (req, res)=> {
-//     const{id, repeatedTimeStamp} =req.body;
+app.put('/api/repeat', (req, res)=> {
+    const{id, repeatedTimeStamp, timesBeenRepeated} =req.body;
 
-//     Question.findByIdAndUpdate(id, {repeatedTimeStamp})
-//     .then(result=> res.send(result))
-//     .catch(err=> console.log(err))
+    Question.findByIdAndUpdate(id, {repeatedTimeStamp, timesBeenRepeated } )
+    .catch(err => console.log(err))
 
-// })
+    Question.find()
+    .then(result=> res.send(result))
+    .catch(err=> console.log(err))
+})

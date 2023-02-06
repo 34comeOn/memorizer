@@ -8,6 +8,7 @@ export type Tcard = {
     filter?: string,
 }
 
+let filtersArray: string[] = [];
 export let repeatNowArray: Tcard[] = [];
 export let repeatInHourArray: Tcard[] = [];
 export let repeatIn4HoursArray: Tcard[] = [];
@@ -28,12 +29,11 @@ const getHoursSinceRepeat = (repeatedTimeStamp: number | null ) => {
         const timeSinceRepeat = Date.now() - repeatedTimeStamp;
         return Math.floor(timeSinceRepeat/ (1000*60*60));
     }
-
     return false;
 }
 
 export const spreadCards = (dataBase: Tcard[]) => {
-    console.log('spreadCards function works')
+    filtersArray = [];
     repeatNowArray = [];
     repeatInHourArray = [];
     repeatIn4HoursArray = [];
@@ -41,7 +41,13 @@ export const spreadCards = (dataBase: Tcard[]) => {
     repeatIn12HoursArray = [];
     repeatIn24HoursArray = [];
     repeatIn3DaysArray = [];
+    
     for (let card of dataBase) {
+
+        if (card.filter && !filtersArray.includes(card.filter.slice(14))) {
+            filtersArray.push(card.filter.slice(14))
+        }
+
         switch (card.timesBeenRepeated) {
             case 0:
                 repeatNowArray.push(card);
@@ -124,3 +130,5 @@ export const spreadCards = (dataBase: Tcard[]) => {
         }
     }
 }
+
+export {filtersArray}

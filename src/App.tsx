@@ -1,6 +1,8 @@
 import React,{useState} from 'react';
 import './App.css';
+import { CheckboxList } from './components/molecules/checkboxList';
 import { Card } from './components/organizms/card';
+import { Header } from './components/organizms/header';
 import { RepeatContainer } from './components/organizms/repeatContainer';
 import { repeatIn12HoursArray, repeatIn24HoursArray, repeatIn3DaysArray, repeatIn4HoursArray, repeatIn8HoursArray, repeatInHourArray, repeatNowArray, Tcard } from './utils/utils';
 
@@ -17,6 +19,7 @@ const App = () => {
   const [isCardVisible, setIsCardVisible] = useState(false);
   const [shouldRerander, setShouldRerander,] = useState(false);
   const [card, setCard] = useState<Tcard>(stockCard);
+  
 
   const findCardInDataBase = (id: string, dataBaseArray: Tcard[]) => {
     return dataBaseArray.find(card => card['_id'] === id) || stockCard;
@@ -33,15 +36,21 @@ const App = () => {
 
   const handleDoneClick = () => {
     setIsCardVisible(false);
-    setTimeout(() => setShouldRerander(!shouldRerander), 1000);
+    setShouldRerander(!shouldRerander);
   }
 
   return (
-    <div className="App App--container">
-      <button className="App--button__getData" onClick={() => handleGetDataClick() }>GET DATA</button>
+    <>
+      <Header />
+      <div className='App App--container'>
+      <div className='App--button__wrapper'>
+        <button className='App--button__getData' onClick={() => handleGetDataClick() }>My Q&A</button>
+        {isFetchedData && <CheckboxList />}
+      </div>
       {isFetchedData && <RepeatContainer handleOpenCard={handleOpenCard} shouldRerander={shouldRerander} />}
       {isCardVisible && <Card card={card} handleDoneClick= {handleDoneClick}/>}
     </div>
+    </>
   );
 }
 

@@ -7,14 +7,18 @@ import { RepeatIn8HoursList } from '../../molecules/repeatLists/repeatIn8Hours';
 import { RepeatIn4HoursList } from '../../molecules/repeatLists/repeatIn4HoursList';
 import { RepeatInHourList } from '../../molecules/repeatLists/repeatInHourList';
 import { RepeatNowList } from '../../molecules/repeatLists/repeatNowList';
-import { repeatIn3DaysArray, repeatIn24HoursArray, repeatIn12HoursArray, repeatIn8HoursArray, repeatIn4HoursArray, repeatInHourArray, repeatNowArray, spreadCards } from '../../../utils/utils';
+import { repeatIn3DaysArray, repeatIn24HoursArray, repeatIn12HoursArray, repeatIn8HoursArray, repeatIn4HoursArray, repeatInHourArray, repeatNowArray, spreadCards, filtersArray } from '../../../utils/utils';
 import { ThandleOpenCard } from '../../molecules/stock/repeatList';
+import { useAppDispatch } from '../../../app/hooks';
+import { refreshFilters, updateListItemsCategories } from '../../../store/reducers/checkboxReduser';
 
 
 export const RepeatContainer = ({handleOpenCard, shouldRerander}: {handleOpenCard: ThandleOpenCard, shouldRerander: boolean}) => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    console.log('RepeatContainer rerendered')
+    const dispatch = useAppDispatch()
+
+
     useEffect(() => {
       fetch('http://localhost:3002/data')
         .then(res => res.json())
@@ -22,14 +26,16 @@ export const RepeatContainer = ({handleOpenCard, shouldRerander}: {handleOpenCar
           (result) => {
             setIsLoaded(true);
             spreadCards(typeof result === 'string'? JSON.parse(result): result)
-            console.log(result)
+            
           },
           (error) => {
             setIsLoaded(true);
             setError(error);
           }
         )
-    }, [shouldRerander])
+        .then(() => dispatch((refreshFilters(filtersArray))))
+        .then(() => dispatch((updateListItemsCategories(filtersArray))))
+    }, [dispatch, shouldRerander])
   
     if (error) {
       return (

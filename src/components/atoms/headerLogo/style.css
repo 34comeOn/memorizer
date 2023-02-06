@@ -1,0 +1,21 @@
+.headerLogo {
+    background-image: url('/src/accets/headerLogo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 2px solid white;
+    border-radius: 27%;
+    position: relative;
+}
+
+.headerLogo::after  {
+    content: "";
+    position: absolute;
+    left: 105px;
+    display: block;
+    width: 268px;
+    height: 58px;
+    top: 24px;
+    background-image: url('/src/accets/logoTextPink.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}

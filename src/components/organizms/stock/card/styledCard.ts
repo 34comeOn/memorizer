@@ -9,8 +9,9 @@ export const StyledCard = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgba(187, 242, 239, 1);
-    margin: 20px auto;
+    background-color: rgb(207 212 212 / 88%);
+    margin: 55px auto;
     border-radius: 10px;
-    box-shadow: 4px 5px 8px 0px rgba(106, 122, 143, 1);
+    position: sticky;
+    top: 20px;
 `

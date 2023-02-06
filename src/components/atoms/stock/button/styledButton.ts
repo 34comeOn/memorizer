@@ -10,10 +10,10 @@ export const StyledButton = styled.button`
     display: block;
 
     :hover {
-        background-color: light${props => props.color};
+        background-color: rgb(235, 142, 142);
     }
 
     :active {
-        background-color: ${props => props.color};
+        background-color: rgb(103, 117, 103);
     }
 `

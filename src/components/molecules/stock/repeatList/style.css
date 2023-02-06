@@ -4,6 +4,7 @@
     height: 60px;
     justify-content: space-between;
     margin-bottom: -20px;
+    color: bisque;
 }
 
 .cards-counter {
@@ -23,25 +24,25 @@
 }
 
 .list--filter__react {
-    background-color: rgb(38, 125, 207);
+    background-color: rgb(90, 147, 200);
 }
 
 .list--filter__oop {
-    background-color: rgb(118, 226, 106);
+    background-color: rgb(153, 232, 144);
 }
 
 .list--filter__typeScript {
-    background-color: rgb(105, 224, 230);
+    background-color: rgb(141, 230, 235);
 }
 
 .list--filter__patterns {
-    background-color: rgb(144, 113, 74);
+    background-color: rgb(149, 126, 98);
 }
 .list--filter__network {
-    background-color: rgb(243, 104, 231);
+    background-color: rgb(233, 171, 228);
 }
 
 .list--item:hover {
-    background-color: rgb(233, 42, 42);
+    background-color: rgb(241, 89, 89);
     color: rgb(255, 255, 255);
 }
