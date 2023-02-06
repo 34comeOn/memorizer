@@ -1,0 +1,9 @@
+.navItem {
+    color: bisque;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.navItem:hover {
+    text-decoration: underline;
+}

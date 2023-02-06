@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+}
+
 .App {
   text-align: center;
   background-color: rgb(143, 137, 134);
@@ -14,11 +18,13 @@
 
 .App--button__getData {
   height: 50px;
-  background-color: red;
-  border-radius: 10px; 
-  margin-top: 20px; 
+  width: max-content;
+  background-color: #40ccc7;
+  border-radius: 10px;
+  margin-top: 20px;
   margin-right: 20px;
   cursor: pointer;
+  border: 2px solid white;
 }
 
 .App--button__getData:hover {
@@ -32,4 +38,12 @@
 .App--button__wrapper {
   display: flex;
   flex-direction: column;
+}
+
+#root {
+  margin: 0 40px;
+}
+
+body {
+  background-color: black;
 }

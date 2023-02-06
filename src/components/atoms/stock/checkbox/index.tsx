@@ -1,6 +1,4 @@
 import React, { SyntheticEvent } from "react";
-import { useAppDispatch } from "../../../../app/hooks";
-import { changeAll } from "../../../../store/reducers/checkboxReduser";
 import { StyledCheckbox } from "./styledCheckbox";
 import { StyledLabel } from "./styledLabel";
 
