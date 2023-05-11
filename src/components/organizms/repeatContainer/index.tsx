@@ -7,7 +7,7 @@ import { RepeatIn8HoursList } from '../../molecules/repeatLists/repeatIn8Hours';
 import { RepeatIn4HoursList } from '../../molecules/repeatLists/repeatIn4HoursList';
 import { RepeatInHourList } from '../../molecules/repeatLists/repeatInHourList';
 import { RepeatNowList } from '../../molecules/repeatLists/repeatNowList';
-import { repeatIn3DaysArray, repeatIn24HoursArray, repeatIn12HoursArray, repeatIn8HoursArray, repeatIn4HoursArray, repeatInHourArray, repeatNowArray, spreadCards, filtersArray } from '../../../utils/utils';
+import { repeatIn3DaysArray, repeatIn24HoursArray, repeatIn12HoursArray, repeatIn8HoursArray, repeatIn4HoursArray, repeatInHourArray, repeatNowArray, spreadData, filtersArray } from '../../../utils/utils';
 import { ThandleOpenCard } from '../../molecules/stock/repeatList';
 import { useAppDispatch } from '../../../app/hooks';
 import { refreshFilters, updateListItemsCategories } from '../../../store/reducers/checkboxReduser';
@@ -25,7 +25,7 @@ export const RepeatContainer = ({handleOpenCard, shouldRerander}: {handleOpenCar
         .then(
           (result) => {
             setIsLoaded(true);
-            spreadCards(typeof result === 'string'? JSON.parse(result): result)
+            spreadData(typeof result === 'string'? JSON.parse(result): result)
             
           },
           (error) => {

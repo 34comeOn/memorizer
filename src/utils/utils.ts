@@ -43,7 +43,17 @@ const getItemPoints = (item: Tcard) => {
   return countItemPoints(RepeatTimesConvertToPoints[item.timesBeenRepeated], itemHours)
 }
 
-export const spreadCards = (dataBase: Tcard[]) => {
+const pullFiltersTitlesFromData = (card: Tcard,filtersArray: string[]) => {
+    if (card.filter && !filtersArray.includes(card.filter.slice(14))) {
+        filtersArray.push(card.filter.slice(14))
+    }
+}
+
+const sortItemInGroup = (item: Tcard, groups: Tcard[][]) => {
+
+}
+
+export const spreadData = (dataBase: Tcard[]) => {
     filtersArray = [];
     repeatNowArray = [];
     repeatInHourArray = [];
@@ -54,13 +64,10 @@ export const spreadCards = (dataBase: Tcard[]) => {
     repeatIn3DaysArray = [];
     
     for (let card of dataBase) {
-        if (card.filter && !filtersArray.includes(card.filter.slice(14))) {
-            filtersArray.push(card.filter.slice(14))
-        }
+        pullFiltersTitlesFromData(card,filtersArray)
 
         if (getItemPoints(card) <= 0) {
             repeatNowArray.push(card)
-            console.log('seichas')
         } else if (getItemPoints(card) <= 1) {
             repeatInHourArray.push(card)
         } else if (getItemPoints(card) <= 4) {
