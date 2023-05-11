@@ -16,20 +16,31 @@ export let repeatIn8HoursArray: Tcard[] = [];
 export let repeatIn12HoursArray: Tcard[] = [];
 export let repeatIn24HoursArray: Tcard[] = [];
 export let repeatIn3DaysArray: Tcard[] = [];
-const lastRepeatedTime = 1671428196316;
-const currentDate = Date.now();
-const timeSinceRepeat = currentDate - lastRepeatedTime
-console.log(timeSinceRepeat)
-console.log(`Seconds ${Math.floor(timeSinceRepeat/ 1000)}`)
-console.log(`Minutes ${Math.floor(timeSinceRepeat/ (1000*60))}`)
-console.log(`Hours ${Math.floor(timeSinceRepeat/ (1000*60*60))}`)
 
-const getHoursSinceRepeat = (repeatedTimeStamp: number | null ) => {
-    if (repeatedTimeStamp) {
-        const timeSinceRepeat = Date.now() - repeatedTimeStamp;
-        return Math.floor(timeSinceRepeat/ (1000*60*60));
-    }
-    return false;
+
+const getHoursSinceRepeat = (repeatedTimeStamp: number) => {
+    const timeSinceRepeat = Date.now() - repeatedTimeStamp;
+    return Math.floor(timeSinceRepeat/ (1000*60*60));
+}
+
+type TRepeatTimesConvertToPoints = {
+    [key: number]: number,
+}
+const RepeatTimesConvertToPoints:TRepeatTimesConvertToPoints = {
+    0: 0,
+    1: 1,
+    2: 4,
+    3: 8,
+    4: 12,
+    5: 24,
+    6: 72
+}
+
+const countItemPoints = (repeatPoints: number, hours: number) => repeatPoints - hours;
+
+const getItemPoints = (item: Tcard) => {
+  const itemHours: number = getHoursSinceRepeat(item.repeatedTimeStamp ?? 0)
+  return countItemPoints(RepeatTimesConvertToPoints[item.timesBeenRepeated], itemHours)
 }
 
 export const spreadCards = (dataBase: Tcard[]) => {
@@ -43,92 +54,27 @@ export const spreadCards = (dataBase: Tcard[]) => {
     repeatIn3DaysArray = [];
     
     for (let card of dataBase) {
-
         if (card.filter && !filtersArray.includes(card.filter.slice(14))) {
             filtersArray.push(card.filter.slice(14))
         }
 
-        switch (card.timesBeenRepeated) {
-            case 0:
-                repeatNowArray.push(card);
-                break;
-            case 1:
-                if (getHoursSinceRepeat(card.repeatedTimeStamp) < 0.5) {
-                    repeatInHourArray.push(card);
-                } else if (0.5 <= getHoursSinceRepeat(card.repeatedTimeStamp) && getHoursSinceRepeat(card.repeatedTimeStamp) < 1) {
-                    repeatInHourArray.push(card);
-                } else if (1 <= getHoursSinceRepeat(card.repeatedTimeStamp) && getHoursSinceRepeat(card.repeatedTimeStamp) < 3) {
-                    repeatNowArray.push(card);
-                } else if (3 <= getHoursSinceRepeat(card.repeatedTimeStamp)) {
-                    repeatNowArray.push(card)
-                }
-                // (getHoursSinceRepeat(card.repeatedTimeStamp) < 2) ? repeatInHourArray.push(card) : repeatNowArray.push(card);
-                break;
-            case 2:
-                if (getHoursSinceRepeat(card.repeatedTimeStamp) < 2) {
-                    repeatIn4HoursArray.push(card);
-                } else if (2 <= getHoursSinceRepeat(card.repeatedTimeStamp) && getHoursSinceRepeat(card.repeatedTimeStamp) < 3) {
-                    repeatInHourArray.push(card);
-                } else if (3 <= getHoursSinceRepeat(card.repeatedTimeStamp) && getHoursSinceRepeat(card.repeatedTimeStamp) < 6) {
-                    repeatNowArray.push(card);
-                } else if (6 < getHoursSinceRepeat(card.repeatedTimeStamp)) {
-                    repeatNowArray.push(card)
-                } else if (12 < getHoursSinceRepeat(card.repeatedTimeStamp)) {
-                    repeatNowArray.push(card)
-                }
-                break;
-            case 3:
-                if (getHoursSinceRepeat(card.repeatedTimeStamp) < 4) {
-                    repeatIn8HoursArray.push(card);
-                } else if (4 <= getHoursSinceRepeat(card.repeatedTimeStamp) && getHoursSinceRepeat(card.repeatedTimeStamp) < 6) {
-                    repeatIn4HoursArray.push(card);
-                } else if (6 <= getHoursSinceRepeat(card.repeatedTimeStamp) && getHoursSinceRepeat(card.repeatedTimeStamp) < 8) {
-                    repeatInHourArray.push(card);
-                } else if (8 <= getHoursSinceRepeat(card.repeatedTimeStamp) && getHoursSinceRepeat(card.repeatedTimeStamp) < 11) {
-                    repeatNowArray.push(card);
-                } else if (11 < getHoursSinceRepeat(card.repeatedTimeStamp)) {
-                    repeatNowArray.push(card)
-                } else if (24 < getHoursSinceRepeat(card.repeatedTimeStamp)) {
-                    repeatNowArray.push(card)
-                }
-                break;
-            case 4:
-                if (getHoursSinceRepeat(card.repeatedTimeStamp) <= 11) {
-                    repeatIn12HoursArray.push(card);
-                } else if (12 <= getHoursSinceRepeat(card.repeatedTimeStamp) && getHoursSinceRepeat(card.repeatedTimeStamp) < 16) {
-                    repeatNowArray.push(card);
-                } else if (16 <= getHoursSinceRepeat(card.repeatedTimeStamp)) {
-                    repeatNowArray.push(card)
-                } else if (30 <= getHoursSinceRepeat(card.repeatedTimeStamp)) {
-                    repeatNowArray.push(card)
-                }
-                break;
-            case 5:
-                if (getHoursSinceRepeat(card.repeatedTimeStamp) <= 22) {
-                    repeatIn24HoursArray.push(card);
-                } else if (22 <= getHoursSinceRepeat(card.repeatedTimeStamp) && getHoursSinceRepeat(card.repeatedTimeStamp) <= 28) {
-                    repeatNowArray.push(card);
-                } else if (28 < getHoursSinceRepeat(card.repeatedTimeStamp)) {
-                    repeatNowArray.push(card)
-                } else if (48 <= getHoursSinceRepeat(card.repeatedTimeStamp)) {
-                    repeatNowArray.push(card)
-                }
-                break;
-            case 6:
-                if (getHoursSinceRepeat(card.repeatedTimeStamp) < 65) {
-                    repeatIn3DaysArray.push(card);
-                } else if (65 <= getHoursSinceRepeat(card.repeatedTimeStamp) && getHoursSinceRepeat(card.repeatedTimeStamp) <= 80) {
-                    repeatNowArray.push(card);
-                } else if (80 < getHoursSinceRepeat(card.repeatedTimeStamp)) {
-                    repeatNowArray.push(card)
-                } else if (110 <= getHoursSinceRepeat(card.repeatedTimeStamp)) {
-                    repeatNowArray.push(card)
-                }
-                break;
-            default:
-                repeatNowArray.push(card);
+        if (getItemPoints(card) <= 0) {
+            repeatNowArray.push(card)
+            console.log('seichas')
+        } else if (getItemPoints(card) <= 1) {
+            repeatInHourArray.push(card)
+        } else if (getItemPoints(card) <= 4) {
+            repeatIn4HoursArray.push(card)
+        } else if (getItemPoints(card) <= 8) {
+            repeatIn8HoursArray.push(card)
+        } else if (getItemPoints(card) <= 12) {
+            repeatIn12HoursArray.push(card)
+        } else if (getItemPoints(card) <= 24) {
+            repeatIn24HoursArray.push(card)
+        } else {
+            repeatIn3DaysArray.push(card)
         }
     }
-}
+};
 
 export {filtersArray}

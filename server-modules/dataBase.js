@@ -1459,6 +1459,29 @@ const dataBase = [
          слово function не- нужным.
         `,
     }, 
+    {
+        // id: 83,
+        filter: 'Network',
+        repeatedTimeStamp: 1673354018170,  
+        timesBeenRepeated: 0,      
+        title: 'XMLHttpRequest ?',
+        answer: `
+        XMLHttpRequest (XMLHTTP, XHR) — API, доступный в скриптовых языках браузеров, таких как JavaScript. Использует запросы 
+        HTTP или HTTPS напрямую к веб-серверу и загружает данные ответа сервера напрямую в вызывающий скрипт. Информация может 
+        передаваться в любом текстовом формате, например, в XML, HTML или JSON.
+        `,
+    }, 
+    {
+        // id: 84,
+        filter: 'Network',
+        repeatedTimeStamp: 1673354018170,  
+        timesBeenRepeated: 0,      
+        title: 'XML ?',
+        answer: `
+        Расширяемый язык разметки (XML eXtensible Markup Language) – это язык разметки, который предоставляет правила для определения любых данных. В отличие 
+        от других языков программирования, XML не может выполнять вычислительные операции сам по себе.
+        `,
+    }, 
 ];
 
 module.exports = dataBase;
