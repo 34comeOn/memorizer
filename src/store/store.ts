@@ -1,15 +1,19 @@
 import { configureStore, ThunkAction, Action, combineReducers } from '@reduxjs/toolkit';
 import filterCheckboxSlice from './reducers/checkboxReduser';
+import collectionGroupsSlice from './reducers/collectionGroupsReduser';
+import { rootAPI } from '../RTKApi/rootApi';
 
 const rootReducer = combineReducers({
-  filterCheckboxSlice
+  filterCheckboxSlice,
+  collectionGroupsSlice,
+  [rootAPI.reducerPath]: rootAPI.reducer,
 });
 
 const setupStore = () =>
   configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware()
+    getDefaultMiddleware().concat([rootAPI.middleware])
   });
 
 export const store = setupStore();
