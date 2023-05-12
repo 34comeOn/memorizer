@@ -8,16 +8,6 @@ export type Tcard = {
     filter?: string,
 }
 
-let filtersArray: string[] = [];
-export let repeatNowArray: Tcard[] = [];
-export let repeatInHourArray: Tcard[] = [];
-export let repeatIn4HoursArray: Tcard[] = [];
-export let repeatIn8HoursArray: Tcard[] = [];
-export let repeatIn12HoursArray: Tcard[] = [];
-export let repeatIn24HoursArray: Tcard[] = [];
-export let repeatIn3DaysArray: Tcard[] = [];
-
-
 const getHoursSinceRepeat = (repeatedTimeStamp: number) => {
     const timeSinceRepeat = Date.now() - repeatedTimeStamp;
     return Math.floor(timeSinceRepeat/ (1000*60*60));
@@ -43,45 +33,73 @@ const getItemPoints = (item: Tcard) => {
   return countItemPoints(RepeatTimesConvertToPoints[item.timesBeenRepeated], itemHours)
 }
 
-const pullFiltersTitlesFromData = (card: Tcard,filtersArray: string[]) => {
-    if (card.filter && !filtersArray.includes(card.filter.slice(14))) {
-        filtersArray.push(card.filter.slice(14))
+const pullFiltersTitlesFromData = (item: Tcard,filtersArray: string[]) => {
+    if (item.filter && !filtersArray.includes(item.filter.slice(14))) {
+        filtersArray.push(item.filter.slice(14))
     }
 }
 
-const sortItemInGroup = (item: Tcard, groups: Tcard[][]) => {
-
-}
-
-export const spreadData = (dataBase: Tcard[]) => {
-    filtersArray = [];
-    repeatNowArray = [];
-    repeatInHourArray = [];
-    repeatIn4HoursArray = [];
-    repeatIn8HoursArray = [];
-    repeatIn12HoursArray = [];
-    repeatIn24HoursArray = [];
-    repeatIn3DaysArray = [];
+const sortItemInGroup = (item: Tcard,
+    repeatNowGroup: Tcard[],
+    repeatIn1HourGroup: Tcard[],
+    repeatIn4HoursGroup: Tcard[],
+    repeatIn8HoursGroup: Tcard[],
+    repeatIn12HoursGroup: Tcard[],
+    repeatIn24HoursGroup: Tcard[],
+    repeatIn3DaysGroup: Tcard[],
+    ) => {
     
-    for (let card of dataBase) {
-        pullFiltersTitlesFromData(card,filtersArray)
-
-        if (getItemPoints(card) <= 0) {
-            repeatNowArray.push(card)
-        } else if (getItemPoints(card) <= 1) {
-            repeatInHourArray.push(card)
-        } else if (getItemPoints(card) <= 4) {
-            repeatIn4HoursArray.push(card)
-        } else if (getItemPoints(card) <= 8) {
-            repeatIn8HoursArray.push(card)
-        } else if (getItemPoints(card) <= 12) {
-            repeatIn12HoursArray.push(card)
-        } else if (getItemPoints(card) <= 24) {
-            repeatIn24HoursArray.push(card)
-        } else {
-            repeatIn3DaysArray.push(card)
-        }
+    if (getItemPoints(item) <= 0) {
+        repeatNowGroup.push(item)
+    } else if (getItemPoints(item) <= 1) {
+        repeatIn1HourGroup.push(item)
+    } else if (getItemPoints(item) <= 4) {
+        repeatIn4HoursGroup.push(item)
+    } else if (getItemPoints(item) <= 8) {
+        repeatIn8HoursGroup.push(item)
+    } else if (getItemPoints(item) <= 12) {
+        repeatIn12HoursGroup.push(item)
+    } else if (getItemPoints(item) <= 24) {
+        repeatIn24HoursGroup.push(item)
+    } else {
+        repeatIn3DaysGroup.push(item)
     }
-};
+}
 
-export {filtersArray}
+export const spreadCollectionData = (dataBase: Tcard[]) => {
+    const filtersOfCollection: string[] = [];
+
+    const repeatNowGroup: Tcard[] = [];
+    const repeatIn1HourGroup: Tcard[] = [];
+    const repeatIn4HoursGroup: Tcard[] = [];
+    const repeatIn8HoursGroup: Tcard[] = [];
+    const repeatIn12HoursGroup: Tcard[] = [];
+    const repeatIn24HoursGroup: Tcard[] = [];
+    const repeatIn3DaysGroup: Tcard[] = [];
+
+    for (let item of dataBase) {
+        pullFiltersTitlesFromData(item,filtersOfCollection);
+        
+        sortItemInGroup(item,
+            repeatNowGroup,
+            repeatIn1HourGroup,
+            repeatIn4HoursGroup,
+            repeatIn8HoursGroup,
+            repeatIn12HoursGroup,
+            repeatIn24HoursGroup,
+            repeatIn3DaysGroup
+        );
+    }
+
+    const orgonizedGroupsOfCollection = [
+        repeatNowGroup, 
+        repeatIn1HourGroup, 
+        repeatIn4HoursGroup,
+        repeatIn8HoursGroup,
+        repeatIn12HoursGroup,
+        repeatIn24HoursGroup,
+        repeatIn3DaysGroup
+    ];
+
+    return {filtersOfCollection,orgonizedGroupsOfCollection};
+};

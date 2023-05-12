@@ -3,7 +3,9 @@ import { DoneButton } from '../../../atoms/doneButton';
 import { ShowButton } from '../../../atoms/showButton';
 import { StyledCard } from './styledCard';
 import { Answer } from '../../../atoms/answer';
-import { spreadData, Tcard } from '../../../../utils/utils';
+import { 
+    spreadCollectionData, 
+    Tcard } from '../../../../utils/utils';
 
 // const obj = {
 //     id: 75,
@@ -28,7 +30,7 @@ export const StockCard = ({card, handleDoneClick}: {card: Tcard, handleDoneClick
         .then(res => res.json())
         .then(
           (result) => {
-            spreadData(typeof result === 'string'? JSON.parse(result): result)
+            spreadCollectionData(typeof result === 'string'? JSON.parse(result): result)
             
           },
           (error) => {
