@@ -1,6 +1,7 @@
 import React, { SyntheticEvent } from "react";
 import { StyledCheckbox } from "./styledCheckbox";
 import { StyledLabel } from "./styledLabel";
+import { useCheckboxCurrentState } from "../../../../myHooks/useCheckboxCurrentState";
 
 export type TCheckbox = {
     labelValue: string, 
@@ -10,10 +11,12 @@ export type TCheckbox = {
 }
 
 export const StockCheckbox = ({labelValue,handleOnChange, ...props}: TCheckbox) => {
+    const {isCurrentCheckboxChecked} = useCheckboxCurrentState(props.name);
+
     return (
         <StyledLabel>
             {labelValue}
-            <StyledCheckbox onChange={handleOnChange} type="checkbox" {...props}/>
+            <StyledCheckbox checked={isCurrentCheckboxChecked} onChange={handleOnChange} type="checkbox" {...props}/>
         </StyledLabel>
     )
 } 

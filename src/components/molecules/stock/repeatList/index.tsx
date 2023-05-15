@@ -3,7 +3,7 @@ import { Tcard } from '../../../../utils/utils';
 import { StyledRepeatList } from './styledRepeatList';
 import './style.css';
 import { useAppSelector } from '../../../../app/hooks';
-import { getAllFilterState, getUpdatedlistItemsCategories } from '../../../../store/reducers/checkboxReduser';
+import { getUpdatedlistItemsCategories } from '../../../../store/reducers/checkboxReduser';
 
 export type ThandleOpenCard = (id: string) => void
 
@@ -11,8 +11,8 @@ export const StockRepeatList = ({title, list, handleOpenCard}: {title: string, l
     const handleItemClick = (id: string) => {
         handleOpenCard(id);
     }
-    const status = !useAppSelector(getAllFilterState);
     const currentlistItemsCategories = useAppSelector(getUpdatedlistItemsCategories);
+
     return (
         <>
             <div className='title-wrapper'>
@@ -23,10 +23,16 @@ export const StockRepeatList = ({title, list, handleOpenCard}: {title: string, l
             </div>
             <StyledRepeatList>
                 {list.map(item => {
-                    const itemFilter = item.filter?.slice(14)
-                    return ((itemFilter? !currentlistItemsCategories.includes(itemFilter): false) || status) && <li onClick={()=> {
-                    handleItemClick(item['_id']) 
-                    }} className={`list--item ${item.filter}`} key={item['_id']}>{item.title}</li> })}
+                    const itemFilter = item.filter?.slice(14);
+                    return ((itemFilter? currentlistItemsCategories.includes(itemFilter): false) || currentlistItemsCategories.includes('all')) && 
+                    <li 
+                        onClick={()=> {handleItemClick(item['_id'])}} 
+                        className={`list--item ${item.filter}`} 
+                        key={item['_id']}
+                    >
+                        {item.title}
+                    </li> })
+                }
             </StyledRepeatList>
         </>
     )

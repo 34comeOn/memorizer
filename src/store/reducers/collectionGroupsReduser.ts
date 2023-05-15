@@ -25,5 +25,5 @@ export const {
 repeatNowGroupReduser, 
 } = collectionGroupsSlice.actions;
 
-export const getRepeatNowGroupState = (state: {collectionGroupsSlice: {repeatNowGroup: Tcard[][]}}) =>
+export const getRepeatGroupsState = (state: {collectionGroupsSlice: {repeatNowGroup: Tcard[][]}}) =>
    state.collectionGroupsSlice.repeatNowGroup
