@@ -9,9 +9,9 @@ import { RepeatInHourList } from '../../molecules/repeatLists/repeatInHourList';
 import { RepeatNowList } from '../../molecules/repeatLists/repeatNowList';
 import { ThandleOpenCard } from '../../molecules/stock/repeatList';
 import { useAppSelector } from '../../../app/hooks';
-import { getRepeatNowGroupState } from '../../../store/reducers/collectionGroupsReduser';
+import { getRepeatGroupsState } from '../../../store/reducers/collectionGroupsReduser';
 
-export const RepeatContainer = ({handleOpenCard, shouldRerander}: {handleOpenCard: ThandleOpenCard, shouldRerander: boolean}) => {
+export const RepeatContainer = ({handleOpenCard }: {handleOpenCard: ThandleOpenCard}) => {
 
   const [
   repeatNowGroup,
@@ -21,7 +21,7 @@ export const RepeatContainer = ({handleOpenCard, shouldRerander}: {handleOpenCar
   repeatIn12HoursGroup,
   repeatIn24HoursGroup,
   repeatIn3DaysGroup
-  ] = useAppSelector(getRepeatNowGroupState);
+  ] = useAppSelector(getRepeatGroupsState);
 
   return (
     <StyledRepeatContainer>

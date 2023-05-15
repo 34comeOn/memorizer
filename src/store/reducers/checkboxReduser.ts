@@ -1,24 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type TinitialState = {
-    areShownAll: boolean,
     filtersArr: string[],
     listItemsCategories: string[],
 }
 
 const initialState: TinitialState = {
-    areShownAll: true,
     filtersArr: [],
-    listItemsCategories: [],
+    listItemsCategories: ['all'],
 }
 
 const filterCheckboxSlice = createSlice({
     name: 'filterCheckboxSlice',
     initialState,
     reducers: {
-        changeAll(state) {
-            state.areShownAll = !state.areShownAll;
-        },
         refreshFilters(state, action: PayloadAction<string[]>) {
             state.filtersArr = action.payload;
         },
@@ -36,10 +31,12 @@ const filterCheckboxSlice = createSlice({
 
 export default filterCheckboxSlice.reducer;
 
-export const {changeAll, refreshFilters, addListItemsCategories, removeListItemsCategories, updateListItemsCategories} = filterCheckboxSlice.actions;
-
-export const getAllFilterState = (state: {filterCheckboxSlice:{areShownAll: boolean}}) => 
-    state.filterCheckboxSlice.areShownAll
+export const {
+    refreshFilters, 
+    addListItemsCategories, 
+    removeListItemsCategories,
+    updateListItemsCategories
+} = filterCheckboxSlice.actions;
 
 export const getRefreshedFiltersState = (state: {filterCheckboxSlice: {filtersArr: string[]}}) => 
     state.filterCheckboxSlice.filtersArr

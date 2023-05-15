@@ -8,7 +8,7 @@ import { collectionDataAPI } from './RTKApi/collectionDataApi';
 import { Tcard } from './utils/utils';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import {
-  getRepeatNowGroupState,
+  getRepeatGroupsState,
     repeatNowGroupReduser, 
   } from './store/reducers/collectionGroupsReduser';
 import { spreadCollectionData } from './utils/utils';
@@ -23,21 +23,18 @@ const stockCard = {
 }
 
 const App = () => {
-  const [isFetchedData, setIsFetchedData] = useState(false);
   const [isCardVisible, setIsCardVisible] = useState(false);
-  const [shouldRerander, setShouldRerander,] = useState(false);
   const [card, setCard] = useState<Tcard>(stockCard);
-  const [getCollectionDataTriger] = collectionDataAPI.useGetCollectionDataMutation();
+
   const dispatch = useAppDispatch();
-  const orgonizedGroups = useAppSelector(getRepeatNowGroupState);
+  const orgonizedGroups = useAppSelector(getRepeatGroupsState);
+  const [getCollectionDataTriger] = collectionDataAPI.useGetCollectionDataMutation();
 
   const findCardInDataBase = (id: string, dataBaseArray: Tcard[]) => {
     return dataBaseArray.find(card => card['_id'] === id) || stockCard;
   }
 
   const handleGetDataClick = () => {
-    setIsFetchedData(!isFetchedData);
-
     getCollectionDataTriger('/data')
     .unwrap()
     .then((response) => {
@@ -55,7 +52,6 @@ const App = () => {
 
   const handleDoneClick = () => {
     setIsCardVisible(false);
-    setShouldRerander(!shouldRerander);
   }
 
   return (
@@ -66,7 +62,7 @@ const App = () => {
         <button className='App--button__getData' onClick={() => handleGetDataClick() }>My Q&A</button>
         <CheckboxList />
       </div>
-      <RepeatContainer handleOpenCard={handleOpenCard} shouldRerander={shouldRerander} />
+      <RepeatContainer handleOpenCard={handleOpenCard} />
       {isCardVisible && <Card card={card} handleDoneClick= {handleDoneClick}/>}
     </div>
     </>
