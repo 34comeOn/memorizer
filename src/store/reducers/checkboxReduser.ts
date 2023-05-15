@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { MAIN_FILTER_CHECKBOX } from "../../constants/stringConstants";
 
 type TinitialState = {
     filtersArr: string[],
@@ -7,7 +8,7 @@ type TinitialState = {
 
 const initialState: TinitialState = {
     filtersArr: [],
-    listItemsCategories: ['all'],
+    listItemsCategories: [MAIN_FILTER_CHECKBOX],
 }
 
 const filterCheckboxSlice = createSlice({

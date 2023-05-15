@@ -8,22 +8,23 @@ import { addListItemsCategories,
     updateListItemsCategories 
 } from "../../../store/reducers/checkboxReduser";
 import { useCheckboxCurrentState } from "../../../myHooks/useCheckboxCurrentState";
+import { MAIN_FILTER_CHECKBOX } from "../../../constants/stringConstants";
 
 export const CheckboxList = () => {
     const dispatch = useAppDispatch();
     const currentFilters = useAppSelector(getRefreshedFiltersState);
-    const {isMainCheckboxChecked} = useCheckboxCurrentState('all');
+    const {isMainCheckboxChecked} = useCheckboxCurrentState(MAIN_FILTER_CHECKBOX);
 
     const handleOnChange = (event: SyntheticEvent<HTMLElement>)=>{
         const currentChangedCheckboxName = (event.target as HTMLInputElement).name;
         const isCurrentCheckboxChecked = (event.target as HTMLInputElement).checked;
 
-        if (currentChangedCheckboxName === 'all') {
+        if (currentChangedCheckboxName === MAIN_FILTER_CHECKBOX) {
             if (isCurrentCheckboxChecked) {
                 dispatch(updateListItemsCategories([]));
-                dispatch(addListItemsCategories('all'));
+                dispatch(addListItemsCategories(MAIN_FILTER_CHECKBOX));
             } 
-        } else if (currentChangedCheckboxName !== 'all') {
+        } else if (currentChangedCheckboxName !== MAIN_FILTER_CHECKBOX) {
             if (isMainCheckboxChecked) {
                 dispatch(updateListItemsCategories([]));
             }
@@ -38,7 +39,7 @@ export const CheckboxList = () => {
     return( 
         <StyledCheckboxList>
             <StockCheckbox 
-             handleOnChange={handleOnChange} labelValue='All filters' name='all'/>
+             handleOnChange={handleOnChange} labelValue='All filters' name={MAIN_FILTER_CHECKBOX}/>
             {currentFilters.map((checkboxName, index) => 
                 <StockCheckbox 
                 handleOnChange={handleOnChange} 

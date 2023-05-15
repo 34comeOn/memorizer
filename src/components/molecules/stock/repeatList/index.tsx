@@ -4,6 +4,7 @@ import { StyledRepeatList } from './styledRepeatList';
 import './style.css';
 import { useAppSelector } from '../../../../app/hooks';
 import { getUpdatedlistItemsCategories } from '../../../../store/reducers/checkboxReduser';
+import { MAIN_FILTER_CHECKBOX } from '../../../../constants/stringConstants';
 
 export type ThandleOpenCard = (id: string) => void
 
@@ -24,7 +25,7 @@ export const StockRepeatList = ({title, list, handleOpenCard}: {title: string, l
             <StyledRepeatList>
                 {list.map(item => {
                     const itemFilter = item.filter?.slice(14);
-                    return ((itemFilter? currentlistItemsCategories.includes(itemFilter): false) || currentlistItemsCategories.includes('all')) && 
+                    return ((itemFilter? currentlistItemsCategories.includes(itemFilter): false) || currentlistItemsCategories.includes(MAIN_FILTER_CHECKBOX)) && 
                     <li 
                         onClick={()=> {handleItemClick(item['_id'])}} 
                         className={`list--item ${item.filter}`} 
