@@ -5,14 +5,17 @@ import { StyledCard } from './styledCard';
 import { Answer } from '../../../atoms/answer';
 import { 
     spreadCollectionData, 
-    Tcard } from '../../../../utils/utils';
+    } from '../../../../utils/utils';
+import { useAppSelector } from '../../../../app/hooks';
+import { getCurrentCardState } from '../../../../store/reducers/cardWindowReduser';
 
 // const obj = {
 //     id: 75,
 // }
 
-export const StockCard = ({card, handleDoneClick}: {card: Tcard, handleDoneClick: ()=> void}) => {
+export const StockCardWindow = () => {
     const [isAnswerVisible, setIsAnswerVisible] = useState(false);
+    const currentCard = useAppSelector(getCurrentCardState);
     
     const onShowClickHandle= ()=> {
         setIsAnswerVisible(!isAnswerVisible)
@@ -22,8 +25,8 @@ export const StockCard = ({card, handleDoneClick}: {card: Tcard, handleDoneClick
             method: 'PUT',
             headers: {'Content-Type': 'application/json;charset=utf-8'},
             body: JSON.stringify({
-                id: card['_id'],
-                timesBeenRepeated: card.timesBeenRepeated + 1,
+                id: currentCard['_id'],
+                timesBeenRepeated: currentCard.timesBeenRepeated + 1,
                 repeatedTimeStamp: Date.now(),
             })
         })
@@ -45,19 +48,22 @@ export const StockCard = ({card, handleDoneClick}: {card: Tcard, handleDoneClick
         //     body: JSON.stringify(obj)
         // })
 
-        handleDoneClick();
     }
 
     return (  
+    <>
+        {(currentCard._id !== '0') && 
         <StyledCard>
-            <h2>{card.title}</h2>
+            <h2>{currentCard.title}</h2>
             <ShowButton hasClicked={isAnswerVisible} onClick={onShowClickHandle}/>
             <div style={{width: '400px', minHeight: '500px'}}>
                 <Answer isVisible={isAnswerVisible}>
-                    {card.answer}
+                    {currentCard.answer}
                 </Answer>
             </div>
             <DoneButton onClick={onDoneClickHandle}/>
-        </StyledCard>
+        </StyledCard>}
+    </>
+        
     )
 }
