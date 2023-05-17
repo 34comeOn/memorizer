@@ -1,3 +1,5 @@
+import { useAppDispatch } from "../app/hooks";
+import { hideCurrentCard } from "../store/reducers/cardWindowReduser";
 import { spreadCollectionData, Tcard } from "../utils/utils";
 
 // const obj = {
@@ -5,6 +7,8 @@ import { spreadCollectionData, Tcard } from "../utils/utils";
 // }
 
 export const useDoneClickButton = (currentCard: Tcard) => {
+    const dispatch = useAppDispatch();  
+
     return () => {
         fetch('http://localhost:3002/api/repeat',{
             method: 'PUT',
@@ -26,7 +30,7 @@ export const useDoneClickButton = (currentCard: Tcard) => {
           }
         )
         ;
-
+        dispatch(hideCurrentCard());
         // fetch('http://localhost:3002/api/post-question',{
         //     method: 'POST',
         //     headers: {'Content-Type': 'application/json;charset=utf-8'},
