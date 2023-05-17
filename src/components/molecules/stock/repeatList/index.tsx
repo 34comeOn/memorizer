@@ -3,7 +3,7 @@ import { Tcard } from '../../../../utils/utils';
 import { StyledRepeatList } from './styledRepeatList';
 import './style.css';
 import { useAppSelector } from '../../../../app/hooks';
-import { getUpdatedlistItemsCategories } from '../../../../store/reducers/checkboxReduser';
+import { getUpdatedlistItemsCategories } from '../../../../store/reducers/collectionFiltersReduser';
 import { MAIN_FILTER_CHECKBOX } from '../../../../constants/stringConstants';
 
 export type ThandleOpenCard = (id: string) => void

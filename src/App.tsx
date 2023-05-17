@@ -12,7 +12,7 @@ import {
     repeatNowGroupReduser, 
   } from './store/reducers/collectionGroupsReduser';
 import { spreadCollectionData } from './utils/utils';
-import { refreshFilters } from './store/reducers/checkboxReduser';
+import { setFiltersList } from './store/reducers/collectionFiltersReduser';
 
 const stockCard = {
   '_id': '0',   
@@ -41,7 +41,7 @@ const App = () => {
     const {filtersOfCollection, orgonizedGroupsOfCollection}= spreadCollectionData(response);
 
     dispatch(repeatNowGroupReduser(orgonizedGroupsOfCollection)); 
-    dispatch(refreshFilters(filtersOfCollection)); 
+    dispatch(setFiltersList(filtersOfCollection)); 
     })
   }
 

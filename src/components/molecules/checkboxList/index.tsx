@@ -2,11 +2,11 @@ import React, { SyntheticEvent } from "react";
 import { StockCheckbox } from "../../atoms/stock/checkbox";
 import { StyledCheckboxList } from "./styledCheckboxList";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { addListItemsCategories, 
+import { addItemInListOfCurrentFilters, 
     getRefreshedFiltersState,
-    removeListItemsCategories, 
-    updateListItemsCategories 
-} from "../../../store/reducers/checkboxReduser";
+    replaceListOfCurrentFilters, 
+    removeItemFromListOfCurrentFilters 
+} from "../../../store/reducers/collectionFiltersReduser";
 import { useCheckboxCurrentState } from "../../../myHooks/useCheckboxCurrentState";
 import { MAIN_FILTER_CHECKBOX } from "../../../constants/stringConstants";
 
@@ -21,17 +21,17 @@ export const CheckboxList = () => {
 
         if (currentChangedCheckboxName === MAIN_FILTER_CHECKBOX) {
             if (isCurrentCheckboxChecked) {
-                dispatch(updateListItemsCategories([]));
-                dispatch(addListItemsCategories(MAIN_FILTER_CHECKBOX));
+                dispatch(replaceListOfCurrentFilters([]));
+                dispatch(addItemInListOfCurrentFilters(MAIN_FILTER_CHECKBOX));
             } 
         } else if (currentChangedCheckboxName !== MAIN_FILTER_CHECKBOX) {
             if (isMainCheckboxChecked) {
-                dispatch(updateListItemsCategories([]));
+                dispatch(replaceListOfCurrentFilters([]));
             }
             if (isCurrentCheckboxChecked) {
-                dispatch(addListItemsCategories(currentChangedCheckboxName));
+                dispatch(addItemInListOfCurrentFilters(currentChangedCheckboxName));
             } else {
-                dispatch(removeListItemsCategories(currentChangedCheckboxName));
+                dispatch(removeItemFromListOfCurrentFilters(currentChangedCheckboxName));
             }
         }
     }
