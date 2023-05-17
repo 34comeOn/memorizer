@@ -1,10 +1,10 @@
 import { configureStore, ThunkAction, Action, combineReducers } from '@reduxjs/toolkit';
-import filterCheckboxSlice from './reducers/checkboxReduser';
+import collectionFiltersSlice from './reducers/collectionFiltersReduser';
 import collectionGroupsSlice from './reducers/collectionGroupsReduser';
 import { rootAPI } from '../RTKApi/rootApi';
 
 const rootReducer = combineReducers({
-  filterCheckboxSlice,
+  collectionFiltersSlice,
   collectionGroupsSlice,
   [rootAPI.reducerPath]: rootAPI.reducer,
 });
