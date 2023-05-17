@@ -16,17 +16,6 @@ body {
   display: flex;
 }
 
-.App--button__getData {
-  height: 50px;
-  width: max-content;
-  background-color: #40ccc7;
-  border-radius: 10px;
-  margin-top: 20px;
-  margin-right: 20px;
-  cursor: pointer;
-  border: 2px solid white;
-}
-
 .App--button__getData:hover {
   background-color: rgb(235, 142, 142);
 }

@@ -1,3 +1,5 @@
+import { STOCK_COLLECTION_ITEM } from "../constants/stockConstants";
+
 export type Tcard = {
    ['_id']: string,   
     repeatedTimeStamp: number | null,
@@ -103,3 +105,7 @@ export const spreadCollectionData = (dataBase: Tcard[]) => {
 
     return {filtersOfCollection,orgonizedGroupsOfCollection};
 };
+
+export const findCardInDataBase = (id: string, dataBaseArray: Tcard[]) => {
+    return dataBaseArray.find(card => card['_id'] === id) || STOCK_COLLECTION_ITEM;
+  }
