@@ -1,9 +1,8 @@
 import React from 'react';
-import { Tcard } from '../../../utils/utils';
-import { StockCard } from '../stock/card';
+import { StockCardWindow } from '../stock/card';
 
-export const Card = ({card, handleDoneClick}: {card: Tcard, handleDoneClick: ()=> void}) => {
+export const CardWindow = () => {
     return (
-        <StockCard card={card} handleDoneClick={handleDoneClick}/>
+        <StockCardWindow />
     )
 }

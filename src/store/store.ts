@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action, combineReducers } from '@reduxjs/toolkit';
 import collectionFiltersSlice from './reducers/collectionFiltersReduser';
 import collectionGroupsSlice from './reducers/collectionGroupsReduser';
+import cardWindowSlice from './reducers/cardWindowReduser';
 import { rootAPI } from '../RTKApi/rootApi';
 
 const rootReducer = combineReducers({
   collectionFiltersSlice,
   collectionGroupsSlice,
+  cardWindowSlice,
   [rootAPI.reducerPath]: rootAPI.reducer,
 });
 

@@ -7,11 +7,10 @@ import { RepeatIn8HoursList } from '../../molecules/repeatLists/repeatIn8Hours';
 import { RepeatIn4HoursList } from '../../molecules/repeatLists/repeatIn4HoursList';
 import { RepeatInHourList } from '../../molecules/repeatLists/repeatInHourList';
 import { RepeatNowList } from '../../molecules/repeatLists/repeatNowList';
-import { ThandleOpenCard } from '../../molecules/stock/repeatList';
 import { useAppSelector } from '../../../app/hooks';
 import { getRepeatGroupsState } from '../../../store/reducers/collectionGroupsReduser';
 
-export const RepeatContainer = ({handleOpenCard }: {handleOpenCard: ThandleOpenCard}) => {
+export const RepeatContainer = () => {
 
   const [
   repeatNowGroup,
@@ -25,13 +24,13 @@ export const RepeatContainer = ({handleOpenCard }: {handleOpenCard: ThandleOpenC
 
   return (
     <StyledRepeatContainer>
-        <RepeatNowList handleOpenCard={handleOpenCard} renderData= {repeatNowGroup} />
-        <RepeatInHourList handleOpenCard={handleOpenCard} renderData= {repeatIn1HourGroup} />
-        <RepeatIn4HoursList handleOpenCard={handleOpenCard} renderData= {repeatIn4HoursGroup} />
-        <RepeatIn8HoursList handleOpenCard={handleOpenCard} renderData= {repeatIn8HoursGroup} />
-        <RepeatIn12HoursList handleOpenCard={handleOpenCard} renderData= {repeatIn12HoursGroup} />
-        <RepeatIn24HoursList handleOpenCard={handleOpenCard} renderData= {repeatIn24HoursGroup} />
-        <RepeatIn3DaysList handleOpenCard={handleOpenCard} renderData= {repeatIn3DaysGroup} />
+        <RepeatNowList renderData= {repeatNowGroup} />
+        <RepeatInHourList renderData= {repeatIn1HourGroup} />
+        <RepeatIn4HoursList renderData= {repeatIn4HoursGroup} />
+        <RepeatIn8HoursList  renderData= {repeatIn8HoursGroup} />
+        <RepeatIn12HoursList renderData= {repeatIn12HoursGroup} />
+        <RepeatIn24HoursList renderData= {repeatIn24HoursGroup} />
+        <RepeatIn3DaysList renderData= {repeatIn3DaysGroup} />
     </StyledRepeatContainer>
   );
 }
