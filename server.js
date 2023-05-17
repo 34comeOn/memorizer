@@ -1,3 +1,5 @@
+import { GET_DATA_ENDPOINT } from './src/constants/stringConstants';
+
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -23,7 +25,7 @@ app.get('/', (req, result)=> {
     console.log('/');
 })
 
-app.get('/data', (req, res)=> {
+app.get(GET_DATA_ENDPOINT, (req, res)=> {
     Question.find()
     .then(result=> res.send(result))
     .catch(err=> console.log(err))
