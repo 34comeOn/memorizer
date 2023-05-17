@@ -5,7 +5,7 @@ import './style.css';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { getUpdatedlistItemsCategories } from '../../../../store/reducers/collectionFiltersReduser';
 import { MAIN_FILTER_CHECKBOX } from '../../../../constants/stringConstants';
-import { setCurrentCard } from '../../../../store/reducers/cardWindowReduser';
+import { hideAnswer, setCurrentCard } from '../../../../store/reducers/cardWindowReduser';
 
 export type ThandleOpenCard = (id: string) => void
 
@@ -14,6 +14,7 @@ export const StockRepeatList = ({title, list}: {title: string, list: Tcard[]}) =
 
     const handleItemClick = (currentCard: Tcard) => {
         dispatch(setCurrentCard(currentCard));
+        dispatch(hideAnswer());
     }
     const currentlistItemsCategories = useAppSelector(getUpdatedlistItemsCategories);
 
