@@ -1,0 +1,13 @@
+.main-page--container {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-page--caption {
+    color: white;
+}
+
+.menu-options--box {
+    display: flex;
+    flex-direction: column;
+}

@@ -1,17 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Header } from "../../components/organizms/header";
+import { MenuButton } from "../../components/atoms/menuButton";
+import './style.css';
 
 export const MainPage = () => {
     return(
-        <>
-            <Header />
-            <div className='App App--container'>
-                <p style={{color: 'white'}}>
-                    Welcome to Memorizer
-                </p>
-                <Link to='/collection'> Train my collection</Link>
+        <div className='main-page--container'>
+            <h1 className='main-page--caption'>
+                Welcome to Memorizer
+            </h1>
+            <div className='menu-options--box'>
+                <MenuButton path='/collection' color='#62D0DF'>
+                    Train collection
+                </MenuButton>
+                <MenuButton path='/new_collection' color='#0052C1'>
+                    Create a new collection
+                </MenuButton>
             </div>
-        </>
+        </div>
     )
 }
