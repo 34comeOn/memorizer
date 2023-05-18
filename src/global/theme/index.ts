@@ -8,7 +8,7 @@ export const defaultTheme = {
     colorForButtonHover: "#F35714",
     pagePadding: "90px",
     indent: "20px",
-    fontFamily: '"Inter", "Arial", sans-serif',
+    fontFamily: '"Roboto", "Arial", sans-serif',
     fontSizeDefault: "18px",
     footerHeight: "80px",
     pageWidth: "1280px"

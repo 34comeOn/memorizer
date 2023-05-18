@@ -1,15 +1,20 @@
+@import '/src/sass/variables.module.scss';
+
 .title-wrapper {
     display: flex;
     align-items: center;
     height: 60px;
     justify-content: space-between;
     margin-bottom: -20px;
-    color: bisque;
+    color: $colorFontLight;
+    font-weight: 400;
+    font-size: 20px;
 }
 
 .cards-counter {
     margin-left: 5px;
-    font-weight: bold;
+    letter-spacing: 2px;
+    font-weight: 400;
 }
 
 .list--item {
@@ -18,9 +23,10 @@
     margin-bottom: 3px;
     padding: 7px;
     border-radius: 5px;
-    background-color: rgb(236, 240, 11);
-    color: rgb(24, 16, 13);
+    background-color: $colorStockItemBackground;
+    color: $colorFontDark;
     cursor: pointer; 
+    max-width: 475px;
 }
 
 .list--filter__react {

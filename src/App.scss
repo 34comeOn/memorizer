@@ -1,11 +1,14 @@
+@import '/src/sass/variables.module.scss';
+
 body {
   margin: 0;
+  font-family: $ff-main-regular;
+  list-style: none;
 }
 
 .App {
   text-align: center;
-  background-color: rgb(143, 137, 134);
-  background-image: url('/src/accets/background/920a66f7c593c9632b84b69d7bbcba8e.jpg');
+  background-color: $colorBackgroundDark;
   min-height: 100vh;
   border-top: 1px solid transparent;
   margin: 0;
@@ -34,5 +37,5 @@ body {
 }
 
 body {
-  background-color: black;
+  background-color: $colorBackgroundDark;
 }

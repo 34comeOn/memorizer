@@ -1,10 +1,10 @@
 import styled from 'styled-components';
+import variables from '../../../../sass/variables.module.scss';
 
 export const StyledRepeatList = styled.ul`
     list-style: none;
-    color: red;
     text-align: left;
-    background-color: #ffffffc7;
+    background-color: ${variables.colorBackgroundRepeatList};
     border-radius: 5px;
     padding: 4px;
     padding-top: 6px;
