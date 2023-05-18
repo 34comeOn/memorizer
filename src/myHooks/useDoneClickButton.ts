@@ -1,5 +1,7 @@
 import { useAppDispatch } from "../app/hooks";
 import { hideCurrentCard } from "../store/reducers/cardWindowReduser";
+import { setFiltersList } from "../store/reducers/collectionFiltersReduser";
+import { repeatNowGroupReduser } from "../store/reducers/collectionGroupsReduser";
 import { spreadCollectionData, Tcard } from "../utils/utils";
 
 // const obj = {
@@ -8,7 +10,6 @@ import { spreadCollectionData, Tcard } from "../utils/utils";
 
 export const useDoneClickButton = (currentCard: Tcard) => {
     const dispatch = useAppDispatch();  
-
     return () => {
         fetch('http://localhost:3002/api/repeat',{
             method: 'PUT',
@@ -22,8 +23,9 @@ export const useDoneClickButton = (currentCard: Tcard) => {
         .then(res => res.json())
         .then(
           (result) => {
-            spreadCollectionData(typeof result === 'string'? JSON.parse(result): result)
-            
+            const {filtersOfCollection, orgonizedGroupsOfCollection}= spreadCollectionData(result);
+            dispatch(repeatNowGroupReduser(orgonizedGroupsOfCollection)); 
+            dispatch(setFiltersList(filtersOfCollection)); 
           },
           (error) => {
             alert(error);
