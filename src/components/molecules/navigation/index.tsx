@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { StyledNavigation } from "./StyledNavigation";
-import './style.css';
+import './style.scss';
 
 export const Navigation = () => {
     const navArray: string[] = ['About', 'Settings', 'Profile', 'Contact']

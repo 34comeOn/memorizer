@@ -1,6 +1,7 @@
 import React from "react";
 import { MenuButton } from "../../components/atoms/menuButton";
-import './style.css';
+import './style.scss';
+import variables from '../../sass/variables.module.scss';
 
 export const MainPage = () => {
     return(
@@ -9,10 +10,10 @@ export const MainPage = () => {
                 Welcome to Memorizer
             </h1>
             <div className='menu-options--box'>
-                <MenuButton path='/collection' color='#62D0DF'>
+                <MenuButton path='/collection' color={variables.colorMenuBright}>
                     Train collection
                 </MenuButton>
-                <MenuButton path='/new_collection' color='#0052C1'>
+                <MenuButton path='/new_collection' color={variables.colorMenuDark}>
                     Create a new collection
                 </MenuButton>
             </div>

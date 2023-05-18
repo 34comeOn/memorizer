@@ -11,7 +11,7 @@ export const StyledCard = styled.div`
     align-items: center;
     background-color: rgb(207 212 212 / 88%);
     margin: 55px auto;
-    border-radius: 10px;
+    border-radius: 5px;
     position: sticky;
     top: 20px;
 `

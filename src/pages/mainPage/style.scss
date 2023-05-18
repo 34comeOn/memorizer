@@ -1,10 +1,14 @@
+@import '/src/sass/variables.module.scss';
+
 .main-page--container {
     display: flex;
     flex-direction: column;
 }
 
 .main-page--caption {
-    color: white;
+    color: $colorFontLight;
+    font-weight: 300;
+    margin: 40px auto;
 }
 
 .menu-options--box {

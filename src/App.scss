@@ -1,12 +1,14 @@
+@import '/src/sass/variables.module.scss';
+
 body {
   margin: 0;
-  font-family: "Montserrat", "Arial", sans-serif;
+  font-family: $ff-main-regular;
   list-style: none;
 }
 
 .App {
   text-align: center;
-  background-color: #22356F;
+  background-color: $colorBackgroundDark;
   min-height: 100vh;
   border-top: 1px solid transparent;
   margin: 0;
@@ -35,5 +37,5 @@ body {
 }
 
 body {
-  background-color: #22356F;
+  background-color: $colorBackgroundDark;
 }

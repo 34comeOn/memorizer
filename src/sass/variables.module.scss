@@ -1,0 +1,16 @@
+$ff-main-regular: "Montserrat", "Arial", sans-serif;
+
+$colorBackgroundDark: #22356F;
+$colorBackgroundRepeatList: #ffffffc7;
+$colorStockItemBackground: rgb(236, 240, 11);
+$colorMenuBright: #62D0DF;
+$colorMenuDark: #0052C1;
+$colorFontLight: bisque;
+$colorFontDark: rgb(24, 16, 13);
+
+:export {
+    colorBackgroundDark: $colorBackgroundDark;
+    colorBackgroundRepeatList: $colorBackgroundRepeatList;
+    colorMenuDark: $colorMenuDark;
+    colorMenuBright: $colorMenuBright;
+}

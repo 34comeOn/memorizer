@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tcard } from '../../../../utils/utils';
 import { StyledRepeatList } from './styledRepeatList';
-import './style.css';
+import './style.scss';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { getUpdatedlistItemsCategories } from '../../../../store/reducers/collectionFiltersReduser';
 import { MAIN_FILTER_CHECKBOX } from '../../../../constants/stringConstants';
@@ -22,7 +22,7 @@ export const StockRepeatList = ({title, list}: {title: string, list: Tcard[]}) =
     return (
         <>
             <div className='title-wrapper'>
-                <h3>{title}</h3>
+                <span>{title}</span>
                 <span className='cards-counter'>
                     {`(${list.length})`}
                 </span>
