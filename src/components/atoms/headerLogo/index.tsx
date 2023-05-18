@@ -1,9 +1,12 @@
 import React from "react";
 import { StyledHeaderLogo } from "./styledHeaderLogo";
 import './style.css';
+import { Link } from "react-router-dom";
 
 export const HeaderLogo = () => {
     return(
-        <StyledHeaderLogo className="headerLogo" />
+        <Link to='/'> 
+            <StyledHeaderLogo className="headerLogo" />
+        </Link>
     )
 }
