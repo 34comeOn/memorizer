@@ -8,6 +8,10 @@ $colorMenuDark: #0052C1;
 $colorFontLight: bisque;
 $colorFontDark: rgb(24, 16, 13);
 
+$colorButtonHover: rgb(235, 142, 142);
+$colorButtonActive: rgb(103, 117, 103);
+
+
 :export {
     colorBackgroundDark: $colorBackgroundDark;
     colorBackgroundRepeatList: $colorBackgroundRepeatList;

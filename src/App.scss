@@ -20,11 +20,11 @@ body {
 }
 
 .App--button__getData:hover {
-  background-color: rgb(235, 142, 142);
+  background-color: $colorButtonHover;
 }
 
 .App--button__getData:active {
-  background-color: rgb(103, 117, 103);
+  background-color: $colorButtonActive;
 }
 
 .App--button__wrapper {

@@ -1,18 +1,13 @@
 @import '/src/sass/variables.module.scss';
 
-.main-page--container {
+.collection-page--container {
     display: flex;
-    flex-direction: column;
+    margin-top: -15px;
 }
 
-.main-page--caption {
+.collection-page--caption {
     color: $colorFontLight;
     font-size: 52px;
     font-weight: 300;
     margin: 40px auto;
-}
-
-.menu-options--box {
-    display: flex;
-    flex-direction: column;
 }
