@@ -1,5 +1,3 @@
-import { GET_DATA_ENDPOINT } from './src/constants/stringConstants';
-
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -25,7 +23,7 @@ app.get('/', (req, result)=> {
     console.log('/');
 })
 
-app.get(GET_DATA_ENDPOINT, (req, res)=> {
+app.get('/data', (req, res)=> {
     Question.find()
     .then(result=> res.send(result))
     .catch(err=> console.log(err))
@@ -54,11 +52,11 @@ app.post('/api/post-question', (req, res)=> {
 
 app.put('/api/repeat', (req, res)=> {
     const{id, repeatedTimeStamp, timesBeenRepeated} =req.body;
-
     Question.findByIdAndUpdate(id, {repeatedTimeStamp, timesBeenRepeated } )
     .catch(err => console.log(err))
-
-    Question.find()
+    .then(()=> {
+        Question.find()
     .then(result=> res.send(result))
     .catch(err=> console.log(err))
+    })
 })

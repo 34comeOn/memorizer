@@ -1,58 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { DoneButton } from '../../../atoms/doneButton';
 import { ShowButton } from '../../../atoms/showButton';
 import { StyledCard } from './styledCard';
 import { Answer } from '../../../atoms/answer';
-import { 
-    spreadCollectionData, 
-    } from '../../../../utils/utils';
-import { useAppSelector } from '../../../../app/hooks';
-import { getCurrentCardState } from '../../../../store/reducers/cardWindowReduser';
-
-// const obj = {
-//     id: 75,
-// }
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
+import { getAnswerVisibilityState, getCurrentCardState, getCurrentCardVisibilityState, toggleAnswerVisibility } from '../../../../store/reducers/cardWindowReduser';
+import { useDoneClickButton } from '../../../../myHooks/useDoneClickButton';
 
 export const StockCardWindow = () => {
-    const [isAnswerVisible, setIsAnswerVisible] = useState(false);
+    const dispatch = useAppDispatch();
     const currentCard = useAppSelector(getCurrentCardState);
-    
+    const isCurrentCardVisible = useAppSelector(getCurrentCardVisibilityState);
+    const isAnswerVisible = useAppSelector(getAnswerVisibilityState);
+    const onDoneClickHandle = useDoneClickButton(currentCard);
+
     const onShowClickHandle= ()=> {
-        setIsAnswerVisible(!isAnswerVisible)
-    }
-    const onDoneClickHandle = async()=> {
-        fetch('http://localhost:3002/api/repeat',{
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json;charset=utf-8'},
-            body: JSON.stringify({
-                id: currentCard['_id'],
-                timesBeenRepeated: currentCard.timesBeenRepeated + 1,
-                repeatedTimeStamp: Date.now(),
-            })
-        })
-        .then(res => res.json())
-        .then(
-          (result) => {
-            spreadCollectionData(typeof result === 'string'? JSON.parse(result): result)
-            
-          },
-          (error) => {
-            alert(error);
-          }
-        )
-        ;
-
-        // fetch('http://localhost:3002/api/post-question',{
-        //     method: 'POST',
-        //     headers: {'Content-Type': 'application/json;charset=utf-8'},
-        //     body: JSON.stringify(obj)
-        // })
-
+        dispatch(toggleAnswerVisibility())
     }
 
     return (  
     <>
-        {(currentCard._id !== '0') && 
+        {isCurrentCardVisible && 
         <StyledCard>
             <h2>{currentCard.title}</h2>
             <ShowButton hasClicked={isAnswerVisible} onClick={onShowClickHandle}/>
