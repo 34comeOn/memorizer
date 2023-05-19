@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import variables from '../../../../sass/variables.module.scss';
 
 export const StyledButton = styled.button`
     width: 120px;
@@ -10,10 +11,10 @@ export const StyledButton = styled.button`
     display: block;
 
     :hover {
-        background-color: rgb(235, 142, 142);
+        background-color: ${variables.colorButtonHover};
     }
 
     :active {
-        background-color: rgb(103, 117, 103);
+        background-color: ${variables.colorButtonActive};
     }
 `
