@@ -1,5 +1,6 @@
 $ff-main-regular: "Montserrat", "Arial", sans-serif;
 
+$colorTransparent: transparent;
 $colorBackgroundLight: #DEE1FF;
 $colorBackgroundDark: #22356F;
 $colorBackgroundRepeatList: #ffffff21;
@@ -15,6 +16,7 @@ $colorButtonActive: rgb(103, 117, 103);
 
 
 :export {
+    colorTransparent: $colorTransparent;
     colorBackgroundLight: $colorBackgroundLight;
     colorBackgroundDark: $colorBackgroundDark;
     colorBackgroundRepeatList: $colorBackgroundRepeatList;
