@@ -1,0 +1,24 @@
+@import '/src/sass/variables.module.scss';
+
+.form--label {
+    color: $colorFontWhite;
+    margin-top: 20px;
+}
+
+.form--input {
+    height: 30px;
+    width: 390px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $colorBackgroundLight;
+    }
+}
+
+.form--input::placeholder {
+    color: $colorFontPlaceholder;
+}

@@ -3,7 +3,7 @@ import { PUT_REPEATED_COLLECTION_ITEM_ENDPOINT } from "../constants/stringConsta
 import { collectionDataAPI } from "../RTKApi/collectionDataApi";
 import { hideCurrentCard } from "../store/reducers/cardWindowReduser";
 import { setFiltersList } from "../store/reducers/collectionFiltersReduser";
-import { repeatNowGroupReduser } from "../store/reducers/collectionGroupsReduser";
+import { repeatGroupsReduser } from "../store/reducers/collectionGroupsReduser";
 import { spreadCollectionData, Tcard } from "../utils/utils";
 
 export const useDoneClickButton = (currentCard: Tcard) => {
@@ -17,7 +17,7 @@ export const useDoneClickButton = (currentCard: Tcard) => {
         (response) => {
           const {filtersOfCollection, orgonizedGroupsOfCollection}= spreadCollectionData(response);
       
-          dispatch(repeatNowGroupReduser(orgonizedGroupsOfCollection)); 
+          dispatch(repeatGroupsReduser(orgonizedGroupsOfCollection)); 
           dispatch(setFiltersList(filtersOfCollection)); 
         },
         (error) => {

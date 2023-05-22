@@ -2,6 +2,7 @@ import React from "react";
 import { MenuButton } from "../../components/atoms/menuButton";
 import './style.scss';
 import variables from '../../sass/variables.module.scss';
+import { UserCollectionsList } from "../../components/organizms/userCollectionsList";
 
 export const MainPage = () => {
     return(
@@ -10,9 +11,7 @@ export const MainPage = () => {
                 Welcome to Memorizer
             </h1>
             <div className='menu-options--box'>
-                <MenuButton path='/collection' color={variables.colorMenuBright}>
-                    Train collection
-                </MenuButton>
+                <UserCollectionsList />
                 <MenuButton path='/new_collection' color={variables.colorMenuDark}>
                     Create a new collection
                 </MenuButton>
