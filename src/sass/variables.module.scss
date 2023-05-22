@@ -1,16 +1,27 @@
 $ff-main-regular: "Montserrat", "Arial", sans-serif;
 
+$colorTransparent: transparent;
+$colorBackgroundLight: #DEE1FF;
 $colorBackgroundDark: #22356F;
-$colorBackgroundRepeatList: #ffffffc7;
+$colorBackgroundRepeatList: #ffffff21;
 $colorStockItemBackground: rgb(236, 240, 11);
 $colorMenuBright: #62D0DF;
 $colorMenuDark: #0052C1;
 $colorFontLight: bisque;
+$colorFontBright: #FAB63E;
 $colorFontDark: rgb(24, 16, 13);
 
+$colorButtonHover: rgb(235, 142, 142);
+$colorButtonActive: rgb(103, 117, 103);
+
+
 :export {
+    colorTransparent: $colorTransparent;
+    colorBackgroundLight: $colorBackgroundLight;
     colorBackgroundDark: $colorBackgroundDark;
     colorBackgroundRepeatList: $colorBackgroundRepeatList;
     colorMenuDark: $colorMenuDark;
     colorMenuBright: $colorMenuBright;
+    colorButtonHover: $colorButtonHover;
+    colorButtonActive: $colorButtonActive;
 }

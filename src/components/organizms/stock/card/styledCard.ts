@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import variables from '../../../../sass/variables.module.scss';
 
 export const StyledCard = styled.div`
     width: 500px;
@@ -9,7 +10,7 @@ export const StyledCard = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(207 212 212 / 88%);
+    background-color: ${variables.colorBackgroundRepeatList};
     margin: 55px auto;
     border-radius: 5px;
     position: sticky;

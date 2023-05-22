@@ -1,9 +1,19 @@
+@import '/src/sass/variables.module.scss';
+
 .navItem {
-    color: bisque;
+    color: $colorFontLight;
     text-decoration: none;
     font-size: 20px;
+    position: relative;
 }
 
-.navItem:hover {
-    text-decoration: underline;
+.navItem:hover::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    display: block;
+    width: -webkit-fill-available;
+    height: 2px;
+    top: 28px;
+    background-color: $colorFontLight;
 }

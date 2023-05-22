@@ -1,0 +1,51 @@
+@import '/src/sass/variables.module.scss';
+
+.close-button {
+    position: relative;
+    margin-left: auto;
+    margin-bottom: -5px;
+
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: -1px;
+        display: block;
+        width: 28px;
+        height: 2px;
+        top: 10px;
+        background-color: $colorFontDark;
+        transform: rotate(43deg);
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        left: -1px;
+        display: block;
+        width: 28px;
+        height: 2px;
+        top: 10px;
+        background-color: $colorFontDark;
+        transform: rotate(-43deg);
+
+    }
+
+    &:hover {
+        &::before {
+            background-color: $colorButtonHover;
+        }
+        &::after {
+            background-color: $colorButtonHover;
+        }
+    }
+
+    &:active {
+        &::before {
+            background-color: $colorButtonActive;
+        }
+        &::after {
+            background-color: $colorButtonActive;
+        }
+    }
+}

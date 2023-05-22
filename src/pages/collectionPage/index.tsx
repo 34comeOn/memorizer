@@ -3,16 +3,22 @@ import { GetDataButton } from "../../components/atoms/getDataButton";
 import { CheckboxList } from "../../components/molecules/checkboxList";
 import { CardWindow } from "../../components/organizms/card";
 import { RepeatContainer } from "../../components/organizms/repeatContainer";
+import './style.scss';
 
 export const CollectionPage = () => {
     return(
-        <div className='App App--container'>
-            <div className='App--button__wrapper'>
-            <GetDataButton />
-            <CheckboxList />
+        <div style={{display: 'flex', flexDirection: 'column'}}>
+            <h1 className='collection-page--caption'>
+                Training collection...
+            </h1>
+            <div className='collection-page--container'>
+                <div className='App--button__wrapper'>
+                <GetDataButton />
+                <CheckboxList />
+                </div>
+                <RepeatContainer />
+                <CardWindow />
             </div>
-            <RepeatContainer />
-            <CardWindow />
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import variables from '../../../sass/variables.module.scss';
 
 type TisVisible = {
     isVisible: boolean;
@@ -8,7 +8,7 @@ type TisVisible = {
 export const StyledAnswer = styled.div<TisVisible>`
     width: 400px; 
     min-height: 500px; 
-    background-color: white;
+    background-color: ${variables.colorBackgroundLight};
     border-radius: 15px;
     padding: 15px;
     font-size: 17px;

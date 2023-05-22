@@ -6,6 +6,8 @@ import { Answer } from '../../../atoms/answer';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { getAnswerVisibilityState, getCurrentCardState, getCurrentCardVisibilityState, toggleAnswerVisibility } from '../../../../store/reducers/cardWindowReduser';
 import { useDoneClickButton } from '../../../../myHooks/useDoneClickButton';
+import './style.scss';
+import { CloseButton } from '../../../atoms/closeButton';
 
 export const StockCardWindow = () => {
     const dispatch = useAppDispatch();
@@ -22,7 +24,8 @@ export const StockCardWindow = () => {
     <>
         {isCurrentCardVisible && 
         <StyledCard>
-            <h2>{currentCard.title}</h2>
+            <CloseButton />
+            <span className='card--title'>{currentCard.title}</span>
             <ShowButton hasClicked={isAnswerVisible} onClick={onShowClickHandle}/>
             <div style={{width: '400px', minHeight: '500px'}}>
                 <Answer isVisible={isAnswerVisible}>

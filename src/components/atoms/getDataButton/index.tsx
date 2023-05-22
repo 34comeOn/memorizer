@@ -6,6 +6,6 @@ export const GetDataButton = () => {
     const getDataByClick = useGetDataTriger();
 
     return (
-        <button className='button__getData' onClick={() => getDataByClick() }>My Q&A</button>
+        <button className='button__getData' onClick={() => getDataByClick() }>Load items</button>
     );
 }

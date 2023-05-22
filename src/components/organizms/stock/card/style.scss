@@ -1,0 +1,9 @@
+@import '/src/sass/variables.module.scss';
+
+.card--title {
+    margin: 12px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 400;
+    color: $colorFontLight;
+}

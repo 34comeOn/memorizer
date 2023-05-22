@@ -1,10 +1,20 @@
+@import '/src/sass/variables.module.scss';
+
 .button__getData {
-    height: 50px;
-    width: max-content;
-    background-color: #40ccc7;
-    border-radius: 10px;
-    margin-top: 20px;
-    margin-right: 20px;
-    cursor: pointer;
-    border: 2px solid white;
-  }
+  height: 50px;
+  width: max-content;
+  background-color: $colorMenuBright;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-right: 20px;
+  cursor: pointer;
+  border: 2px solid white;
+}
+
+.button__getData:hover {
+  background-color: $colorButtonHover;
+}
+
+.button__getData:active {
+  background-color: $colorButtonActive;
+}
