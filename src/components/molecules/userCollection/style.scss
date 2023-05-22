@@ -1,0 +1,35 @@
+@import '/src/sass/variables.module.scss';
+
+.collection--title {
+    text-align: left; 
+    display: block;
+    margin-top: 59px;
+    margin-left: 50px;
+    width: min-content;
+    color: $colorFontWhite;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.collection--title::before {
+    content: '';
+    display: block;
+    width: 220px;
+    height: 1px;
+    background-color: $colorFontWhite;
+    position: absolute;
+    top: 46px;
+    left: 39px;
+}
+
+.collection--title::after {
+    content: '';
+    display: block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: $colorDecorBright;
+    position: absolute;
+    top: 70px;
+    left: 38px;
+}

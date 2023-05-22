@@ -12,9 +12,6 @@ export const MainPage = () => {
             </h1>
             <div className='menu-options--box'>
                 <UserCollectionsList />
-                <MenuButton path='/collection' color={variables.colorMenuBright}>
-                    Train collection
-                </MenuButton>
                 <MenuButton path='/new_collection' color={variables.colorMenuDark}>
                     Create a new collection
                 </MenuButton>

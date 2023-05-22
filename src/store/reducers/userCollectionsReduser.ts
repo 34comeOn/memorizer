@@ -5,7 +5,6 @@ import { Tcard } from "../../utils/utils";
 type TuserCollection = {
     '_id': string,
     title: string,
-    isResentCollection: boolean,
     data: Tcard[],
 }
 
