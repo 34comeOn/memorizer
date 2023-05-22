@@ -1,20 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Tcard } from "../../utils/utils";
 
+export type TgroupForRepeat = Tcard[];
+
 type TinitialState = {
-    repeatNowGroup: Tcard[][],
+    repeatGroups: TgroupForRepeat[],
 }
 
 const initialState: TinitialState = {
-    repeatNowGroup: [[],[],[],[],[],[],[]],
+    repeatGroups: [[],[],[],[],[],[],[]],
 }
 
 const collectionGroupsSlice = createSlice({
     name: 'collectionGroupsSlice',
     initialState,
     reducers: {
-        repeatNowGroupReduser(state, action: PayloadAction<Tcard[][]>) {
-            state.repeatNowGroup = action.payload
+        repeatGroupsReduser(state, action: PayloadAction<Tcard[][]>) {
+            state.repeatGroups = action.payload
         },
     }
 })
@@ -22,8 +24,8 @@ const collectionGroupsSlice = createSlice({
 export default collectionGroupsSlice.reducer;
 
 export const {
-repeatNowGroupReduser, 
+    repeatGroupsReduser, 
 } = collectionGroupsSlice.actions;
 
-export const getRepeatGroupsState = (state: {collectionGroupsSlice: {repeatNowGroup: Tcard[][]}}) =>
-   state.collectionGroupsSlice.repeatNowGroup
+export const getRepeatGroupsState = (state: {collectionGroupsSlice: {repeatGroups: Tcard[][]}}) =>
+   state.collectionGroupsSlice.repeatGroups
