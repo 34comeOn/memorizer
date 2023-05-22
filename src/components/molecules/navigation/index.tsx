@@ -1,17 +1,22 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { StyledNavigation } from "./StyledNavigation";
+import { NAVIGATION_ITEMS } from "../../../constants/stockConstants";
 import './style.scss';
 
+type TnavigationItem = {
+    title: string,
+    path: string,
+}
+
 export const Navigation = () => {
-    const navArray: string[] = ['About', 'Settings', 'Profile', 'Contact']
 
     return (
         <StyledNavigation>
-            {navArray.map((navigationItem: string, index)=> {
+            {NAVIGATION_ITEMS.map((navigationItem: TnavigationItem, index)=> {
                 return (
                     <li key={index}>
-                        <NavLink className={'navItem'} to={""}>{navigationItem}</NavLink>
+                        <NavLink className={'navItem'} to={navigationItem.path}>{navigationItem.title}</NavLink>
                     </li>
                 )}
             )}
