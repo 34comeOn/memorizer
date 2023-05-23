@@ -1,31 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from 'formik';
 import { FormInput } from "../../molecules/formInput";
-import { useNavigate } from "react-router-dom";
 import './style.scss';
-import { useAppDispatch } from "../../../app/hooks";
-import { logIn } from "../../../store/reducers/accountReduser";
+import { UseSubmitButtonToSignUp } from "../../../myHooks/myFormHooks/useSubmitButtonForSignUp";
+import { UseSubmitButtonToSignIn } from "../../../myHooks/myFormHooks/useSubmitButtonForSignIn";
 
-interface IsignInForm {
-    email: string, 
-    userName: string, 
-    password: string, 
-    confirmPassword: string,
-}
-
-export const SignInForm = () => {
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    const onSubmitHandler = (values: IsignInForm) => {
-        if (localStorage.getItem(values.email)) {
-            alert('User with such e-mail address is already registred!')
-        } else {
-            localStorage.setItem(values.email, JSON.stringify(values));
-            dispatch(logIn(values.userName));
-            navigate('/');
-        }
-    }
-
+export const SignInAndUpForm = () => {
+    const [isSignUpFormActive, setIsSignUpFormActive] = useState(false);
+    const onSignUpHandler = UseSubmitButtonToSignUp();
+    const onSignInHandler = UseSubmitButtonToSignIn();
     return(
         <Formik 
             initialValues={{ 
@@ -35,18 +18,18 @@ export const SignInForm = () => {
                 confirmPassword:'' 
             }}
             onSubmit={
-                onSubmitHandler
+                isSignUpFormActive? onSignUpHandler: onSignInHandler
             }
         >
             {()=>{
                 return(
                     <Form className='sign_in--form'>
-                        <FormInput 
+                        {isSignUpFormActive && <FormInput 
                             type='text' 
                             name='userName' 
                             placeholder='Max Power' 
                             labelValue='Name'
-                        />
+                        />}
                         <FormInput 
                             type='email' 
                             name='email' 
@@ -59,13 +42,21 @@ export const SignInForm = () => {
                             placeholder='MyMemory1sB&st' 
                             labelValue='Password'
                         />
-                        <FormInput 
+                        {isSignUpFormActive && <FormInput 
                             type='password' 
                             name='confirmPassword' 
                             placeholder='MyMemory1sB&st' 
                             labelValue='Confirm password'
-                        />
-                        <button className='submit-button' type='submit'>Sign in</ button>
+                        />}
+                        <button className='submit--button' type='submit'>
+                            {isSignUpFormActive? 'Sign up' : 'Sign in'}
+                        </ button>
+                        <span className='toggle-button--span'>
+                            {!isSignUpFormActive? 'Don`t have an account yet?' : 'Have account?'}
+                        </span>
+                        <button className='toggle--sign-button' type='button' onClick={() => setIsSignUpFormActive(!isSignUpFormActive)}>
+                            {!isSignUpFormActive? 'Sign up' : 'Sign in'}
+                        </ button>
                     </Form>
                 )
             }}

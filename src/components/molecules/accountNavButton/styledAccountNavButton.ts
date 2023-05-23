@@ -4,8 +4,12 @@ import variables from '../../../sass/variables.module.scss';
 export const StyledAccountNavButton = styled.button`
     height: 50px;
     width: max-content;
-    background-color: ${variables.colorDecorBright};
+    background-color: ${variables.colorBackgroundLight};
     border-radius: 10px;
     cursor: pointer;
-    margin-left: 200px
+    margin-left: 10px;
+
+    &:hover {
+        background-color: ${variables.colorButtonHover};
+    }
 `

@@ -9,8 +9,13 @@ export const AccountNavButton = ({userName}: {userName: string}) => {
         dispatch(logOut());
     }
     return(
-        <StyledAccountNavButton onClick={onClickHandler}>
-            {userName}
-        </StyledAccountNavButton>
+        <div>
+            <span style={{color: 'white', marginLeft: '200px'}}>
+                {userName}
+            </span>
+            <StyledAccountNavButton onClick={onClickHandler}>
+                Log out
+            </StyledAccountNavButton>
+        </div>
     )
 }
