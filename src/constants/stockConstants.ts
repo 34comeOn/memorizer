@@ -25,26 +25,33 @@ export const STOCK_USER = {
   userCollectionsData: [], 
 }
 
-type TnavigationItem = {
+export type TnavigationItem = {
   title: string,
   path: string,
+  loggedStatusDependent: boolean,
+  visibleWhenUserLoggedIn?: boolean,
 }
 
 export const NAVIGATION_ITEMS: TnavigationItem[] = [
   {
-      title: 'Sign in',
-      path: 'sign_in'
+    title: 'Sign in/up',
+    path: 'sign_in&up',
+    loggedStatusDependent: true,
+    visibleWhenUserLoggedIn: false,
   },
   {
-      title: 'About',
-      path: ''
+    title: 'About',
+    path: '',
+    loggedStatusDependent: false,
   },
   {
     title: 'Help',
-    path: ''
+    path: '',
+    loggedStatusDependent: false,
   },
   {
     title: 'Contacts',
-    path: ''
+    path: '',
+    loggedStatusDependent: false,
   },
 ];

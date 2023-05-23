@@ -1,23 +1,20 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import { StyledNavigation } from "./StyledNavigation";
 import { NAVIGATION_ITEMS } from "../../../constants/stockConstants";
 import './style.scss';
-
-type TnavigationItem = {
-    title: string,
-    path: string,
-}
+import { useAppSelector } from "../../../app/hooks";
+import { getAccountStatus } from "../../../store/reducers/accountReduser";
+import { TnavigationItem } from "../../../constants/stockConstants";
+import { NavigationItem } from "../navigationItem";
 
 export const Navigation = () => {
-
+    const hasLoged = useAppSelector(getAccountStatus);
     return (
         <StyledNavigation>
             {NAVIGATION_ITEMS.map((navigationItem: TnavigationItem, index)=> {
                 return (
-                    <li key={index}>
-                        <NavLink className={'navItem'} to={navigationItem.path}>{navigationItem.title}</NavLink>
-                    </li>
+                    (navigationItem.visibleWhenUserLoggedIn === hasLoged || !navigationItem.loggedStatusDependent) && 
+                    <NavigationItem key={index} navigationItem={navigationItem}/>
                 )}
             )}
         </StyledNavigation>
