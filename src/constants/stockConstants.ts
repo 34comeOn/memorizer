@@ -18,7 +18,6 @@ export const STOCK_COLLECTION = {
 }
 
 export const STOCK_USER = {
-  '_id': '333',  
   email: 'testMemUser@gmail.com',
   password: '!testMemUserPass333',
   name: 'Stock User',
