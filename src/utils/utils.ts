@@ -1,4 +1,4 @@
-import { STOCK_COLLECTION_ITEM } from "../constants/stockConstants";
+import { MAX_PUNISHMENT_FOR_LATE_PRACTICE, REPEAT_TIMES_CONVERT_TO_POINTS } from "../constants/stockConstants";
 
 export type Tcard = {
    ['_id']: string,   
@@ -15,24 +15,11 @@ const getHoursSinceRepeat = (repeatedTimeStamp: number) => {
     return Math.floor(timeSinceRepeat/ (1000*60*60));
 }
 
-type TRepeatTimesConvertToPoints = {
-    [key: number]: number,
-}
-const RepeatTimesConvertToPoints:TRepeatTimesConvertToPoints = {
-    0: 0,
-    1: 1,
-    2: 4,
-    3: 8,
-    4: 12,
-    5: 24,
-    6: 72
-}
-
 const countItemPoints = (repeatPoints: number, hours: number) => repeatPoints - hours;
 
 const getItemPoints = (item: Tcard) => {
   const itemHours: number = getHoursSinceRepeat(item.repeatedTimeStamp ?? 0)
-  return countItemPoints(RepeatTimesConvertToPoints[item.timesBeenRepeated], itemHours)
+  return countItemPoints(REPEAT_TIMES_CONVERT_TO_POINTS[item.timesBeenRepeated], itemHours)
 }
 
 const pullFiltersTitlesFromData = (item: Tcard,filtersArray: string[]) => {
@@ -106,6 +93,21 @@ export const spreadCollectionData = (dataBase: Tcard[]) => {
     return {filtersOfCollection,orgonizedGroupsOfCollection};
 };
 
-export const findCardInDataBase = (id: string, dataBaseArray: Tcard[]) => {
-    return dataBaseArray.find(card => card['_id'] === id) || STOCK_COLLECTION_ITEM;
-  }
+export const getPunishForLatePractice = (item: Tcard) => {
+    let punishPoints = 0;
+    
+    for (let i = 0; i <= MAX_PUNISHMENT_FOR_LATE_PRACTICE; i++) {
+        if ((getHoursSinceRepeat(item.repeatedTimeStamp?? 0) - REPEAT_TIMES_CONVERT_TO_POINTS[item.timesBeenRepeated - i]) >= 0) {
+            punishPoints += 1;
+        } 
+    }
+
+    const newTimesBeenRepeated = item.timesBeenRepeated - punishPoints;
+    
+    return (newTimesBeenRepeated <= 0? 1: newTimesBeenRepeated);
+}
+
+export const maximiseTimesBeenRepeated = (currentTimesBeenRepeated: number) => {
+    const HighestTimesBeenRepeatedNumber = Object.keys(REPEAT_TIMES_CONVERT_TO_POINTS).length-1;
+    return currentTimesBeenRepeated >= HighestTimesBeenRepeatedNumber? HighestTimesBeenRepeatedNumber: currentTimesBeenRepeated + 1;
+}
