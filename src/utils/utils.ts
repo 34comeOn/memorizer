@@ -1,4 +1,5 @@
-import { MAX_PUNISHMENT_FOR_LATE_PRACTICE, REPEAT_TIMES_CONVERT_TO_POINTS } from "../constants/stockConstants";
+import { MAX_PUNISHMENT_FOR_LATE_PRACTICE, REPEAT_TIMES_CONVERT_TO_POINTS, STOCK_USER } from "../constants/stockConstants";
+import { LOCAL_STORAGE_KEYS_CONSTANTS } from "../constants/stringConstants";
 import { IsignInForm } from "../myHooks/myFormHooks/useSubmitButtonForSignUp";
 
 export type Tcard = {
@@ -121,4 +122,12 @@ export const modifyUserSignUpInfoForDataBase = (valuesFromForm: IsignInForm) => 
         currentCollection: '',
         userCollectionsData: [], 
     }
+}
+
+export const getAllCurrentUserData = (userEmail: string) => {
+    return JSON.parse(localStorage.getItem(userEmail)?? JSON.stringify(STOCK_USER));
+}
+
+export const getCurrentUserEmailFromLStorage = () => {
+    return (localStorage.getItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_EMAIL)?? JSON.stringify(STOCK_USER.email))
 }

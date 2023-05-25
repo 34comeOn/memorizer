@@ -2,10 +2,11 @@ import React from "react";
 import { Form, Formik } from "formik";
 import { FormInput } from "../../components/molecules/formInput";
 import './style.scss';
-import { nanoid } from 'nanoid';
 import { STOCK_COLLECTION_COLOR } from "../../constants/stockConstants";
+import { useCreateNewCollection } from "../../myHooks/collectionHooks/useCreateNewCollection";
 
 export const NewCollectionPage = () => {
+    const onSignUpHandler = useCreateNewCollection();
     return(
         <>
             <Formik 
@@ -14,7 +15,7 @@ export const NewCollectionPage = () => {
                     collectionColor: STOCK_COLLECTION_COLOR, 
                 }}
                 onSubmit={
-                ()=> console.log(nanoid())
+                    onSignUpHandler
                 }
             >
                 {()=>{
