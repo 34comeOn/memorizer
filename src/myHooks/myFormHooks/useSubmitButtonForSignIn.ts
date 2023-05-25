@@ -12,9 +12,9 @@ export const UseSubmitButtonToSignIn = () => {
     const navigate = useNavigate();
     return (values: IsignInForm) => {
         if (localStorage.getItem(values.email)) {
-            const currentUserData = JSON.parse(localStorage.getItem(values.email) || '');
-            if (currentUserData.password === values.password) {
-                dispatch(logIn(currentUserData.userName));
+            const currentUser = JSON.parse(localStorage.getItem(values.email) || '');
+            if (currentUser.password === values.password) {
+                dispatch(logIn({accountUserName: currentUser.name, userEmail: currentUser.email}));
                 navigate('/');
             } else {
                 alert('E-mail or password does not match!')

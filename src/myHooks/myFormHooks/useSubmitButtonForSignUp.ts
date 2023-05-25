@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
-import { logIn } from "../../store/reducers/accountReduser";
+import { submitWithLocalStorage } from "./submitWithLocalStorage";
 
 export interface IsignInForm {
     email: string, 
@@ -13,12 +13,7 @@ export const UseSubmitButtonToSignUp = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     return (values: IsignInForm) => {
-        if (localStorage.getItem(values.email)) {
-            alert('User with such e-mail address is already registred!')
-        } else {
-            localStorage.setItem(values.email, JSON.stringify(values));
-            dispatch(logIn(values.userName));
-            navigate('/');
-        }
+        const { successLStorageSubmit, LStorageSubmitError} = submitWithLocalStorage(values, dispatch);
+        successLStorageSubmit? navigate('/'): alert(LStorageSubmitError);
     }
 }

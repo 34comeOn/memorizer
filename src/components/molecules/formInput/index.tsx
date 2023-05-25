@@ -2,14 +2,17 @@ import React from "react";
 import { Field} from "formik";
 import './style.scss';
 
-type TformInput = {
-    labelValue: string, 
-    name: string, 
-    placeholder: string,
-    type: string,
-}
+type NewType = {
+    type: string;
+    name: string;
+    labelValue: string;
+    placeholder?: string,
+    width?: string,
+};
 
-export const FormInput = ({labelValue, name, placeholder, type}: TformInput) => {
+type TformInput = NewType
+
+export const FormInput = ({labelValue, name, placeholder, type, width}: TformInput) => {
 
     return(
         <>
@@ -17,7 +20,7 @@ export const FormInput = ({labelValue, name, placeholder, type}: TformInput) => 
                 {labelValue}
             </label>
             <Field 
-            className='form--input'
+                className={width? 'form--input form--input-color':'form--input'}
                 id={labelValue}
                 name={name}
                 type={type} 

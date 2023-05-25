@@ -1,4 +1,5 @@
 import { MAX_PUNISHMENT_FOR_LATE_PRACTICE, REPEAT_TIMES_CONVERT_TO_POINTS } from "../constants/stockConstants";
+import { IsignInForm } from "../myHooks/myFormHooks/useSubmitButtonForSignUp";
 
 export type Tcard = {
    ['_id']: string,   
@@ -110,4 +111,14 @@ export const getPunishForLatePractice = (item: Tcard) => {
 export const maximiseTimesBeenRepeated = (currentTimesBeenRepeated: number) => {
     const HighestTimesBeenRepeatedNumber = Object.keys(REPEAT_TIMES_CONVERT_TO_POINTS).length-1;
     return currentTimesBeenRepeated >= HighestTimesBeenRepeatedNumber? HighestTimesBeenRepeatedNumber: currentTimesBeenRepeated + 1;
+}
+
+export const modifyUserSignUpInfoForDataBase = (valuesFromForm: IsignInForm) => {
+    return {
+        email: valuesFromForm.email,
+        password: valuesFromForm.password,
+        name: valuesFromForm.userName,
+        currentCollection: '',
+        userCollectionsData: [], 
+    }
 }
