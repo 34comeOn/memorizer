@@ -1,4 +1,4 @@
-import { Tcard } from '../utils/utils';
+import { maximiseTimesBeenRepeated, Tcard } from '../utils/utils';
 import { rootAPI } from './rootApi';
   
 export const collectionDataAPI = rootAPI.injectEndpoints({
@@ -18,7 +18,7 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
           headers: {'Content-Type': 'application/json;charset=utf-8'},
           body: JSON.stringify({
               id: args.putObj['_id'],
-              timesBeenRepeated: args.putObj.timesBeenRepeated + 1,
+              timesBeenRepeated: maximiseTimesBeenRepeated(args.putObj.timesBeenRepeated),
               repeatedTimeStamp: Date.now(),
           })
         };

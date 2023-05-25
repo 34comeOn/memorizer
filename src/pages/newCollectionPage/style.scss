@@ -1,6 +1,6 @@
 @import '/src/sass/variables.module.scss';
 
-.sign_in--form {
+.new-collection--form {
     min-height: 300px;
     display: flex;
     flex-direction: column;
@@ -14,7 +14,7 @@
     border-radius: 15px;
 }
 
-.submit-button {
+.submit--button {
     height: 40px;
     width: 140px;
     background-color: $colorMenuBright;
@@ -23,12 +23,11 @@
     margin-top: 35px;
     cursor: pointer;
     border: 2px solid white;
-}
 
-.submit-button:hover {
-background-color: $colorButtonHover;
-}
-
-.submit-button:active {
-background-color: $colorButtonActive;
+    &:hover {
+        background-color: $colorButtonHover;
+    }
+    &:active {
+        background-color: $colorButtonActive;
+    }
 }

@@ -4,14 +4,15 @@ import { collectionDataAPI } from "../RTKApi/collectionDataApi";
 import { hideCurrentCard } from "../store/reducers/cardWindowReduser";
 import { setFiltersList } from "../store/reducers/collectionFiltersReduser";
 import { repeatGroupsReduser } from "../store/reducers/collectionGroupsReduser";
-import { spreadCollectionData, Tcard } from "../utils/utils";
+import { getPunishForLatePractice, spreadCollectionData, Tcard } from "../utils/utils";
 
 export const useDoneClickButton = (currentCard: Tcard) => {
+    const currentCardPunishedForLatePractice = {...currentCard,timesBeenRepeated: getPunishForLatePractice(currentCard)};
     const dispatch = useAppDispatch();  
     const [putRepeatedCollectionItemTriger] = collectionDataAPI.usePutRepeatedCollectionItemMutation();
-
+    
     return () => {
-      putRepeatedCollectionItemTriger({path:PUT_REPEATED_COLLECTION_ITEM_ENDPOINT, putObj:currentCard})
+      putRepeatedCollectionItemTriger({path:PUT_REPEATED_COLLECTION_ITEM_ENDPOINT, putObj: currentCardPunishedForLatePractice})
       .unwrap()
       .then(
         (response) => {

@@ -14,7 +14,7 @@ export const AppRouter = () => {
                 {index: true, element: <MainPage /> },
                 {path: 'new_collection', element: <NewCollectionPage /> },
                 {path: 'collection', element: <CollectionPage /> },
-                {path: 'sign_in', element: <SignInPage /> },
+                {path: 'sign_in&up', element: <SignInPage /> },
             ]
         }
     ];
