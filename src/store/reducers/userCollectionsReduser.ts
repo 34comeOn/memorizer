@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { STOCK_COLLECTION } from "../../constants/stockConstants";
+import { STOCK_COLLECTION} from "../../constants/stockConstants";
 import { LOCAL_STORAGE_KEYS_CONSTANTS } from "../../constants/stringConstants";
 import { Tcard } from "../../utils/utils";
 
@@ -31,6 +31,10 @@ const userCollectionsSlice = createSlice({
             localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_COLLECTIONS, JSON.stringify(action.payload))
             state.allUserCollections = getUserCollections();
         },
+        removeAllUserCollections(state) {
+            localStorage.removeItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_COLLECTIONS);
+            state.allUserCollections = getUserCollections();
+        },
     }
 })
 
@@ -38,6 +42,7 @@ export default userCollectionsSlice.reducer;
 
 export const {
     setAllUserCollections, 
+    removeAllUserCollections
 } = userCollectionsSlice.actions;
 
 export const getAllUserCollectionsState = (state: {userCollectionsSlice: {allUserCollections: TuserCollection[]}}) =>

@@ -32,17 +32,17 @@ export const STOCK_COLLECTION_ITEM = {
   answer: 'Answer',
 }
 
-export const STOCK_COLLECTION_DATA = [
-  STOCK_COLLECTION_ITEM
-]
 
 export const STOCK_COLLECTION = {
   '_id': nanoid(),
   color:'',
-  title: 'Test collection',
-  data: STOCK_COLLECTION_DATA,
+  title: 'Train stock React collection',
+  data: [STOCK_COLLECTION_ITEM],
 }
 
+export const STOCK_COLLECTIONS_DATA = [
+  STOCK_COLLECTION
+]
 export const STOCK_USER = {
   email: 'testMemUser@gmail.com',
   password: '!testMemUserPass333',
@@ -57,7 +57,7 @@ export const STOCK_LOCAL_STORAGE_DATABASE_OBJ = {
     password: '!testLStorageUserPass333',
     name: 'Stock User',
     currentCollection: '',
-    userCollectionsData: STOCK_COLLECTION_DATA, 
+    userCollectionsData: STOCK_COLLECTIONS_DATA, 
   },
 }
 
