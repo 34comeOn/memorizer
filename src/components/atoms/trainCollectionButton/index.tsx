@@ -10,9 +10,9 @@ type TmenuButton = {
     disabled?: boolean,
 }
 
-export const MenuButton = ({children, path, color, disabled}: TmenuButton) => {
+export const TrainCollectionButton = ({children, path, color, disabled}: TmenuButton) => {
     return(
-        <Link to={path} className='menu-options--link'>
+        <Link to={path} className='train-collection--link'>
             <StyledMenuButton disabled={disabled || false} color={color}>
                 {children}
             </ StyledMenuButton>

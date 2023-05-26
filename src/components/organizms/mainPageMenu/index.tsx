@@ -1,5 +1,4 @@
 import React from "react";
-import { MenuButton } from "../../atoms/menuButton";
 import { UserCollectionsList } from "../userCollectionsList";
 import { StyledMainPageMenu } from "./styledMainPageMenu";
 import variables from '../../../sass/variables.module.scss';
@@ -13,9 +12,9 @@ export const MainPageMenu = () => {
     return(
         <StyledMainPageMenu className='menu-options--box' >
                 <UserCollectionsList />
-                <MenuButton disabled={!accountStatus} path='/new_collection' color={variables.colorMenuDark}>
+                {/* <MenuButton disabled={!accountStatus} path='/new_collection' color={variables.colorMenuDark}>
                     Create a new collection
-                </MenuButton>
+                </MenuButton> */}
                 <CreateNewCollectionButton disabled={!accountStatus} path='/new_collection' color={variables.colorMenuDark}>
                     Create a new collection
                 </ CreateNewCollectionButton>

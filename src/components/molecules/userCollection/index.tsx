@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuButton } from "../../atoms/menuButton";
+import { TrainCollectionButton } from "../../atoms/trainCollectionButton";
 import { StyledUserCollection } from "./styledUserCollection";
 import variables from '../../../sass/variables.module.scss';
 import './style.scss';
@@ -10,9 +10,9 @@ export const UserCollection = ({title, color}: {title: string, color: string}) =
             <span className='collection--title'>
                 {title}
             </span>
-            <MenuButton path='/collection' color={variables.colorMenuBright}>
+            <TrainCollectionButton path='/collection' color={variables.colorMenuBright}>
                 Train collection
-            </MenuButton>
+            </TrainCollectionButton>
         </StyledUserCollection>
     )
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { StyledMenuButton } from "../menuButton/styledMenuButton";
+import { StyledMenuButton } from "../trainCollectionButton/styledMenuButton";
 import './style.scss';
 
 type TcreateNewCollectionButton = {
