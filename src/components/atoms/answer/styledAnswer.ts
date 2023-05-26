@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import variables from '../../../sass/variables.module.scss';
 
 type TisVisible = {
-    isVisible: boolean;
-  }
+  isVisible: boolean;
+}
 
 export const StyledAnswer = styled.div<TisVisible>`
     width: 400px; 

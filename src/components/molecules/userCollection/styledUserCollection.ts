@@ -1,10 +1,14 @@
 import styled from "styled-components";
 import variables from '../../../sass/variables.module.scss';
 
-export const StyledUserCollection = styled.li`
+type TcollectionColor = {
+    color: string;
+  }
+
+export const StyledUserCollection = styled.li<TcollectionColor>`
     width: 300px;
     height: 250px;
-    background-color: ${variables.colorMenuPurple};
+    background-color: ${props => props.color? props.color: variables.colorMenuPurple};
     margin: 15px;
     border-radius: 15px;
 

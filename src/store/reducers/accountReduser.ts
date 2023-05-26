@@ -45,6 +45,7 @@ const accountSlice = createSlice({
     },
     logOut(state) {
       localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.HAS_USER_ACCESS, 'false');
+      localStorage.removeItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_COLLECTIONS);
       state.isAuthorized = hasAccess();
       localStorage.removeItem(LOCAL_STORAGE_KEYS_CONSTANTS.ACCOUNT_USER_NAME);
     }
