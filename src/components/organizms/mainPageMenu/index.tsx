@@ -6,6 +6,7 @@ import variables from '../../../sass/variables.module.scss';
 import './style.scss';
 import { getAccountStatus } from "../../../store/reducers/accountReduser";
 import { useAppSelector } from "../../../app/hooks";
+import { CreateNewCollectionButton } from "../../atoms/createNewCollectionButton";
 
 export const MainPageMenu = () => {
     const accountStatus = useAppSelector(getAccountStatus);
@@ -15,6 +16,9 @@ export const MainPageMenu = () => {
                 <MenuButton disabled={!accountStatus} path='/new_collection' color={variables.colorMenuDark}>
                     Create a new collection
                 </MenuButton>
+                <CreateNewCollectionButton disabled={!accountStatus} path='/new_collection' color={variables.colorMenuDark}>
+                    Create a new collection
+                </ CreateNewCollectionButton>
         </ StyledMainPageMenu>
     )
 }

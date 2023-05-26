@@ -11,8 +11,8 @@ export const UserCollection = ({title, color}: {title: string, color: string}) =
                 {title}
             </span>
             <MenuButton path='/collection' color={variables.colorMenuBright}>
-                    Train collection
-                </MenuButton>
+                Train collection
+            </MenuButton>
         </StyledUserCollection>
     )
 }
