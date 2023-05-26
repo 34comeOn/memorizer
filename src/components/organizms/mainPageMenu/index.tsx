@@ -12,9 +12,6 @@ export const MainPageMenu = () => {
     return(
         <StyledMainPageMenu className='menu-options--box' >
                 <UserCollectionsList />
-                {/* <MenuButton disabled={!accountStatus} path='/new_collection' color={variables.colorMenuDark}>
-                    Create a new collection
-                </MenuButton> */}
                 <CreateNewCollectionButton disabled={!accountStatus} path='/new_collection' color={variables.colorMenuDark}>
                     Create a new collection
                 </ CreateNewCollectionButton>
