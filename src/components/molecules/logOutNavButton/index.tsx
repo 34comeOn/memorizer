@@ -6,7 +6,7 @@ import { useLogOutNavButton } from "../../../myHooks/useLogOutNavButton";
 export const LogOutNavButton = ({userName}: {userName: string}) => {
     const onLogOutClickHandler = useLogOutNavButton();
     return(
-        <div style={{display: 'flex'}}>
+        <div className="accout-name--container" >
             <span className="accout-name--title">
                 {userName}
             </span>
