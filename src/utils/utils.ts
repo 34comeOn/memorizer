@@ -129,5 +129,9 @@ export const getAllCurrentUserData = (userEmail: string) => {
 }
 
 export const getCurrentUserEmailFromLStorage = () => {
-    return (localStorage.getItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_EMAIL)?? JSON.stringify(STOCK_USER.email))
+    return (localStorage.getItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_EMAIL)?? JSON.stringify(STOCK_USER.email));
+}
+
+export const checkAdminPowers = (userEmail: string, collectionAdminList : string[]) => {
+    return collectionAdminList.includes(userEmail);
 }

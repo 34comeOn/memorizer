@@ -21,8 +21,8 @@ export const useCreateNewCollection = () => {
             title: values.title,
             color: values.collectionColor,
             data: [],
+            adminList: [currentUserEmailFromLStorage],
         };
-
         const newUserCollectionsData = [...allCurrentUserData.userCollectionsData, newCollection]
         const newAllUserData = {...allCurrentUserData, userCollectionsData: newUserCollectionsData};
         localStorage.setItem(currentUserEmailFromLStorage, JSON.stringify(newAllUserData))

@@ -6,7 +6,7 @@ type TcollectionColor = {
   }
 
 export const StyledUserCollection = styled.li<TcollectionColor>`
-    width: 300px;
+    min-width: 300px;
     height: 250px;
     background-color: ${props => props.color? props.color: variables.colorMenuPurple};
     margin: 15px;

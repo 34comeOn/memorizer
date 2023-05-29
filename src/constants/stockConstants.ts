@@ -38,6 +38,7 @@ export const STOCK_COLLECTION = {
   color:'',
   title: 'Train stock React collection',
   data: [STOCK_COLLECTION_ITEM],
+  adminList: [],
 }
 
 export const STOCK_COLLECTIONS_DATA = [
