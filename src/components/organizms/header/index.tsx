@@ -4,7 +4,7 @@ import { HeaderLogo } from "../../atoms/headerLogo";
 import { Navigation } from "../../molecules/navigation";
 import { useAppSelector } from "../../../app/hooks";
 import { getAccountStatus, getAccountUserName } from "../../../store/reducers/accountReduser";
-import { AccountNavButton } from "../../molecules/accountNavButton";
+import { LogOutNavButton } from "../../molecules/logOutNavButton";
 
 export const Header = () => {
     const hasLoged = useAppSelector(getAccountStatus);
@@ -13,7 +13,7 @@ export const Header = () => {
     return(
         <StyledHeader>
             <HeaderLogo />
-            {hasLoged && <AccountNavButton userName={userName}/>}
+            {hasLoged && <LogOutNavButton userName={userName}/>}
             <Navigation />
         </StyledHeader>
     )
