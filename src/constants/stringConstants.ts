@@ -7,4 +7,6 @@ export const LOCAL_STORAGE_KEYS_CONSTANTS = {
     ACCOUNT_USER_NAME: 'accountUserName',
     USER_EMAIL: 'userEmail',
     USER_COLLECTIONS: 'userCollections',
+    CURRENT_USER_COLLECTION: 'currentUserCollection',
+    USER_REPEAT_GROUPS: 'userRepeatGroups',
 }

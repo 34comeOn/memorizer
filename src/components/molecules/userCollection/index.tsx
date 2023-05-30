@@ -22,7 +22,7 @@ export const UserCollection = ({title, color, adminList, collectionId}: TuserCol
             <span className='collection--title'> 
                 {title}
             </span>
-            <TrainCollectionButton path='/collection' color={variables.colorMenuBright}>
+            <TrainCollectionButton path='/collection' color={variables.colorMenuBright} collectionId={collectionId} >
                 Train collection
             </TrainCollectionButton>
         </StyledUserCollection>

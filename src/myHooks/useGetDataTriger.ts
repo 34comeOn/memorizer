@@ -2,7 +2,7 @@ import { useAppDispatch } from "../app/hooks";
 import { GET_DATA_ENDPOINT } from "../constants/stringConstants";
 import { collectionDataAPI } from "../RTKApi/collectionDataApi";
 import { setFiltersList } from "../store/reducers/collectionFiltersReduser";
-import { repeatGroupsReduser } from "../store/reducers/collectionGroupsReduser";
+import { setRepeatGroupsReduser } from "../store/reducers/collectionGroupsReduser";
 import { spreadCollectionData } from "../utils/utils";
 
 export const useGetDataTriger = () => {
@@ -15,7 +15,7 @@ export const useGetDataTriger = () => {
         .then((response) => {
         const {filtersOfCollection, orgonizedGroupsOfCollection}= spreadCollectionData(response);
     
-        dispatch(repeatGroupsReduser(orgonizedGroupsOfCollection)); 
+        dispatch(setRepeatGroupsReduser(orgonizedGroupsOfCollection)); 
         dispatch(setFiltersList(filtersOfCollection)); 
         })
     }

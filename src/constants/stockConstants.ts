@@ -26,12 +26,12 @@ export const MAX_PUNISHMENT_FOR_LATE_PRACTICE = 3;
 
 export const STOCK_COLLECTION_ITEM = {
   '_id': nanoid(),   
+  filter: 'list--filter__none',
   repeatedTimeStamp: 1671420000000,
   timesBeenRepeated: 0,
   title: 'Test',
   answer: 'Answer',
 }
-
 
 export const STOCK_COLLECTION = {
   '_id': nanoid(),
