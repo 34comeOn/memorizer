@@ -10,7 +10,8 @@ export type Tcard = {
     title: string,
     answer: string,
     code?: string,
-    filter?: string,
+    filterTitle?: string,
+    filterColor?: string,
 }
 
 const getHoursSinceRepeat = (repeatedTimeStamp: number) => {
@@ -26,8 +27,8 @@ const getItemPoints = (item: Tcard) => {
 }
 
 const pullFiltersTitlesFromData = (item: Tcard,filtersArray: string[]) => {
-    if (item.filter && !filtersArray.includes(item.filter.slice(14))) {
-        filtersArray.push(item.filter.slice(14))
+    if (item.filterTitle && !filtersArray.includes(item.filterTitle.slice(14))) {
+        filtersArray.push(item.filterTitle.slice(14))
     }
 }
 

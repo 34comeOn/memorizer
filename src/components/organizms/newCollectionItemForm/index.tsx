@@ -11,7 +11,9 @@ export const NewCollectionItemForm = () => {
         <Formik 
             initialValues={{ 
                 cardTitle: '', 
-                newFilterColor: STOCK_COLLECTION_COLOR, 
+                cardAnswer: '', 
+                filterTitle: '', 
+                filterColor: STOCK_COLLECTION_COLOR, 
             }}
             onSubmit={
                 onCreateNewItem
@@ -23,13 +25,25 @@ export const NewCollectionItemForm = () => {
                         <FormInput 
                             type='text' 
                             name='cardTitle' 
-                            placeholder='' 
-                            labelValue='Come up with title of your new card'
+                            placeholder='How to say "Every moment is a treasure!" in Spanish?' 
+                            labelValue='Come up with title or question'
+                        />
+                        <FormInput 
+                            type='text' 
+                            name='cardAnswer' 
+                            placeholder='!Cada momento es un tesoro!' 
+                            labelValue='Write down your answer'
+                        />
+                        <FormInput 
+                            type='text' 
+                            name='filterTitle' 
+                            placeholder='Spanish' 
+                            labelValue='Create tag for card'
                         />
                         <FormInput 
                             width='60px'
                             type='color' 
-                            name='newFilterColor' 
+                            name='filterColor' 
                             labelValue='You can choose filter color'
                         />
                         <button className='submit--button' type='submit'>
