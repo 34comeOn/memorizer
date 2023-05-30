@@ -9,6 +9,7 @@ export const StyledMenuButton = styled.button`
     border-radius: 15px;
     display: block;
     box-shadow: 0px 2px 9px -4px black;
+    cursor: pointer;
 
     :hover {
         background-color: rgb(235, 142, 142);

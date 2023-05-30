@@ -1,4 +1,5 @@
 import React from "react";
+import { AddNewCollectionItemButton } from "../../components/atoms/addNewCollectionItemButton";
 import { CheckboxList } from "../../components/molecules/checkboxList";
 import { CardWindow } from "../../components/organizms/card";
 import { RepeatContainer } from "../../components/organizms/repeatContainer";
@@ -12,6 +13,7 @@ export const CollectionPage = () => {
             <h1 className='collection-page--caption'>
                 Now you are training {currentCollectionTitle.title} collection
             </h1>
+            <AddNewCollectionItemButton />
             <div className='collection-page--container'>
                 <div className='App--button__wrapper'>
                 <CheckboxList />
