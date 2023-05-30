@@ -26,6 +26,10 @@ const collectionGroupsSlice = createSlice({
             localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_REPEAT_GROUPS, JSON.stringify(action.payload))
             state.repeatGroups = getUserRepeatGroups();
         },
+        removeRepeatGroups(state) {
+            localStorage.removeItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_REPEAT_GROUPS);
+            state.repeatGroups = getUserRepeatGroups();
+        },
     }
 })
 
@@ -33,6 +37,7 @@ export default collectionGroupsSlice.reducer;
 
 export const {
     setRepeatGroupsReduser, 
+    removeRepeatGroups, 
 } = collectionGroupsSlice.actions;
 
 export const getRepeatGroupsState = (state: {collectionGroupsSlice: {repeatGroups: Tcard[][]}}) =>
