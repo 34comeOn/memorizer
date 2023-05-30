@@ -10,3 +10,11 @@ export const LOCAL_STORAGE_KEYS_CONSTANTS = {
     CURRENT_USER_COLLECTION: 'currentUserCollection',
     USER_REPEAT_GROUPS: 'userRepeatGroups',
 }
+
+export const ROUTS_CONSTANTS = {
+    MAIN_PAGE: '/',
+    NEW_COLLECTION_PAGE: 'new_collection',
+    NEW_COLLECTION_ITEM_PAGE: '/new_card',
+    CURRENT_COLLECTION_PAGE: 'collection',
+    SIGN_IN_AND_UP_PAGE: 'sign_in&up',
+}
