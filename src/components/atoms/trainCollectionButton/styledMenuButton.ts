@@ -8,6 +8,8 @@ export const StyledMenuButton = styled.button`
     margin: 8px auto 8px auto;
     border-radius: 15px;
     display: block;
+    box-shadow: 0px 2px 9px -4px black;
+    cursor: pointer;
 
     :hover {
         background-color: rgb(235, 142, 142);

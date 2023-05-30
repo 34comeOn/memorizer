@@ -14,7 +14,7 @@ export const Navigation = () => {
             {NAVIGATION_ITEMS.map((navigationItem: TnavigationItem, index)=> {
                 return (
                     (navigationItem.visibleWhenUserLoggedIn === hasLoged || !navigationItem.loggedStatusDependent) && 
-                    <NavigationItem key={index} navigationItem={navigationItem}/>
+                    <NavigationItem key={index} navigationItem={navigationItem} />
                 )}
             )}
         </StyledNavigation>

@@ -20,7 +20,17 @@ export const useCreateNewCollection = () => {
             '_id': nanoid(),
             title: values.title,
             color: values.collectionColor,
-            data: [],
+            data: [
+                {
+                    '_id': nanoid(),   
+                    filter: 'list--filter__soul',
+                    repeatedTimeStamp: 1671420000000,
+                    timesBeenRepeated: 0,
+                    title: 'Better what?',
+                    answer: 'Call Soul',
+                  }
+            ],
+            adminList: [currentUserEmailFromLStorage],
         };
 
         const newUserCollectionsData = [...allCurrentUserData.userCollectionsData, newCollection]

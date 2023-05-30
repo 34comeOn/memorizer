@@ -3,11 +3,12 @@ import { STOCK_COLLECTION} from "../../constants/stockConstants";
 import { LOCAL_STORAGE_KEYS_CONSTANTS } from "../../constants/stringConstants";
 import { Tcard } from "../../utils/utils";
 
-type TuserCollection = {
+export type TuserCollection = {
     '_id': string,
     title: string,
     data: Tcard[],
     color?: string,
+    adminList: string[],
 }
 
 type TinitialState = {

@@ -3,14 +3,26 @@ import { TrainCollectionButton } from "../../atoms/trainCollectionButton";
 import { StyledUserCollection } from "./styledUserCollection";
 import variables from '../../../sass/variables.module.scss';
 import './style.scss';
+import { DeleteButton } from "../../atoms/deleteButton";
+import { checkAdminPowers, getCurrentUserEmailFromLStorage } from "../../../utils/utils";
 
-export const UserCollection = ({title, color}: {title: string, color: string}) => {
+type TuserCollection = {
+    title: string, 
+    color: string, 
+    adminList: string[], 
+    collectionId: string,
+}
+
+export const UserCollection = ({title, color, adminList, collectionId}: TuserCollection) => {
+    const currentUserEmailFromLStorage = getCurrentUserEmailFromLStorage();
+    const userHasAdminPowersForCollection = checkAdminPowers(currentUserEmailFromLStorage?? '', adminList?? []);
     return(
         <StyledUserCollection color={color}>
-            <span className='collection--title'>
+            {userHasAdminPowersForCollection && <DeleteButton collectionId={collectionId} />}
+            <span className='collection--title'> 
                 {title}
             </span>
-            <TrainCollectionButton path='/collection' color={variables.colorMenuBright}>
+            <TrainCollectionButton path='/collection' color={variables.colorMenuBright} collectionId={collectionId} >
                 Train collection
             </TrainCollectionButton>
         </StyledUserCollection>

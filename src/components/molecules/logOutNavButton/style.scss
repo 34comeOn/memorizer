@@ -1,0 +1,13 @@
+@import '/src/sass/variables.module.scss';
+
+.accout-name--container {
+    display: flex;
+    margin-left: auto;
+}
+
+.accout-name--title {
+    color: $colorButtonHover;
+    margin-top: 2px;
+    margin-left: 200px;
+    font-size: 21px;
+}

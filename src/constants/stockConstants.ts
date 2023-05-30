@@ -26,18 +26,20 @@ export const MAX_PUNISHMENT_FOR_LATE_PRACTICE = 3;
 
 export const STOCK_COLLECTION_ITEM = {
   '_id': nanoid(),   
+  filter: 'list--filter__none',
+  filterColor: 'red',
   repeatedTimeStamp: 1671420000000,
   timesBeenRepeated: 0,
   title: 'Test',
   answer: 'Answer',
 }
 
-
 export const STOCK_COLLECTION = {
   '_id': nanoid(),
   color:'',
   title: 'Train stock React collection',
   data: [STOCK_COLLECTION_ITEM],
+  adminList: [],
 }
 
 export const STOCK_COLLECTIONS_DATA = [

@@ -5,4 +5,5 @@ export const StyledCheckboxList = styled.div`
     flex-direction: column;
     align-items: flex-end;
     margin-right: 20px;
+    margin-top: 40px;
 `

@@ -29,11 +29,11 @@ export const StockRepeatList = ({title, list}: {title: string, list: Tcard[]}) =
             </div>
             <StyledRepeatList>
                 {list.map(item => {
-                    const itemFilter = item.filter?.slice(14);
+                    const itemFilter = item.filterTitle?.slice(14);
                     return ((itemFilter? currentlistItemsCategories.includes(itemFilter): false) || currentlistItemsCategories.includes(MAIN_FILTER_CHECKBOX)) && 
                     <li 
                         onClick={()=> {handleItemClick(item)}} 
-                        className={`list--item ${item.filter}`} 
+                        className={`list--item ${item.filterTitle}`} 
                         key={item['_id']}
                     >
                         {item.title}

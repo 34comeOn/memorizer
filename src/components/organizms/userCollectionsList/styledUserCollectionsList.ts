@@ -2,7 +2,12 @@ import styled from "styled-components";
 import variables from '../../../sass/variables.module.scss';
 
 export const StyledUserCollectionsList = styled.ul`
-    width: 1000px;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: scroll;
+
+    
+    max-width: 1400px;
     min-height: 200px;
     background-color: ${variables.colorBackgroundRepeatList};
     list-style: none;

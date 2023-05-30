@@ -1,6 +1,7 @@
 import { MAX_PUNISHMENT_FOR_LATE_PRACTICE, REPEAT_TIMES_CONVERT_TO_POINTS, STOCK_USER } from "../constants/stockConstants";
 import { LOCAL_STORAGE_KEYS_CONSTANTS } from "../constants/stringConstants";
 import { IsignInForm } from "../myHooks/myFormHooks/useSubmitButtonForSignUp";
+import { TuserCollection } from "../store/reducers/userCollectionsReduser";
 
 export type Tcard = {
    ['_id']: string,   
@@ -9,7 +10,8 @@ export type Tcard = {
     title: string,
     answer: string,
     code?: string,
-    filter?: string,
+    filterTitle?: string,
+    filterColor?: string,
 }
 
 const getHoursSinceRepeat = (repeatedTimeStamp: number) => {
@@ -25,8 +27,8 @@ const getItemPoints = (item: Tcard) => {
 }
 
 const pullFiltersTitlesFromData = (item: Tcard,filtersArray: string[]) => {
-    if (item.filter && !filtersArray.includes(item.filter.slice(14))) {
-        filtersArray.push(item.filter.slice(14))
+    if (item.filterTitle && !filtersArray.includes(item.filterTitle.slice(14))) {
+        filtersArray.push(item.filterTitle.slice(14))
     }
 }
 
@@ -129,5 +131,17 @@ export const getAllCurrentUserData = (userEmail: string) => {
 }
 
 export const getCurrentUserEmailFromLStorage = () => {
-    return (localStorage.getItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_EMAIL)?? JSON.stringify(STOCK_USER.email))
+    return (localStorage.getItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_EMAIL)?? JSON.stringify(STOCK_USER.email));
+}
+
+export const checkAdminPowers = (userEmail: string, collectionAdminList : string[]) => {
+    return collectionAdminList.includes(userEmail);
+}
+
+export const findCurrentUserCollection = (collectionId: string, userCollectionsData: TuserCollection[]) => {
+    return userCollectionsData.find((item: TuserCollection) => item._id === collectionId);
+}
+
+export const setCurrentCollectionToLocalStorage = (collectionId: string, userCollectionsData: TuserCollection[]) => {
+    localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.CURRENT_USER_COLLECTION, JSON.stringify(findCurrentUserCollection(collectionId, userCollectionsData)));
 }
