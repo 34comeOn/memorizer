@@ -5,6 +5,7 @@ import variables from '../../../sass/variables.module.scss';
 import './style.scss';
 import { DeleteButton } from "../../atoms/deleteButton";
 import { checkAdminPowers, getCurrentUserEmailFromLStorage } from "../../../utils/utils";
+import { EditButton } from "../../atoms/editButton";
 
 type TuserCollection = {
     title: string, 
@@ -18,6 +19,7 @@ export const UserCollection = ({title, color, adminList, collectionId}: TuserCol
     const userHasAdminPowersForCollection = checkAdminPowers(currentUserEmailFromLStorage?? '', adminList?? []);
     return(
         <StyledUserCollection color={color}>
+            {userHasAdminPowersForCollection && <EditButton collectionId={collectionId} />}
             {userHasAdminPowersForCollection && <DeleteButton collectionId={collectionId} />}
             <span className='collection--title'> 
                 {title}

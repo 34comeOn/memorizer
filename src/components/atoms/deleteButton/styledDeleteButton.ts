@@ -12,7 +12,7 @@ cursor: pointer;
 margin-left: 10px;
 position: absolute;
 top: 10px;
-left: 250px;
+left: 220px;
 
 &::after {
     content: "";

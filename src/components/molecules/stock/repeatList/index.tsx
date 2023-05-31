@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { getUpdatedlistItemsCategories } from '../../../../store/reducers/collectionFiltersReduser';
 import { MAIN_FILTER_CHECKBOX } from '../../../../constants/stringConstants';
 import { hideAnswer, setCurrentCard, showCurrentCard } from '../../../../store/reducers/cardWindowReduser';
+import { RepeatListItem } from '../../repeatListItem';
 
 export type ThandleOpenCard = (id: string) => void
 
@@ -31,13 +32,8 @@ export const StockRepeatList = ({title, list}: {title: string, list: Tcard[]}) =
                 {list.map(item => {
                     const itemFilter = item.filterTitle?.slice(14);
                     return ((itemFilter? currentlistItemsCategories.includes(itemFilter): false) || currentlistItemsCategories.includes(MAIN_FILTER_CHECKBOX)) && 
-                    <li 
-                        onClick={()=> {handleItemClick(item)}} 
-                        className={`list--item ${item.filterTitle}`} 
-                        key={item['_id']}
-                    >
-                        {item.title}
-                    </li> })
+                    <RepeatListItem item={item} key={item['_id']} onClick={()=> {handleItemClick(item)}} />
+                })
                 }
             </StyledRepeatList>
         </>
