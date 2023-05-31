@@ -8,13 +8,15 @@ import { getAnswerVisibilityState, getCurrentCardState, getCurrentCardVisibility
 import { useDoneClickButton } from '../../../../myHooks/useDoneClickButton';
 import './style.scss';
 import { CloseButton } from '../../../atoms/closeButton';
+import { useCloseCollectionItemButton } from '../../../../myHooks/useCloseCollectionItemButton';
 
 export const StockCardWindow = () => {
     const dispatch = useAppDispatch();
     const currentCard = useAppSelector(getCurrentCardState);
+    const onDoneClickHandle = useDoneClickButton(currentCard);
     const isCurrentCardVisible = useAppSelector(getCurrentCardVisibilityState);
     const isAnswerVisible = useAppSelector(getAnswerVisibilityState);
-    const onDoneClickHandle = useDoneClickButton(currentCard);
+    const closeCardWindow = useCloseCollectionItemButton();
 
     const onShowClickHandle= ()=> {
         dispatch(toggleAnswerVisibility())
@@ -24,7 +26,7 @@ export const StockCardWindow = () => {
     <>
         {isCurrentCardVisible && 
         <StyledCard>
-            <CloseButton />
+            <CloseButton onClick={closeCardWindow} />
             <span className='card--title'>{currentCard.title}</span>
             <ShowButton hasClicked={isAnswerVisible} onClick={onShowClickHandle}/>
             <div style={{width: '400px', minHeight: '500px'}}>
