@@ -4,6 +4,11 @@ body {
   margin: 0;
   font-family: $ff-main-regular;
   list-style: none;
+  overflow: inherit;
+}
+
+body[class="ReactModal__Body--open"] {
+  overflow: hidden;
 }
 
 .App {

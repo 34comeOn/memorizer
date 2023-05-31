@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
-import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
+import { hideModalWindow } from "../../store/reducers/modalWindowReduser";
 import { setAllUserCollections } from "../../store/reducers/userCollectionsReduser";
 import { getAllCurrentUserData, getCurrentUserEmailFromLStorage } from "../../utils/utils";
 
@@ -10,7 +10,6 @@ export interface InewCollectionForm {
 }
 
 export const useCreateNewCollection = () => {
-    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     return (values: InewCollectionForm) => {
         const currentUserEmailFromLStorage = getCurrentUserEmailFromLStorage();
@@ -20,16 +19,7 @@ export const useCreateNewCollection = () => {
             '_id': nanoid(),
             title: values.title,
             color: values.collectionColor,
-            data: [
-                {
-                    '_id': nanoid(),   
-                    filter: 'list--filter__soul',
-                    repeatedTimeStamp: 1671420000000,
-                    timesBeenRepeated: 0,
-                    title: 'Better what?',
-                    answer: 'Call Soul',
-                  }
-            ],
+            data: [],
             adminList: [currentUserEmailFromLStorage],
         };
 
@@ -37,6 +27,6 @@ export const useCreateNewCollection = () => {
         const newAllUserData = {...allCurrentUserData, userCollectionsData: newUserCollectionsData};
         localStorage.setItem(currentUserEmailFromLStorage, JSON.stringify(newAllUserData))
         dispatch(setAllUserCollections(newUserCollectionsData));
-        navigate('/');
+        dispatch(hideModalWindow());
     }
 }

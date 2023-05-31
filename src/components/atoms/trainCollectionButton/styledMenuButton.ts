@@ -5,7 +5,7 @@ export const StyledMenuButton = styled.button`
     height: 55px;
     background-color: ${props => props.color};
     border: none;
-    margin: 8px auto 8px auto;
+    margin: 8px auto 8px 20px;
     border-radius: 15px;
     display: block;
     box-shadow: 0px 2px 9px -4px black;

@@ -1,5 +1,6 @@
 import { useAppDispatch } from "../../app/hooks";
 import { STOCK_COLLECTION } from "../../constants/stockConstants";
+import { hideCurrentCard } from "../../store/reducers/cardWindowReduser";
 import { setFiltersList } from "../../store/reducers/collectionFiltersReduser";
 import { setRepeatGroupsReduser } from "../../store/reducers/collectionGroupsReduser";
 import { findCurrentUserCollection, getAllCurrentUserData, getCurrentUserEmailFromLStorage, setCurrentCollectionToLocalStorage, spreadCollectionData } from "../../utils/utils";
@@ -8,6 +9,7 @@ export const useTrainCollectionButton = (collectionId: string) => {
     const dispatch = useAppDispatch();
 
     return () => {
+        dispatch(hideCurrentCard());
         const currentUserEmailFromLStorage = getCurrentUserEmailFromLStorage();
         const allCurrentUserData = getAllCurrentUserData(currentUserEmailFromLStorage);
         const currentUserCollection = findCurrentUserCollection(collectionId, allCurrentUserData.userCollectionsData);

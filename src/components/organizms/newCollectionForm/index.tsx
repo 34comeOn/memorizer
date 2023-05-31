@@ -3,6 +3,7 @@ import { Form, Formik } from "formik";
 import { STOCK_COLLECTION_COLOR } from "../../../constants/stockConstants";
 import { useCreateNewCollection } from "../../../myHooks/collectionHooks/useCreateNewCollection";
 import { FormInput } from "../../molecules/formInput";
+import './style.scss';
 
 export const NewCollectionForm = () => {
     const onCreateNewCollection = useCreateNewCollection();
