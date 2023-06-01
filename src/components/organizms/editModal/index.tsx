@@ -1,11 +1,10 @@
 import React from "react";
 import Modal from 'react-modal';
-import { NewCollectionForm } from "../newCollectionForm";
 import variables from '../../../sass/variables.module.scss';
 import './style.scss';
 import { CloseButton } from "../../atoms/closeButton";
 import { useAppSelector } from "../../../app/hooks";
-import { getModalWindowViewState } from "../../../store/reducers/modalWindowReduser";
+import { getModalWindowContent, getModalWindowViewState } from "../../../store/reducers/modalWindowReduser";
 import ReactModal from "react-modal";
 import { useCloseModalWindowButton } from "../../../myHooks/useCloseModalWindowButton";
 import { getAccountStatus } from "../../../store/reducers/accountReduser";
@@ -28,6 +27,7 @@ const modalStyles = {
 
 export const EditModalWindow = () => {
     const modalViewState = useAppSelector(getModalWindowViewState);
+    const modalWindowContent = useAppSelector(getModalWindowContent);
     const closeModalWindow = useCloseModalWindowButton();
     const accountStatus = useAppSelector(getAccountStatus);
     return(
@@ -37,7 +37,7 @@ export const EditModalWindow = () => {
             // overlayClassName='modal--overlay'
         >
             <CloseButton onClick={closeModalWindow}/>
-            {accountStatus && <NewCollectionForm />}
+            {accountStatus && modalWindowContent}
         </ Modal>
     )
 }

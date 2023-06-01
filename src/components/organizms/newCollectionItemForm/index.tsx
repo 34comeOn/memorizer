@@ -21,7 +21,7 @@ export const NewCollectionItemForm = () => {
         >
             {()=>{
                 return(
-                    <Form className='new-collection--form'>
+                    <Form className='new-collection--form-item'>
                         <FormInput 
                             type='text' 
                             name='cardTitle' 

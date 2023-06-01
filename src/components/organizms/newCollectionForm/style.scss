@@ -7,10 +7,11 @@
     align-items: flex-start;
     width: 400px;
     margin: auto;
-    background-color: $colorBackgroundRepeatList;
+    background-color: $colorBackgroundDark;
     justify-content: space-evenly;
     padding: 20px;
     border-radius: 15px;
+    border: 1px solid $colorBackgroundRepeatList;
 }
 
 .submit--button {
