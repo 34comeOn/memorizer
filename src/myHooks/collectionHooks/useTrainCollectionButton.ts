@@ -19,8 +19,3 @@ export const useTrainCollectionButton = (collectionId: string) => {
         dispatch(setFiltersList(filtersOfCollection)); 
     }
 }    
-
-
-
-
-

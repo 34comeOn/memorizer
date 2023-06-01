@@ -1,10 +1,16 @@
 import React from "react"
-import { useDeleteCollectionButton } from "../../../myHooks/collectionHooks/useDeleteCollectionButton";
+import { useDispatch } from "react-redux";
+import { setContentForModalWindow, showModalWindow } from "../../../store/reducers/modalWindowReduser";
+import { NewCollectionForm } from "../../organizms/newCollectionForm";
 import { StyledEditButton } from "./styledEditButton";
 
 export const EditButton = ({collectionId = ''}: {collectionId: string}) => {
-    const onDeleteClickHandler = useDeleteCollectionButton(collectionId);
+    const dispatch = useDispatch();
+
     return(
-        <StyledEditButton onClick={onDeleteClickHandler} />
+        <StyledEditButton onClick={()=>{
+            dispatch(setContentForModalWindow(<NewCollectionForm />))
+            dispatch(showModalWindow())
+        }} />
     )
 }
