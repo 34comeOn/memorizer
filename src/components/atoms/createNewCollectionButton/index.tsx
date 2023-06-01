@@ -1,6 +1,7 @@
 import React from "react";
 import { useAppDispatch } from "../../../app/hooks";
-import { showModalWindow } from "../../../store/reducers/modalWindowReduser";
+import { setContentForModalWindow, showModalWindow } from "../../../store/reducers/modalWindowReduser";
+import { NewCollectionForm } from "../../organizms/newCollectionForm";
 import { StyledMenuButton } from "../trainCollectionButton/styledMenuButton";
 import './style.scss';
 
@@ -13,7 +14,10 @@ type TcreateNewCollectionButton = {
 export const CreateNewCollectionButton = ({children, color, disabled}: TcreateNewCollectionButton) => {
     const dispatch = useAppDispatch();
     return(
-        <StyledMenuButton onClick={()=> dispatch(showModalWindow())} disabled={disabled || false} color={color}>
+        <StyledMenuButton onClick={()=> {
+            dispatch(setContentForModalWindow(<NewCollectionForm />))
+            dispatch(showModalWindow())
+            }} disabled={disabled || false} color={color}>
             {children}
         </ StyledMenuButton>
     )
