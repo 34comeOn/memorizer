@@ -13,6 +13,10 @@ export const LOCAL_STORAGE_KEYS_CONSTANTS = {
     USER_REPEAT_GROUPS: 'userRepeatGroups',
 }
 
+export const MODAL_WINDOW_CONTENT_STRING_CONSTANTS = {
+    CREATE_NEW_COLLECTION: 'newCollection',
+}
+
 export const ROUTS_CONSTANTS = {
     MAIN_PAGE: '/',
     NEW_COLLECTION_ITEM_PAGE: '/new_card',
