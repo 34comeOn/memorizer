@@ -1,32 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// const questionSchema = new Schema({
-//     filter: {
-//         type: String,
-//     },
-//     repeatedTimeStamp: {
-//         type: Number,
-//         required: true
-//     },  
-//     timesBeenRepeated: {
-//         type: Number,
-//         required: true
-//     },       
-//     title: {
-//         type: String,
-//         required: true
-//     },
-//     answer: {
-//         type: String,
-//         required: true
-//     },
-// })
-
-// const Question = mongoose.model('Question', questionSchema);
-
-// module.exports = Question;
-
 const CollectionItemCommentsSchema = new Schema({
     collectionItemCommentText: {
         type: String,
@@ -161,106 +135,6 @@ const UserSchema = new Schema({
         type: [UserCollectionsDataSchema],
         required: true
     },
-    // userCollectionsData: {
-    //     [
-    //         {
-    //         collectionId: {
-    //             type: String,
-    //             required: true
-    //         },
-    //         collectionColor: {
-    //             type: String,
-    //             required: true
-    //         },
-    //         collectionImage: {
-    //             type: String,
-    //             required: true
-    //         },
-    //         collectionTitle: {
-    //             type: String,
-    //             required: true
-    //         },
-    //         collectionAdminList: {
-    //             type: [String],
-    //             required: true
-    //         },
-    //         collectionСategories: {
-    //             [{
-    //                 collectionCategoryTitle: {
-    //                     type: String,
-    //                     required: true
-    //                 },
-    //                 collectionCategoryColor: {
-    //                     type: String,
-    //                     required: true
-    //                 },
-    //             }]: Schema.Types.Mixed,
-    //         },
-    //         collectionTags: {
-    //             [{
-    //                 collectionTagTitle: {
-    //                     type: String,
-    //                     required: true
-    //                 },
-    //                 collectionTagColor: {
-    //                     type: String,
-    //                     required: true
-    //                 },
-    //             }]: Schema.Types.Mixed,
-    //         },
-    //         collectionData: {
-    //             [{
-    //                 collectionItemId: {
-    //                     type: String,
-    //                     required: true
-    //                 },
-    //                 collectionItemTitle: {
-    //                     type: String,
-    //                     required: true
-    //                 },
-    //                 collectionItemAnswer: {
-    //                     type: String,
-    //                     required: true
-    //                 },
-    //                 collectionItemRepeatedTimeStamp: {
-    //                     type: Number,
-    //                     required: true
-    //                 },
-    //                 collectionItemTimesBeenRepeated: {
-    //                     type: Number,
-    //                     required: true
-    //                 },
-    //                 collectionItemCategory: {
-    //                     type: String,
-    //                 },
-    //                 collectionItemColor: {
-    //                     type: String,
-    //                 },
-    //                 collectionItemPriority: {
-    //                     type: Number,
-    //                 },
-    //                 collectionItemTags: {
-    //                     type: [String],
-    //                 },
-    //                 collectionItemComments: {
-    //                     [{
-    //                         collectionItemCommentText: {
-    //                             type: String,
-    //                         },
-    //                         collectionItemCommentImage: {
-    //                             type: String,
-    //                         },
-    //                         collectionItemCommentPosition: {
-    //                             type: Number,
-    //                         },
-    //                     }]: Schema.Types.Mixed,
-    //                 },
-    //             }]: Schema.Types.Mixed,
-    //         }
-    //     }
-    // ]: Schema.Types.Mixed,
-    //     required: true,
-    // },
 });
 
 const User = mongoose.model('User', UserSchema);
