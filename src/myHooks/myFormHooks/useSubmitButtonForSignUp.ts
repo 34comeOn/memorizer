@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
-import { POST_NEW_USER_ENDPOINT } from "../../constants/stringConstants";
+import { SIGN_UP_USER_ENDPOINT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
 import { logIn } from "../../store/reducers/accountReduser";
 import { setAllUserCollections } from "../../store/reducers/userCollectionsReduser";
@@ -18,7 +18,7 @@ export const UseSubmitButtonToSignUp = () => {
     const [getAllUserDataAfterSignUpTriger] = collectionDataAPI.usePostNewUserMutation();
 
     return (values: IsignInForm) => {
-        const newUserObject2 = {
+        const newUserObject = {
             email: values.email,
             password: values.password,
             userName: values.userName,
@@ -28,7 +28,7 @@ export const UseSubmitButtonToSignUp = () => {
             userCollectionsData: [],
         }
 
-        getAllUserDataAfterSignUpTriger({path:POST_NEW_USER_ENDPOINT, putObj: newUserObject2})
+        getAllUserDataAfterSignUpTriger({path:SIGN_UP_USER_ENDPOINT, putObj: newUserObject})
         .unwrap()
         .then(
           (userData) => {

@@ -1,6 +1,7 @@
 export const MAIN_FILTER_CHECKBOX = 'all';
 export const GET_DATA_ENDPOINT = '/data';
-export const POST_NEW_USER_ENDPOINT = 'api/post-user';
+export const SIGN_IN_USER_ENDPOINT = 'api/sign-in';
+export const SIGN_UP_USER_ENDPOINT = 'api/sign-up';
 export const PUT_REPEATED_COLLECTION_ITEM_ENDPOINT = 'api/repeat';
 
 export const LOCAL_STORAGE_KEYS_CONSTANTS = {

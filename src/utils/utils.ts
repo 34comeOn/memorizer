@@ -55,7 +55,6 @@ export type TuserCollectionsData = {
 }
 
 export type Tuser = {
-    // ['_id']: string,  
     email: string,
     password: string,
     userName: string,

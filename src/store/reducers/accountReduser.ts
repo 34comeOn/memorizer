@@ -37,7 +37,6 @@ const accountSlice = createSlice({
   reducers: {
     logIn(state, action: PayloadAction<TlogInAction>) {
       localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.HAS_USER_ACCESS, 'true');
-      console.log(action.payload)
       localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.ACCOUNT_USER_NAME, action.payload.userName);
       localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_EMAIL, action.payload.userEmail);
       state.isAuthorized = hasAccess();

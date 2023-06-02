@@ -1,5 +1,10 @@
 import { maximiseTimesBeenRepeated, Tcard, Tuser } from '../utils/utils';
 import { rootAPI } from './rootApi';
+
+export type TsignInObject = {
+  email: string, 
+  password: string, 
+}
   
 export const collectionDataAPI = rootAPI.injectEndpoints({
   endpoints: (build) => ({
@@ -7,6 +12,16 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
       query(path) {
         return {
           url: `${path}`
+        };
+      }
+    }),
+    signInUser: build.mutation<Tuser, {path: string, signInObject: TsignInObject}>({
+      query(args) {
+        return {
+          url: `${args.path}`,
+          method: 'POST',
+          headers: {'Content-Type': 'application/json;charset=utf-8'},
+          body: JSON.stringify(args.signInObject)
         };
       }
     }),

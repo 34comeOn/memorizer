@@ -19,8 +19,23 @@ app.listen(PORT, (error) => {
     error? console.log(error): console.log(`listen localhost${PORT}`)
 });
 
-app.get('/', (req, result)=> {
-    console.log('/');
+app.post('/api/sign-in', (req, res)=> {
+    const {
+        email,
+        password,
+    } = req.body;
+
+    User.where({ email: email, password: password }).find()
+    .then(result=> {
+        if (result[0]) {
+            res.send(result[0])
+        } else {
+            console.log('pass or email does not match')
+            res.status(403).end();
+        }
+    })
+    .catch(err=> console.log(err))
+
 })
 
 app.get('/data', (req, res)=> {
@@ -29,7 +44,7 @@ app.get('/data', (req, res)=> {
     .catch(err=> console.log(err))
 })
 
-app.post('/api/post-user', (req, res)=> {
+app.post('/api/sign-up', (req, res)=> {
     const {
         email,
         password,
