@@ -15,8 +15,8 @@ export const submitWithLocalStorage = (values: IsignInForm, dispatch: Tdispatch)
         localStorage.setItem(values.email, JSON.stringify(modifyUserSignUpInfoForDataBase(values)));
         const allCurrentUserData = getAllCurrentUserData(values.email);
         
-        dispatch(logIn(allCurrentUserData.name));
-        dispatch(logIn({accountUserName: allCurrentUserData.name, userEmail: allCurrentUserData.email}));
+        // dispatch(logIn(allCurrentUserData.name));
+        dispatch(logIn({userName: allCurrentUserData.name, userEmail: allCurrentUserData.email}));
         dispatch(setAllUserCollections(allCurrentUserData.userCollectionsData));
 
         successLStorageSubmit = true;

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { STOCK_COLLECTION} from "../../constants/stockConstants";
 import { LOCAL_STORAGE_KEYS_CONSTANTS } from "../../constants/stringConstants";
-import { Tcard } from "../../utils/utils";
+import { Tcard, TuserCollectionsData } from "../../utils/utils";
 
 export type TuserCollection = {
     '_id': string,
@@ -28,7 +28,7 @@ const userCollectionsSlice = createSlice({
     name: 'userCollectionsSlice',
     initialState,
     reducers: {
-        setAllUserCollections(state, action: PayloadAction<TuserCollection[]>) {
+        setAllUserCollections(state, action: PayloadAction<TuserCollectionsData[]>) {
             localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_COLLECTIONS, JSON.stringify(action.payload))
             state.allUserCollections = getUserCollections();
         },

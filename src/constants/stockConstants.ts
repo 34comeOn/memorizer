@@ -8,7 +8,7 @@ type TRepeatTimesConvertToPoints = {
   [key: number]: number,
 }
 
-export type Tdispatch = ThunkDispatch<CombinedState<{ accountSlice: { isAuthorized: boolean; accountUserName: string; userEmail: string; }; collectionFiltersSlice: { filtersList: string[]; listOfCurrentFilters: string[]; }; collectionGroupsSlice: { repeatGroups: TgroupForRepeat[]; }; cardWindowSlice: { currentCard: Tcard; isCurrentCardVisible: boolean; isAnswerVisible: boolean; }; userCollectionsSlice: { allUserCollections: { _id: string; title: string; data: Tcard[]; }[]; }; rootAPI: CombinedStateApi<{}, never, "rootAPI">; }>, undefined, AnyAction> & Dispatch<AnyAction>
+export type Tdispatch = ThunkDispatch<CombinedState<{ accountSlice: { isAuthorized: boolean; userName: string; userEmail: string; }; collectionFiltersSlice: { filtersList: string[]; listOfCurrentFilters: string[]; }; collectionGroupsSlice: { repeatGroups: TgroupForRepeat[]; }; cardWindowSlice: { currentCard: Tcard; isCurrentCardVisible: boolean; isAnswerVisible: boolean; }; userCollectionsSlice: { allUserCollections: { _id: string; title: string; data: Tcard[]; }[]; }; rootAPI: CombinedStateApi<{}, never, "rootAPI">; }>, undefined, AnyAction> & Dispatch<AnyAction>
 
 export const REPEAT_TIMES_CONVERT_TO_POINTS: TRepeatTimesConvertToPoints = {
   0: 0,
@@ -26,7 +26,7 @@ export const MAX_PUNISHMENT_FOR_LATE_PRACTICE = 3;
 
 export const STOCK_COLLECTION_ITEM = {
   '_id': nanoid(),   
-  filter: 'list--filter__none',
+  filterTitle: 'list--filter__none',
   filterColor: 'red',
   repeatedTimeStamp: 1671420000000,
   timesBeenRepeated: 0,

@@ -1,4 +1,4 @@
-import { maximiseTimesBeenRepeated, Tcard } from '../utils/utils';
+import { maximiseTimesBeenRepeated, Tcard, Tuser } from '../utils/utils';
 import { rootAPI } from './rootApi';
   
 export const collectionDataAPI = rootAPI.injectEndpoints({
@@ -7,6 +7,16 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
       query(path) {
         return {
           url: `${path}`
+        };
+      }
+    }),
+    postNewUser: build.mutation<Tuser, {path: string, putObj:Tuser}>({
+      query(args) {
+        return {
+          url: `${args.path}`,
+          method: 'POST',
+          headers: {'Content-Type': 'application/json;charset=utf-8'},
+          body: JSON.stringify(args.putObj)
         };
       }
     }),
@@ -23,6 +33,6 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
           })
         };
       }
-    })
+    }),
   })
 });

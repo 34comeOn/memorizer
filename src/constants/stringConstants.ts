@@ -1,10 +1,11 @@
 export const MAIN_FILTER_CHECKBOX = 'all';
 export const GET_DATA_ENDPOINT = '/data';
+export const POST_NEW_USER_ENDPOINT = 'api/post-user';
 export const PUT_REPEATED_COLLECTION_ITEM_ENDPOINT = 'api/repeat';
 
 export const LOCAL_STORAGE_KEYS_CONSTANTS = {
     HAS_USER_ACCESS: 'hasAccess',
-    ACCOUNT_USER_NAME: 'accountUserName',
+    ACCOUNT_USER_NAME: 'userName',
     USER_EMAIL: 'userEmail',
     USER_COLLECTIONS: 'userCollections',
     CURRENT_USER_COLLECTION: 'currentUserCollection',

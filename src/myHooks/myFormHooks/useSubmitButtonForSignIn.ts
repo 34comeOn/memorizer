@@ -16,7 +16,7 @@ export const UseSubmitButtonToSignIn = () => {
         if (localStorage.getItem(values.email)) {
             const currentUser = JSON.parse(localStorage.getItem(values.email) || '');
             if (currentUser.password === values.password) {
-                dispatch(logIn({accountUserName: currentUser.name, userEmail: currentUser.email}));
+                dispatch(logIn({userName: currentUser.name, userEmail: currentUser.email}));
                 dispatch(setAllUserCollections(getAllCurrentUserData(values.email).userCollectionsData));
                 navigate('/');
             } else {

@@ -14,6 +14,57 @@ export type Tcard = {
     filterColor?: string,
 }
 
+export type TcollectionItemComment = {
+    collectionItemCommentText?: string,
+    collectionItemCommentImage?: string,
+    collectionItemCommentPosition?: number,
+}
+
+export type TcollectionData = {
+    collectionItemId: string
+    collectionItemTitle: string,
+    collectionItemAnswer: string,
+    collectionItemRepeatedTimeStamp: number,
+    collectionItemTimesBeenRepeated: number,
+    collectionItemCategory?: string,
+    collectionItemColor?: string,
+    collectionItemPriority?: number,
+    collectionItemTags?: string[],
+    collectionItemComments?: TcollectionItemComment[],
+}
+
+export type TcollectionTags = {
+    collectionTagTitle: string,
+    collectionTagColor: string,
+}
+
+export type TcollectionСategories = {
+    collectionCategoryTitle: string,
+    collectionCategoryColor: string,
+}
+
+export type TuserCollectionsData = {
+    collectionId: string,
+    collectionColor: string,
+    collectionImage: string,
+    collectionTitle: string,
+    collectionAdminList: string[],
+    collectionСategories?: TcollectionСategories[],
+    collectionTags?: TcollectionTags[],
+    collectionData: TcollectionData[],
+}
+
+export type Tuser = {
+    // ['_id']: string,  
+    email: string,
+    password: string,
+    userName: string,
+    subscription: string,
+    currentToken: string,
+    currentCollection: string,
+    userCollectionsData: TuserCollectionsData[],
+}
+
 const getHoursSinceRepeat = (repeatedTimeStamp: number) => {
     const timeSinceRepeat = Date.now() - repeatedTimeStamp;
     return Math.floor(timeSinceRepeat/ (1000*60*60));
