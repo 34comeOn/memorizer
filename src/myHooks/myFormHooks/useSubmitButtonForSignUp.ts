@@ -15,10 +15,9 @@ export interface IsignInForm {
 export const UseSubmitButtonToSignUp = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const [getAllUserDataAfterSignUpTriger, postNewUsererror] = collectionDataAPI.usePostNewUserMutation();
+    const [getAllUserDataAfterSignUpTriger] = collectionDataAPI.usePostNewUserMutation();
 
     return (values: IsignInForm) => {
-
         const newUserObject2 = {
             email: values.email,
             password: values.password,
@@ -35,11 +34,11 @@ export const UseSubmitButtonToSignUp = () => {
           (userData) => {
             dispatch(logIn({userName: userData.userName, userEmail: userData.email}));
             dispatch(setAllUserCollections(userData.userCollectionsData));
+            navigate('/');
           },
           (error) => {
-            alert(error);
+            error.status === 400? alert('User with such e-mail already registred') : alert('Ops! something went wrong')
           }
-        )
-        .then(()=> postNewUsererror.isError? alert('Bad thing happened while signUp') : navigate('/'));
+        );
     }
 }

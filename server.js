@@ -38,7 +38,7 @@ app.post('/api/post-user', (req, res)=> {
         currentToken,
         currentCollection,
         userCollectionsData
-    } =req.body;
+    } = req.body;
     
     const user = new User({
         email,
@@ -49,14 +49,23 @@ app.post('/api/post-user', (req, res)=> {
         currentCollection,
         userCollectionsData
     });
-    
-    user.save()
-    .catch(err=> console.log(err))
-    .then(()=> {
-        User.where({ email: email }).find()
-        .then(result=> res.send(result[0]))
-        .catch(err=> console.log(err))
+
+    User.where({ email: email }).find()
+    .then(result=> {
+        if (!result[0]) {
+            user.save()
+            .catch(err=> console.log(err))
+            .then(()=> {
+                User.where({ email: email }).find()
+                .then(result=> res.send(result[0]))
+                .catch(err=> console.log(err))
+            })
+        } else {
+            console.log('user exists')
+            res.status(400).end();
+        }
     })
+    .catch(err=> console.log(err))
 })
 
 app.put('/api/repeat', (req, res)=> {
