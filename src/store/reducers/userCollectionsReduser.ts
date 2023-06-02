@@ -3,16 +3,16 @@ import { STOCK_COLLECTION} from "../../constants/stockConstants";
 import { LOCAL_STORAGE_KEYS_CONSTANTS } from "../../constants/stringConstants";
 import { Tcard, TuserCollectionsData } from "../../utils/utils";
 
-export type TuserCollection = {
-    '_id': string,
-    title: string,
-    data: Tcard[],
-    color?: string,
-    adminList: string[],
-}
+// export type TuserCollection = {
+//     '_id': string,
+//     title: string,
+//     data: Tcard[],
+//     color?: string,
+//     adminList: string[],
+// }
 
 type TinitialState = {
-    allUserCollections: TuserCollection[]
+    allUserCollections: TuserCollectionsData[]
 }
 const getUserCollections = () => {
     const storageUserCollections = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_COLLECTIONS)?? JSON.stringify([STOCK_COLLECTION]));
@@ -46,5 +46,5 @@ export const {
     removeAllUserCollections
 } = userCollectionsSlice.actions;
 
-export const getAllUserCollectionsState = (state: {userCollectionsSlice: {allUserCollections: TuserCollection[]}}) =>
+export const getAllUserCollectionsState = (state: {userCollectionsSlice: {allUserCollections: TuserCollectionsData[]}}) =>
    state.userCollectionsSlice.allUserCollections

@@ -29,7 +29,7 @@ export const UseSubmitButtonToSignIn = () => {
         .then(
           (userData) => {
             console.log(userData)
-            dispatch(logIn({userName: userData.userName, userEmail: userData.email}));
+            dispatch(logIn({userName: userData.userName, userEmail: userData.email,userId: userData._id || ' '}));
             dispatch(setAllUserCollections(userData.userCollectionsData));
             navigate('/');
           },

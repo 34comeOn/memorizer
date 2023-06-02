@@ -46,6 +46,7 @@ export const STOCK_COLLECTIONS_DATA = [
   STOCK_COLLECTION
 ]
 export const STOCK_USER = {
+  '_id': 'stockId',
   email: 'testMemUser@gmail.com',
   password: '!testMemUserPass333',
   name: 'Stock User',

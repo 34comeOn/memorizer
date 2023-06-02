@@ -5,11 +5,13 @@ type TAccountState = {
   isAuthorized: boolean;
   userName: string;
   userEmail: string;
+  userId: string;
 };
 
 type TlogInAction = {
   userName: string;
   userEmail: string;
+  userId: string;
 }
 
 const hasAccess = () => {
@@ -25,10 +27,16 @@ const getUserEmail = () => {
   return typeof storageUserEmail === 'string' ? storageUserEmail : ' ';
 };
 
+const getUserId = () => {
+  const storageUserId = localStorage.getItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_ID);
+  return typeof storageUserId === 'string' ? storageUserId : ' ';
+};
+
 const initialState: TAccountState = {
   isAuthorized: hasAccess(),
   userName: getUserNameFromLstorage(),
   userEmail: getUserEmail(),
+  userId: getUserId(),
 };
 
 const accountSlice = createSlice({
@@ -39,6 +47,7 @@ const accountSlice = createSlice({
       localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.HAS_USER_ACCESS, 'true');
       localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.ACCOUNT_USER_NAME, action.payload.userName);
       localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_EMAIL, action.payload.userEmail);
+      localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_ID, action.payload.userId);
       state.isAuthorized = hasAccess();
       state.userName = getUserNameFromLstorage();
       state.userEmail = getUserEmail();

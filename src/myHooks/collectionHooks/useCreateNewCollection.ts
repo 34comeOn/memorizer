@@ -1,32 +1,74 @@
 import { nanoid } from "nanoid";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { STOCK_USER } from "../../constants/stockConstants";
+import { CREATE_NEW_COLLECTION_ENDPOINT, LOCAL_STORAGE_KEYS_CONSTANTS } from "../../constants/stringConstants";
+import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
 import { hideModalWindow } from "../../store/reducers/modalWindowReduser";
-import { setAllUserCollections } from "../../store/reducers/userCollectionsReduser";
-import { getAllCurrentUserData, getCurrentUserEmailFromLStorage } from "../../utils/utils";
+import { getAllUserCollectionsState, setAllUserCollections, 
+    // TuserCollection 
+} from "../../store/reducers/userCollectionsReduser";
+import { getAllCurrentUserData, getCurrentUserEmailFromLStorage, TuserCollectionsData } from "../../utils/utils";
 
 export interface InewCollectionForm {
     title: string, 
     collectionColor: string, 
 }
-
+export type TnewCollectionPostObject = {
+    id: string, 
+    newUserCollectionsData: TuserCollectionsData[], 
+  }
 export const useCreateNewCollection = () => {
     const dispatch = useAppDispatch();
+    const currentUserCollections = useAppSelector(getAllUserCollectionsState);
+    const [getAllCollectionsAfterCreatingOneNewTriger] = collectionDataAPI.usePostNewCollectionMutation();
+    
     return (values: InewCollectionForm) => {
         const currentUserEmailFromLStorage = getCurrentUserEmailFromLStorage();
-        const allCurrentUserData = getAllCurrentUserData(currentUserEmailFromLStorage);
+        const currentUserId = localStorage.getItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_ID)?? JSON.stringify(STOCK_USER.email)
         
-        const newCollection = {
-            '_id': nanoid(),
-            title: values.title,
-            color: values.collectionColor,
-            data: [],
-            adminList: [currentUserEmailFromLStorage],
+        // const newCollection = {
+        //     '_id': nanoid(),
+        //     title: values.title,
+        //     color: values.collectionColor,
+        //     data: [],
+        //     adminList: [currentUserEmailFromLStorage],
+        // };
+
+
+        const newCollection: TuserCollectionsData = {
+            collectionId: nanoid(),
+            collectionColor: values.collectionColor,
+            collectionImage: 'none',
+            collectionTitle: values.title,
+            collectionAdminList: [currentUserEmailFromLStorage],
+            collectionСategories: [],
+            collectionTags: [],
+            collectionData: [],
         };
 
-        const newUserCollectionsData = [...allCurrentUserData.userCollectionsData, newCollection]
-        const newAllUserData = {...allCurrentUserData, userCollectionsData: newUserCollectionsData};
-        localStorage.setItem(currentUserEmailFromLStorage, JSON.stringify(newAllUserData))
-        dispatch(setAllUserCollections(newUserCollectionsData));
-        dispatch(hideModalWindow());
+        const newUserCollectionsData = [...currentUserCollections, newCollection];
+        const newCollectionObj = {
+            id: currentUserId,
+            newUserCollectionsData: newUserCollectionsData,
+        }
+
+        getAllCollectionsAfterCreatingOneNewTriger({path:CREATE_NEW_COLLECTION_ENDPOINT, newCollectionObj: newCollectionObj})
+        .unwrap()
+        .then(
+          (userCollections) => {
+            console.log(userCollections)
+            dispatch(setAllUserCollections(userCollections));
+            dispatch(hideModalWindow());
+          },
+          (error) => {
+            alert('something went wrong NEW COLLECTION')
+            // error.status === 403? alert('E-mail or password does not match!') : alert('Ops! something went wrong')
+          }
+        );
+        // const newUserCollectionsData = [...allCurrentUserData.userCollectionsData, newCollection]
+        // const newAllUserData = {...allCurrentUserData, userCollectionsData: newUserCollectionsData};
+        // localStorage.setItem(currentUserEmailFromLStorage, JSON.stringify(newAllUserData))
+        // dispatch(setAllUserCollections(newUserCollectionsData));
+        // dispatch(hideModalWindow());
     }
 }

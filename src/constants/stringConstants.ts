@@ -2,12 +2,14 @@ export const MAIN_FILTER_CHECKBOX = 'all';
 export const GET_DATA_ENDPOINT = '/data';
 export const SIGN_IN_USER_ENDPOINT = 'api/sign-in';
 export const SIGN_UP_USER_ENDPOINT = 'api/sign-up';
+export const CREATE_NEW_COLLECTION_ENDPOINT = 'api/new-collection';
 export const PUT_REPEATED_COLLECTION_ITEM_ENDPOINT = 'api/repeat';
 
 export const LOCAL_STORAGE_KEYS_CONSTANTS = {
     HAS_USER_ACCESS: 'hasAccess',
     ACCOUNT_USER_NAME: 'userName',
     USER_EMAIL: 'userEmail',
+    USER_ID: 'userId',
     USER_COLLECTIONS: 'userCollections',
     CURRENT_USER_COLLECTION: 'currentUserCollection',
     USER_REPEAT_GROUPS: 'userRepeatGroups',

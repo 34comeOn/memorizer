@@ -1,7 +1,7 @@
 import { MAX_PUNISHMENT_FOR_LATE_PRACTICE, REPEAT_TIMES_CONVERT_TO_POINTS, STOCK_USER } from "../constants/stockConstants";
 import { LOCAL_STORAGE_KEYS_CONSTANTS } from "../constants/stringConstants";
 import { IsignInForm } from "../myHooks/myFormHooks/useSubmitButtonForSignUp";
-import { TuserCollection } from "../store/reducers/userCollectionsReduser";
+// import { TuserCollection } from "../store/reducers/userCollectionsReduser";
 
 export type Tcard = {
    ['_id']: string,   
@@ -55,6 +55,7 @@ export type TuserCollectionsData = {
 }
 
 export type Tuser = {
+    '_id'?: string,
     email: string,
     password: string,
     userName: string,
@@ -188,10 +189,10 @@ export const checkAdminPowers = (userEmail: string, collectionAdminList : string
     return collectionAdminList.includes(userEmail);
 }
 
-export const findCurrentUserCollection = (collectionId: string, userCollectionsData: TuserCollection[]) => {
-    return userCollectionsData.find((item: TuserCollection) => item._id === collectionId);
+export const findCurrentUserCollection = (collectionId: string, userCollectionsData: TuserCollectionsData[]) => {
+    return userCollectionsData.find((item: TuserCollectionsData) => item.collectionId === collectionId);
 }
 
-export const setCurrentCollectionToLocalStorage = (collectionId: string, userCollectionsData: TuserCollection[]) => {
+export const setCurrentCollectionToLocalStorage = (collectionId: string, userCollectionsData: TuserCollectionsData[]) => {
     localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.CURRENT_USER_COLLECTION, JSON.stringify(findCurrentUserCollection(collectionId, userCollectionsData)));
 }
