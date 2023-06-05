@@ -3,16 +3,16 @@ import { LOCAL_STORAGE_KEYS_CONSTANTS } from "../constants/stringConstants";
 import { IsignInForm } from "../myHooks/myFormHooks/useSubmitButtonForSignUp";
 // import { TuserCollection } from "../store/reducers/userCollectionsReduser";
 
-export type Tcard = {
-   ['_id']: string,   
-    repeatedTimeStamp: number | null,
-    timesBeenRepeated: number,
-    title: string,
-    answer: string,
-    code?: string,
-    filterTitle?: string,
-    filterColor?: string,
-}
+// export type Tcard = {
+//    ['_id']: string,   
+//     repeatedTimeStamp: number | null,
+//     timesBeenRepeated: number,
+//     title: string,
+//     answer: string,
+//     code?: string,
+//     filterTitle?: string,
+//     filterColor?: string,
+// }
 
 export type TcollectionItemComment = {
     collectionItemCommentText?: string,
@@ -20,7 +20,7 @@ export type TcollectionItemComment = {
     collectionItemCommentPosition?: number,
 }
 
-export type TcollectionData = {
+export type TcollectionItemData = {
     collectionItemId: string
     collectionItemTitle: string,
     collectionItemAnswer: string,
@@ -51,7 +51,7 @@ export type TuserCollectionsData = {
     collectionAdminList: string[],
     collectionСategories?: TcollectionСategories[],
     collectionTags?: TcollectionTags[],
-    collectionData: TcollectionData[],
+    collectionData: TcollectionItemData[],
 }
 
 export type Tuser = {
@@ -72,25 +72,25 @@ const getHoursSinceRepeat = (repeatedTimeStamp: number) => {
 
 const countItemPoints = (repeatPoints: number, hours: number) => repeatPoints - hours;
 
-const getItemPoints = (item: Tcard) => {
-  const itemHours: number = getHoursSinceRepeat(item.repeatedTimeStamp ?? 0)
-  return countItemPoints(REPEAT_TIMES_CONVERT_TO_POINTS[item.timesBeenRepeated], itemHours)
+const getItemPoints = (item: TcollectionItemData) => {
+  const itemHours: number = getHoursSinceRepeat(item.collectionItemRepeatedTimeStamp ?? 0)
+  return countItemPoints(REPEAT_TIMES_CONVERT_TO_POINTS[item.collectionItemTimesBeenRepeated], itemHours)
 }
 
-const pullFiltersTitlesFromData = (item: Tcard,filtersArray: string[]) => {
-    if (item.filterTitle && !filtersArray.includes(item.filterTitle.slice(14))) {
-        filtersArray.push(item.filterTitle.slice(14))
+const pullFiltersTitlesFromData = (item: TcollectionItemData,filtersArray: string[]) => {
+    if (item.collectionItemCategory && !filtersArray.includes(item.collectionItemCategory.slice(14))) {
+        filtersArray.push(item.collectionItemCategory.slice(14))
     }
 }
 
-const sortItemInGroup = (item: Tcard,
-    repeatNowGroup: Tcard[],
-    repeatIn1HourGroup: Tcard[],
-    repeatIn4HoursGroup: Tcard[],
-    repeatIn8HoursGroup: Tcard[],
-    repeatIn12HoursGroup: Tcard[],
-    repeatIn24HoursGroup: Tcard[],
-    repeatIn3DaysGroup: Tcard[],
+const sortItemInGroup = (item: TcollectionItemData,
+    repeatNowGroup: TcollectionItemData[],
+    repeatIn1HourGroup: TcollectionItemData[],
+    repeatIn4HoursGroup: TcollectionItemData[],
+    repeatIn8HoursGroup: TcollectionItemData[],
+    repeatIn12HoursGroup: TcollectionItemData[],
+    repeatIn24HoursGroup: TcollectionItemData[],
+    repeatIn3DaysGroup: TcollectionItemData[],
     ) => {
     
     if (getItemPoints(item) <= 0) {
@@ -110,16 +110,16 @@ const sortItemInGroup = (item: Tcard,
     }
 }
 
-export const spreadCollectionData = (dataBase: Tcard[]) => {
+export const spreadCollectionData = (dataBase: TcollectionItemData[]) => {
     const filtersOfCollection: string[] = [];
 
-    const repeatNowGroup: Tcard[] = [];
-    const repeatIn1HourGroup: Tcard[] = [];
-    const repeatIn4HoursGroup: Tcard[] = [];
-    const repeatIn8HoursGroup: Tcard[] = [];
-    const repeatIn12HoursGroup: Tcard[] = [];
-    const repeatIn24HoursGroup: Tcard[] = [];
-    const repeatIn3DaysGroup: Tcard[] = [];
+    const repeatNowGroup: TcollectionItemData[] = [];
+    const repeatIn1HourGroup: TcollectionItemData[] = [];
+    const repeatIn4HoursGroup: TcollectionItemData[] = [];
+    const repeatIn8HoursGroup: TcollectionItemData[] = [];
+    const repeatIn12HoursGroup: TcollectionItemData[] = [];
+    const repeatIn24HoursGroup: TcollectionItemData[] = [];
+    const repeatIn3DaysGroup: TcollectionItemData[] = [];
 
     for (let item of dataBase) {
         pullFiltersTitlesFromData(item,filtersOfCollection);
@@ -148,16 +148,16 @@ export const spreadCollectionData = (dataBase: Tcard[]) => {
     return {filtersOfCollection,orgonizedGroupsOfCollection};
 };
 
-export const getPunishForLatePractice = (item: Tcard) => {
+export const getPunishForLatePractice = (item: TcollectionItemData) => {
     let punishPoints = 0;
     
     for (let i = 0; i <= MAX_PUNISHMENT_FOR_LATE_PRACTICE; i++) {
-        if ((getHoursSinceRepeat(item.repeatedTimeStamp?? 0) - REPEAT_TIMES_CONVERT_TO_POINTS[item.timesBeenRepeated - i]) >= 0) {
+        if ((getHoursSinceRepeat(item.collectionItemRepeatedTimeStamp?? 0) - REPEAT_TIMES_CONVERT_TO_POINTS[item.collectionItemTimesBeenRepeated - i]) >= 0) {
             punishPoints += 1;
         } 
     }
 
-    const newTimesBeenRepeated = item.timesBeenRepeated - punishPoints;
+    const newTimesBeenRepeated = item.collectionItemTimesBeenRepeated - punishPoints;
     
     return (newTimesBeenRepeated <= 0? 1: newTimesBeenRepeated);
 }

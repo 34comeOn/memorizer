@@ -4,10 +4,8 @@ import { STOCK_USER } from "../../constants/stockConstants";
 import { CREATE_NEW_COLLECTION_ENDPOINT, LOCAL_STORAGE_KEYS_CONSTANTS } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
 import { hideModalWindow } from "../../store/reducers/modalWindowReduser";
-import { getAllUserCollectionsState, setAllUserCollections, 
-    // TuserCollection 
-} from "../../store/reducers/userCollectionsReduser";
-import { getAllCurrentUserData, getCurrentUserEmailFromLStorage, TuserCollectionsData } from "../../utils/utils";
+import { getAllUserCollectionsState, setAllUserCollections } from "../../store/reducers/userCollectionsReduser";
+import { getCurrentUserEmailFromLStorage, TuserCollectionsData } from "../../utils/utils";
 
 export interface InewCollectionForm {
     title: string, 
@@ -25,14 +23,6 @@ export const useCreateNewCollection = () => {
     return (values: InewCollectionForm) => {
         const currentUserEmailFromLStorage = getCurrentUserEmailFromLStorage();
         const currentUserId = localStorage.getItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_ID)?? JSON.stringify(STOCK_USER.email)
-        
-        // const newCollection = {
-        //     '_id': nanoid(),
-        //     title: values.title,
-        //     color: values.collectionColor,
-        //     data: [],
-        //     adminList: [currentUserEmailFromLStorage],
-        // };
 
 
         const newCollection: TuserCollectionsData = {
@@ -65,10 +55,5 @@ export const useCreateNewCollection = () => {
             // error.status === 403? alert('E-mail or password does not match!') : alert('Ops! something went wrong')
           }
         );
-        // const newUserCollectionsData = [...allCurrentUserData.userCollectionsData, newCollection]
-        // const newAllUserData = {...allCurrentUserData, userCollectionsData: newUserCollectionsData};
-        // localStorage.setItem(currentUserEmailFromLStorage, JSON.stringify(newAllUserData))
-        // dispatch(setAllUserCollections(newUserCollectionsData));
-        // dispatch(hideModalWindow());
     }
 }

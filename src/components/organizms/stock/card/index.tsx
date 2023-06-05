@@ -27,11 +27,11 @@ export const StockCardWindow = () => {
         {isCurrentCardVisible && 
         <StyledCard>
             <CloseButton onClick={closeCardWindow} />
-            <span className='card--title'>{currentCard.title}</span>
+            <span className='card--title'>{currentCard.collectionItemTitle}</span>
             <ShowButton hasClicked={isAnswerVisible} onClick={onShowClickHandle}/>
             <div style={{width: '400px', minHeight: '500px'}}>
                 <Answer isVisible={isAnswerVisible}>
-                    {currentCard.answer}
+                    {currentCard.collectionItemAnswer}
                 </Answer>
             </div>
             <DoneButton onClick={onDoneClickHandle}/>

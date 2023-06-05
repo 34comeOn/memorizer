@@ -1,5 +1,8 @@
 import React from 'react';
-import { Tcard } from '../../../../utils/utils';
+import { 
+    // Tcard
+    TcollectionItemData
+} from '../../../../utils/utils';
 import { StyledRepeatList } from './styledRepeatList';
 import './style.scss';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
@@ -10,10 +13,10 @@ import { RepeatListItem } from '../../repeatListItem';
 
 export type ThandleOpenCard = (id: string) => void
 
-export const StockRepeatList = ({title, list}: {title: string, list: Tcard[]}) => {
+export const StockRepeatList = ({title, list}: {title: string, list: TcollectionItemData[]}) => {
     const dispatch = useAppDispatch();
 
-    const handleItemClick = (currentCard: Tcard) => {
+    const handleItemClick = (currentCard: TcollectionItemData) => {
         dispatch(setCurrentCard(currentCard));
         dispatch(hideAnswer());
         dispatch(showCurrentCard());
@@ -30,9 +33,9 @@ export const StockRepeatList = ({title, list}: {title: string, list: Tcard[]}) =
             </div>
             <StyledRepeatList>
                 {list.map(item => {
-                    const itemFilter = item.filterTitle?.slice(14);
+                    const itemFilter = item.collectionItemCategory?.slice(14);
                     return ((itemFilter? currentlistItemsCategories.includes(itemFilter): false) || currentlistItemsCategories.includes(MAIN_FILTER_CHECKBOX)) && 
-                    <RepeatListItem item={item} key={item['_id']} onClick={()=> {handleItemClick(item)}} />
+                    <RepeatListItem item={item} key={item.collectionItemId} onClick={()=> {handleItemClick(item)}} />
                 })
                 }
             </StyledRepeatList>

@@ -70,3 +70,6 @@ export const getAccountStatus = (state: { accountSlice: { isAuthorized: boolean 
 
 export const getUserName = (state: { accountSlice: { userName: string } }) =>
   state.accountSlice.userName;
+
+export const getUserIdFromStore = (state: { accountSlice: { userId: string } }) =>
+  state.accountSlice.userId;

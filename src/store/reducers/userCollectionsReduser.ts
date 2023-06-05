@@ -1,15 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { STOCK_COLLECTION} from "../../constants/stockConstants";
 import { LOCAL_STORAGE_KEYS_CONSTANTS } from "../../constants/stringConstants";
-import { Tcard, TuserCollectionsData } from "../../utils/utils";
-
-// export type TuserCollection = {
-//     '_id': string,
-//     title: string,
-//     data: Tcard[],
-//     color?: string,
-//     adminList: string[],
-// }
+import { TuserCollectionsData } from "../../utils/utils";
 
 type TinitialState = {
     allUserCollections: TuserCollectionsData[]

@@ -1,20 +1,26 @@
 import React from "react";
-import { Tcard } from "../../../utils/utils";
+import { 
+    // Tcard,
+     TcollectionItemData } from "../../../utils/utils";
 import { StyledRepeatListItem } from "./styledRepeatListItem";
 
+// type TrepeatListItem = {
+//     onClick: ()=>void,
+//     item: Tcard,
+// }
 type TrepeatListItem = {
     onClick: ()=>void,
-    item: Tcard,
+    item: TcollectionItemData,
 }
 
 export const RepeatListItem = ({onClick, item} :TrepeatListItem) => {
     return(
         <StyledRepeatListItem 
-            color={item.filterColor || 'white'}
-            className={`list--item ${item.filterTitle}`} 
+            color={item.collectionItemColor || 'white'}
+            className={`list--item ${item.collectionItemCategory}`} 
             onClick={() => onClick()}
         >
-            {item.title}
+            {item.collectionItemTitle}
         </StyledRepeatListItem>
     )
 }

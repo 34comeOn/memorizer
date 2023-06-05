@@ -1,4 +1,4 @@
-import { maximiseTimesBeenRepeated, Tcard, Tuser, TuserCollectionsData } from '../utils/utils';
+import { maximiseTimesBeenRepeated, TcollectionItemData, Tuser, TuserCollectionsData } from '../utils/utils';
 import { rootAPI } from './rootApi';
 
 export type TsignInObject = {
@@ -13,7 +13,7 @@ export type TnewCollectionPostObject = {
   
 export const collectionDataAPI = rootAPI.injectEndpoints({
   endpoints: (build) => ({
-    getCollectionData: build.mutation<Tcard[], string>({
+    getCollectionData: build.mutation<TcollectionItemData[], string>({
       query(path) {
         return {
           url: `${path}`
@@ -50,15 +50,15 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
         };
       }
     }),
-    putRepeatedCollectionItem: build.mutation<Tcard[], {path: string, putObj:Tcard}>({
+    putRepeatedCollectionItem: build.mutation<TcollectionItemData[], {path: string, putObj:TcollectionItemData}>({
       query(args) {
         return {
           url: `${args.path}`,
           method: 'PUT',
           headers: {'Content-Type': 'application/json;charset=utf-8'},
           body: JSON.stringify({
-              id: args.putObj['_id'],
-              timesBeenRepeated: maximiseTimesBeenRepeated(args.putObj.timesBeenRepeated),
+              id: args.putObj.collectionItemId,
+              timesBeenRepeated: maximiseTimesBeenRepeated(args.putObj.collectionItemTimesBeenRepeated),
               repeatedTimeStamp: Date.now(),
           })
         };
