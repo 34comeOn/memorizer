@@ -32,7 +32,6 @@ export const EditModalWindow = () => {
     const closeModalWindow = useCloseModalWindowButton();
     const accountStatus = useAppSelector(getAccountStatus);
     const renderingComponentAsWindowContent = getReactElementForModalWindowContent(modalWindowContent)
-    console.log(modalWindowContent)
     return(
         <Modal
             isOpen={modalViewState}

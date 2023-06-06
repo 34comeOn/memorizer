@@ -193,6 +193,6 @@ export const findCurrentUserCollection = (collectionId: string, userCollectionsD
     return userCollectionsData.find((item: TuserCollectionsData) => item.collectionId === collectionId);
 }
 
-export const setCurrentCollectionToLocalStorage = (collectionId: string, userCollectionsData: TuserCollectionsData[]) => {
-    localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.CURRENT_USER_COLLECTION, JSON.stringify(findCurrentUserCollection(collectionId, userCollectionsData)));
-}
+// export const setCurrentCollectionToLocalStorage = (collectionId: string, userCollectionsData: TuserCollectionsData[]) => {
+//     localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.CURRENT_USER_COLLECTION, JSON.stringify(findCurrentUserCollection(collectionId, userCollectionsData)));
+// }

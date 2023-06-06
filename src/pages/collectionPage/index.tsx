@@ -4,17 +4,18 @@ import { AddNewCollectionItemButton } from "../../components/atoms/addNewCollect
 import { CheckboxList } from "../../components/molecules/checkboxList";
 import { CardWindow } from "../../components/organizms/card";
 import { RepeatContainer } from "../../components/organizms/repeatContainer";
-import { LOCAL_STORAGE_KEYS_CONSTANTS } from "../../constants/stringConstants";
 import { getAccountStatus } from "../../store/reducers/accountReduser";
+import { getCurrentCollectionState } from "../../store/reducers/userCollectionsReduser";
 import './style.scss';
 
 export const CollectionPage = () => {
     const accountStatus = useAppSelector(getAccountStatus);
-    const currentCollectionTitle = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS_CONSTANTS.CURRENT_USER_COLLECTION)|| ``)
+    const currentCollection = useAppSelector(getCurrentCollectionState);
+    console.log(currentCollection.collectionTitle)
     return(
         <div style={{display: 'flex', flexDirection: 'column'}}>
             <h1 className='collection-page--caption'>
-                Now you are training {currentCollectionTitle.title} collection
+                Now you are training {currentCollection.collectionTitle} collection
             </h1>
             {accountStatus && <AddNewCollectionItemButton />}
             <div className='collection-page--container'>

@@ -28,7 +28,6 @@ export const UseSubmitButtonToSignIn = () => {
         .unwrap()
         .then(
           (userData) => {
-            console.log(userData)
             dispatch(logIn({userName: userData.userName, userEmail: userData.email,userId: userData._id || ' '}));
             dispatch(setAllUserCollections(userData.userCollectionsData));
             navigate('/');

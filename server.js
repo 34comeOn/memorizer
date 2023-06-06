@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const User = require('./models/user');
+// const Collection = require('./models/user');
 
 const db = 'mongodb+srv://barabanovm:Noway-2steal@cluster2.d7n5n2k.mongodb.net/?retryWrites=true&w=majority';
 
@@ -41,6 +42,20 @@ app.post('/api/sign-in', (req, res)=> {
 app.get('/data', (req, res)=> {
     User.find()
     .then(result=> res.send(result))
+    .catch(err=> console.log(err))
+})
+
+// app.get('/:userId/collection/:collectionId', (req, res)=> {
+app.post('/collection', (req, res)=> {
+    // let userId = req.params['userId'];
+    // let collectionId = req.params['collectionId'];
+    // console.log(userId)
+    const {currentUserId,collectionId} = req.body;
+
+    User.findById(currentUserId)
+    .then(result=> {
+        res.send(result.userCollectionsData.find(collection => collection.collectionId === collectionId))
+    })
     .catch(err=> console.log(err))
 })
 
@@ -130,7 +145,7 @@ app.post('/api/new-collection', (req, res)=> {
     // })
     // .catch(err=> console.log(err))
     const userCollectionsData = newUserCollectionsData;
-    console.log(newUserCollectionsData)
+    // console.log(newUserCollectionsData)
     User.findByIdAndUpdate(id, {userCollectionsData} )
     .catch(err => console.log(err))
     .then(()=> {

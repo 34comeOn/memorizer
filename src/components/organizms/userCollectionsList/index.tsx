@@ -7,6 +7,7 @@ import { STOCK_COLLECTION_COLOR } from "../../../constants/stockConstants";
 
 export const UserCollectionsList = () => {
     const allUserCollections = useAppSelector(getAllUserCollectionsState);
+    console.log(allUserCollections)
     return (
         <StyledUserCollectionsList>
             {allUserCollections.map(item =>

@@ -1,11 +1,11 @@
 import { nanoid } from "nanoid";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { STOCK_USER } from "../../constants/stockConstants";
-import { CREATE_NEW_COLLECTION_ENDPOINT, LOCAL_STORAGE_KEYS_CONSTANTS } from "../../constants/stringConstants";
+import { CREATE_NEW_COLLECTION_ENDPOINT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
+import { getUserEmailFromStore, getUserIdFromStore } from "../../store/reducers/accountReduser";
 import { hideModalWindow } from "../../store/reducers/modalWindowReduser";
 import { getAllUserCollectionsState, setAllUserCollections } from "../../store/reducers/userCollectionsReduser";
-import { getCurrentUserEmailFromLStorage, TuserCollectionsData } from "../../utils/utils";
+import { TuserCollectionsData } from "../../utils/utils";
 
 export interface InewCollectionForm {
     title: string, 
@@ -19,18 +19,17 @@ export const useCreateNewCollection = () => {
     const dispatch = useAppDispatch();
     const currentUserCollections = useAppSelector(getAllUserCollectionsState);
     const [getAllCollectionsAfterCreatingOneNewTriger] = collectionDataAPI.usePostNewCollectionMutation();
+    const currentUserId = useAppSelector(getUserIdFromStore);
+    const currentUserEmail = useAppSelector(getUserEmailFromStore);
     
     return (values: InewCollectionForm) => {
-        const currentUserEmailFromLStorage = getCurrentUserEmailFromLStorage();
-        const currentUserId = localStorage.getItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_ID)?? JSON.stringify(STOCK_USER.email)
-
 
         const newCollection: TuserCollectionsData = {
             collectionId: nanoid(),
             collectionColor: values.collectionColor,
             collectionImage: 'none',
             collectionTitle: values.title,
-            collectionAdminList: [currentUserEmailFromLStorage],
+            collectionAdminList: [currentUserEmail],
             collectionСategories: [],
             collectionTags: [],
             collectionData: [],
@@ -46,7 +45,7 @@ export const useCreateNewCollection = () => {
         .unwrap()
         .then(
           (userCollections) => {
-            console.log(userCollections)
+            
             dispatch(setAllUserCollections(userCollections));
             dispatch(hideModalWindow());
           },
