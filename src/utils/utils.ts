@@ -1,18 +1,13 @@
 import { MAX_PUNISHMENT_FOR_LATE_PRACTICE, REPEAT_TIMES_CONVERT_TO_POINTS, STOCK_USER } from "../constants/stockConstants";
 import { LOCAL_STORAGE_KEYS_CONSTANTS } from "../constants/stringConstants";
 import { IsignInForm } from "../myHooks/myFormHooks/useSubmitButtonForSignUp";
-// import { TuserCollection } from "../store/reducers/userCollectionsReduser";
 
-// export type Tcard = {
-//    ['_id']: string,   
-//     repeatedTimeStamp: number | null,
-//     timesBeenRepeated: number,
-//     title: string,
-//     answer: string,
-//     code?: string,
-//     filterTitle?: string,
-//     filterColor?: string,
-// }
+export type TbasicCollectionInfo = {
+    collectionId: string,
+    collectionColor: string,
+    collectionImage?: string,
+    collectionTitle: string,
+}
 
 export type TcollectionItemComment = {
     collectionItemCommentText?: string,
@@ -191,6 +186,19 @@ export const checkAdminPowers = (userEmail: string, collectionAdminList : string
 
 export const findCurrentUserCollection = (collectionId: string, userCollectionsData: TuserCollectionsData[]) => {
     return userCollectionsData.find((item: TuserCollectionsData) => item.collectionId === collectionId);
+}
+
+export const cutBasicUserCollectionsInfo = (allUserCollections: TuserCollectionsData[]) => {
+    const basicCollectionsInfo: TbasicCollectionInfo[] = allUserCollections.map(collection => {
+        return ({
+            collectionId: collection.collectionId,
+            collectionColor: collection.collectionColor,
+            collectionImage: collection.collectionColor,
+            collectionTitle: collection.collectionTitle,
+        })
+    });
+
+    return basicCollectionsInfo;
 }
 
 // export const setCurrentCollectionToLocalStorage = (collectionId: string, userCollectionsData: TuserCollectionsData[]) => {

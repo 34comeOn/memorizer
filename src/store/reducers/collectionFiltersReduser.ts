@@ -39,8 +39,8 @@ export const {
     removeItemFromListOfCurrentFilters
 } = collectionFiltersSlice.actions;
 
-export const getRefreshedFiltersState = (state: {collectionFiltersSlice: {filtersList: string[]}}) => 
+export const getRefreshedFiltersSelector = (state: {collectionFiltersSlice: {filtersList: string[]}}) => 
     state.collectionFiltersSlice.filtersList
 
-export const getUpdatedlistItemsCategories = (state: {collectionFiltersSlice: {listOfCurrentFilters: string[]}}) => 
+export const getListOfCurrentFiltersSelector = (state: {collectionFiltersSlice: {listOfCurrentFilters: string[]}}) => 
     state.collectionFiltersSlice.listOfCurrentFilters

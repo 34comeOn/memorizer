@@ -15,6 +15,7 @@ export const LOCAL_STORAGE_KEYS_CONSTANTS = {
     USER_COLLECTIONS: 'userCollections',
     CURRENT_USER_COLLECTION: 'currentUserCollection',
     USER_REPEAT_GROUPS: 'userRepeatGroups',
+    USER_BASIC_COLLECTIONS_INFO: 'userBasicCollectionsInfo',
 }
 
 export const MODAL_WINDOW_CONTENT_STRING_CONSTANTS = {

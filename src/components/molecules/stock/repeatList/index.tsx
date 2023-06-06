@@ -6,7 +6,7 @@ import {
 import { StyledRepeatList } from './styledRepeatList';
 import './style.scss';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
-import { getUpdatedlistItemsCategories } from '../../../../store/reducers/collectionFiltersReduser';
+import { getListOfCurrentFiltersSelector } from '../../../../store/reducers/collectionFiltersReduser';
 import { MAIN_FILTER_CHECKBOX } from '../../../../constants/stringConstants';
 import { hideAnswer, setCurrentCard, showCurrentCard } from '../../../../store/reducers/cardWindowReduser';
 import { RepeatListItem } from '../../repeatListItem';
@@ -21,7 +21,7 @@ export const StockRepeatList = ({title, list}: {title: string, list: Tcollection
         dispatch(hideAnswer());
         dispatch(showCurrentCard());
     }
-    const currentlistItemsCategories = useAppSelector(getUpdatedlistItemsCategories);
+    const currentlistItemsCategories = useAppSelector(getListOfCurrentFiltersSelector);
 
     return (
         <>

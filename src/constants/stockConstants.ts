@@ -46,6 +46,13 @@ export const STOCK_COLLECTION_ITEM = {
 //   collectionItemComments?: TcollectionItemComment[],
 // }
 
+export const STOCK_BASIC_COLLECTION_INFO = {
+  collectionId: '000',
+  collectionColor: 'black',
+  collectionImage: 'none',
+  collectionTitle: 'Basic test collection',
+}
+
 export const STOCK_COLLECTION = {
   collectionId: nanoid(),
   collectionColor:'',

@@ -34,7 +34,7 @@ export default modalWindowSlice.reducer;
 
 export const { showModalWindow, hideModalWindow, setContentForModalWindow,  removeContentFromModalWindow} = modalWindowSlice.actions;
 
-export const getModalWindowViewState = (state: { modalWindowSlice: { isModalShown: boolean } }) =>
+export const getModalWindowViewSelector = (state: { modalWindowSlice: { isModalShown: boolean } }) =>
   state.modalWindowSlice.isModalShown;
-export const getModalWindowContentTitle = (state: { modalWindowSlice: { modalInnerComponentTitle: string } }) =>
+export const getModalWindowContentTitleSelector = (state: { modalWindowSlice: { modalInnerComponentTitle: string } }) =>
   state.modalWindowSlice.modalInnerComponentTitle;

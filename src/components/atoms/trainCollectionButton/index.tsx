@@ -5,7 +5,7 @@ import './style.scss';
 import { useGetDataTriger } from "../../../myHooks/useGetDataTriger";
 import { useTrainCollectionButton } from "../../../myHooks/collectionHooks/useTrainCollectionButton";
 import { useAppSelector } from "../../../app/hooks";
-import { getAccountStatus } from "../../../store/reducers/accountReduser";
+import { getAccountStatusSelector } from "../../../store/reducers/accountReduser";
 
 type TmenuButton = {
     children: string, 
@@ -16,7 +16,7 @@ type TmenuButton = {
 }
 
 export const TrainCollectionButton = ({children, path, color, disabled, collectionId}: TmenuButton) => {
-    const accountStatus = useAppSelector(getAccountStatus);
+    const accountStatus = useAppSelector(getAccountStatusSelector);
     const getDataByClick = useGetDataTriger();
     const getDataFromLocalStorageByClick = useTrainCollectionButton(collectionId);
     return(

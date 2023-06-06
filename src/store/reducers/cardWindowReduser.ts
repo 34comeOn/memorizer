@@ -1,9 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { STOCK_COLLECTION_ITEM } from "../../constants/stockConstants";
-import { 
-    // Tcard 
-    TcollectionItemData
-} from "../../utils/utils";
+import { TcollectionItemData } from "../../utils/utils";
 
 type TinitialState = {
     currentCard: TcollectionItemData,
@@ -49,6 +46,6 @@ export const {
     toggleAnswerVisibility
 } = cardWindowSlice.actions;
 
-export const getCurrentCardState = (state:{cardWindowSlice: {currentCard: TcollectionItemData}}) => state.cardWindowSlice.currentCard;
-export const getCurrentCardVisibilityState = (state:{cardWindowSlice: {isCurrentCardVisible: boolean}}) => state.cardWindowSlice.isCurrentCardVisible;
-export const getAnswerVisibilityState = (state:{cardWindowSlice: {isAnswerVisible: boolean}}) => state.cardWindowSlice.isAnswerVisible;
+export const getCurrentCardSelector = (state:{cardWindowSlice: {currentCard: TcollectionItemData}}) => state.cardWindowSlice.currentCard;
+export const getCurrentCardVisibilitySelector = (state:{cardWindowSlice: {isCurrentCardVisible: boolean}}) => state.cardWindowSlice.isCurrentCardVisible;
+export const getAnswerVisibilitySelector = (state:{cardWindowSlice: {isAnswerVisible: boolean}}) => state.cardWindowSlice.isAnswerVisible;

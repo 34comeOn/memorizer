@@ -2,9 +2,9 @@ import { nanoid } from "nanoid";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { CREATE_NEW_COLLECTION_ENDPOINT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
-import { getUserEmailFromStore, getUserIdFromStore } from "../../store/reducers/accountReduser";
+import { getUserEmailSelector, getUserIdSelector } from "../../store/reducers/accountReduser";
 import { hideModalWindow } from "../../store/reducers/modalWindowReduser";
-import { getAllUserCollectionsState, setAllUserCollections } from "../../store/reducers/userCollectionsReduser";
+import { getAllUserCollectionsSelector, setAllUserCollections } from "../../store/reducers/userCollectionsReduser";
 import { TuserCollectionsData } from "../../utils/utils";
 
 export interface InewCollectionForm {
@@ -17,10 +17,10 @@ export type TnewCollectionPostObject = {
   }
 export const useCreateNewCollection = () => {
     const dispatch = useAppDispatch();
-    const currentUserCollections = useAppSelector(getAllUserCollectionsState);
+    const currentUserCollections = useAppSelector(getAllUserCollectionsSelector);
     const [getAllCollectionsAfterCreatingOneNewTriger] = collectionDataAPI.usePostNewCollectionMutation();
-    const currentUserId = useAppSelector(getUserIdFromStore);
-    const currentUserEmail = useAppSelector(getUserEmailFromStore);
+    const currentUserId = useAppSelector(getUserIdSelector);
+    const currentUserEmail = useAppSelector(getUserEmailSelector);
     
     return (values: InewCollectionForm) => {
 

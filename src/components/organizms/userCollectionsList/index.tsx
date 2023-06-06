@@ -1,12 +1,12 @@
 import React from "react";
 import { useAppSelector } from "../../../app/hooks";
-import { getAllUserCollectionsState } from "../../../store/reducers/userCollectionsReduser";
+import { getAllUserCollectionsSelector } from "../../../store/reducers/userCollectionsReduser";
 import { StyledUserCollectionsList } from "./styledUserCollectionsList";
 import { UserCollection } from "../../molecules/userCollection";
 import { STOCK_COLLECTION_COLOR } from "../../../constants/stockConstants";
 
 export const UserCollectionsList = () => {
-    const allUserCollections = useAppSelector(getAllUserCollectionsState);
+    const allUserCollections = useAppSelector(getAllUserCollectionsSelector);
     console.log(allUserCollections)
     return (
         <StyledUserCollectionsList>

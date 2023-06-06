@@ -65,14 +65,14 @@ export default accountSlice.reducer;
 
 export const { logIn, logOut } = accountSlice.actions;
 
-export const getAccountStatus = (state: { accountSlice: { isAuthorized: boolean } }) =>
+export const getAccountStatusSelector = (state: { accountSlice: { isAuthorized: boolean } }) =>
   state.accountSlice.isAuthorized;
 
-export const getUserName = (state: { accountSlice: { userName: string } }) =>
+export const getUserNameSelector = (state: { accountSlice: { userName: string } }) =>
   state.accountSlice.userName;
 
-export const getUserEmailFromStore = (state: { accountSlice: { userEmail: string } }) =>
+export const getUserEmailSelector = (state: { accountSlice: { userEmail: string } }) =>
   state.accountSlice.userEmail;
 
-export const getUserIdFromStore = (state: { accountSlice: { userId: string } }) =>
+export const getUserIdSelector = (state: { accountSlice: { userId: string } }) =>
   state.accountSlice.userId;

@@ -40,5 +40,5 @@ export const {
     removeRepeatGroups, 
 } = collectionGroupsSlice.actions;
 
-export const getRepeatGroupsState = (state: {collectionGroupsSlice: {repeatGroups: TcollectionItemData[][]}}) =>
+export const getRepeatGroupsSelector = (state: {collectionGroupsSlice: {repeatGroups: TcollectionItemData[][]}}) =>
    state.collectionGroupsSlice.repeatGroups

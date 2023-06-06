@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { STOCK_COLLECTION } from "../../constants/stockConstants";
 import { GET_CURRENT_COLLECTION_ENDPOINT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
-import { getUserIdFromStore } from "../../store/reducers/accountReduser";
+import { getUserIdSelector } from "../../store/reducers/accountReduser";
 import { hideCurrentCard } from "../../store/reducers/cardWindowReduser";
 import { setFiltersList } from "../../store/reducers/collectionFiltersReduser";
 import { setRepeatGroupsReduser } from "../../store/reducers/collectionGroupsReduser";
@@ -13,7 +13,7 @@ import {
 
 export const useTrainCollectionButton = (collectionId: string) => {
     const dispatch = useAppDispatch();
-    const currentUserId = useAppSelector(getUserIdFromStore);
+    const currentUserId = useAppSelector(getUserIdSelector);
     const [currentCollectionTriger] = collectionDataAPI.usePostCurrentCollectionMutation();
     return () => {
         dispatch(hideCurrentCard());

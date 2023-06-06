@@ -4,13 +4,13 @@ import { AddNewCollectionItemButton } from "../../components/atoms/addNewCollect
 import { CheckboxList } from "../../components/molecules/checkboxList";
 import { CardWindow } from "../../components/organizms/card";
 import { RepeatContainer } from "../../components/organizms/repeatContainer";
-import { getAccountStatus } from "../../store/reducers/accountReduser";
-import { getCurrentCollectionState } from "../../store/reducers/userCollectionsReduser";
+import { getAccountStatusSelector } from "../../store/reducers/accountReduser";
+import { getCurrentCollectionSelector } from "../../store/reducers/userCollectionsReduser";
 import './style.scss';
 
 export const CollectionPage = () => {
-    const accountStatus = useAppSelector(getAccountStatus);
-    const currentCollection = useAppSelector(getCurrentCollectionState);
+    const accountStatus = useAppSelector(getAccountStatusSelector);
+    const currentCollection = useAppSelector(getCurrentCollectionSelector);
     console.log(currentCollection.collectionTitle)
     return(
         <div style={{display: 'flex', flexDirection: 'column'}}>
