@@ -3,7 +3,8 @@ import { useAppDispatch } from "../../app/hooks";
 import { SIGN_IN_USER_ENDPOINT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
 import { logIn } from "../../store/reducers/accountReduser";
-import { setAllUserCollections } from "../../store/reducers/userCollectionsReduser";
+import { setAllUserCollections, setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReduser";
+import { cutBasicUserCollectionsInfo } from "../../utils/utils";
 
 export interface IsignInForm {
     email: string, 
@@ -29,7 +30,8 @@ export const UseSubmitButtonToSignIn = () => {
         .then(
           (userData) => {
             dispatch(logIn({userName: userData.userName, userEmail: userData.email,userId: userData._id || ' '}));
-            dispatch(setAllUserCollections(userData.userCollectionsData));
+            dispatch(setUserBasicCollectionsInfo(cutBasicUserCollectionsInfo(userData.userCollectionsData)));
+            // dispatch(setAllUserCollections(userData.userCollectionsData));
             navigate('/');
           },
           (error) => {

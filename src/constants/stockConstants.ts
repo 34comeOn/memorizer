@@ -47,14 +47,16 @@ export const STOCK_COLLECTION_ITEM = {
 // }
 
 export const STOCK_BASIC_COLLECTION_INFO = {
-  collectionId: '000',
+  // collectionId: '000',
+  ['_id']: '000',
   collectionColor: 'black',
   collectionImage: 'none',
   collectionTitle: 'Basic test collection',
 }
 
 export const STOCK_COLLECTION = {
-  collectionId: nanoid(),
+  // collectionId: nanoid(),
+  ['_id']: '000',
   collectionColor:'',
   collectionImage: 'none',
   collectionTitle: 'Train stock React collection',

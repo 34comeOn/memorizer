@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const User = require('./models/user');
-// const Collection = require('./models/user');
+const Collection = require('./models/user');
 
 const db = 'mongodb+srv://barabanovm:Noway-2steal@cluster2.d7n5n2k.mongodb.net/?retryWrites=true&w=majority';
 
@@ -54,6 +54,7 @@ app.post('/collection', (req, res)=> {
 
     User.findById(currentUserId)
     .then(result=> {
+        console.log(result.userCollectionsData.find(collection => collection.collectionId === collectionId))
         res.send(result.userCollectionsData.find(collection => collection.collectionId === collectionId))
     })
     .catch(err=> console.log(err))
@@ -98,73 +99,22 @@ app.post('/api/sign-up', (req, res)=> {
     .catch(err=> console.log(err))
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-app.post('/api/new-collection', (req, res)=> {
+app.post('/api/new-collection', (req, res)=>  {
     const {
         id,
-        newUserCollectionsData
+        newUserCollection
     } = req.body;
-    
-    // const user = new User({
-    //     id,
-    //     collectionId,
-    //     collectionColor,
-    //     collectionImage,
-    //     collectionTitle,
-    //     collectionAdminList,
-    //     collectionСategories,
-    //     collectionTags,
-    //     collectionData,
-    // });
 
-    // User.where({ email: email }).find()
-    // .then(result=> {
-    //     if (result[0]) {
-    //         user.save()
-    //         .catch(err=> console.log(err))
-    //         .then(()=> {
-    //             User.where({ email: email }).find()
-    //             .then(result=> res.send(result[0].userCollectionsData))
-    //             .catch(err=> console.log(err))
-    //         })
-    //     } else {
-    //         console.log('could not find user by email')
-    //         res.status(404).end();
-    //     }
-    // })
-    // .catch(err=> console.log(err))
-    const userCollectionsData = newUserCollectionsData;
-    // console.log(newUserCollectionsData)
-    User.findByIdAndUpdate(id, {userCollectionsData} )
-    .catch(err => console.log(err))
+    User.updateOne(
+        { _id: id },
+        { $push: { userCollectionsData: newUserCollection } }
+    )
     .then(()=> {
         User.findById(id)
         .then(result=> res.send(result.userCollectionsData))
         .catch(err=> console.log(err))
     })
-
-
 })
-
-
-
-
-
-
-
-
-
 
 app.put('/api/repeat', (req, res)=> {
     const{id, repeatedTimeStamp, timesBeenRepeated} =req.body;

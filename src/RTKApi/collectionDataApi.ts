@@ -8,7 +8,7 @@ export type TsignInObject = {
 
 export type TnewCollectionPostObject = {
   id: string, 
-  newUserCollectionsData: TuserCollectionsData[], 
+  newUserCollection: TuserCollectionsData, 
 }
   
 export const collectionDataAPI = rootAPI.injectEndpoints({
@@ -67,7 +67,7 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
           method: 'PUT',
           headers: {'Content-Type': 'application/json;charset=utf-8'},
           body: JSON.stringify({
-              id: args.putObj.collectionItemId,
+              id: args.putObj._id,
               timesBeenRepeated: maximiseTimesBeenRepeated(args.putObj.collectionItemTimesBeenRepeated),
               repeatedTimeStamp: Date.now(),
           })

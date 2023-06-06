@@ -74,10 +74,10 @@ const CollectionDataSchema = new Schema({
 });
 
 const UserCollectionsDataSchema = new Schema({
-    collectionId: {
-        type: String,
-        required: true
-    },
+    // collectionId: {
+    //     type: String,
+    //     required: true
+    // },
     collectionColor: {
         type: String,
         required: true

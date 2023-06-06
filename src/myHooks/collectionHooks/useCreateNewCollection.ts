@@ -4,8 +4,8 @@ import { CREATE_NEW_COLLECTION_ENDPOINT } from "../../constants/stringConstants"
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
 import { getUserEmailSelector, getUserIdSelector } from "../../store/reducers/accountReduser";
 import { hideModalWindow } from "../../store/reducers/modalWindowReduser";
-import { getAllUserCollectionsSelector, setAllUserCollections } from "../../store/reducers/userCollectionsReduser";
-import { TuserCollectionsData } from "../../utils/utils";
+import { getAllUserCollectionsSelector, getBasicUserCollectionsInfoSelector, setAllUserCollections, setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReduser";
+import { cutBasicUserCollectionsInfo, TuserCollectionsData } from "../../utils/utils";
 
 export interface InewCollectionForm {
     title: string, 
@@ -17,7 +17,8 @@ export type TnewCollectionPostObject = {
   }
 export const useCreateNewCollection = () => {
     const dispatch = useAppDispatch();
-    const currentUserCollections = useAppSelector(getAllUserCollectionsSelector);
+    // const currentUserCollections = useAppSelector(getBasicUserCollectionsInfoSelector);
+    // const currentUserCollections = useAppSelector(getAllUserCollectionsSelector);
     const [getAllCollectionsAfterCreatingOneNewTriger] = collectionDataAPI.usePostNewCollectionMutation();
     const currentUserId = useAppSelector(getUserIdSelector);
     const currentUserEmail = useAppSelector(getUserEmailSelector);
@@ -25,7 +26,6 @@ export const useCreateNewCollection = () => {
     return (values: InewCollectionForm) => {
 
         const newCollection: TuserCollectionsData = {
-            collectionId: nanoid(),
             collectionColor: values.collectionColor,
             collectionImage: 'none',
             collectionTitle: values.title,
@@ -35,18 +35,19 @@ export const useCreateNewCollection = () => {
             collectionData: [],
         };
 
-        const newUserCollectionsData = [...currentUserCollections, newCollection];
+        // const newUserCollectionsData = [...currentUserCollections, newCollection];
         const newCollectionObj = {
             id: currentUserId,
-            newUserCollectionsData: newUserCollectionsData,
+            newUserCollection: newCollection,
         }
 
         getAllCollectionsAfterCreatingOneNewTriger({path:CREATE_NEW_COLLECTION_ENDPOINT, newCollectionObj: newCollectionObj})
         .unwrap()
         .then(
           (userCollections) => {
-            
-            dispatch(setAllUserCollections(userCollections));
+            console.log(userCollections)
+            dispatch(setUserBasicCollectionsInfo(cutBasicUserCollectionsInfo(userCollections)));
+            // dispatch(setAllUserCollections(userCollections));
             dispatch(hideModalWindow());
           },
           (error) => {

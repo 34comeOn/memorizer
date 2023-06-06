@@ -3,10 +3,12 @@ import { LOCAL_STORAGE_KEYS_CONSTANTS } from "../constants/stringConstants";
 import { IsignInForm } from "../myHooks/myFormHooks/useSubmitButtonForSignUp";
 
 export type TbasicCollectionInfo = {
-    collectionId: string,
+    // collectionId: string,
+    ['_id']?: string,
     collectionColor: string,
     collectionImage?: string,
     collectionTitle: string,
+    collectionAdminList: string[],
 }
 
 export type TcollectionItemComment = {
@@ -16,7 +18,8 @@ export type TcollectionItemComment = {
 }
 
 export type TcollectionItemData = {
-    collectionItemId: string
+    // collectionItemId: string
+    ['_id']?: string,
     collectionItemTitle: string,
     collectionItemAnswer: string,
     collectionItemRepeatedTimeStamp: number,
@@ -39,7 +42,8 @@ export type TcollectionСategories = {
 }
 
 export type TuserCollectionsData = {
-    collectionId: string,
+    // collectionId: string,
+    ['_id']?: string,
     collectionColor: string,
     collectionImage: string,
     collectionTitle: string,
@@ -185,16 +189,17 @@ export const checkAdminPowers = (userEmail: string, collectionAdminList : string
 }
 
 export const findCurrentUserCollection = (collectionId: string, userCollectionsData: TuserCollectionsData[]) => {
-    return userCollectionsData.find((item: TuserCollectionsData) => item.collectionId === collectionId);
+    return userCollectionsData.find((item: TuserCollectionsData) => item._id === collectionId);
 }
 
 export const cutBasicUserCollectionsInfo = (allUserCollections: TuserCollectionsData[]) => {
     const basicCollectionsInfo: TbasicCollectionInfo[] = allUserCollections.map(collection => {
         return ({
-            collectionId: collection.collectionId,
+            collectionId: collection._id,
             collectionColor: collection.collectionColor,
             collectionImage: collection.collectionColor,
             collectionTitle: collection.collectionTitle,
+            collectionAdminList: collection.collectionAdminList,
         })
     });
 

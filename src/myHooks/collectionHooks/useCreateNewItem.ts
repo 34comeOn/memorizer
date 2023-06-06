@@ -35,7 +35,7 @@ export const useCreateNewItem = () => {
         };
 
         const updatedAllCollections = allCurrentUserData.userCollectionsData.map((collection: TuserCollectionsData) => {
-            if (collection.collectionId === currentCollectionId) {
+            if (collection._id === currentCollectionId) {
                 collection.collectionData = [...collection.collectionData, newItem];
             }
             return collection;

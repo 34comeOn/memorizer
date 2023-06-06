@@ -39,6 +39,10 @@ const userCollectionsSlice = createSlice({
             localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_BASIC_COLLECTIONS_INFO, JSON.stringify(action.payload))
             state.basicUserCollectionsInfo = getBasicUserCollectionsInfo();
         },
+        removeUserBasicCollectionsInfo(state) {
+            localStorage.removeItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_BASIC_COLLECTIONS_INFO);
+            state.basicUserCollectionsInfo = getBasicUserCollectionsInfo();
+        },
         setAllUserCollections(state, action: PayloadAction<TuserCollectionsData[]>) {
             localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_COLLECTIONS, JSON.stringify(action.payload))
             state.allUserCollections = getUserCollections();
@@ -58,6 +62,7 @@ export default userCollectionsSlice.reducer;
 
 export const {
     setUserBasicCollectionsInfo,
+    removeUserBasicCollectionsInfo,
     setAllUserCollections, 
     setCurrentCollection,
     removeAllUserCollections
