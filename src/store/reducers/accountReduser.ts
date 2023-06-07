@@ -51,6 +51,7 @@ const accountSlice = createSlice({
       state.isAuthorized = hasAccess();
       state.userName = getUserNameFromLstorage();
       state.userEmail = getUserEmail();
+      state.userId = getUserId();
     },
     logOut(state) {
       localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.HAS_USER_ACCESS, 'false');

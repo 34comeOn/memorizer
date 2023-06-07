@@ -12,7 +12,7 @@ export const UserCollectionsList = () => {
     return (
         <StyledUserCollectionsList>
             {allUserCollections.map(item =>
-            <UserCollection key={item._id?? nanoid()} title={item.collectionTitle} color={item.collectionColor || STOCK_COLLECTION_COLOR} adminList={item.collectionAdminList} collectionId={item._id?? nanoid()}></UserCollection>
+            <UserCollection key={item._id || nanoid()} title={item.collectionTitle} color={item.collectionColor || STOCK_COLLECTION_COLOR} adminList={item.collectionAdminList} _id={item._id || ''}></UserCollection>
             )}
         </ StyledUserCollectionsList >
     )

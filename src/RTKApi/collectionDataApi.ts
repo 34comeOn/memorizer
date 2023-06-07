@@ -40,6 +40,14 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
         };
       }
     }),
+    deleteCollection: build.mutation<TuserCollectionsData[], string>({
+      query(path) {
+        return {
+          url: `${path}`,
+          method: 'DELETE',
+        };
+      }
+    }),
     postCurrentCollection: build.mutation<TuserCollectionsData, {path: string, currentUserId:string,collectionId: string}>({
       query(obj) {
         return {

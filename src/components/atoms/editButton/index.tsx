@@ -4,7 +4,7 @@ import { MODAL_WINDOW_CONTENT_STRING_CONSTANTS } from "../../../constants/string
 import { setContentForModalWindow, showModalWindow } from "../../../store/reducers/modalWindowReduser";
 import { StyledEditButton } from "./styledEditButton";
 
-export const EditButton = ({collectionId = ''}: {collectionId: string}) => {
+export const EditButton = ({_id = ''}: {_id: string}) => {
     const dispatch = useDispatch();
 
     return(

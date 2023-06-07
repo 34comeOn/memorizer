@@ -12,13 +12,13 @@ type TmenuButton = {
     path: string, 
     color: string,
     disabled?: boolean,
-    collectionId: string,
+    _id: string,
 }
 
-export const TrainCollectionButton = ({children, path, color, disabled, collectionId}: TmenuButton) => {
+export const TrainCollectionButton = ({children, path, color, disabled, _id}: TmenuButton) => {
     const accountStatus = useAppSelector(getAccountStatusSelector);
     const getDataByClick = useGetDataTriger();
-    const getDataFromLocalStorageByClick = useTrainCollectionButton(collectionId);
+    const getDataFromLocalStorageByClick = useTrainCollectionButton(_id);
     return(
         <Link to={path} className='train-collection--link'>
             <StyledMenuButton onClick={accountStatus? getDataFromLocalStorageByClick: getDataByClick} disabled={disabled || false} color={color}>

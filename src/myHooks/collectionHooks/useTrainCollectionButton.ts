@@ -7,9 +7,7 @@ import { hideCurrentCard } from "../../store/reducers/cardWindowReduser";
 import { setFiltersList } from "../../store/reducers/collectionFiltersReduser";
 import { setRepeatGroupsReduser } from "../../store/reducers/collectionGroupsReduser";
 import { setCurrentCollection } from "../../store/reducers/userCollectionsReduser";
-import { 
-    // findCurrentUserCollection, getAllCurrentUserData, getCurrentUserEmailFromLStorage, setCurrentCollectionToLocalStorage, 
-    spreadCollectionData } from "../../utils/utils";
+import { spreadCollectionData } from "../../utils/utils";
 
 export const useTrainCollectionButton = (collectionId: string) => {
     const dispatch = useAppDispatch();
@@ -34,8 +32,5 @@ export const useTrainCollectionButton = (collectionId: string) => {
             // error.status === 403? alert('E-mail or password does not match!') : alert('Ops! something went wrong')
           }
         );
-        // const {filtersOfCollection, orgonizedGroupsOfCollection}= spreadCollectionData(currentUserCollection?.collectionData || STOCK_COLLECTION.collectionData);
-        // dispatch(setRepeatGroupsReduser(orgonizedGroupsOfCollection)); 
-        // dispatch(setFiltersList(filtersOfCollection)); 
     }
 }    

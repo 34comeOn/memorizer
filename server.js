@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const User = require('./models/user');
-const Collection = require('./models/user');
 
 const db = 'mongodb+srv://barabanovm:Noway-2steal@cluster2.d7n5n2k.mongodb.net/?retryWrites=true&w=majority';
 
@@ -54,8 +53,22 @@ app.post('/collection', (req, res)=> {
 
     User.findById(currentUserId)
     .then(result=> {
-        console.log(result.userCollectionsData.find(collection => collection.collectionId === collectionId))
         res.send(result.userCollectionsData.find(collection => collection.collectionId === collectionId))
+    })
+    .catch(err=> console.log(err))
+})
+
+app.delete('/:id/:user', (req, res) => {
+    let collectionId = req.params.id.slice(1);
+    let userId = req.params.user.slice(1);
+
+    User.updateOne(
+        { _id: userId },
+        { $pull: { userCollectionsData: { _id: collectionId }  } }
+    )
+    .then(()=> {
+        User.findById(userId)
+        .then(result=> res.send(result.userCollectionsData))
     })
     .catch(err=> console.log(err))
 })
@@ -100,7 +113,7 @@ app.post('/api/sign-up', (req, res)=> {
 })
 
 app.post('/api/new-collection', (req, res)=>  {
-    const {
+    let {
         id,
         newUserCollection
     } = req.body;

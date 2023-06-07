@@ -2,11 +2,9 @@ import { nanoid } from "nanoid";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
 import { STOCK_COLLECTION } from "../../constants/stockConstants";
-import { LOCAL_STORAGE_KEYS_CONSTANTS } from "../../constants/stringConstants";
 import { setFiltersList } from "../../store/reducers/collectionFiltersReduser";
 import { setRepeatGroupsReduser } from "../../store/reducers/collectionGroupsReduser";
 import { findCurrentUserCollection, getAllCurrentUserData, getCurrentUserEmailFromLStorage, 
-    // setCurrentCollectionToLocalStorage,
      spreadCollectionData, TuserCollectionsData } from "../../utils/utils";
 
 export interface InewCollectionItemForm {
@@ -22,7 +20,6 @@ export const useCreateNewItem = () => {
     return (values: InewCollectionItemForm) => {
         const currentUserEmailFromLStorage = getCurrentUserEmailFromLStorage();
         const allCurrentUserData = getAllCurrentUserData(currentUserEmailFromLStorage);
-        // const currentCollectionId = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS_CONSTANTS.CURRENT_USER_COLLECTION)|| JSON.stringify({'_id': '000'}))._id
         const currentCollectionId = nanoid();
         const newItem = {
             collectionItemId: nanoid(),   
@@ -43,7 +40,6 @@ export const useCreateNewItem = () => {
         const newAllUserData = {...allCurrentUserData, userCollectionsData: updatedAllCollections};
         
         localStorage.setItem(currentUserEmailFromLStorage, JSON.stringify(newAllUserData))
-        // setCurrentCollectionToLocalStorage(currentCollectionId,newAllUserData.userCollectionsData)
 
         const currentUserCollection = findCurrentUserCollection(currentCollectionId, newAllUserData.userCollectionsData);
         const {filtersOfCollection, orgonizedGroupsOfCollection}= spreadCollectionData(currentUserCollection?.collectionData || STOCK_COLLECTION.collectionData);

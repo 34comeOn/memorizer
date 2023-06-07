@@ -195,7 +195,7 @@ export const findCurrentUserCollection = (collectionId: string, userCollectionsD
 export const cutBasicUserCollectionsInfo = (allUserCollections: TuserCollectionsData[]) => {
     const basicCollectionsInfo: TbasicCollectionInfo[] = allUserCollections.map(collection => {
         return ({
-            collectionId: collection._id,
+            ['_id']: collection._id,
             collectionColor: collection.collectionColor,
             collectionImage: collection.collectionColor,
             collectionTitle: collection.collectionTitle,

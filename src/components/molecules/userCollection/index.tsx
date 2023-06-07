@@ -11,20 +11,20 @@ type TuserCollection = {
     title: string, 
     color: string, 
     adminList: string[], 
-    collectionId: string,
+    _id: string,
 }
 
-export const UserCollection = ({title, color, adminList, collectionId}: TuserCollection) => {
+export const UserCollection = ({title, color, adminList, _id}: TuserCollection) => {
     const currentUserEmailFromLStorage = getCurrentUserEmailFromLStorage();
     const userHasAdminPowersForCollection = checkAdminPowers(currentUserEmailFromLStorage?? '', adminList?? []);
     return(
         <StyledUserCollection color={color}>
-            {userHasAdminPowersForCollection && <EditButton collectionId={collectionId} />}
-            {userHasAdminPowersForCollection && <DeleteButton collectionId={collectionId} />}
+            {userHasAdminPowersForCollection && <EditButton _id={_id} />}
+            {userHasAdminPowersForCollection && <DeleteButton _id={_id} />}
             <span className='collection--title'> 
                 {title}
             </span>
-            <TrainCollectionButton path='/collection' color={variables.colorMenuBright} collectionId={collectionId} >
+            <TrainCollectionButton path='/collection' color={variables.colorMenuBright} _id={_id} >
                 Train collection
             </TrainCollectionButton>
         </StyledUserCollection>

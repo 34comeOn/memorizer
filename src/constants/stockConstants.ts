@@ -33,21 +33,8 @@ export const STOCK_COLLECTION_ITEM = {
   collectionItemCategory: 'list--filter__none',
   collectionItemColor: 'red',
 }
-// type TcollectionItemData = {
-//   collectionItemId: string
-//   collectionItemTitle: string,
-//   collectionItemAnswer: string,
-//   collectionItemRepeatedTimeStamp: number,
-//   collectionItemTimesBeenRepeated: number,
-//   collectionItemCategory?: string,
-//   collectionItemColor?: string,
-//   collectionItemPriority?: number,
-//   collectionItemTags?: string[],
-//   collectionItemComments?: TcollectionItemComment[],
-// }
 
 export const STOCK_BASIC_COLLECTION_INFO = {
-  // collectionId: '000',
   ['_id']: '000',
   collectionColor: 'black',
   collectionImage: 'none',
@@ -55,7 +42,6 @@ export const STOCK_BASIC_COLLECTION_INFO = {
 }
 
 export const STOCK_COLLECTION = {
-  // collectionId: nanoid(),
   ['_id']: '000',
   collectionColor:'',
   collectionImage: 'none',
