@@ -10,6 +10,7 @@ import { getListOfCurrentFiltersSelector } from '../../../../store/reducers/coll
 import { MAIN_FILTER_CHECKBOX } from '../../../../constants/stringConstants';
 import { hideAnswer, setCurrentCard, showCurrentCard } from '../../../../store/reducers/cardWindowReduser';
 import { RepeatListItem } from '../../repeatListItem';
+import { nanoid } from 'nanoid';
 
 export type ThandleOpenCard = (id: string) => void
 
@@ -35,7 +36,7 @@ export const StockRepeatList = ({title, list}: {title: string, list: Tcollection
                 {list.map(item => {
                     const itemFilter = item.collectionItemCategory?.slice(14);
                     return ((itemFilter? currentlistItemsCategories.includes(itemFilter): false) || currentlistItemsCategories.includes(MAIN_FILTER_CHECKBOX)) && 
-                    <RepeatListItem item={item} key={item._id} onClick={()=> {handleItemClick(item)}} />
+                    <RepeatListItem item={item} key={item._id?? nanoid()} onClick={()=> {handleItemClick(item)}} />
                 })
                 }
             </StyledRepeatList>

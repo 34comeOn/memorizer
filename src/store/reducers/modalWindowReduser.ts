@@ -21,7 +21,6 @@ const modalWindowSlice = createSlice({
       state.isModalShown = false;
     },
     setContentForModalWindow(state, action: PayloadAction<string>) {
-      console.log(action.payload)
       state.modalInnerComponentTitle = action.payload;
     },
     removeContentFromModalWindow(state) {

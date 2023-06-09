@@ -4,7 +4,7 @@ import { IsignInForm } from "../myHooks/myFormHooks/useSubmitButtonForSignUp";
 
 export type TbasicCollectionInfo = {
     // collectionId: string,
-    ['_id']?: string,
+    '_id'?: string,
     collectionColor: string,
     collectionImage?: string,
     collectionTitle: string,
@@ -19,7 +19,7 @@ export type TcollectionItemComment = {
 
 export type TcollectionItemData = {
     // collectionItemId: string
-    ['_id']?: string,
+    '_id'?: string,
     collectionItemTitle: string,
     collectionItemAnswer: string,
     collectionItemRepeatedTimeStamp: number,
@@ -43,7 +43,7 @@ export type TcollectionСategories = {
 
 export type TuserCollectionsData = {
     // collectionId: string,
-    ['_id']?: string,
+    '_id'?: string,
     collectionColor: string,
     collectionImage: string,
     collectionTitle: string,
@@ -195,7 +195,7 @@ export const findCurrentUserCollection = (collectionId: string, userCollectionsD
 export const cutBasicUserCollectionsInfo = (allUserCollections: TuserCollectionsData[]) => {
     const basicCollectionsInfo: TbasicCollectionInfo[] = allUserCollections.map(collection => {
         return ({
-            ['_id']: collection._id,
+            '_id': collection._id,
             collectionColor: collection.collectionColor,
             collectionImage: collection.collectionColor,
             collectionTitle: collection.collectionTitle,

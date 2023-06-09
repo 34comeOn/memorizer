@@ -48,13 +48,11 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
         };
       }
     }),
-    postCurrentCollection: build.mutation<TuserCollectionsData, {path: string, currentUserId:string,collectionId: string}>({
-      query(obj) {
+    getCurrentCollectionToTrain: build.mutation<TuserCollectionsData, string>({
+      query(path) {
         return {
-          url: `${obj.path}`,
-          method: 'POST',
-          headers: {'Content-Type': 'application/json;charset=utf-8'},
-          body: JSON.stringify({currentUserId:obj.currentUserId,collectionId: obj.collectionId})
+          url: `${path}`,
+          method: 'GET',
         };
       }
     }),

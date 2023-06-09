@@ -44,16 +44,13 @@ app.get('/data', (req, res)=> {
     .catch(err=> console.log(err))
 })
 
-// app.get('/:userId/collection/:collectionId', (req, res)=> {
-app.post('/collection', (req, res)=> {
-    // let userId = req.params['userId'];
-    // let collectionId = req.params['collectionId'];
-    // console.log(userId)
-    const {currentUserId,collectionId} = req.body;
+app.get('/:id/:user', (req, res)=> {
+    let collectionId = req.params.id.slice(1);
+    let currentUserId = req.params.user.slice(1);
 
     User.findById(currentUserId)
     .then(result=> {
-        res.send(result.userCollectionsData.find(collection => collection.collectionId === collectionId))
+        res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId))
     })
     .catch(err=> console.log(err))
 })
