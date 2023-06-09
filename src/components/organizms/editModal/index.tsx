@@ -4,10 +4,11 @@ import variables from '../../../sass/variables.module.scss';
 import './style.scss';
 import { CloseButton } from "../../atoms/closeButton";
 import { useAppSelector } from "../../../app/hooks";
-import { getModalWindowContent, getModalWindowViewState } from "../../../store/reducers/modalWindowReduser";
+import { getModalWindowContentTitleSelector, getModalWindowViewSelector } from "../../../store/reducers/modalWindowReduser";
 import ReactModal from "react-modal";
 import { useCloseModalWindowButton } from "../../../myHooks/useCloseModalWindowButton";
-import { getAccountStatus } from "../../../store/reducers/accountReduser";
+import { getAccountStatusSelector } from "../../../store/reducers/accountReduser";
+import { getReactElementForModalWindowContent } from "../../../myHooks/useCurrentContentForModalWindow";
 
 ReactModal.setAppElement('#root');
 
@@ -26,10 +27,11 @@ const modalStyles = {
 }
 
 export const EditModalWindow = () => {
-    const modalViewState = useAppSelector(getModalWindowViewState);
-    const modalWindowContent = useAppSelector(getModalWindowContent);
+    const modalViewState = useAppSelector(getModalWindowViewSelector);
+    const modalWindowContent = useAppSelector(getModalWindowContentTitleSelector);
     const closeModalWindow = useCloseModalWindowButton();
-    const accountStatus = useAppSelector(getAccountStatus);
+    const accountStatus = useAppSelector(getAccountStatusSelector);
+    const renderingComponentAsWindowContent = getReactElementForModalWindowContent(modalWindowContent)
     return(
         <Modal
             isOpen={modalViewState}
@@ -37,7 +39,7 @@ export const EditModalWindow = () => {
             // overlayClassName='modal--overlay'
         >
             <CloseButton onClick={closeModalWindow}/>
-            {accountStatus && modalWindowContent}
+            {accountStatus && renderingComponentAsWindowContent}
         </ Modal>
     )
 }

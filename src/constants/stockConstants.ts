@@ -1,14 +1,14 @@
 import { ThunkDispatch, CombinedState, AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { CombinedState as CombinedStateApi } from "@reduxjs/toolkit/dist/query/core/apiState";
 import { TgroupForRepeat } from "../store/reducers/collectionGroupsReduser";
-import { Tcard } from "../utils/utils";
+import { TcollectionItemData } from "../utils/utils";
 import { nanoid } from 'nanoid';
 
 type TRepeatTimesConvertToPoints = {
   [key: number]: number,
 }
 
-export type Tdispatch = ThunkDispatch<CombinedState<{ accountSlice: { isAuthorized: boolean; accountUserName: string; userEmail: string; }; collectionFiltersSlice: { filtersList: string[]; listOfCurrentFilters: string[]; }; collectionGroupsSlice: { repeatGroups: TgroupForRepeat[]; }; cardWindowSlice: { currentCard: Tcard; isCurrentCardVisible: boolean; isAnswerVisible: boolean; }; userCollectionsSlice: { allUserCollections: { _id: string; title: string; data: Tcard[]; }[]; }; rootAPI: CombinedStateApi<{}, never, "rootAPI">; }>, undefined, AnyAction> & Dispatch<AnyAction>
+export type Tdispatch = ThunkDispatch<CombinedState<{ accountSlice: { isAuthorized: boolean; userName: string; userEmail: string; }; collectionFiltersSlice: { filtersList: string[]; listOfCurrentFilters: string[]; }; collectionGroupsSlice: { repeatGroups: TgroupForRepeat[]; }; cardWindowSlice: { currentCard: TcollectionItemData; isCurrentCardVisible: boolean; isAnswerVisible: boolean; }; userCollectionsSlice: { allUserCollections: { _id: string; title: string; data: TcollectionItemData[]; }[]; }; rootAPI: CombinedStateApi<{}, never, "rootAPI">; }>, undefined, AnyAction> & Dispatch<AnyAction>
 
 export const REPEAT_TIMES_CONVERT_TO_POINTS: TRepeatTimesConvertToPoints = {
   0: 0,
@@ -25,27 +25,39 @@ export const STOCK_COLLECTION_COLOR = '#0052C1';
 export const MAX_PUNISHMENT_FOR_LATE_PRACTICE = 3;
 
 export const STOCK_COLLECTION_ITEM = {
-  '_id': nanoid(),   
-  filter: 'list--filter__none',
-  filterColor: 'red',
-  repeatedTimeStamp: 1671420000000,
-  timesBeenRepeated: 0,
-  title: 'Test',
-  answer: 'Answer',
+  collectionItemId: nanoid(),   
+  collectionItemTitle: 'Test',
+  collectionItemAnswer: 'Answer',
+  collectionItemRepeatedTimeStamp: 1671420000000,
+  collectionItemTimesBeenRepeated: 0,
+  collectionItemCategory: 'list--filter__none',
+  collectionItemColor: 'red',
+}
+
+export const STOCK_BASIC_COLLECTION_INFO = {
+  ['_id']: '000',
+  collectionColor: 'black',
+  collectionImage: 'none',
+  collectionTitle: 'Basic test collection',
 }
 
 export const STOCK_COLLECTION = {
-  '_id': nanoid(),
-  color:'',
-  title: 'Train stock React collection',
-  data: [STOCK_COLLECTION_ITEM],
-  adminList: [],
+  ['_id']: '000',
+  collectionColor:'',
+  collectionImage: 'none',
+  collectionTitle: 'Train stock React collection',
+  collectionAdminList: [],
+  collectionСategories: [],
+  collectionTags: [],
+  collectionData: [STOCK_COLLECTION_ITEM],
 }
+
 
 export const STOCK_COLLECTIONS_DATA = [
   STOCK_COLLECTION
 ]
 export const STOCK_USER = {
+  '_id': 'stockId',
   email: 'testMemUser@gmail.com',
   password: '!testMemUserPass333',
   name: 'Stock User',

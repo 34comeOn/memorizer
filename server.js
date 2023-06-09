@@ -1,9 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const Question = require('./models/question');
+const User = require('./models/user');
 
-const db = 'mongodb+srv://barabanovm:Noway-2steal@cluster0.j32xaeo.mongodb.net/?retryWrites=true&w=majority';
+const db = 'mongodb+srv://barabanovm:Noway-2steal@cluster2.d7n5n2k.mongodb.net/?retryWrites=true&w=majority';
 
 mongoose
     .connect(db)
@@ -19,43 +19,119 @@ app.listen(PORT, (error) => {
     error? console.log(error): console.log(`listen localhost${PORT}`)
 });
 
-app.get('/', (req, result)=> {
-    console.log('/');
+app.post('/api/sign-in', (req, res)=> {
+    const {
+        email,
+        password,
+    } = req.body;
+
+    User.where({ email: email, password: password }).find()
+    .then(result=> {
+        if (result[0]) {
+            res.send(result[0])
+        } else {
+            console.log('pass or email does not match')
+            res.status(403).end();
+        }
+    })
+    .catch(err=> console.log(err))
+
 })
 
 app.get('/data', (req, res)=> {
-    Question.find()
+    User.find()
     .then(result=> res.send(result))
     .catch(err=> console.log(err))
 })
 
-app.post('/api/post-question', (req, res)=> {
-    const{
-        answer,
-        filter,
-        repeatedTimeStamp,
-        title,
-        timesBeenRepeated,
-    } =req.body;
+app.get('/:id/:user', (req, res)=> {
+    let collectionId = req.params.id.slice(1);
+    let currentUserId = req.params.user.slice(1);
+
+    User.findById(currentUserId)
+    .then(result=> {
+        res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId))
+    })
+    .catch(err=> console.log(err))
+})
+
+app.delete('/:id/:user', (req, res) => {
+    let collectionId = req.params.id.slice(1);
+    let userId = req.params.user.slice(1);
+
+    User.updateOne(
+        { _id: userId },
+        { $pull: { userCollectionsData: { _id: collectionId }  } }
+    )
+    .then(()=> {
+        User.findById(userId)
+        .then(result=> res.send(result.userCollectionsData))
+    })
+    .catch(err=> console.log(err))
+})
+
+app.post('/api/sign-up', (req, res)=> {
+    const {
+        email,
+        password,
+        userName,
+        subscription,
+        currentToken,
+        currentCollection,
+        userCollectionsData
+    } = req.body;
     
-    const question = new Question({
-        answer,
-        filter,
-        repeatedTimeStamp,
-        title,
-        timesBeenRepeated,
+    const user = new User({
+        email,
+        password,
+        userName,
+        subscription,
+        currentToken,
+        currentCollection,
+        userCollectionsData
     });
 
-    question.save()
+    User.where({ email: email }).find()
+    .then(result=> {
+        if (!result[0]) {
+            user.save()
+            .catch(err=> console.log(err))
+            .then(()=> {
+                User.where({ email: email }).find()
+                .then(result=> res.send(result[0]))
+                .catch(err=> console.log(err))
+            })
+        } else {
+            console.log('user exists')
+            res.status(400).end();
+        }
+    })
     .catch(err=> console.log(err))
+})
+
+app.post('/api/new-collection', (req, res)=>  {
+    let {
+        id,
+        newUserCollection
+    } = req.body;
+
+    User.updateOne(
+        { _id: id },
+        { $push: { userCollectionsData: newUserCollection } }
+    )
+    .then(()=> {
+        User.findById(id)
+        .then(result=> res.send(result.userCollectionsData))
+        .catch(err=> console.log(err))
+    })
 })
 
 app.put('/api/repeat', (req, res)=> {
     const{id, repeatedTimeStamp, timesBeenRepeated} =req.body;
-    Question.findByIdAndUpdate(id, {repeatedTimeStamp, timesBeenRepeated } )
+    User.findByIdAndUpdate(id, {repeatedTimeStamp, timesBeenRepeated } )
     .catch(err => console.log(err))
     .then(()=> {
-        Question.find()
+        User.find()
     .then(result=> res.send(result))
     .catch(err=> console.log(err))
     })

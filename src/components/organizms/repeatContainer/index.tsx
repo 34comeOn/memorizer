@@ -8,7 +8,7 @@ import { RepeatIn4HoursList } from '../../molecules/repeatLists/repeatIn4HoursLi
 import { RepeatInHourList } from '../../molecules/repeatLists/repeatInHourList';
 import { RepeatNowList } from '../../molecules/repeatLists/repeatNowList';
 import { useAppSelector } from '../../../app/hooks';
-import { getRepeatGroupsState } from '../../../store/reducers/collectionGroupsReduser';
+import { getRepeatGroupsSelector } from '../../../store/reducers/collectionGroupsReduser';
 
 export const RepeatContainer = () => {
 
@@ -20,7 +20,7 @@ export const RepeatContainer = () => {
   repeatIn12HoursGroup,
   repeatIn24HoursGroup,
   repeatIn3DaysGroup
-  ] = useAppSelector(getRepeatGroupsState);
+  ] = useAppSelector(getRepeatGroupsSelector);
 
   return (
     <StyledRepeatContainer>

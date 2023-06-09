@@ -3,7 +3,7 @@ import { StockCheckbox } from "../../atoms/stock/checkbox";
 import { StyledCheckboxList } from "./styledCheckboxList";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { addItemInListOfCurrentFilters, 
-    getRefreshedFiltersState,
+    getRefreshedFiltersSelector,
     replaceListOfCurrentFilters, 
     removeItemFromListOfCurrentFilters 
 } from "../../../store/reducers/collectionFiltersReduser";
@@ -12,7 +12,7 @@ import { MAIN_FILTER_CHECKBOX } from "../../../constants/stringConstants";
 
 export const CheckboxList = () => {
     const dispatch = useAppDispatch();
-    const currentFilters = useAppSelector(getRefreshedFiltersState);
+    const currentFilters = useAppSelector(getRefreshedFiltersSelector);
     const {isMainCheckboxChecked} = useCheckboxCurrentState(MAIN_FILTER_CHECKBOX);
 
     const handleOnChange = (event: SyntheticEvent<HTMLElement>)=>{

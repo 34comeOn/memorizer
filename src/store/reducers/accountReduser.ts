@@ -3,20 +3,22 @@ import { LOCAL_STORAGE_KEYS_CONSTANTS } from '../../constants/stringConstants';
 
 type TAccountState = {
   isAuthorized: boolean;
-  accountUserName: string;
+  userName: string;
   userEmail: string;
+  userId: string;
 };
 
 type TlogInAction = {
-  accountUserName: string;
+  userName: string;
   userEmail: string;
+  userId: string;
 }
 
 const hasAccess = () => {
   return localStorage.getItem(LOCAL_STORAGE_KEYS_CONSTANTS.HAS_USER_ACCESS) === 'true';
 };
 
-const getUserName = () => {
+const getUserNameFromLstorage = () => {
   const storageUserName = localStorage.getItem(LOCAL_STORAGE_KEYS_CONSTANTS.ACCOUNT_USER_NAME);
   return typeof storageUserName === 'string' ? storageUserName : ' ';
 };
@@ -25,10 +27,16 @@ const getUserEmail = () => {
   return typeof storageUserEmail === 'string' ? storageUserEmail : ' ';
 };
 
+const getUserId = () => {
+  const storageUserId = localStorage.getItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_ID);
+  return typeof storageUserId === 'string' ? storageUserId : ' ';
+};
+
 const initialState: TAccountState = {
   isAuthorized: hasAccess(),
-  accountUserName: getUserName(),
+  userName: getUserNameFromLstorage(),
   userEmail: getUserEmail(),
+  userId: getUserId(),
 };
 
 const accountSlice = createSlice({
@@ -37,11 +45,13 @@ const accountSlice = createSlice({
   reducers: {
     logIn(state, action: PayloadAction<TlogInAction>) {
       localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.HAS_USER_ACCESS, 'true');
-      localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.ACCOUNT_USER_NAME, action.payload.accountUserName);
+      localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.ACCOUNT_USER_NAME, action.payload.userName);
       localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_EMAIL, action.payload.userEmail);
+      localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_ID, action.payload.userId);
       state.isAuthorized = hasAccess();
-      state.accountUserName = getUserName();
+      state.userName = getUserNameFromLstorage();
       state.userEmail = getUserEmail();
+      state.userId = getUserId();
     },
     logOut(state) {
       localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.HAS_USER_ACCESS, 'false');
@@ -56,8 +66,14 @@ export default accountSlice.reducer;
 
 export const { logIn, logOut } = accountSlice.actions;
 
-export const getAccountStatus = (state: { accountSlice: { isAuthorized: boolean } }) =>
+export const getAccountStatusSelector = (state: { accountSlice: { isAuthorized: boolean } }) =>
   state.accountSlice.isAuthorized;
 
-export const getAccountUserName = (state: { accountSlice: { accountUserName: string } }) =>
-  state.accountSlice.accountUserName;
+export const getUserNameSelector = (state: { accountSlice: { userName: string } }) =>
+  state.accountSlice.userName;
+
+export const getUserEmailSelector = (state: { accountSlice: { userEmail: string } }) =>
+  state.accountSlice.userEmail;
+
+export const getUserIdSelector = (state: { accountSlice: { userId: string } }) =>
+  state.accountSlice.userId;

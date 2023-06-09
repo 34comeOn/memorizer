@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { LOCAL_STORAGE_KEYS_CONSTANTS } from "../../constants/stringConstants";
-import { Tcard } from "../../utils/utils";
+import { TcollectionItemData } from "../../utils/utils";
 
-export type TgroupForRepeat = Tcard[];
+export type TgroupForRepeat = TcollectionItemData[];
 
 type TinitialState = {
     repeatGroups: TgroupForRepeat[],
@@ -22,7 +22,7 @@ const collectionGroupsSlice = createSlice({
     name: 'collectionGroupsSlice',
     initialState,
     reducers: {
-        setRepeatGroupsReduser(state, action: PayloadAction<Tcard[][]>) {
+        setRepeatGroupsReduser(state, action: PayloadAction<TcollectionItemData[][]>) {
             localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_REPEAT_GROUPS, JSON.stringify(action.payload))
             state.repeatGroups = getUserRepeatGroups();
         },
@@ -40,5 +40,5 @@ export const {
     removeRepeatGroups, 
 } = collectionGroupsSlice.actions;
 
-export const getRepeatGroupsState = (state: {collectionGroupsSlice: {repeatGroups: Tcard[][]}}) =>
+export const getRepeatGroupsSelector = (state: {collectionGroupsSlice: {repeatGroups: TcollectionItemData[][]}}) =>
    state.collectionGroupsSlice.repeatGroups

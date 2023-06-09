@@ -1,14 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ReactElement } from 'react';
 
 type TmodalWindowState = {
     isModalShown: boolean;
-    modalInnerComponent: ReactElement | string;
+    modalInnerComponentTitle: string;
 };
 
 const initialState: TmodalWindowState = {
   isModalShown: false,
-  modalInnerComponent: 'no content still',
+  modalInnerComponentTitle: 'no content still',
 };
 
 const modalWindowSlice = createSlice({
@@ -21,11 +20,11 @@ const modalWindowSlice = createSlice({
     hideModalWindow(state) {
       state.isModalShown = false;
     },
-    setContentForModalWindow(state, action: PayloadAction<ReactElement>) {
-      state.modalInnerComponent = action.payload;
+    setContentForModalWindow(state, action: PayloadAction<string>) {
+      state.modalInnerComponentTitle = action.payload;
     },
     removeContentFromModalWindow(state) {
-      state.modalInnerComponent = 'content removed';
+      state.modalInnerComponentTitle = 'content removed';
     },
   }
 });
@@ -34,7 +33,7 @@ export default modalWindowSlice.reducer;
 
 export const { showModalWindow, hideModalWindow, setContentForModalWindow,  removeContentFromModalWindow} = modalWindowSlice.actions;
 
-export const getModalWindowViewState = (state: { modalWindowSlice: { isModalShown: boolean } }) =>
+export const getModalWindowViewSelector = (state: { modalWindowSlice: { isModalShown: boolean } }) =>
   state.modalWindowSlice.isModalShown;
-export const getModalWindowContent = (state: { modalWindowSlice: { modalInnerComponent: ReactElement | string } }) =>
-  state.modalWindowSlice.modalInnerComponent;
+export const getModalWindowContentTitleSelector = (state: { modalWindowSlice: { modalInnerComponentTitle: string } }) =>
+  state.modalWindowSlice.modalInnerComponentTitle;

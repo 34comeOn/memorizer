@@ -1,7 +1,7 @@
 import React from "react";
 import { useAppDispatch } from "../../../app/hooks";
+import { MODAL_WINDOW_CONTENT_STRING_CONSTANTS } from "../../../constants/stringConstants";
 import { setContentForModalWindow, showModalWindow } from "../../../store/reducers/modalWindowReduser";
-import { NewCollectionForm } from "../../organizms/newCollectionForm";
 import { StyledMenuButton } from "../trainCollectionButton/styledMenuButton";
 import './style.scss';
 
@@ -15,7 +15,7 @@ export const CreateNewCollectionButton = ({children, color, disabled}: TcreateNe
     const dispatch = useAppDispatch();
     return(
         <StyledMenuButton onClick={()=> {
-            dispatch(setContentForModalWindow(<NewCollectionForm />))
+            dispatch(setContentForModalWindow(MODAL_WINDOW_CONTENT_STRING_CONSTANTS.CREATE_NEW_COLLECTION))
             dispatch(showModalWindow())
             }} disabled={disabled || false} color={color}>
             {children}

@@ -1,16 +1,23 @@
-import { useAppDispatch } from "../../app/hooks";
-import { setAllUserCollections, TuserCollection } from "../../store/reducers/userCollectionsReduser";
-import { getAllCurrentUserData, getCurrentUserEmailFromLStorage } from "../../utils/utils";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
+import { getUserIdSelector } from "../../store/reducers/accountReduser";
+import { setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReduser";
+import { cutBasicUserCollectionsInfo} from "../../utils/utils";
 
-export const useDeleteCollectionButton = (collectionId: string) => {
+export const useDeleteCollectionButton = (_id: string) => {
     const dispatch = useAppDispatch();
+    const currentUserId = useAppSelector(getUserIdSelector);
+    const [deleteCollectionTriger] = collectionDataAPI.useDeleteCollectionMutation();
     return () => {
-        const currentUserEmailFromLStorage = getCurrentUserEmailFromLStorage();
-        const allCurrentUserData = getAllCurrentUserData(currentUserEmailFromLStorage);
-
-        const newUserCollectionsData = allCurrentUserData.userCollectionsData.filter((item: TuserCollection) => item._id !== collectionId)
-        const newAllUserData = {...allCurrentUserData, userCollectionsData: newUserCollectionsData};
-        localStorage.setItem(currentUserEmailFromLStorage, JSON.stringify(newAllUserData))
-        dispatch(setAllUserCollections(newUserCollectionsData));
+        deleteCollectionTriger(`/:${_id}/:${currentUserId}`)
+        .unwrap()
+        .then(
+            (userCollectionsData) => {
+                dispatch(setUserBasicCollectionsInfo(cutBasicUserCollectionsInfo(userCollectionsData)));
+              },
+              (error) => {
+                alert('something went wrong while DELETE')
+              }
+        )
     }
 }

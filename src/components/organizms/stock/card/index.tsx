@@ -4,7 +4,7 @@ import { ShowButton } from '../../../atoms/showButton';
 import { StyledCard } from './styledCard';
 import { Answer } from '../../../atoms/answer';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
-import { getAnswerVisibilityState, getCurrentCardState, getCurrentCardVisibilityState, toggleAnswerVisibility } from '../../../../store/reducers/cardWindowReduser';
+import { getAnswerVisibilitySelector, getCurrentCardSelector, getCurrentCardVisibilitySelector, toggleAnswerVisibility } from '../../../../store/reducers/cardWindowReduser';
 import { useDoneClickButton } from '../../../../myHooks/useDoneClickButton';
 import './style.scss';
 import { CloseButton } from '../../../atoms/closeButton';
@@ -12,10 +12,10 @@ import { useCloseCollectionItemButton } from '../../../../myHooks/useCloseCollec
 
 export const StockCardWindow = () => {
     const dispatch = useAppDispatch();
-    const currentCard = useAppSelector(getCurrentCardState);
+    const currentCard = useAppSelector(getCurrentCardSelector);
     const onDoneClickHandle = useDoneClickButton(currentCard);
-    const isCurrentCardVisible = useAppSelector(getCurrentCardVisibilityState);
-    const isAnswerVisible = useAppSelector(getAnswerVisibilityState);
+    const isCurrentCardVisible = useAppSelector(getCurrentCardVisibilitySelector);
+    const isAnswerVisible = useAppSelector(getAnswerVisibilitySelector);
     const closeCardWindow = useCloseCollectionItemButton();
 
     const onShowClickHandle= ()=> {
@@ -27,11 +27,11 @@ export const StockCardWindow = () => {
         {isCurrentCardVisible && 
         <StyledCard>
             <CloseButton onClick={closeCardWindow} />
-            <span className='card--title'>{currentCard.title}</span>
+            <span className='card--title'>{currentCard.collectionItemTitle}</span>
             <ShowButton hasClicked={isAnswerVisible} onClick={onShowClickHandle}/>
             <div style={{width: '400px', minHeight: '500px'}}>
                 <Answer isVisible={isAnswerVisible}>
-                    {currentCard.answer}
+                    {currentCard.collectionItemAnswer}
                 </Answer>
             </div>
             <DoneButton onClick={onDoneClickHandle}/>
