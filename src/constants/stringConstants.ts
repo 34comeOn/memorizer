@@ -20,11 +20,11 @@ export const LOCAL_STORAGE_KEYS_CONSTANTS = {
 
 export const MODAL_WINDOW_CONTENT_STRING_CONSTANTS = {
     CREATE_NEW_COLLECTION: 'newCollection',
+    CREATE_NEW_ITEM_OF_COLLECTION: 'newItemOfCollection',
 }
 
 export const ROUTS_CONSTANTS = {
     MAIN_PAGE: '/',
-    NEW_COLLECTION_ITEM_PAGE: '/new_card',
     CURRENT_COLLECTION_PAGE: 'collection',
     SIGN_IN_AND_UP_PAGE: 'sign_in&up',
 }

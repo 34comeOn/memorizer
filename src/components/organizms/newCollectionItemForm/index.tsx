@@ -3,6 +3,7 @@ import { Form, Formik } from "formik";
 import { STOCK_COLLECTION_COLOR } from "../../../constants/stockConstants";
 import { FormInput } from "../../molecules/formInput";
 import { useCreateNewItem } from "../../../myHooks/collectionHooks/useCreateNewItem";
+import "./style.scss";
 
 export const NewCollectionItemForm = () => {
     const onCreateNewItem = useCreateNewItem();
@@ -26,7 +27,7 @@ export const NewCollectionItemForm = () => {
                             type='text' 
                             name='cardTitle' 
                             placeholder='How to say "Every moment is a treasure!" in Spanish?' 
-                            labelValue='Come up with title or question'
+                            labelValue='Come up with title for card'
                         />
                         <FormInput 
                             type='text' 
@@ -37,7 +38,7 @@ export const NewCollectionItemForm = () => {
                         <FormInput 
                             type='text' 
                             name='filterTitle' 
-                            placeholder='Spanish' 
+                            placeholder='phrases' 
                             labelValue='Create tag for card'
                         />
                         <FormInput 

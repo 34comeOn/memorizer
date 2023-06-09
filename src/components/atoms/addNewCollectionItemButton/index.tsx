@@ -1,12 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { ROUTS_CONSTANTS } from "../../../constants/stringConstants";
+import { useAppDispatch } from "../../../app/hooks";
+import { MODAL_WINDOW_CONTENT_STRING_CONSTANTS } from "../../../constants/stringConstants";
+import { setContentForModalWindow, showModalWindow } from "../../../store/reducers/modalWindowReduser";
 import { StyledAddNewItemButton } from "./styledAddNewItemButton";
 
 export const AddNewCollectionItemButton = () => {
-    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    
     return(
-        <StyledAddNewItemButton onClick={() => navigate(ROUTS_CONSTANTS.NEW_COLLECTION_ITEM_PAGE)}>
+        <StyledAddNewItemButton onClick={() => {
+            dispatch(setContentForModalWindow(MODAL_WINDOW_CONTENT_STRING_CONSTANTS.CREATE_NEW_ITEM_OF_COLLECTION));
+            dispatch(showModalWindow());
+        }}>
             Add new card
         </ StyledAddNewItemButton>
     )

@@ -3,7 +3,6 @@ import { LOCAL_STORAGE_KEYS_CONSTANTS } from "../constants/stringConstants";
 import { IsignInForm } from "../myHooks/myFormHooks/useSubmitButtonForSignUp";
 
 export type TbasicCollectionInfo = {
-    // collectionId: string,
     '_id'?: string,
     collectionColor: string,
     collectionImage?: string,
@@ -18,7 +17,6 @@ export type TcollectionItemComment = {
 }
 
 export type TcollectionItemData = {
-    // collectionItemId: string
     '_id'?: string,
     collectionItemTitle: string,
     collectionItemAnswer: string,
@@ -42,7 +40,6 @@ export type TcollectionСategories = {
 }
 
 export type TuserCollectionsData = {
-    // collectionId: string,
     '_id'?: string,
     collectionColor: string,
     collectionImage: string,
