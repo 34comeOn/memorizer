@@ -202,7 +202,3 @@ export const cutBasicUserCollectionsInfo = (allUserCollections: TuserCollections
 
     return basicCollectionsInfo;
 }
-
-// export const setCurrentCollectionToLocalStorage = (collectionId: string, userCollectionsData: TuserCollectionsData[]) => {
-//     localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.CURRENT_USER_COLLECTION, JSON.stringify(findCurrentUserCollection(collectionId, userCollectionsData)));
-// }

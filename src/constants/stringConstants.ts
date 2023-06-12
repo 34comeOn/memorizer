@@ -28,3 +28,15 @@ export const ROUTS_CONSTANTS = {
     CURRENT_COLLECTION_PAGE: 'collection',
     SIGN_IN_AND_UP_PAGE: 'sign_in&up',
 }
+
+export const RADIO_BUTTON_NAME = {
+    NO_CATEGORY: 'no',
+    SET_CATEGORY: 'set',
+    CHOOSE_CATEGORY: 'choose',
+}
+
+export const RADIO_BUTTON_LABEL_TEXT = {
+    NO_CATEGORY: 'Do not want to create category',
+    SET_CATEGORY: 'Create new category',
+    CHOOSE_CATEGORY: 'Choose from categories',
+}

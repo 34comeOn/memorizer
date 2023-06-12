@@ -2,15 +2,13 @@ import React from "react";
 import { Field} from "formik";
 import './style.scss';
 
-type NewType = {
+type TformInput = {
     type: string;
     name: string;
     labelValue: string;
     placeholder?: string,
     width?: string,
 };
-
-type TformInput = NewType
 
 export const FormInput = ({labelValue, name, placeholder, type, width}: TformInput) => {
 

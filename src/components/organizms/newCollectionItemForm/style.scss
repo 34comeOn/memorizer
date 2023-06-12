@@ -1,5 +1,14 @@
 @import '/src/sass/variables.module.scss';
 
+.form--radio-input__container {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-end;
+
+    margin-top: 30px;
+}
+
 .new-collection--form-item {
     min-height: 300px;
     display: flex;
@@ -30,4 +39,20 @@
     &:active {
         background-color: $colorButtonActive;
     }
+}
+
+.form--radio-label {
+    color: $colorFontWhite;
+    margin-top: 0px;
+    cursor: pointer;
+    max-width: 320px;
+    margin-left: 15px;
+}
+
+
+.form--radio-input {
+    display: flex;
+    flex-direction: column;
+    width: 25px;
+    height: 25px;
 }

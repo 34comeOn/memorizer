@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Formik } from "formik";
 import { STOCK_COLLECTION_COLOR } from "../../../constants/stockConstants";
 import { FormInput } from "../../molecules/formInput";
 import { useCreateNewItem } from "../../../myHooks/collectionHooks/useCreateNewItem";
 import "./style.scss";
+import { RadioFormContainer } from "../radioFormContainer";
+import { RADIO_BUTTON_LABEL_TEXT, RADIO_BUTTON_NAME } from "../../../constants/stringConstants";
 
 export const NewCollectionItemForm = () => {
     const onCreateNewItem = useCreateNewItem();
+
+    const [value, setValue] = useState(RADIO_BUTTON_NAME.NO_CATEGORY);
+
+    const changeValue= (e: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(e.target.value);
+     }
 
     return (
         <Formik 
@@ -15,6 +23,7 @@ export const NewCollectionItemForm = () => {
                 cardAnswer: '', 
                 filterTitle: '', 
                 filterColor: STOCK_COLLECTION_COLOR, 
+                categoryRadioButtons: String('race'),
             }}
             onSubmit={
                 onCreateNewItem
@@ -41,6 +50,26 @@ export const NewCollectionItemForm = () => {
                             placeholder='phrases' 
                             labelValue='Create tag for card'
                         />
+                        <div>
+                            <RadioFormContainer 
+                                labelText={RADIO_BUTTON_LABEL_TEXT.NO_CATEGORY} 
+                                labelFor={RADIO_BUTTON_NAME.NO_CATEGORY} 
+                                stateValue={value} 
+                                changeValue={changeValue}
+                            />
+                            <RadioFormContainer 
+                                labelText={RADIO_BUTTON_LABEL_TEXT.SET_CATEGORY}  
+                                labelFor={RADIO_BUTTON_NAME.SET_CATEGORY} 
+                                stateValue={value} 
+                                changeValue={changeValue}
+                            />
+                            <RadioFormContainer 
+                                labelText={RADIO_BUTTON_LABEL_TEXT.CHOOSE_CATEGORY} 
+                                labelFor={RADIO_BUTTON_NAME.CHOOSE_CATEGORY} 
+                                stateValue={value} 
+                                changeValue={changeValue}
+                            />
+                        </div>
                         <FormInput 
                             width='60px'
                             type='color' 
