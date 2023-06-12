@@ -6,11 +6,17 @@ import { useCreateNewItem } from "../../../myHooks/collectionHooks/useCreateNewI
 import "./style.scss";
 import { RadioFormContainer } from "../radioFormContainer";
 import { RADIO_BUTTON_LABEL_TEXT, RADIO_BUTTON_NAME } from "../../../constants/stringConstants";
+import { Transition } from 'react-transition-group';
+import { useRef } from 'react';
 
 export const NewCollectionItemForm = () => {
     const onCreateNewItem = useCreateNewItem();
+    const SecondRadioButtonContent = useRef(null);
+    const ThirdRadioButtonContent = useRef(null);
 
     const [value, setValue] = useState(RADIO_BUTTON_NAME.NO_CATEGORY);
+    const [isSecondRadioContentShown, setIsSecondRadioContentShown] = useState(false);
+    const [isThirdRadioContentShown, setIsThirdRadioContentShown] = useState(false);
 
     const changeValue= (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value);
@@ -21,9 +27,8 @@ export const NewCollectionItemForm = () => {
             initialValues={{ 
                 cardTitle: '', 
                 cardAnswer: '', 
-                filterTitle: '', 
-                filterColor: STOCK_COLLECTION_COLOR, 
-                categoryRadioButtons: String('race'),
+                collectionItemCategory: '', 
+                collectionItemColor: STOCK_COLLECTION_COLOR, 
             }}
             onSubmit={
                 onCreateNewItem
@@ -44,13 +49,8 @@ export const NewCollectionItemForm = () => {
                             placeholder='!Cada momento es un tesoro!' 
                             labelValue='Write down your answer'
                         />
-                        <FormInput 
-                            type='text' 
-                            name='filterTitle' 
-                            placeholder='phrases' 
-                            labelValue='Create tag for card'
-                        />
-                        <div>
+
+                        <div style={{marginLeft: '-60px'}}>
                             <RadioFormContainer 
                                 labelText={RADIO_BUTTON_LABEL_TEXT.NO_CATEGORY} 
                                 labelFor={RADIO_BUTTON_NAME.NO_CATEGORY} 
@@ -62,20 +62,67 @@ export const NewCollectionItemForm = () => {
                                 labelFor={RADIO_BUTTON_NAME.SET_CATEGORY} 
                                 stateValue={value} 
                                 changeValue={changeValue}
-                            />
+                            >
+                                <Transition
+                                    nodeRef={SecondRadioButtonContent} 
+                                    in={RADIO_BUTTON_NAME.SET_CATEGORY === value} 
+                                    timeout={600}
+                                    onEntering={()=> setIsSecondRadioContentShown(true)}
+                                    onExited={()=> setIsSecondRadioContentShown(false)}
+                                >
+                                    {state => (
+                                        (isSecondRadioContentShown) &&  <div 
+                                            ref={SecondRadioButtonContent}
+                                            className={`set-category--container-second ${state}`}
+                                            >
+                                                <FormInput 
+                                                    type='text' 
+                                                    name='collectionItemCategory' 
+                                                    placeholder='phrases' 
+                                                    labelValue='Create tag for card'
+                                                    disabled={RADIO_BUTTON_NAME.SET_CATEGORY !== value}
+                                                /> 
+                                                <FormInput 
+                                                    width='60px'
+                                                    type='color' 
+                                                    name='collectionItemColor' 
+                                                    labelValue='Choose category color'
+                                                    disabled={RADIO_BUTTON_NAME.SET_CATEGORY !== value}
+                                                />
+                                        </div>
+                                    )}
+                                </Transition>
+                            </ RadioFormContainer>
                             <RadioFormContainer 
                                 labelText={RADIO_BUTTON_LABEL_TEXT.CHOOSE_CATEGORY} 
                                 labelFor={RADIO_BUTTON_NAME.CHOOSE_CATEGORY} 
                                 stateValue={value} 
                                 changeValue={changeValue}
-                            />
+                            >
+                                <Transition
+                                    nodeRef={ThirdRadioButtonContent} 
+                                    in={RADIO_BUTTON_NAME.CHOOSE_CATEGORY === value} 
+                                    timeout={600}
+                                    onEntering={()=> setIsThirdRadioContentShown(true)}
+                                    onExited={()=> setIsThirdRadioContentShown(false)}
+                                >
+                                    {state => (
+                                        (isThirdRadioContentShown) &&  <div 
+                                            ref={ThirdRadioButtonContent}
+                                            className={`set-category--container-third ${state}`}
+                                            >
+                                                <FormInput 
+                                                    type='text' 
+                                                    name='collectionItemCategory' 
+                                                    placeholder='phrases' 
+                                                    labelValue='Create tag for card'
+                                                    disabled={RADIO_BUTTON_NAME.CHOOSE_CATEGORY !== value}
+                                                /> 
+                                        </div>
+                                    )}
+                                </Transition>
+                            </ RadioFormContainer>
                         </div>
-                        <FormInput 
-                            width='60px'
-                            type='color' 
-                            name='filterColor' 
-                            labelValue='You can choose filter color'
-                        />
                         <button className='submit--button' type='submit'>
                             Create card
                         </ button>

@@ -2,9 +2,8 @@
 
 .form--radio-input__container {
     display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-start;
 
     margin-top: 30px;
 }
@@ -19,6 +18,8 @@
     background-color: $colorBackgroundDark;
     justify-content: space-evenly;
     padding: 20px;
+    padding-left: 70px;
+    transition: margin-right 2s ease-in-out;
     border-radius: 15px;
     border: 1px solid $colorBackgroundRepeatList;
 }
@@ -55,4 +56,64 @@
     flex-direction: column;
     width: 25px;
     height: 25px;
+}
+
+.set-category--container-second {
+    display: flex; 
+    flex-direction: column; 
+    margin-left: 60px;
+    height: 0px;
+    opacity: 0;
+    transition-duration: 600ms;
+    transition-property: height opacity;
+    transition-timing-function: ease-in-out;
+}
+
+.set-category--container-second.entering {
+    height: 0px;
+    opacity: 0;
+}
+
+.set-category--container-second.entered {
+    height: 180px;
+    opacity: 1;
+}
+
+.set-category--container-second.exiting {
+    height: 0px;
+    opacity: 0;
+}
+.set-category--container-second.exited {
+    height: 0px;
+    opacity: 0;
+}
+
+.set-category--container-third {
+    display: flex; 
+    flex-direction: column; 
+    margin-left: 60px;
+    height: 0px;
+    opacity: 0;
+    transition-duration: 600ms;
+    transition-property: height opacity;
+    transition-timing-function: ease-in-out;
+}
+
+.set-category--container-third.entering {
+    height: 0px;
+    opacity: 0;
+}
+
+.set-category--container-third.entered {
+    height: 100px;
+    opacity: 1;
+}
+
+.set-category--container-third.exiting {
+    height: 0px;
+    opacity: 0;
+}
+.set-category--container-third.exited {
+    height: 0px;
+    opacity: 0;
 }

@@ -8,9 +8,10 @@ type TformInput = {
     labelValue: string;
     placeholder?: string,
     width?: string,
+    disabled?: boolean,
 };
 
-export const FormInput = ({labelValue, name, placeholder, type, width}: TformInput) => {
+export const FormInput = ({labelValue, name, placeholder, type, width, disabled}: TformInput) => {
 
     return(
         <>
@@ -23,6 +24,7 @@ export const FormInput = ({labelValue, name, placeholder, type, width}: TformInp
                 name={name}
                 type={type} 
                 placeholder={placeholder} 
+                disabled={disabled || false}
             />
         </>
         
