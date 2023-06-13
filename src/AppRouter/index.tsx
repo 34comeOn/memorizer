@@ -3,7 +3,6 @@ import App from "../App";
 import { ROUTS_CONSTANTS } from "../constants/stringConstants";
 import { CollectionPage } from "../pages/collectionPage";
 import { MainPage } from "../pages/mainPage";
-import { NewCollectionItemPage } from "../pages/newCollectionItemPage";
 import { SignInPage } from "../pages/signInPage";
 
 export const AppRouter = () => {
@@ -15,7 +14,6 @@ export const AppRouter = () => {
                 {index: true, element: <MainPage /> },
                 {path: ROUTS_CONSTANTS.CURRENT_COLLECTION_PAGE, element: <CollectionPage /> },
                 {path: ROUTS_CONSTANTS.SIGN_IN_AND_UP_PAGE, element: <SignInPage /> },
-                {path: ROUTS_CONSTANTS.NEW_COLLECTION_ITEM_PAGE, element: <NewCollectionItemPage /> },
             ]
         }
     ];

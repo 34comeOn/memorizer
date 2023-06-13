@@ -11,7 +11,6 @@ import './style.scss';
 export const CollectionPage = () => {
     const accountStatus = useAppSelector(getAccountStatusSelector);
     const currentCollection = useAppSelector(getCurrentCollectionSelector);
-    console.log(currentCollection.collectionTitle)
     return(
         <div style={{display: 'flex', flexDirection: 'column'}}>
             <h1 className='collection-page--caption'>
