@@ -2,6 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import { FieldProps } from 'formik';
 import { StyledErrorMessage } from './styledErrorMessage';
+import './style.scss';
 
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
@@ -19,6 +20,8 @@ export const CategoryItemSelect = ({
     <div>
       <label htmlFor={field.name}>{props.label}</label>
       <Select
+        defaultValue={options[0]}
+        className='category-item--select'
         {...field}
         {...props}
         options={options}
