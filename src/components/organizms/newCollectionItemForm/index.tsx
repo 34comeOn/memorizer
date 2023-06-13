@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import { STOCK_COLLECTION_COLOR } from "../../../constants/stockConstants";
 import { FormInput } from "../../molecules/formInput";
 import { useCreateNewItem } from "../../../myHooks/collectionHooks/useCreateNewItem";
@@ -8,6 +8,7 @@ import { RadioFormContainer } from "../radioFormContainer";
 import { RADIO_BUTTON_LABEL_TEXT, RADIO_BUTTON_NAME } from "../../../constants/stringConstants";
 import { Transition } from 'react-transition-group';
 import { useRef } from 'react';
+import { CategoryItemSelect } from "../../molecules/categoryItemSelect";
 
 export const NewCollectionItemForm = () => {
     const onCreateNewItem = useCreateNewItem();
@@ -29,6 +30,8 @@ export const NewCollectionItemForm = () => {
                 cardAnswer: '', 
                 collectionItemCategory: '', 
                 collectionItemColor: STOCK_COLLECTION_COLOR, 
+                cardSelectInput: '', 
+                categoryButtons: '',
             }}
             onSubmit={
                 onCreateNewItem
@@ -56,12 +59,14 @@ export const NewCollectionItemForm = () => {
                                 labelFor={RADIO_BUTTON_NAME.NO_CATEGORY} 
                                 stateValue={value} 
                                 changeValue={changeValue}
+                                name='categoryButtons'
                             />
                             <RadioFormContainer 
                                 labelText={RADIO_BUTTON_LABEL_TEXT.SET_CATEGORY}  
                                 labelFor={RADIO_BUTTON_NAME.SET_CATEGORY} 
                                 stateValue={value} 
                                 changeValue={changeValue}
+                                name='categoryButtons'
                             >
                                 <Transition
                                     nodeRef={SecondRadioButtonContent} 
@@ -79,7 +84,7 @@ export const NewCollectionItemForm = () => {
                                                     type='text' 
                                                     name='collectionItemCategory' 
                                                     placeholder='phrases' 
-                                                    labelValue='Create tag for card'
+                                                    labelValue='New category title'
                                                     disabled={RADIO_BUTTON_NAME.SET_CATEGORY !== value}
                                                 /> 
                                                 <FormInput 
@@ -98,6 +103,7 @@ export const NewCollectionItemForm = () => {
                                 labelFor={RADIO_BUTTON_NAME.CHOOSE_CATEGORY} 
                                 stateValue={value} 
                                 changeValue={changeValue}
+                                name='categoryButtons' 
                             >
                                 <Transition
                                     nodeRef={ThirdRadioButtonContent} 
@@ -111,19 +117,13 @@ export const NewCollectionItemForm = () => {
                                             ref={ThirdRadioButtonContent}
                                             className={`set-category--container-third ${state}`}
                                             >
-                                                <FormInput 
-                                                    type='text' 
-                                                    name='collectionItemCategory' 
-                                                    placeholder='phrases' 
-                                                    labelValue='Create tag for card'
-                                                    disabled={RADIO_BUTTON_NAME.CHOOSE_CATEGORY !== value}
-                                                /> 
+                                                <Field name="cardSelectInput" component={CategoryItemSelect} />
                                         </div>
                                     )}
                                 </Transition>
                             </ RadioFormContainer>
                         </div>
-                        <button className='submit--button' type='submit'>
+                        <button className='submit-item--button' type='submit'>
                             Create card
                         </ button>
                     </Form>

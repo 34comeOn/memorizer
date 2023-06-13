@@ -1,0 +1,33 @@
+import React from 'react';
+import Select from 'react-select';
+import { FieldProps } from 'formik';
+import { StyledErrorMessage } from './styledErrorMessage';
+
+const options = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' }
+]
+
+export const CategoryItemSelect = ({
+  field,
+  form: { touched, errors, setFieldValue },
+  ...props
+}: FieldProps & { label: string}) => {
+
+  return (
+    <div>
+      <label htmlFor={field.name}>{props.label}</label>
+      <Select
+        {...field}
+        {...props}
+        options={options}
+        value={(options ? options.find(option => option.value === field.value) : '') as any}
+        onChange={option => setFieldValue(field.name, (option as any).value)}
+      />
+      {touched[field.name] && errors[field.name] && (
+        <StyledErrorMessage>something went wrong</StyledErrorMessage>
+      )}
+    </div>
+  )
+}

@@ -24,13 +24,14 @@
     border: 1px solid $colorBackgroundRepeatList;
 }
 
-.submit--button {
+.submit-item--button {
     height: 40px;
     width: 140px;
     background-color: $colorMenuBright;
     border-radius: 10px;
     margin: auto;
     margin-top: 35px;
+    margin-right: 155px;
     cursor: pointer;
     border: 2px solid white;
 
@@ -66,7 +67,7 @@
     opacity: 0;
     transition-duration: 600ms;
     transition-property: height opacity;
-    transition-timing-function: ease-in-out;
+    transition-timing-function: ease-out;
 }
 
 .set-category--container-second.entering {
@@ -77,6 +78,7 @@
 .set-category--container-second.entered {
     height: 180px;
     opacity: 1;
+    
 }
 
 .set-category--container-second.exiting {
@@ -96,7 +98,7 @@
     opacity: 0;
     transition-duration: 600ms;
     transition-property: height opacity;
-    transition-timing-function: ease-in-out;
+    transition-timing-function: ease-out;
 }
 
 .set-category--container-third.entering {
