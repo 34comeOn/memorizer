@@ -10,15 +10,14 @@ const options = [
   { value: 'vanilla', label: 'Vanilla' }
 ]
 
-export const CategoryItemSelect = ({
+export const CategoryInput = ({
   field,
   form: { touched, errors, setFieldValue },
   ...props
-}: FieldProps & { label: string}) => {
+}: FieldProps) => {
 
   return (
     <div>
-      <label htmlFor={field.name}>{props.label}</label>
       <Select
         defaultValue={options[0]}
         className='category-item--select'

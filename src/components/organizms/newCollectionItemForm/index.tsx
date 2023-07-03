@@ -6,6 +6,7 @@ import { useCreateNewItem } from "../../../myHooks/collectionHooks/useCreateNewI
 import "./style.scss";
 import { RADIO_BUTTON_NAME } from "../../../constants/stringConstants";
 import { CardRadioButtonsOrganizm } from "../radioButtonsOrganizm";
+import { TagInput } from "../../molecules/tagInput";
 
 export const NewCollectionItemForm = () => {
     const onCreateNewItem = useCreateNewItem();
@@ -19,6 +20,7 @@ export const NewCollectionItemForm = () => {
                 collectionItemColor: STOCK_COLLECTION_COLOR, 
                 cardSelectInput: '', 
                 categoryRadioButtons: RADIO_BUTTON_NAME.NO_CATEGORY,
+                cardTags: '',
             }}
             onSubmit={
                 onCreateNewItem
@@ -40,6 +42,7 @@ export const NewCollectionItemForm = () => {
                             labelValue='Write down your answer'
                         />
                         <Field name="categoryRadioButtons" component={CardRadioButtonsOrganizm} />
+                        <Field name="cardTags" component={TagInput} />
                         <button className='submit-item--button' type='submit'>
                             Create card
                         </ button>

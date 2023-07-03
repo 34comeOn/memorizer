@@ -1,8 +1,8 @@
-import { Field, FieldProps } from "formik";
 import React, { useRef, useState } from "react";
+import { Field, FieldProps } from "formik";
 import { Transition } from "react-transition-group";
 import { RADIO_BUTTON_LABEL_TEXT, RADIO_BUTTON_NAME } from "../../../constants/stringConstants";
-import { CategoryItemSelect } from "../../molecules/categoryItemSelect";
+import { CategoryInput } from "../../molecules/categoryInput";
 import { FormInput } from "../../molecules/formInput";
 import { RadioFormContainer } from "../radioFormContainer";
 import { StyledCardRadioButtonsOrganizm } from "./styledCardRadioButtonsOrganizm";
@@ -80,7 +80,7 @@ export const CardRadioButtonsOrganizm = ({
                             ref={ThirdRadioButtonContent}
                             className={`set-category--container-third ${state}`}
                             >
-                                <Field name="cardSelectInput" component={CategoryItemSelect} />
+                                <Field name="cardSelectInput" component={CategoryInput} />
                             </div>
                     )}
                 </Transition>
