@@ -1,40 +1,30 @@
-import { Field } from "formik";
 import React, { ReactElement } from "react";
 import { RadioButtonLabel } from "../../atoms/radioButtonLabel";
+import './style.scss';
 
 type TradioFormContainer = {
     labelText: string, 
     labelFor: string, 
-    stateValue: string,
-    changeValue: (e: React.ChangeEvent<HTMLInputElement>) => void,
     children?: ReactElement,
-    name: string,
+    drillField: any,
+    drillProps: any,
 }
 
-export const RadioFormContainer = ({labelText, labelFor, stateValue, changeValue, children,name}: TradioFormContainer) => {
+export const RadioFormContainer = ({labelText, labelFor, children, drillField, drillProps}: TradioFormContainer) => {
     return(
         <div className='form--radio-input__container'>
-            <div style={{display: 'flex', flexDirection: 'row-reverse', marginBottom: '5px',alignItems: 'center'}}>
-                <RadioButtonLabel htmlFor={labelFor} checked={stateValue === labelFor} > 
+            <div className='inner-form--box'>
+                <RadioButtonLabel htmlFor={labelFor} checked={drillField.value === labelFor} > 
                     {labelText}
                 </RadioButtonLabel>
-                {/* <input className='form--radio-input' id={labelFor} type="radio"
-                 name="categoryButtons" 
-                value={labelFor}
-                checked={stateValue === labelFor}
-                onChange={changeValue}
-                /> */}
-
-
-                <Field 
-                className='form--radio-input'
-                id={labelFor}
-                value={labelFor}
-                name={name}
-                type="radio"
-                checked={stateValue === labelFor}
-                onChange={changeValue}
-            />
+                <input 
+                    className='form--radio-input'
+                    id={labelFor}
+                    type='radio'
+                    {...drillField}
+                    {...drillProps}
+                    value={labelFor}
+                />
             </div>
             {children} 
         </div>
