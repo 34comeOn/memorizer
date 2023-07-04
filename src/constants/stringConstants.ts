@@ -30,9 +30,9 @@ export const ROUTS_CONSTANTS = {
 }
 
 export const RADIO_BUTTON_NAME = {
-    NO_CATEGORY: 'no',
-    SET_CATEGORY: 'set',
-    CHOOSE_CATEGORY: 'choose',
+    NO_CATEGORY: 'doNotPickCategory',
+    SET_CATEGORY: 'createAndSetCategory',
+    CHOOSE_CATEGORY: 'chooseFromExistingCategory',
 }
 
 export const RADIO_BUTTON_LABEL_TEXT = {

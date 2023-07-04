@@ -14,7 +14,11 @@ const CollectionItemCommentsSchema = new Schema({
 }); 
 
 const CollectionСategoriesSchema = new Schema({
-    collectionCategoryTitle: {
+    label: {
+        type: String,
+        required: true
+    },
+    value: {
         type: String,
         required: true
     },
@@ -25,11 +29,11 @@ const CollectionСategoriesSchema = new Schema({
 });
 
 const CollectionTagsSchema = new Schema({
-    collectionTagTitle: {
+    label: {
         type: String,
         required: true
     },
-    collectionTagColor: {
+    value: {
         type: String,
         required: true
     },

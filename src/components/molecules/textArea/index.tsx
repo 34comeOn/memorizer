@@ -13,7 +13,7 @@ export const TextArea = () => {
                 id='textArea'
                 name='cardAnswer' 
                 placeholder='!Cada momento es un tesoro!'
-                as='textArea'
+                as='textarea'
                 maxLength='1000'
             />
         </>

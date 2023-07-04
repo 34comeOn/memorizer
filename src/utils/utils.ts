@@ -30,12 +30,12 @@ export type TcollectionItemData = {
 }
 
 export type TcollectionTags = {
-    collectionTagTitle: string,
-    collectionTagColor: string,
+    label: string,
+    value: string,
 }
-
 export type TcollectionСategories = {
-    collectionCategoryTitle: string,
+    label: string,
+    value: string,
     collectionCategoryColor: string,
 }
 
