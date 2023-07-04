@@ -1,14 +1,7 @@
 @import '/src/sass/variables.module.scss';
 
-.form--label {
-    color: $colorFontWhite;
-    margin-left: 40px;
-    margin-top: 20px;
-    cursor: pointer;
-}
-
-.form--input {
-    min-height: 30px;
+.form--text-area {
+    min-height: 45px;
     width: 390px;
     margin-top: 10px;
     margin-left: 5px;
@@ -22,11 +15,6 @@
     }
 }
 
-.form--input::placeholder {
+.form--text-area::placeholder {
     color: $colorFontPlaceholder;
-}
-
-.form--input-color {
-    width: 62px;
-    padding: 0px 3px;
 }

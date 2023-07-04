@@ -7,6 +7,7 @@ import "./style.scss";
 import { RADIO_BUTTON_NAME } from "../../../constants/stringConstants";
 import { CardRadioButtonsOrganizm } from "../radioButtonsOrganizm";
 import { TagInput } from "../../molecules/tagInput";
+import { TextArea } from "../../molecules/textArea";
 
 export const NewCollectionItemForm = () => {
     const onCreateNewItem = useCreateNewItem();
@@ -35,12 +36,7 @@ export const NewCollectionItemForm = () => {
                             placeholder='How to say "Every moment is a treasure!" in Spanish?' 
                             labelValue='Come up with title for card'
                         />
-                        <FormInput 
-                            type='text' 
-                            name='cardAnswer' 
-                            placeholder='!Cada momento es un tesoro!' 
-                            labelValue='Write down your answer'
-                        />
+                        <TextArea />
                         <Field name="categoryRadioButtons" component={CardRadioButtonsOrganizm} />
                         <Field name="cardTags" component={TagInput} />
                         <button className='submit-item--button' type='submit'>

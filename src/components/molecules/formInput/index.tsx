@@ -11,7 +11,7 @@ type TformInput = {
     disabled?: boolean,
 };
 
-export const FormInput = ({labelValue, name, placeholder, type, width, disabled}: TformInput) => {
+export const FormInput = ({labelValue, name, placeholder, type, width, disabled }: TformInput) => {
 
     return(
         <>
@@ -27,6 +27,5 @@ export const FormInput = ({labelValue, name, placeholder, type, width, disabled}
                 disabled={disabled || false}
             />
         </>
-        
     )
 }
