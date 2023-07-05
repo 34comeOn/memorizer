@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const User = require('./models/user');
-// const Test = require('./models/user');
 
 const db = 'mongodb+srv://barabanovm:Noway-2steal@cluster2.d7n5n2k.mongodb.net/?retryWrites=true&w=majority';
 
@@ -134,69 +133,34 @@ app.post('/api/new-card', (req,res) => {
         newCard,
     } = req.body;
 
+    let newCollectionCategoryTitle= newCard.collectionItemCategory;
+    let newCollectionCategoryColor= newCard.collectionItemColor;
+
     User.updateOne(
         {_id: UserId, 'userCollectionsData._id': CollectionId},
         {$push: {
             'userCollectionsData.$.collectionData':newCard
         }}
-
     )
-    .then(result => {
-        console.log(result)
-    })
+    .catch(err=> console.log(err))
+
+    User.updateOne(
+        {_id: UserId, 'userCollectionsData._id': CollectionId},
+        {$push: {
+            'userCollectionsData.$.collectionСategories':
+            {
+                label: newCollectionCategoryTitle,
+                value: newCollectionCategoryTitle,
+                collectionCategoryColor: newCollectionCategoryColor,
+            }
+        }}
+    )
     .then(()=> {
         User.findById(UserId)
-        .then(result=> res.send(result.userCollectionsData))
+        .then(result=> res.send(result.userCollectionsData.find(collection => collection._id.toString() === CollectionId)))
     })
     .catch(err=> console.log(err))
 })
-
-// app.post('/api/new-card', (req, res)=>  {
-//     let {
-//         UserId,
-//         CollectionId,
-//         newCard,
-//     } = req.body;
-//     // const test = ObjectId('64a46394f6d70045ee938cb5')
-
-//     // User.find({_id: '6479b98a8c9acda9bf3d7460'})
-//     Test.find({_id: '64a41651dc6cafb244c613ce'})
-//     .then(result => {
-//         console.log(result)
-//         // result[0].userCollectionsData[0].collectionData.push(newCard)
-//     }
-//     )
-
-//     // User.findOneAndUpdate({userCollectionsData: { $elemMatch: {_id: '647efb8b47b24efaf58e4e0a'}}})
-//     // // (
-//     // //     { '64a463a6f6d70045ee938cb9'},
-//     //     // { $push: { collectionData: newCard }, userCollectionsData: { _id: CollectionId }  }
-//     // // )
-//     //     .then(result => {
-//     //         console.log(result[0].userCollectionsData[0])
-//     //         // result[0].userCollectionsData[0].collectionData.push(newCard)
-//     //     }
-        
-//     //     )
-//     //    .then(()=> {
-//     //     User.findById(UserId)
-//     //     .then(result=> {
-//     //         // console.log(result)
-//     //         res.send(result.userCollectionsData)
-//     //     })
-//     //     .catch(err=> console.log(err))
-//     // })
-
-//     // User.updateOne(
-//     //     { _id: UserId },
-//     //     { $push: { userCollectionsData: newCard } }
-//     // )
-//     // .then(()=> {
-//     //     User.findById(UserId)
-//     //     .then(result=> res.send(result.userCollectionsData))
-//     //     .catch(err=> console.log(err))
-//     // })
-// })
 
 app.put('/api/repeat', (req, res)=> {
     const{id, repeatedTimeStamp, timesBeenRepeated} =req.body;

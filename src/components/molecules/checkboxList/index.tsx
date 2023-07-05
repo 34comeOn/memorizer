@@ -39,7 +39,7 @@ export const CheckboxList = () => {
     return( 
         <StyledCheckboxList>
             <StockCheckbox 
-             handleOnChange={handleOnChange} labelValue='All filters' name={MAIN_FILTER_CHECKBOX}/>
+             handleOnChange={handleOnChange} labelValue='All categories' name={MAIN_FILTER_CHECKBOX}/>
             {currentFilters.map((checkboxName, index) => 
                 <StockCheckbox 
                 handleOnChange={handleOnChange} 

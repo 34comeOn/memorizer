@@ -74,8 +74,11 @@ const getItemPoints = (item: TcollectionItemData) => {
 }
 
 const pullFiltersTitlesFromData = (item: TcollectionItemData,filtersArray: string[]) => {
-    if (item.collectionItemCategory && !filtersArray.includes(item.collectionItemCategory.slice(14))) {
-        filtersArray.push(item.collectionItemCategory.slice(14))
+    // if (item.collectionItemCategory && !filtersArray.includes(item.collectionItemCategory.slice(14))) {
+    //     filtersArray.push(item.collectionItemCategory.slice(14))
+    // }
+    if (item.collectionItemCategory && !filtersArray.includes(item.collectionItemCategory)) {
+        filtersArray.push(item.collectionItemCategory)
     }
 }
 
@@ -108,7 +111,7 @@ const sortItemInGroup = (item: TcollectionItemData,
 
 export const spreadCollectionData = (dataBase: TcollectionItemData[]) => {
     const filtersOfCollection: string[] = [];
-
+console.log(dataBase)
     const repeatNowGroup: TcollectionItemData[] = [];
     const repeatIn1HourGroup: TcollectionItemData[] = [];
     const repeatIn4HoursGroup: TcollectionItemData[] = [];

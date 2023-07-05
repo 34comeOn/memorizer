@@ -72,11 +72,7 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
         };
       }
     }),
-
-
-
-
-    postNewCard: build.mutation<TuserCollectionData[], {path: string, newCardObj:TnewCardPostObject}>({
+    postNewCard: build.mutation<TuserCollectionData, {path: string, newCardObj:TnewCardPostObject}>({
       query(args) {
         return {
           url: `${args.path}`,
@@ -94,12 +90,6 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
     //     };
     //   }
     // }),
-
-
-
-
-
-
     putRepeatedCollectionItem: build.mutation<TcollectionItemData[], {path: string, putObj:TcollectionItemData}>({
       query(args) {
         return {

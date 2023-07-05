@@ -1,20 +1,19 @@
-import { 
-    // useAppDispatch, 
-    useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { STOCK_COLLECTION } from "../../constants/stockConstants";
 import { CREATE_NEW_CARD_ENDPOINT, RADIO_BUTTON_NAME } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
-import { 
-    // getUserEmailSelector,
-     getUserIdSelector } from "../../store/reducers/accountReduser";
-import { getCurrentCollectionSelector, setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReduser";
-import { TcollectionItemData, TcollectionTag } from "../../utils/utils";
+import { getUserIdSelector } from "../../store/reducers/accountReduser";
+import { setFiltersList } from "../../store/reducers/collectionFiltersReduser";
+import { setRepeatGroupsReduser } from "../../store/reducers/collectionGroupsReduser";
+import { hideModalWindow } from "../../store/reducers/modalWindowReduser";
+import { getCurrentCollectionSelector, setCurrentCollection } from "../../store/reducers/userCollectionsReduser";
+import { spreadCollectionData, TcollectionItemData, TcollectionTag } from "../../utils/utils";
 
 export interface InewCollectionItemForm {
     cardTitle: string, 
     cardAnswer: string, 
     collectionItemCategory: string,
     collectionItemColor: string, 
-
     cardSelectInput: string,
     cardTags: string | TcollectionTag[],
     categoryRadioButtons: string,
@@ -22,17 +21,13 @@ export interface InewCollectionItemForm {
 
 
 export const useCreateNewItem = () => {
+    const dispatch = useAppDispatch();
+    const currentUserId = useAppSelector(getUserIdSelector);
     const currentCollectionCategories = useAppSelector(getCurrentCollectionSelector).collectionСategories;
     const currentCollectionId = useAppSelector(getCurrentCollectionSelector)._id || '';
-    console.log(currentCollectionCategories)
-    // const dispatch = useAppDispatch();
     const [getCurrentCollectionAfterCreatingNewCardTriger] = collectionDataAPI.usePostNewCardMutation();
-    const currentUserId = useAppSelector(getUserIdSelector);
-    // const currentUserEmail = useAppSelector(getUserEmailSelector);
 
     return (values: InewCollectionItemForm) => {
-        console.log(values)
-
         let currentCategory = '';
         let currentCategoryColor = '';
 
@@ -66,14 +61,16 @@ export const useCreateNewItem = () => {
         getCurrentCollectionAfterCreatingNewCardTriger({path:CREATE_NEW_CARD_ENDPOINT, newCardObj: newCardObj})
         .unwrap()
         .then(
-          (currentUpdatedCollection) => {
-            console.log(currentUpdatedCollection)
-            // dispatch(setUserBasicCollectionsInfo(cutBasicUserCollectionsInfo(userCollections)));
-            // dispatch(hideModalWindow());
+          (currentCollection) => {
+            dispatch(hideModalWindow());
+
+            dispatch(setCurrentCollection(currentCollection));
+            const {filtersOfCollection, orgonizedGroupsOfCollection}= spreadCollectionData(currentCollection?.collectionData || STOCK_COLLECTION.collectionData);
+            dispatch(setRepeatGroupsReduser(orgonizedGroupsOfCollection)); 
+            dispatch(setFiltersList(filtersOfCollection)); 
           },
-          (error) => {
+          () => {
             alert('something went wrong NEW COLLECTION')
-            // error.status === 403? alert('E-mail or password does not match!') : alert('Ops! something went wrong')
           }
         );
     }
