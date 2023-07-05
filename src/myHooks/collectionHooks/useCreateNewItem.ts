@@ -1,51 +1,80 @@
-// import { nanoid } from "nanoid";
-// import { useNavigate } from "react-router-dom";
-// import { useAppDispatch } from "../../app/hooks";
-// import { STOCK_COLLECTION } from "../../constants/stockConstants";
-// import { setFiltersList } from "../../store/reducers/collectionFiltersReduser";
-// import { setRepeatGroupsReduser } from "../../store/reducers/collectionGroupsReduser";
-// import { findCurrentUserCollection, getAllCurrentUserData, getCurrentUserEmailFromLStorage, 
-//      spreadCollectionData, TuserCollectionsData } from "../../utils/utils";
+import { 
+    // useAppDispatch, 
+    useAppSelector } from "../../app/hooks";
+import { CREATE_NEW_CARD_ENDPOINT, RADIO_BUTTON_NAME } from "../../constants/stringConstants";
+import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
+import { 
+    // getUserEmailSelector,
+     getUserIdSelector } from "../../store/reducers/accountReduser";
+import { getCurrentCollectionSelector, setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReduser";
+import { TcollectionItemData, TcollectionTag } from "../../utils/utils";
 
 export interface InewCollectionItemForm {
     cardTitle: string, 
     cardAnswer: string, 
     collectionItemCategory: string,
     collectionItemColor: string, 
+
+    cardSelectInput: string,
+    cardTags: string | TcollectionTag[],
+    categoryRadioButtons: string,
 }
 
+
 export const useCreateNewItem = () => {
-    // const navigate = useNavigate();
+    const currentCollectionCategories = useAppSelector(getCurrentCollectionSelector).collectionСategories;
+    const currentCollectionId = useAppSelector(getCurrentCollectionSelector)._id || '';
+    console.log(currentCollectionCategories)
     // const dispatch = useAppDispatch();
+    const [getCurrentCollectionAfterCreatingNewCardTriger] = collectionDataAPI.usePostNewCardMutation();
+    const currentUserId = useAppSelector(getUserIdSelector);
+    // const currentUserEmail = useAppSelector(getUserEmailSelector);
+
     return (values: InewCollectionItemForm) => {
         console.log(values)
-        // const currentUserEmailFromLStorage = getCurrentUserEmailFromLStorage();
-        // const allCurrentUserData = getAllCurrentUserData(currentUserEmailFromLStorage);
-        // const currentCollectionId = nanoid();
-        // const newItem = {
-        //     collectionItemId: nanoid(),   
-        //     collectionItemTitle: values.cardTitle,
-        //     collectionItemAnswer: values.cardAnswer,
-        //     collectionItemRepeatedTimeStamp: 1671420000000,
-        //     collectionItemTimesBeenRepeated: 0,
-        //     collectionItemCategory: `list--filter__${values.filterTitle? values.filterTitle: "none"}`,
-        //     collectionItemColor: values.filterColor,
-        // };
 
-        // const updatedAllCollections = allCurrentUserData.userCollectionsData.map((collection: TuserCollectionsData) => {
-        //     if (collection._id === currentCollectionId) {
-        //         collection.collectionData = [...collection.collectionData, newItem];
-        //     }
-        //     return collection;
-        // })
-        // const newAllUserData = {...allCurrentUserData, userCollectionsData: updatedAllCollections};
-        
-        // localStorage.setItem(currentUserEmailFromLStorage, JSON.stringify(newAllUserData))
+        let currentCategory = '';
+        let currentCategoryColor = '';
 
-        // const currentUserCollection = findCurrentUserCollection(currentCollectionId, newAllUserData.userCollectionsData);
-        // const {filtersOfCollection, orgonizedGroupsOfCollection}= spreadCollectionData(currentUserCollection?.collectionData || STOCK_COLLECTION.collectionData);
-        // dispatch(setRepeatGroupsReduser(orgonizedGroupsOfCollection)); 
-        // dispatch(setFiltersList(filtersOfCollection)); 
-        // navigate(-1);
+        if (values.categoryRadioButtons === RADIO_BUTTON_NAME.SET_CATEGORY) {
+            currentCategory = values.collectionItemCategory;
+            currentCategoryColor = values.collectionItemColor;
+        } 
+        else if (values.categoryRadioButtons === RADIO_BUTTON_NAME.CHOOSE_CATEGORY) {
+           const currentChoosenCategory = currentCollectionCategories?.find(item => item.value === values.cardSelectInput);
+
+            currentCategory = values.cardSelectInput;
+            currentCategoryColor = currentChoosenCategory?.collectionCategoryColor || '';
+        }
+
+        const newCard: TcollectionItemData = {
+            collectionItemTitle: values.cardTitle,
+            collectionItemAnswer: values.cardAnswer,
+            collectionItemRepeatedTimeStamp: 1671420000000,
+            collectionItemTimesBeenRepeated: 0,
+            collectionItemCategory: currentCategory,
+            collectionItemColor: currentCategoryColor,
+            collectionItemTags: values.cardTags,
+        };
+
+        const newCardObj = {
+            UserId: currentUserId,
+            CollectionId: currentCollectionId,
+            newCard: newCard,
+        }
+
+        getCurrentCollectionAfterCreatingNewCardTriger({path:CREATE_NEW_CARD_ENDPOINT, newCardObj: newCardObj})
+        .unwrap()
+        .then(
+          (currentUpdatedCollection) => {
+            console.log(currentUpdatedCollection)
+            // dispatch(setUserBasicCollectionsInfo(cutBasicUserCollectionsInfo(userCollections)));
+            // dispatch(hideModalWindow());
+          },
+          (error) => {
+            alert('something went wrong NEW COLLECTION')
+            // error.status === 403? alert('E-mail or password does not match!') : alert('Ops! something went wrong')
+          }
+        );
     }
 }

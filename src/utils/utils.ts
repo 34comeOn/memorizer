@@ -25,28 +25,28 @@ export type TcollectionItemData = {
     collectionItemCategory?: string,
     collectionItemColor?: string,
     collectionItemPriority?: number,
-    collectionItemTags?: string[],
+    collectionItemTags?: string | TcollectionTag[],
     collectionItemComments?: TcollectionItemComment[],
 }
 
-export type TcollectionTags = {
+export type TcollectionTag = {
     label: string,
     value: string,
 }
-export type TcollectionСategories = {
+export type TcollectionСategory = {
     label: string,
     value: string,
     collectionCategoryColor: string,
 }
 
-export type TuserCollectionsData = {
+export type TuserCollectionData = {
     '_id'?: string,
     collectionColor: string,
     collectionImage: string,
     collectionTitle: string,
     collectionAdminList: string[],
-    collectionСategories?: TcollectionСategories[],
-    collectionTags?: TcollectionTags[],
+    collectionСategories?: TcollectionСategory[],
+    collectionTags?: TcollectionTag[],
     collectionData: TcollectionItemData[],
 }
 
@@ -58,7 +58,7 @@ export type Tuser = {
     subscription: string,
     currentToken: string,
     currentCollection: string,
-    userCollectionsData: TuserCollectionsData[],
+    userCollectionsData: TuserCollectionData[],
 }
 
 const getHoursSinceRepeat = (repeatedTimeStamp: number) => {
@@ -185,11 +185,11 @@ export const checkAdminPowers = (userEmail: string, collectionAdminList : string
     return collectionAdminList.includes(userEmail);
 }
 
-export const findCurrentUserCollection = (collectionId: string, userCollectionsData: TuserCollectionsData[]) => {
-    return userCollectionsData.find((item: TuserCollectionsData) => item._id === collectionId);
+export const findCurrentUserCollection = (collectionId: string, userCollectionsData: TuserCollectionData[]) => {
+    return userCollectionsData.find((item: TuserCollectionData) => item._id === collectionId);
 }
 
-export const cutBasicUserCollectionsInfo = (allUserCollections: TuserCollectionsData[]) => {
+export const cutBasicUserCollectionsInfo = (allUserCollections: TuserCollectionData[]) => {
     const basicCollectionsInfo: TbasicCollectionInfo[] = allUserCollections.map(collection => {
         return ({
             '_id': collection._id,

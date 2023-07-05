@@ -6,12 +6,6 @@ import './style.scss';
 import { useAppSelector } from '../../../app/hooks';
 import { getCurrentCollectionSelector } from '../../../store/reducers/userCollectionsReduser';
 
-// const options = [
-//   { value: 'chocolate', label: 'Chocolate' },
-//   { value: 'strawberry', label: 'Strawberry' },
-//   { value: 'vanilla', label: 'Vanilla' }
-// ]
-
 export const CategoryInput = ({ field,form: { touched, errors, setFieldValue },...props}: FieldProps) => {
   const existingCategoriesInCurrrentCollection = useAppSelector(getCurrentCollectionSelector).collectionСategories;
 

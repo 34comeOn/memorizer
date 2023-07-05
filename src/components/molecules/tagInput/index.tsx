@@ -18,7 +18,6 @@ export const TagInput = ({field,form,...props}: FieldProps) => {
   const getValue = () => {
     (existingTagsInCurrrentCollection? existingTagsInCurrrentCollection: []).find(item => item.value === field.value);
   };
-
   return (
     <>
       <label style={{marginTop: '30px', display: 'block'}} className='form--label'>

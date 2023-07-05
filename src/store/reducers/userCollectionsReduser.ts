@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { STOCK_BASIC_COLLECTION_INFO, STOCK_COLLECTION} from "../../constants/stockConstants";
 import { LOCAL_STORAGE_KEYS_CONSTANTS } from "../../constants/stringConstants";
-import { TbasicCollectionInfo, TuserCollectionsData } from "../../utils/utils";
+import { TbasicCollectionInfo, TuserCollectionData } from "../../utils/utils";
 
 type TinitialState = {
     basicUserCollectionsInfo: TbasicCollectionInfo[],
-    allUserCollections: TuserCollectionsData[],
-    currentCollection: TuserCollectionsData,
+    allUserCollections: TuserCollectionData[],
+    currentCollection: TuserCollectionData,
 }
 
 const getBasicUserCollectionsInfo = () => {
@@ -43,11 +43,11 @@ const userCollectionsSlice = createSlice({
             localStorage.removeItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_BASIC_COLLECTIONS_INFO);
             state.basicUserCollectionsInfo = getBasicUserCollectionsInfo();
         },
-        setAllUserCollections(state, action: PayloadAction<TuserCollectionsData[]>) {
+        setAllUserCollections(state, action: PayloadAction<TuserCollectionData[]>) {
             localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_COLLECTIONS, JSON.stringify(action.payload))
             state.allUserCollections = getUserCollections();
         },
-        setCurrentCollection(state, action: PayloadAction<TuserCollectionsData>) {
+        setCurrentCollection(state, action: PayloadAction<TuserCollectionData>) {
             localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.CURRENT_USER_COLLECTION, JSON.stringify(action.payload))
             state.currentCollection = getCurrentUserCollection();
         },
@@ -71,8 +71,8 @@ export const {
 export const getBasicUserCollectionsInfoSelector = (state: {userCollectionsSlice: {basicUserCollectionsInfo: TbasicCollectionInfo[]}}) =>
    state.userCollectionsSlice.basicUserCollectionsInfo;
 
-export const getAllUserCollectionsSelector = (state: {userCollectionsSlice: {allUserCollections: TuserCollectionsData[]}}) =>
+export const getAllUserCollectionsSelector = (state: {userCollectionsSlice: {allUserCollections: TuserCollectionData[]}}) =>
    state.userCollectionsSlice.allUserCollections;
 
-export const getCurrentCollectionSelector = (state: {userCollectionsSlice: {currentCollection: TuserCollectionsData}}) =>
+export const getCurrentCollectionSelector = (state: {userCollectionsSlice: {currentCollection: TuserCollectionData}}) =>
    state.userCollectionsSlice.currentCollection
