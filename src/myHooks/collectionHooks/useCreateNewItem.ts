@@ -7,9 +7,9 @@ import { setFiltersList } from "../../store/reducers/collectionFiltersReduser";
 import { setRepeatGroupsReduser } from "../../store/reducers/collectionGroupsReduser";
 import { hideModalWindow } from "../../store/reducers/modalWindowReduser";
 import { getCurrentCollectionSelector, setCurrentCollection } from "../../store/reducers/userCollectionsReduser";
-import { spreadCollectionData, TcollectionItemData, TcollectionTag } from "../../utils/utils";
+import { checkTitleExclusivity, setCategoryInCollectionDataObj, spreadCollectionData, TcollectionItemData, TcollectionTag } from "../../utils/utils";
 
-export interface InewCollectionItemForm {
+export interface InewCardForm {
     cardTitle: string, 
     cardAnswer: string, 
     collectionItemCategory: string,
@@ -19,7 +19,6 @@ export interface InewCollectionItemForm {
     categoryRadioButtons: string,
 }
 
-
 export const useCreateNewItem = () => {
     const dispatch = useAppDispatch();
     const currentUserId = useAppSelector(getUserIdSelector);
@@ -27,34 +26,26 @@ export const useCreateNewItem = () => {
     const currentCollectionId = useAppSelector(getCurrentCollectionSelector)._id || '';
     const [getCurrentCollectionAfterCreatingNewCardTriger] = collectionDataAPI.usePostNewCardMutation();
 
-    return (values: InewCollectionItemForm) => {
-        let currentCategory = '';
-        let currentCategoryColor = '';
-
-        if (values.categoryRadioButtons === RADIO_BUTTON_NAME.SET_CATEGORY) {
-            currentCategory = values.collectionItemCategory;
-            currentCategoryColor = values.collectionItemColor;
-        } 
-        else if (values.categoryRadioButtons === RADIO_BUTTON_NAME.CHOOSE_CATEGORY) {
-           const currentChoosenCategory = currentCollectionCategories?.find(item => item.value === values.cardSelectInput);
-
-            currentCategory = values.cardSelectInput;
-            currentCategoryColor = currentChoosenCategory?.collectionCategoryColor || '';
-        }
-
+    return (values: InewCardForm) => {
         const newCard: TcollectionItemData = {
             collectionItemTitle: values.cardTitle,
             collectionItemAnswer: values.cardAnswer,
             collectionItemRepeatedTimeStamp: 1671420000000,
             collectionItemTimesBeenRepeated: 0,
-            collectionItemCategory: currentCategory,
-            collectionItemColor: currentCategoryColor,
+            collectionItemCategory: '',
+            collectionItemColor: '',
             collectionItemTags: values.cardTags,
         };
 
+        setCategoryInCollectionDataObj(newCard, values, currentCollectionCategories);
+        if (!checkTitleExclusivity(values, currentCollectionCategories)) {
+            return
+        };
+
         const newCardObj = {
-            UserId: currentUserId,
-            CollectionId: currentCollectionId,
+            userId: currentUserId,
+            collectionId: currentCollectionId,
+            creatingNewCategory: (values.categoryRadioButtons === RADIO_BUTTON_NAME.SET_CATEGORY),
             newCard: newCard,
         }
 

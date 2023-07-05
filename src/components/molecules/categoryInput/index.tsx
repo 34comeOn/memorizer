@@ -12,7 +12,7 @@ export const CategoryInput = ({ field,form: { touched, errors, setFieldValue },.
   return (
     <>
       <Select
-        defaultValue={existingCategoriesInCurrrentCollection??[0]}
+        // defaultValue={existingCategoriesInCurrrentCollection??[0]}
         className='category-item--select'
         {...field}
         {...props}

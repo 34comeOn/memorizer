@@ -12,8 +12,9 @@ export type TnewCollectionPostObject = {
 }
 
 export type TnewCardPostObject = {
-  UserId: string, 
-  CollectionId: string, 
+  userId: string, 
+  collectionId: string, 
+  creatingNewCategory: boolean,
   newCard: TcollectionItemData, 
 }
 
@@ -72,7 +73,7 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
         };
       }
     }),
-    postNewCard: build.mutation<TuserCollectionData, {path: string, newCardObj:TnewCardPostObject}>({
+    postNewCard: build.mutation<TuserCollectionData, {path: string, newCardObj: TnewCardPostObject}>({
       query(args) {
         return {
           url: `${args.path}`,

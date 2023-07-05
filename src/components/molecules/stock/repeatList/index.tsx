@@ -34,7 +34,6 @@ export const StockRepeatList = ({title, list}: {title: string, list: Tcollection
             </div>
             <StyledRepeatList>
                 {list.map(item => {
-                    // const itemFilter = item.collectionItemCategory?.slice(14);
                     const itemFilter = item.collectionItemCategory;
                     return ((itemFilter? currentlistItemsCategories.includes(itemFilter): false) || currentlistItemsCategories.includes(MAIN_FILTER_CHECKBOX)) && 
                     <RepeatListItem item={item} key={item._id?? nanoid()} onClick={()=> {handleItemClick(item)}} />

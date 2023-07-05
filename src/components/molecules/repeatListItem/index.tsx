@@ -1,13 +1,8 @@
 import React from "react";
 import { 
-    // Tcard,
      TcollectionItemData } from "../../../utils/utils";
 import { StyledRepeatListItem } from "./styledRepeatListItem";
 
-// type TrepeatListItem = {
-//     onClick: ()=>void,
-//     item: Tcard,
-// }
 type TrepeatListItem = {
     onClick: ()=>void,
     item: TcollectionItemData,

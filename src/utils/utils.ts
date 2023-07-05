@@ -1,5 +1,6 @@
 import { MAX_PUNISHMENT_FOR_LATE_PRACTICE, REPEAT_TIMES_CONVERT_TO_POINTS, STOCK_USER } from "../constants/stockConstants";
-import { LOCAL_STORAGE_KEYS_CONSTANTS } from "../constants/stringConstants";
+import { LOCAL_STORAGE_KEYS_CONSTANTS, RADIO_BUTTON_NAME } from "../constants/stringConstants";
+import { InewCardForm } from "../myHooks/collectionHooks/useCreateNewItem";
 import { IsignInForm } from "../myHooks/myFormHooks/useSubmitButtonForSignUp";
 
 export type TbasicCollectionInfo = {
@@ -74,9 +75,6 @@ const getItemPoints = (item: TcollectionItemData) => {
 }
 
 const pullFiltersTitlesFromData = (item: TcollectionItemData,filtersArray: string[]) => {
-    // if (item.collectionItemCategory && !filtersArray.includes(item.collectionItemCategory.slice(14))) {
-    //     filtersArray.push(item.collectionItemCategory.slice(14))
-    // }
     if (item.collectionItemCategory && !filtersArray.includes(item.collectionItemCategory)) {
         filtersArray.push(item.collectionItemCategory)
     }
@@ -111,7 +109,7 @@ const sortItemInGroup = (item: TcollectionItemData,
 
 export const spreadCollectionData = (dataBase: TcollectionItemData[]) => {
     const filtersOfCollection: string[] = [];
-console.log(dataBase)
+
     const repeatNowGroup: TcollectionItemData[] = [];
     const repeatIn1HourGroup: TcollectionItemData[] = [];
     const repeatIn4HoursGroup: TcollectionItemData[] = [];
@@ -204,4 +202,32 @@ export const cutBasicUserCollectionsInfo = (allUserCollections: TuserCollectionD
     });
 
     return basicCollectionsInfo;
+}
+
+export const setCategoryInCollectionDataObj = (
+    newCard: TcollectionItemData,
+    values: InewCardForm, 
+    currentCollectionCategories: TcollectionСategory[] | undefined) => {
+    if (values.categoryRadioButtons === RADIO_BUTTON_NAME.SET_CATEGORY) {
+
+        newCard.collectionItemCategory = values.collectionItemCategory;
+        newCard.collectionItemColor = values.collectionItemColor;
+
+    } else if (values.categoryRadioButtons === RADIO_BUTTON_NAME.CHOOSE_CATEGORY) {
+        const currentChoosenCategory = currentCollectionCategories?.find(item => item.value === values.cardSelectInput);
+
+        newCard.collectionItemCategory = values.cardSelectInput;
+        newCard.collectionItemColor = currentChoosenCategory?.collectionCategoryColor || '';
+    }
+}
+
+export const checkTitleExclusivity = (
+    values: InewCardForm, 
+    currentCollectionCategories: TcollectionСategory[] | undefined
+) => {
+    if (currentCollectionCategories?.find(item => item.value === values.collectionItemCategory)) {
+        alert('Such title already exists. Please cum up with new one.');
+        return false
+    }
+    return true
 }

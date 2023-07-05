@@ -1,6 +1,5 @@
 import React from 'react';
 import { 
-    // Tcard,
     TcollectionItemData
  } from '../../../utils/utils';
 import { StockRepeatList } from '../stock/repeatList';

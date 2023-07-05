@@ -128,36 +128,39 @@ app.delete('/:id/:user', (req, res) => {
 
 app.post('/api/new-card', (req,res) => {
     let {
-        UserId,
-        CollectionId,
+        userId,
+        collectionId,
+        creatingNewCategory,
         newCard,
     } = req.body;
 
     let newCollectionCategoryTitle= newCard.collectionItemCategory;
     let newCollectionCategoryColor= newCard.collectionItemColor;
 
+    if (newCollectionCategoryTitle && creatingNewCategory) {
+        User.updateOne(
+            {_id: userId, 'userCollectionsData._id': collectionId},
+            {$push: {
+                'userCollectionsData.$.collectionСategories':
+                {
+                    label: newCollectionCategoryTitle,
+                    value: newCollectionCategoryTitle,
+                    collectionCategoryColor: newCollectionCategoryColor,
+                }
+            }}
+        )
+        .catch(err=> console.log(err))
+    }
+
     User.updateOne(
-        {_id: UserId, 'userCollectionsData._id': CollectionId},
+        {_id: userId, 'userCollectionsData._id': collectionId},
         {$push: {
             'userCollectionsData.$.collectionData':newCard
         }}
     )
-    .catch(err=> console.log(err))
-
-    User.updateOne(
-        {_id: UserId, 'userCollectionsData._id': CollectionId},
-        {$push: {
-            'userCollectionsData.$.collectionСategories':
-            {
-                label: newCollectionCategoryTitle,
-                value: newCollectionCategoryTitle,
-                collectionCategoryColor: newCollectionCategoryColor,
-            }
-        }}
-    )
     .then(()=> {
-        User.findById(UserId)
-        .then(result=> res.send(result.userCollectionsData.find(collection => collection._id.toString() === CollectionId)))
+        User.findById(userId)
+        .then(result=> res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId)))
     })
     .catch(err=> console.log(err))
 })
