@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from "react";
+import React, { SyntheticEvent, useEffect } from "react";
 import { StockCheckbox } from "../../atoms/stock/checkbox";
 import { StyledCheckboxList } from "./styledCheckboxList";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
@@ -14,6 +14,11 @@ export const CheckboxList = () => {
     const dispatch = useAppDispatch();
     const currentFilters = useAppSelector(getRefreshedFiltersSelector);
     const {isMainCheckboxChecked} = useCheckboxCurrentState(MAIN_FILTER_CHECKBOX);
+
+    useEffect(()=>{
+        dispatch(replaceListOfCurrentFilters([]));
+        dispatch(addItemInListOfCurrentFilters(MAIN_FILTER_CHECKBOX));
+    },[dispatch])
 
     const handleOnChange = (event: SyntheticEvent<HTMLElement>)=>{
         const currentChangedCheckboxName = (event.target as HTMLInputElement).name;

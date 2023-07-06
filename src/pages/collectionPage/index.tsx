@@ -20,7 +20,7 @@ export const CollectionPage = () => {
             {accountStatus && <AddNewCollectionItemButton />}
             <div className='collection-page--container'>
                 <div className='App--button__wrapper'>
-                <CheckboxList />
+                    <CheckboxList />
                 </div>
                 <RepeatContainer />
                 <CardWindow />

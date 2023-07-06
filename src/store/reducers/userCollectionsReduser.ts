@@ -47,13 +47,13 @@ const userCollectionsSlice = createSlice({
             localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_COLLECTIONS, JSON.stringify(action.payload))
             state.allUserCollections = getUserCollections();
         },
-        setCurrentCollection(state, action: PayloadAction<TuserCollectionData>) {
-            localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.CURRENT_USER_COLLECTION, JSON.stringify(action.payload))
-            state.currentCollection = getCurrentUserCollection();
-        },
         removeAllUserCollections(state) {
             localStorage.removeItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_COLLECTIONS);
             state.allUserCollections = getUserCollections();
+        },
+        setCurrentCollection(state, action: PayloadAction<TuserCollectionData>) {
+            localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.CURRENT_USER_COLLECTION, JSON.stringify(action.payload))
+            state.currentCollection = getCurrentUserCollection();
         },
     }
 })
@@ -65,7 +65,7 @@ export const {
     removeUserBasicCollectionsInfo,
     setAllUserCollections, 
     setCurrentCollection,
-    removeAllUserCollections
+    removeAllUserCollections,
 } = userCollectionsSlice.actions;
 
 export const getBasicUserCollectionsInfoSelector = (state: {userCollectionsSlice: {basicUserCollectionsInfo: TbasicCollectionInfo[]}}) =>
