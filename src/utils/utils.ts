@@ -231,3 +231,8 @@ export const checkTitleExclusivity = (
     }
     return true
 }
+
+
+export const cutTitle = (title: string, maxLength: number) => {
+    return (title.length <= maxLength)? title: `${title.slice(0, maxLength)}...`;
+}

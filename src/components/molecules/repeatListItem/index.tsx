@@ -1,7 +1,8 @@
 import React from "react";
-import { 
-     TcollectionItemData } from "../../../utils/utils";
+import { cutTitle, TcollectionItemData } from "../../../utils/utils";
 import { StyledRepeatListItem } from "./styledRepeatListItem";
+import './style.scss';
+import { MAX_REPEATLIST_ITEM_TITLE_LENGTH } from "../../../constants/stockConstants";
 
 type TrepeatListItem = {
     onClick: ()=>void,
@@ -9,13 +10,17 @@ type TrepeatListItem = {
 }
 
 export const RepeatListItem = ({onClick, item} :TrepeatListItem) => {
+    const itemTitle = cutTitle(item.collectionItemTitle,MAX_REPEATLIST_ITEM_TITLE_LENGTH);
     return(
         <StyledRepeatListItem 
             color={item.collectionItemColor || 'white'}
-            className={`list--item ${item.collectionItemCategory}`} 
+            className='list--item' 
             onClick={() => onClick()}
         >
-            {item.collectionItemTitle}
+            {itemTitle}
+            <div className='repeat-counter'>
+                {item.collectionItemTimesBeenRepeated}
+            </div>
         </StyledRepeatListItem>
     )
 }

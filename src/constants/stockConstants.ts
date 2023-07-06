@@ -105,3 +105,5 @@ export const NAVIGATION_ITEMS: TnavigationItem[] = [
     loggedStatusDependent: false,
   },
 ];
+
+export const MAX_REPEATLIST_ITEM_TITLE_LENGTH = 46;
