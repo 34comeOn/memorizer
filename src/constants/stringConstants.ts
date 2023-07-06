@@ -42,3 +42,13 @@ export const RADIO_BUTTON_LABEL_TEXT = {
     SET_CATEGORY: 'Create new category',
     CHOOSE_CATEGORY: 'Choose from categories',
 }
+
+export const REPEAT_LISTS_TITLE = [
+    'Repeat now',
+    'Repeat in 1 hour',
+    'Repeat in 4 hours',
+    'Repeat in 8 hours',
+    'Repeat in 12 hours',
+    'Repeat in 24 hours',
+    'Repeat in 3 days',
+  ]
