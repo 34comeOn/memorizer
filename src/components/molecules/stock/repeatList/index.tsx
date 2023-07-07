@@ -1,16 +1,14 @@
 import React from 'react';
-import { 
-    // Tcard
-    TcollectionItemData
-} from '../../../../utils/utils';
+import { TcollectionItemData } from '../../../../utils/utils';
 import { StyledRepeatList } from './styledRepeatList';
 import './style.scss';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { getListOfCurrentFiltersSelector } from '../../../../store/reducers/collectionFiltersReduser';
-import { MAIN_FILTER_CHECKBOX } from '../../../../constants/stringConstants';
+import { MAIN_FILTER_CHECKBOX, MODAL_WINDOW_CONTENT_STRING_CONSTANTS } from '../../../../constants/stringConstants';
 import { hideAnswer, setCurrentCard, showCurrentCard } from '../../../../store/reducers/cardWindowReduser';
 import { RepeatListItem } from '../../repeatListItem';
 import { nanoid } from 'nanoid';
+import { setContentForModalWindow, showModalWindow } from '../../../../store/reducers/modalWindowReduser';
 
 export type ThandleOpenCard = (id: string) => void
 
@@ -21,6 +19,8 @@ export const StockRepeatList = ({title, list}: {title: string, list: Tcollection
         dispatch(setCurrentCard(currentCard));
         dispatch(hideAnswer());
         dispatch(showCurrentCard());
+        dispatch(setContentForModalWindow(MODAL_WINDOW_CONTENT_STRING_CONSTANTS.RENDER_ITEM_OF_COLLECTION));
+        dispatch(showModalWindow());
     }
     const currentlistItemsCategories = useAppSelector(getListOfCurrentFiltersSelector);
 

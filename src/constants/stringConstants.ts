@@ -23,6 +23,7 @@ export const LOCAL_STORAGE_KEYS_CONSTANTS = {
 export const MODAL_WINDOW_CONTENT_STRING_CONSTANTS = {
     CREATE_NEW_COLLECTION: 'newCollection',
     CREATE_NEW_ITEM_OF_COLLECTION: 'newItemOfCollection',
+    RENDER_ITEM_OF_COLLECTION: 'renderCollectionItem',
 }
 
 export const ROUTS_CONSTANTS = {

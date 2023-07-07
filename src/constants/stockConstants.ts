@@ -35,14 +35,14 @@ export const STOCK_COLLECTION_ITEM = {
 }
 
 export const STOCK_BASIC_COLLECTION_INFO = {
-  ['_id']: '000',
+  _id: '000',
   collectionColor: 'black',
   collectionImage: 'none',
   collectionTitle: 'Basic test collection',
 }
 
 export const STOCK_COLLECTION = {
-  ['_id']: '000',
+  _id: '000',
   collectionColor:'',
   collectionImage: 'none',
   collectionTitle: 'Train stock React collection',
