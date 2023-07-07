@@ -165,6 +165,40 @@ app.post('/api/new-card', (req,res) => {
     .catch(err=> console.log(err))
 })
 
+app.delete('/card/:cardId/:collectionId/:userId', (req, res) => {
+    let cardId = req.params.cardId.slice(1);
+    let collectionId = req.params.collectionId.slice(1);
+    let userId = req.params.userId.slice(1);
+
+    User.updateOne(
+        { _id: userId,
+            'userCollectionsData': {
+                '$elemMatch': {
+                  '_id': collectionId,
+                  "collectionData._id": cardId
+                }
+            }
+        },
+        {$pull: 
+            { 
+                'userCollectionsData.$[i].collectionData': { _id: cardId },
+            }
+        },
+        {
+            arrayFilters: [
+                {
+                  'i._id': collectionId,
+                },
+            ],
+        },
+    )
+    .then(()=> {
+        User.findById(userId)
+        .then(result=> res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId)))
+    })
+    .catch(err => console.log(err))
+})
+
 app.put('/api/repeat', (req, res)=> {
     let {
         userId, 
@@ -199,7 +233,7 @@ app.put('/api/repeat', (req, res)=> {
                   'k._id': cardId,
                 },
             ],
-          },
+        },
     )
     .then(()=> {
         User.findById(userId)

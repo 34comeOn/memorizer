@@ -91,14 +91,14 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
         };
       }
     }),
-    // deleteCard: build.mutation<TuserCollectionData, string>({
-    //   query(path) {
-    //     return {
-    //       url: `${path}`,
-    //       method: 'DELETE',
-    //     };
-    //   }
-    // }),
+    deleteCard: build.mutation<TuserCollectionData, string>({
+      query(path) {
+        return {
+          url: `${path}`,
+          method: 'DELETE',
+        };
+      }
+    }),
     putRepeatedCollectionItem: build.mutation<TuserCollectionData, {path: string, repeatObj: TrepeatObject}>({
       query(args) {
         return {
