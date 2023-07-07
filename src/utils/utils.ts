@@ -147,16 +147,13 @@ export const spreadCollectionData = (dataBase: TcollectionItemData[]) => {
 
 export const getPunishForLatePractice = (item: TcollectionItemData) => {
     let punishPoints = 0;
-    
     for (let i = 0; i <= MAX_PUNISHMENT_FOR_LATE_PRACTICE; i++) {
-        if ((getHoursSinceRepeat(item.collectionItemRepeatedTimeStamp?? 0) - REPEAT_TIMES_CONVERT_TO_POINTS[item.collectionItemTimesBeenRepeated - i]) >= 0) {
+        if ((getHoursSinceRepeat(item.collectionItemRepeatedTimeStamp?? 0) - REPEAT_TIMES_CONVERT_TO_POINTS[item.collectionItemTimesBeenRepeated - i]) > 0) {
             punishPoints += 1;
         } 
     }
-
     const newTimesBeenRepeated = item.collectionItemTimesBeenRepeated - punishPoints;
-    
-    return (newTimesBeenRepeated <= 0? 1: newTimesBeenRepeated);
+    return (newTimesBeenRepeated <= 0? 0: newTimesBeenRepeated);
 }
 
 export const maximiseTimesBeenRepeated = (currentTimesBeenRepeated: number) => {

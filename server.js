@@ -166,12 +166,44 @@ app.post('/api/new-card', (req,res) => {
 })
 
 app.put('/api/repeat', (req, res)=> {
-    const{id, repeatedTimeStamp, timesBeenRepeated} =req.body;
-    User.findByIdAndUpdate(id, {repeatedTimeStamp, timesBeenRepeated } )
-    .catch(err => console.log(err))
+    let {
+        userId, 
+        cardId, 
+        collectionId,
+        collectionItemTimesBeenRepeated,
+        collectionItemRepeatedTimeStamp,
+    } =req.body;
+    console.log(req.body)
+
+    User.updateOne(
+        {_id: userId, 
+            'userCollectionsData': {
+                '$elemMatch': {
+                  '_id': collectionId,
+                  "collectionData._id": cardId
+                }
+            }
+        },
+        {$set: 
+            { 
+                'userCollectionsData.$[i].collectionData.$[k].collectionItemTimesBeenRepeated': collectionItemTimesBeenRepeated,
+                'userCollectionsData.$[i].collectionData.$[k].collectionItemRepeatedTimeStamp': collectionItemRepeatedTimeStamp,
+            }
+        },
+        {
+            arrayFilters: [
+                {
+                  'i._id': collectionId,
+                },
+                {
+                  'k._id': cardId,
+                },
+            ],
+          },
+    )
     .then(()=> {
-        User.find()
-    .then(result=> res.send(result))
-    .catch(err=> console.log(err))
+        User.findById(userId)
+        .then(result=> res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId)))
     })
+    .catch(err => console.log(err))
 })

@@ -40,10 +40,6 @@ const CollectionTagsSchema = new Schema({
 });
 
 const CollectionDataSchema = new Schema({
-    collectionItemId: {
-        type: String,
-        required: true
-    },
     collectionItemTitle: {
         type: String,
         required: true
@@ -78,10 +74,6 @@ const CollectionDataSchema = new Schema({
 });
 
 const UserCollectionsDataSchema = new Schema({
-    // collectionId: {
-    //     type: String,
-    //     required: true
-    // },
     collectionColor: {
         type: String,
         required: true

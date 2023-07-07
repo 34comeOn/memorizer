@@ -9,9 +9,9 @@
     background-color: $colorStockItemBackground;
     color: $colorFontDark;
     cursor: pointer; 
-    max-width: 442px;
+    max-width: 437px;
     position: relative;
-    padding-right: 20px;
+    padding-right: 25px;
 }
 
 .list--item:hover {
@@ -20,13 +20,13 @@
 }
 
 .repeat-counter {
-    width: 29px;
-    height: 29px;
-    border-radius: 50%;
+    width: 21px;
+    height: 21px;
+    border-radius: 40%;
     background-color: rgb(218 51 51);;
     position: absolute;
-    right: -26px;
-    top: -1px;
+    right: -14px;
+    top: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
