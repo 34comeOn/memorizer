@@ -8,9 +8,10 @@ type TradioFormContainer = {
     children?: ReactElement,
     drillField: any,
     drillProps: any,
+    checked?: boolean,
 }
 
-export const RadioFormContainer = ({labelText, labelFor, children, drillField, drillProps}: TradioFormContainer) => {
+export const RadioFormContainer = ({labelText, labelFor, children, drillField, drillProps, checked}: TradioFormContainer) => {
     return(
         <div className='form--radio-input__container'>
             <div className='inner-form--box'>
@@ -24,6 +25,7 @@ export const RadioFormContainer = ({labelText, labelFor, children, drillField, d
                     {...drillField}
                     {...drillProps}
                     value={labelFor}
+                    defaultChecked={checked}
                 />
             </div>
             {children} 

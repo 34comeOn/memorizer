@@ -5,6 +5,6 @@ type TradioButtonLabel = {
 }
 
 export const StyledRadioButtonLabel = styled.label<TradioButtonLabel>`
-    color: ${props => props.checked? 'white' : 'grey'};
-    user-select: none;
+text-shadow: ${props => props.checked? 'black 1px 2px' : 'none'};
+user-select: none;
 `

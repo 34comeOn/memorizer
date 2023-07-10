@@ -25,6 +25,7 @@ export const CardRadioButtonsOrganizm = ({
                 labelFor={RADIO_BUTTON_NAME.NO_CATEGORY} 
                 drillField={field}
                 drillProps={props}
+                checked={true}
             />
             <RadioFormContainer 
                 labelText={RADIO_BUTTON_LABEL_TEXT.SET_CATEGORY}  
