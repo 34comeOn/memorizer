@@ -229,7 +229,18 @@ export const checkTitleExclusivity = (
     return true
 }
 
-
 export const cutTitle = (title: string, maxLength: number) => {
     return (title.length <= maxLength)? title: `${title.slice(0, maxLength)}...`;
 }
+
+// export const filterCollectionCardsByCategory = (currentCollectionCards: TcollectionItemData[], cardCategory : string) => {
+//     return (currentCollectionCards.filter(card => card.collectionItemCategory === cardCategory))
+// }
+
+// export const getTitleOfCategoryForDelete = (currentCollectionCards: TcollectionItemData[], cardCategory : string) => {
+//     if (filterCollectionCardsByCategory(currentCollectionCards, cardCategory).length < 2) {
+//         return cardCategory;
+//     } else {
+//         return '';
+//     }
+// }

@@ -37,7 +37,7 @@ export const StockCardWindow = () => {
             </div>
             <div className='edit-buttons--container'>
                 {userHasAdminPowersForCollection && <EditButton _id={currentCard._id || ''} />}
-                {userHasAdminPowersForCollection && <DeleteCardButton _id={currentCard._id || ''} />}
+                {userHasAdminPowersForCollection && <DeleteCardButton currentCard={currentCard} />}
             </div>
             <DoneButton onClick={onDoneClickHandle}/>
         </StyledCard>
