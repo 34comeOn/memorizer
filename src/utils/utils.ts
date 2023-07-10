@@ -1,6 +1,6 @@
 import { MAX_PUNISHMENT_FOR_LATE_PRACTICE, REPEAT_TIMES_CONVERT_TO_POINTS, STOCK_USER } from "../constants/stockConstants";
 import { LOCAL_STORAGE_KEYS_CONSTANTS, RADIO_BUTTON_NAME } from "../constants/stringConstants";
-import { InewCardForm } from "../myHooks/collectionHooks/useCreateNewItem";
+import { InewCardForm } from "../myHooks/collectionHooks/useCreateNewCard";
 import { IsignInForm } from "../myHooks/myFormHooks/useSubmitButtonForSignUp";
 
 export type TbasicCollectionInfo = {
@@ -201,7 +201,7 @@ export const cutBasicUserCollectionsInfo = (allUserCollections: TuserCollectionD
     return basicCollectionsInfo;
 }
 
-export const setCategoryInCollectionDataObj = (
+export const setCategoryInCardObj = (
     newCard: TcollectionItemData,
     values: InewCardForm, 
     currentCollectionCategories: TcollectionСategory[] | undefined) => {

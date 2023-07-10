@@ -19,6 +19,14 @@ export type TnewCardPostObject = {
   newCard: TcollectionItemData, 
 }
 
+export type TeditCardPutObject = {
+  userId: string, 
+  collectionId: string, 
+  cardId: string, 
+  creatingNewCategory: boolean,
+  editedCard: TcollectionItemData, 
+}
+
 export type TrepeatObject = {
   userId: string,
   cardId: string,
@@ -117,6 +125,16 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
           method: 'PUT',
           headers: {'Content-Type': 'application/json;charset=utf-8'},
           body: JSON.stringify(args.editCollectionObj)
+        };
+      }
+    }),
+    putEditedCard: build.mutation<TuserCollectionData, {path: string, editedCardObj: TeditCardPutObject}>({
+      query(args) {
+        return {
+          url: `${args.path}`,
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json;charset=utf-8'},
+          body: JSON.stringify(args.editedCardObj)
         };
       }
     }),

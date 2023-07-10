@@ -6,7 +6,7 @@ import { hideModalWindow } from "../../store/reducers/modalWindowReduser";
 import { setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReduser";
 import { cutBasicUserCollectionsInfo } from "../../utils/utils";
 
-export interface InewCollectionForm {
+export interface IeditCollectionForm {
     collectionColor: string, 
     title: string, 
 }
@@ -18,10 +18,10 @@ export type TeditCollectionData = {
   }
 export const useEditCollection = (_id: string) => {
     const dispatch = useAppDispatch();
-    const [getAllCollectionsAfterCreatingOneNewTriger] = collectionDataAPI.usePutEditedCollectionMutation();
+    const [getAllCollectionsAfterEditingCollectionTriger] = collectionDataAPI.usePutEditedCollectionMutation();
     const currentUserId = useAppSelector(getUserIdSelector);
     
-    return (values: InewCollectionForm) => {
+    return (values: IeditCollectionForm) => {
 
         const editCollectionObj: TeditCollectionData = {
             userId: currentUserId,
@@ -30,7 +30,7 @@ export const useEditCollection = (_id: string) => {
             collectionTitle: values.title,
         }
 
-        getAllCollectionsAfterCreatingOneNewTriger({path:EDIT_COLLECTION_ENDPOINT, editCollectionObj: editCollectionObj})
+        getAllCollectionsAfterEditingCollectionTriger({path:EDIT_COLLECTION_ENDPOINT, editCollectionObj: editCollectionObj})
         .unwrap()
         .then(
           (userCollections) => {

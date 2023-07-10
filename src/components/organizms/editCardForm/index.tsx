@@ -1,46 +1,48 @@
 import React from "react";
 import { Field, Form, Formik } from "formik";
-import { STOCK_COLLECTION_COLOR } from "../../../constants/stockConstants";
 import { FormInput } from "../../molecules/formInput";
-import { useCreateNewItem } from "../../../myHooks/collectionHooks/useCreateNewItem";
 import "./style.scss";
 import { RADIO_BUTTON_NAME } from "../../../constants/stringConstants";
 import { CardRadioButtonsOrganizm } from "../radioButtonsOrganizm";
-// import { TagInput } from "../../molecules/tagInput";
 import { TextArea } from "../../molecules/textArea";
+import { useAppSelector } from "../../../app/hooks";
+import { getEditCardSelector } from "../../../store/reducers/editReduser";
+import { useEditCard } from "../../../myHooks/collectionHooks/useEditCard";
 
-export const NewCollectionItemForm = () => {
-    const onCreateNewItem = useCreateNewItem();
+export const EditCardForm = () => {
+    const {_id, cardTitle, cardAnswer,cardCategory,cardColor} = useAppSelector(getEditCardSelector)
+    const onEditCard = useEditCard(_id);
 
     return (
         <Formik 
             initialValues={{ 
-                cardTitle: '', 
-                cardAnswer: '', 
-                collectionItemCategory: '', 
-                collectionItemColor: STOCK_COLLECTION_COLOR, 
+                cardTitle: cardTitle, 
+                cardAnswer: cardAnswer, 
+                collectionItemCategory: cardCategory, 
+                collectionItemColor: cardColor, 
                 cardSelectInput: '', 
                 categoryRadioButtons: RADIO_BUTTON_NAME.NO_CATEGORY,
                 cardTags: '',
             }}
             onSubmit={
-                onCreateNewItem
+                onEditCard
             }
         >
             {()=>{
                 return(
-                    <Form className='new-collection--form-item'>
+                    <Form className='edit-card--form-item'>
                         <FormInput 
                             type='text' 
                             name='cardTitle' 
-                            placeholder='How to say "Every moment is a treasure!" in Spanish?' 
-                            labelValue='Come up with title for card'
+                            labelValue='Change card title'
                         />
+                        <label className='form--label' htmlFor='textArea'>
+                            Change your answer
+                        </label>
                         <TextArea />
                         <Field name="categoryRadioButtons" component={CardRadioButtonsOrganizm} />
-                        {/* <Field name="cardTags" component={TagInput} /> */}
                         <button className='submit-item--button' type='submit'>
-                            Create card
+                            Save changes
                         </ button>
                     </Form>
                 )

@@ -1,15 +1,15 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { STOCK_COLLECTION } from "../../constants/stockConstants";
-import { CREATE_NEW_CARD_ENDPOINT, RADIO_BUTTON_NAME } from "../../constants/stringConstants";
+import { EDIT_CARD_ENDPOINT, RADIO_BUTTON_NAME } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
 import { getUserIdSelector } from "../../store/reducers/accountReduser";
 import { setFiltersList } from "../../store/reducers/collectionFiltersReduser";
 import { setRepeatGroupsReduser } from "../../store/reducers/collectionGroupsReduser";
 import { hideModalWindow } from "../../store/reducers/modalWindowReduser";
 import { getCurrentCollectionSelector, setCurrentCollection } from "../../store/reducers/userCollectionsReduser";
-import { checkTitleExclusivity, setCategoryInCollectionDataObj, spreadCollectionData, TcollectionItemData, TcollectionTag } from "../../utils/utils";
+import { checkTitleExclusivity, setCategoryInCardObj, spreadCollectionData, TcollectionItemData, TcollectionTag } from "../../utils/utils";
 
-export interface InewCardForm {
+export interface IeditCardForm {
     cardTitle: string, 
     cardAnswer: string, 
     collectionItemCategory: string,
@@ -19,15 +19,15 @@ export interface InewCardForm {
     categoryRadioButtons: string,
 }
 
-export const useCreateNewItem = () => {
+export const useEditCard = (_id: string) => {
     const dispatch = useAppDispatch();
+    const [getUpdatedCollectionAfterEditingCardTriger] = collectionDataAPI.usePutEditedCardMutation();
     const currentUserId = useAppSelector(getUserIdSelector);
+    const currentCollectionId = (useAppSelector(getCurrentCollectionSelector)._id || '');
     const currentCollectionCategories = useAppSelector(getCurrentCollectionSelector).collectionСategories;
-    const currentCollectionId = useAppSelector(getCurrentCollectionSelector)._id || '';
-    const [getCurrentCollectionAfterCreatingNewCardTriger] = collectionDataAPI.usePostNewCardMutation();
-
-    return (values: InewCardForm) => {
-        const newCard: TcollectionItemData = {
+    
+    return (values: IeditCardForm) => {
+        const editedCard: TcollectionItemData = {
             collectionItemTitle: values.cardTitle,
             collectionItemAnswer: values.cardAnswer,
             collectionItemRepeatedTimeStamp: 1671420000000,
@@ -37,19 +37,20 @@ export const useCreateNewItem = () => {
             collectionItemTags: values.cardTags,
         };
 
-        setCategoryInCollectionDataObj(newCard, values, currentCollectionCategories);
-        if (!checkTitleExclusivity(values, currentCollectionCategories)) {
+        setCategoryInCardObj(editedCard, values, currentCollectionCategories);
+        if (values.categoryRadioButtons === RADIO_BUTTON_NAME.SET_CATEGORY && !checkTitleExclusivity(values, currentCollectionCategories)) {
             return
         };
 
-        const newCardObj = {
+        const editedCardObj = {
             userId: currentUserId,
             collectionId: currentCollectionId,
+            cardId: _id,
             creatingNewCategory: (values.categoryRadioButtons === RADIO_BUTTON_NAME.SET_CATEGORY),
-            newCard: newCard,
+            editedCard: editedCard,
         }
 
-        getCurrentCollectionAfterCreatingNewCardTriger({path:CREATE_NEW_CARD_ENDPOINT, newCardObj: newCardObj})
+        getUpdatedCollectionAfterEditingCardTriger({path: EDIT_CARD_ENDPOINT, editedCardObj: editedCardObj})
         .unwrap()
         .then(
           (currentCollection) => {

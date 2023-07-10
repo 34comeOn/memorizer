@@ -38,11 +38,13 @@ app.post('/api/sign-in', (req, res)=> {
 
 })
 
+
 app.get('/data', (req, res)=> {
     User.find()
     .then(result=> res.send(result))
     .catch(err=> console.log(err))
 })
+
 
 app.get('/:id/:user', (req, res)=> {
     let collectionId = req.params.id.slice(1);
@@ -54,6 +56,7 @@ app.get('/:id/:user', (req, res)=> {
     })
     .catch(err=> console.log(err))
 })
+
 
 app.post('/api/sign-up', (req, res)=> {
     const {
@@ -94,6 +97,7 @@ app.post('/api/sign-up', (req, res)=> {
     .catch(err=> console.log(err))
 })
 
+
 app.post('/api/new-collection', (req, res)=>  {
     let {
         id,
@@ -111,6 +115,7 @@ app.post('/api/new-collection', (req, res)=>  {
     })
 })
 
+
 app.delete('/:id/:user', (req, res) => {
     let collectionId = req.params.id.slice(1);
     let userId = req.params.user.slice(1);
@@ -125,6 +130,7 @@ app.delete('/:id/:user', (req, res) => {
     })
     .catch(err=> console.log(err))
 })
+
 
 app.post('/api/new-card', (req,res) => {
     let {
@@ -165,6 +171,7 @@ app.post('/api/new-card', (req,res) => {
     .catch(err=> console.log(err))
 })
 
+
 app.delete('/card/:cardId/:collectionId/:userId', (req, res) => {
     let cardId = req.params.cardId.slice(1);
     let collectionId = req.params.collectionId.slice(1);
@@ -198,6 +205,7 @@ app.delete('/card/:cardId/:collectionId/:userId', (req, res) => {
     })
     .catch(err => console.log(err))
 })
+
 
 app.put('/api/repeat', (req, res)=> {
     let {
@@ -241,6 +249,7 @@ app.put('/api/repeat', (req, res)=> {
     .catch(err => console.log(err))
 })
 
+
 app.put('/api/edit-collection', (req, res)=> {
     let {
         userId, 
@@ -274,6 +283,68 @@ app.put('/api/edit-collection', (req, res)=> {
     .then(()=> {
         User.findById(userId)
         .then(result=> res.send(result.userCollectionsData))
+    })
+    .catch(err => console.log(err))
+})
+
+app.put('/api/edit-card', (req,res) => {
+    let {
+        userId,
+        collectionId,
+        cardId,
+        creatingNewCategory,
+        editedCard,
+    } = req.body;
+
+    let newCollectionCategoryTitle= editedCard.collectionItemCategory;
+    let newCollectionCategoryColor= editedCard.collectionItemColor;
+
+    if (newCollectionCategoryTitle && creatingNewCategory) {
+        User.updateOne(
+            {_id: userId, 'userCollectionsData._id': collectionId},
+            {$push: {
+                'userCollectionsData.$.collectionСategories':
+                {
+                    label: newCollectionCategoryTitle,
+                    value: newCollectionCategoryTitle,
+                    collectionCategoryColor: newCollectionCategoryColor,
+                }
+            }}
+        )
+        .catch(err=> console.log(err))
+    }
+    
+    User.updateOne(
+        {_id: userId, 
+            'userCollectionsData': {
+                '$elemMatch': {
+                  '_id': collectionId,
+                  "collectionData._id": cardId
+                }
+            }
+        },
+        {$set: 
+            { 
+                'userCollectionsData.$[i].collectionData.$[k].collectionItemTitle': editedCard.collectionItemTitle,
+                'userCollectionsData.$[i].collectionData.$[k].collectionItemAnswer': editedCard.collectionItemAnswer,
+                'userCollectionsData.$[i].collectionData.$[k].collectionItemCategory': editedCard.collectionItemCategory,
+                'userCollectionsData.$[i].collectionData.$[k].collectionItemColor': editedCard.collectionItemColor,
+            }
+        },
+        {
+            arrayFilters: [
+                {
+                  'i._id': collectionId,
+                },
+                {
+                  'k._id': cardId,
+                },
+            ],
+        },
+    )
+    .then(()=> {
+        User.findById(userId)
+        .then(result=> res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId)))
     })
     .catch(err => console.log(err))
 })

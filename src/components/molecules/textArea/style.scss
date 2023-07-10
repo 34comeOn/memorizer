@@ -1,6 +1,7 @@
 @import '/src/sass/variables.module.scss';
 
 .form--text-area {
+    font-family: $ff-main-regular;;
     min-height: 45px;
     width: 390px;
     margin-top: 10px;
