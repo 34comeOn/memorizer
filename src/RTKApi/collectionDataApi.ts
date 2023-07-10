@@ -1,3 +1,4 @@
+import { TeditCollectionData } from '../myHooks/collectionHooks/useEditCollection';
 import { TcollectionItemData, Tuser, TuserCollectionData } from '../utils/utils';
 import { rootAPI } from './rootApi';
 
@@ -24,7 +25,7 @@ export type TrepeatObject = {
   collectionId: string,
   collectionItemTimesBeenRepeated: number,
   collectionItemRepeatedTimeStamp: number,
-}
+} 
 
 export const collectionDataAPI = rootAPI.injectEndpoints({
   endpoints: (build) => ({
@@ -106,6 +107,16 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
           method: 'PUT',
           headers: {'Content-Type': 'application/json;charset=utf-8'},
           body: JSON.stringify(args.repeatObj)
+        };
+      }
+    }),
+    putEditedCollection: build.mutation<TuserCollectionData[], {path: string, editCollectionObj: TeditCollectionData}>({
+      query(args) {
+        return {
+          url: `${args.path}`,
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json;charset=utf-8'},
+          body: JSON.stringify(args.editCollectionObj)
         };
       }
     }),

@@ -5,6 +5,7 @@ export const GET_CURRENT_COLLECTION_ENDPOINT = '/traing-collection';
 export const SIGN_IN_USER_ENDPOINT = 'api/sign-in';
 export const SIGN_UP_USER_ENDPOINT = 'api/sign-up';
 export const CREATE_NEW_COLLECTION_ENDPOINT = 'api/new-collection';
+export const EDIT_COLLECTION_ENDPOINT = 'api/edit-collection';
 export const CREATE_NEW_CARD_ENDPOINT = 'api/new-card';
 export const PUT_REPEATED_COLLECTION_ITEM_ENDPOINT = 'api/repeat';
 
@@ -22,6 +23,7 @@ export const LOCAL_STORAGE_KEYS_CONSTANTS = {
 
 export const MODAL_WINDOW_CONTENT_STRING_CONSTANTS = {
     CREATE_NEW_COLLECTION: 'newCollection',
+    EDIT_COLLECTION: 'editCollection',
     CREATE_NEW_ITEM_OF_COLLECTION: 'newItemOfCollection',
     RENDER_ITEM_OF_COLLECTION: 'renderCollectionItem',
 }

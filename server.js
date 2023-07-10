@@ -207,7 +207,6 @@ app.put('/api/repeat', (req, res)=> {
         collectionItemTimesBeenRepeated,
         collectionItemRepeatedTimeStamp,
     } =req.body;
-    console.log(req.body)
 
     User.updateOne(
         {_id: userId, 
@@ -238,6 +237,43 @@ app.put('/api/repeat', (req, res)=> {
     .then(()=> {
         User.findById(userId)
         .then(result=> res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId)))
+    })
+    .catch(err => console.log(err))
+})
+
+app.put('/api/edit-collection', (req, res)=> {
+    let {
+        userId, 
+        collectionId,
+        collectionColor,
+        collectionTitle,
+    } =req.body;
+
+    User.updateOne(
+        {_id: userId, 
+            'userCollectionsData': {
+                '$elemMatch': {
+                  '_id': collectionId,
+                }
+            }
+        },
+        {$set: 
+            { 
+                'userCollectionsData.$[i].collectionColor': collectionColor,
+                'userCollectionsData.$[i].collectionTitle': collectionTitle,
+            }
+        },
+        {
+            arrayFilters: [
+                {
+                  'i._id': collectionId,
+                },
+            ],
+        },
+    )
+    .then(()=> {
+        User.findById(userId)
+        .then(result=> res.send(result.userCollectionsData))
     })
     .catch(err => console.log(err))
 })
