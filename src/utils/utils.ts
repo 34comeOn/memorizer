@@ -148,7 +148,7 @@ export const spreadCollectionData = (dataBase: TcollectionItemData[]) => {
 export const getPunishForLatePractice = (item: TcollectionItemData) => {
     let punishPoints = 0;
     for (let i = 0; i <= MAX_PUNISHMENT_FOR_LATE_PRACTICE; i++) {
-        if ((getHoursSinceRepeat(item.collectionItemRepeatedTimeStamp?? 0) - REPEAT_TIMES_CONVERT_TO_POINTS[item.collectionItemTimesBeenRepeated - i]) > 0) {
+        if ((getHoursSinceRepeat(item.collectionItemRepeatedTimeStamp?? 0) - REPEAT_TIMES_CONVERT_TO_POINTS[item.collectionItemTimesBeenRepeated - i]?? 0) >= 1) {
             punishPoints += 1;
         } 
     }
@@ -232,15 +232,3 @@ export const checkTitleExclusivity = (
 export const cutTitle = (title: string, maxLength: number) => {
     return (title.length <= maxLength)? title: `${title.slice(0, maxLength)}...`;
 }
-
-// export const filterCollectionCardsByCategory = (currentCollectionCards: TcollectionItemData[], cardCategory : string) => {
-//     return (currentCollectionCards.filter(card => card.collectionItemCategory === cardCategory))
-// }
-
-// export const getTitleOfCategoryForDelete = (currentCollectionCards: TcollectionItemData[], cardCategory : string) => {
-//     if (filterCollectionCardsByCategory(currentCollectionCards, cardCategory).length < 2) {
-//         return cardCategory;
-//     } else {
-//         return '';
-//     }
-// }

@@ -22,7 +22,7 @@ export const REPEAT_TIMES_CONVERT_TO_POINTS: TRepeatTimesConvertToPoints = {
 
 export const STOCK_COLLECTION_COLOR = '#0052C1';
 
-export const MAX_PUNISHMENT_FOR_LATE_PRACTICE = 3;
+export const MAX_PUNISHMENT_FOR_LATE_PRACTICE = 2;
 
 export const STOCK_COLLECTION_ITEM = {
   _id: nanoid(),   

@@ -6,7 +6,7 @@ import { useCreateNewItem } from "../../../myHooks/collectionHooks/useCreateNewI
 import "./style.scss";
 import { RADIO_BUTTON_NAME } from "../../../constants/stringConstants";
 import { CardRadioButtonsOrganizm } from "../radioButtonsOrganizm";
-import { TagInput } from "../../molecules/tagInput";
+// import { TagInput } from "../../molecules/tagInput";
 import { TextArea } from "../../molecules/textArea";
 
 export const NewCollectionItemForm = () => {
@@ -38,7 +38,7 @@ export const NewCollectionItemForm = () => {
                         />
                         <TextArea />
                         <Field name="categoryRadioButtons" component={CardRadioButtonsOrganizm} />
-                        <Field name="cardTags" component={TagInput} />
+                        {/* <Field name="cardTags" component={TagInput} /> */}
                         <button className='submit-item--button' type='submit'>
                             Create card
                         </ button>
