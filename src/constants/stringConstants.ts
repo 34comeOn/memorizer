@@ -56,4 +56,6 @@ export const REPEAT_LISTS_TITLE = [
     'Repeat in 12 hours',
     'Repeat in 24 hours',
     'Repeat in 3 days',
-  ]
+]
+
+export const UNPUNISHABLE_REPEAT_TIMES = 3;

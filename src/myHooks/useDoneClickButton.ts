@@ -7,10 +7,10 @@ import { setFiltersList } from "../store/reducers/collectionFiltersReduser";
 import { setRepeatGroupsReduser } from "../store/reducers/collectionGroupsReduser";
 import { hideModalWindow, removeContentFromModalWindow } from "../store/reducers/modalWindowReduser";
 import { getCurrentCollectionSelector, setCurrentCollection } from "../store/reducers/userCollectionsReduser";
-import { getPunishForLatePractice, maximiseTimesBeenRepeated, spreadCollectionData, TcollectionItemData } from "../utils/utils";
+import { getPunishmentForLatePractice, maximiseTimesBeenRepeated, spreadCollectionData, TcollectionItemData } from "../utils/utils";
 
 export const useDoneClickButton = (currentCard: TcollectionItemData) => {
-    const maximisedAndPunishedTimesBeenRepeated = maximiseTimesBeenRepeated(getPunishForLatePractice(currentCard));
+    const maximisedAndPunishedTimesBeenRepeated = maximiseTimesBeenRepeated(getPunishmentForLatePractice(currentCard.collectionItemTimesBeenRepeated, currentCard.collectionItemRepeatedTimeStamp));
 
     const currentUserId = useAppSelector(getUserIdSelector);
     const currentCollectionId = useAppSelector(getCurrentCollectionSelector)._id || '';

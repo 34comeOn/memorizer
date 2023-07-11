@@ -1,5 +1,5 @@
 import { MAX_PUNISHMENT_FOR_LATE_PRACTICE, REPEAT_TIMES_CONVERT_TO_POINTS, STOCK_USER } from "../constants/stockConstants";
-import { LOCAL_STORAGE_KEYS_CONSTANTS, RADIO_BUTTON_NAME } from "../constants/stringConstants";
+import { LOCAL_STORAGE_KEYS_CONSTANTS, RADIO_BUTTON_NAME, UNPUNISHABLE_REPEAT_TIMES } from "../constants/stringConstants";
 import { InewCardForm } from "../myHooks/collectionHooks/useCreateNewCard";
 import { IsignInForm } from "../myHooks/myFormHooks/useSubmitButtonForSignUp";
 
@@ -145,14 +145,22 @@ export const spreadCollectionData = (dataBase: TcollectionItemData[]) => {
     return {filtersOfCollection,orgonizedGroupsOfCollection};
 };
 
-export const getPunishForLatePractice = (item: TcollectionItemData) => {
+export const countPunishmentPoints = (timesBeenRepeated: number, lastTimeRepeted: number) => {
     let punishPoints = 0;
     for (let i = 0; i <= MAX_PUNISHMENT_FOR_LATE_PRACTICE; i++) {
-        if ((getHoursSinceRepeat(item.collectionItemRepeatedTimeStamp?? 0) - REPEAT_TIMES_CONVERT_TO_POINTS[item.collectionItemTimesBeenRepeated - i]?? 0) >= 1) {
+        if ((getHoursSinceRepeat(lastTimeRepeted) - REPEAT_TIMES_CONVERT_TO_POINTS[timesBeenRepeated - i]?? 0) >= 1) {
             punishPoints += 1;
         } 
     }
-    const newTimesBeenRepeated = item.collectionItemTimesBeenRepeated - punishPoints;
+    return punishPoints;
+}
+
+export const getPunishmentForLatePractice = (timesBeenRepeated: number, lastTimeRepeted: number) => {
+    const newTimesBeenRepeated = timesBeenRepeated - countPunishmentPoints(timesBeenRepeated, lastTimeRepeted);
+    if (timesBeenRepeated >= UNPUNISHABLE_REPEAT_TIMES) {
+        return (newTimesBeenRepeated <= UNPUNISHABLE_REPEAT_TIMES? UNPUNISHABLE_REPEAT_TIMES: newTimesBeenRepeated); 
+    }
+
     return (newTimesBeenRepeated <= 0? 0: newTimesBeenRepeated);
 }
 
