@@ -46,7 +46,7 @@ app.get('/data', (req, res)=> {
 })
 
 
-app.get('/:id/:user', (req, res)=> {
+app.get('/choose-collection/:id/:user', (req, res)=> {
     let collectionId = req.params.id.slice(1);
     let currentUserId = req.params.user.slice(1);
 

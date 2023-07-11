@@ -2,7 +2,7 @@ import React from "react";
 import { useAppDispatch } from "../../../app/hooks";
 import { MODAL_WINDOW_CONTENT_STRING_CONSTANTS } from "../../../constants/stringConstants";
 import { setContentForModalWindow, showModalWindow } from "../../../store/reducers/modalWindowReduser";
-import { StyledMenuButton } from "../trainCollectionButton/styledMenuButton";
+import { StyledMenuButton } from "../chooseCollectionButton/styledMenuButton";
 import './style.scss';
 
 type TcreateNewCollectionButton = {

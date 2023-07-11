@@ -1,5 +1,5 @@
 import React from "react";
-import { TrainCollectionButton } from "../../atoms/trainCollectionButton";
+import { ChooseCollectionButton } from "../../atoms/chooseCollectionButton";
 import { StyledUserCollection } from "./styledUserCollection";
 import variables from '../../../sass/variables.module.scss';
 import './style.scss';
@@ -24,9 +24,9 @@ export const UserCollection = ({title, color, adminList, _id}: TuserCollection) 
             <span className='collection--title'> 
                 {title}
             </span>
-            <TrainCollectionButton color={variables.colorMenuBright} _id={_id} >
-                Train collection
-            </TrainCollectionButton>
+            <ChooseCollectionButton color={variables.colorMenuBright} _id={_id} >
+                Choose collection
+            </ChooseCollectionButton>
         </StyledUserCollection>
     )
 }
