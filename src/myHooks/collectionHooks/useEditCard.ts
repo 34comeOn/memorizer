@@ -1,13 +1,10 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { STOCK_COLLECTION } from "../../constants/stockConstants";
 import { EDIT_CARD_ENDPOINT, RADIO_BUTTON_NAME } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
 import { getUserIdSelector } from "../../store/reducers/accountReduser";
-import { setFiltersList } from "../../store/reducers/collectionFiltersReduser";
-import { setRepeatGroupsReduser } from "../../store/reducers/collectionGroupsReduser";
-import { hideModalWindow } from "../../store/reducers/modalWindowReduser";
-import { getCurrentCollectionSelector, setCurrentCollection } from "../../store/reducers/userCollectionsReduser";
-import { checkTitleExclusivity, setCategoryInCardObj, spreadCollectionData, TcollectionItemData, TcollectionTag } from "../../utils/utils";
+import { getCurrentCollectionSelector } from "../../store/reducers/userCollectionsReduser";
+import { checkTitleExclusivity, setCategoryInCardObj, TcollectionItemData, TcollectionTag } from "../../utils/utils";
+import { UseCurrentCollectionResponse } from "./useResponses/useCurrentCollectionResponse";
 
 export interface IeditCardForm {
     cardTitle: string, 
@@ -54,12 +51,7 @@ export const useEditCard = (_id: string) => {
         .unwrap()
         .then(
           (currentCollection) => {
-            dispatch(hideModalWindow());
-
-            dispatch(setCurrentCollection(currentCollection));
-            const {filtersOfCollection, orgonizedGroupsOfCollection}= spreadCollectionData(currentCollection?.collectionData || STOCK_COLLECTION.collectionData);
-            dispatch(setRepeatGroupsReduser(orgonizedGroupsOfCollection)); 
-            dispatch(setFiltersList(filtersOfCollection)); 
+            UseCurrentCollectionResponse(currentCollection, dispatch);
           },
           () => {
             alert('something went wrong NEW COLLECTION')

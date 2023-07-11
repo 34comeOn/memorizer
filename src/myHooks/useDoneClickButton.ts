@@ -1,13 +1,10 @@
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { STOCK_COLLECTION } from "../constants/stockConstants";
 import { PUT_REPEATED_COLLECTION_ITEM_ENDPOINT } from "../constants/stringConstants";
 import { collectionDataAPI } from "../RTKApi/collectionDataApi";
 import { getUserIdSelector } from "../store/reducers/accountReduser";
-import { setFiltersList } from "../store/reducers/collectionFiltersReduser";
-import { setRepeatGroupsReduser } from "../store/reducers/collectionGroupsReduser";
-import { hideModalWindow, removeContentFromModalWindow } from "../store/reducers/modalWindowReduser";
-import { getCurrentCollectionSelector, setCurrentCollection } from "../store/reducers/userCollectionsReduser";
-import { getPunishmentForLatePractice, maximiseTimesBeenRepeated, spreadCollectionData, TcollectionItemData } from "../utils/utils";
+import { getCurrentCollectionSelector} from "../store/reducers/userCollectionsReduser";
+import { getPunishmentForLatePractice, maximiseTimesBeenRepeated, TcollectionItemData } from "../utils/utils";
+import { UseCurrentCollectionResponse } from "./collectionHooks/useResponses/useCurrentCollectionResponse";
 
 export const useDoneClickButton = (currentCard: TcollectionItemData) => {
     const maximisedAndPunishedTimesBeenRepeated = maximiseTimesBeenRepeated(getPunishmentForLatePractice(currentCard.collectionItemTimesBeenRepeated, currentCard.collectionItemRepeatedTimeStamp));
@@ -16,7 +13,7 @@ export const useDoneClickButton = (currentCard: TcollectionItemData) => {
     const currentCollectionId = useAppSelector(getCurrentCollectionSelector)._id || '';
     const dispatch = useAppDispatch();  
     const [putRepeatedCollectionItemTriger] = collectionDataAPI.usePutRepeatedCollectionItemMutation();
-    
+
     return () => {
       const repeatObject = {
         userId: currentUserId,
@@ -30,12 +27,7 @@ export const useDoneClickButton = (currentCard: TcollectionItemData) => {
       .unwrap()
       .then(
         (currentCollection) => {
-          dispatch(setCurrentCollection(currentCollection));
-          const {filtersOfCollection, orgonizedGroupsOfCollection}= spreadCollectionData(currentCollection?.collectionData || STOCK_COLLECTION.collectionData);
-          dispatch(setRepeatGroupsReduser(orgonizedGroupsOfCollection)); 
-          dispatch(setFiltersList(filtersOfCollection)); 
-          dispatch(removeContentFromModalWindow()); 
-          dispatch(hideModalWindow()); 
+          UseCurrentCollectionResponse(currentCollection, dispatch);
         },
         () => {
           alert('something went wrong DONE CLICK')

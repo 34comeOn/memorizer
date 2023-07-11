@@ -1,13 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { STOCK_COLLECTION } from "../../constants/stockConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
 import { getUserIdSelector } from "../../store/reducers/accountReduser";
 import { hideCurrentCard } from "../../store/reducers/cardWindowReduser";
-import { setFiltersList } from "../../store/reducers/collectionFiltersReduser";
-import { setRepeatGroupsReduser } from "../../store/reducers/collectionGroupsReduser";
-import { setCurrentCollection } from "../../store/reducers/userCollectionsReduser";
-import { spreadCollectionData } from "../../utils/utils";
+import { UseChooseCollectionResponse } from "./useResponses/useChooseCollectionResponse";
 
 export const useTrainCollectionButton = (collectionId: string) => {
     const dispatch = useAppDispatch();
@@ -20,10 +16,7 @@ export const useTrainCollectionButton = (collectionId: string) => {
         .unwrap()
         .then(
           (currentCollection) => {
-            dispatch(setCurrentCollection(currentCollection));
-            const {filtersOfCollection, orgonizedGroupsOfCollection}= spreadCollectionData(currentCollection?.collectionData || STOCK_COLLECTION.collectionData);
-            dispatch(setRepeatGroupsReduser(orgonizedGroupsOfCollection)); 
-            dispatch(setFiltersList(filtersOfCollection)); 
+            UseChooseCollectionResponse(currentCollection, dispatch)
           },
           (error) => {
             alert('something went wrongwith GET current COLLECTION')
