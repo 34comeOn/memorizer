@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const User = require('./models/user');
+const getPunishmentForLatePractice = require('./server-modules/serverUtills')
 
 const db = 'mongodb+srv://barabanovm:Noway-2steal@cluster2.d7n5n2k.mongodb.net/?retryWrites=true&w=majority';
 
@@ -51,11 +52,69 @@ app.get('/choose-collection/:id/:user', (req, res)=> {
     let currentUserId = req.params.user.slice(1);
 
     User.findById(currentUserId)
-    .then(result=> {
-        res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId))
+    .then(allUserData=> {
+
+        const collectionBeforePunishingForLatePractice = allUserData.userCollectionsData.find(collection => collection._id.toString() === collectionId);
+        res.send(collectionBeforePunishingForLatePractice)
+        
+        let punishedCollectionData = collectionBeforePunishingForLatePractice.collectionData.map((card) => {
+            const timesBeenRepeated = card.collectionItemTimesBeenRepeated;
+            const timeStamp = card.collectionItemRepeatedTimeStamp;
+            const timesBeenRepeatedAfterPunish =  getPunishmentForLatePractice(timesBeenRepeated, timeStamp)
+
+            if (card.collectionItemTimesBeenRepeated !== timesBeenRepeatedAfterPunish) {
+                card.collectionItemRepeatedTimeStamp = Date.now();
+            }
+
+            card.collectionItemTimesBeenRepeated = timesBeenRepeatedAfterPunish;
+
+            return card
+        })
+
+        User.updateOne(
+            {_id: currentUserId, 
+                'userCollectionsData': {
+                    '$elemMatch': {
+                      '_id': collectionId,
+                    }
+                }
+            },
+            {$set: 
+                { 
+                    'userCollectionsData.$[i].collectionData': punishedCollectionData,
+                }
+            },
+            {
+                arrayFilters: [
+                    {
+                      'i._id': collectionId,
+                    },
+                ],
+            },
+        )
+        .catch(err => console.log(err))
+
+
     })
     .catch(err=> console.log(err))
+    
 })
+// app.get('/choose-collection/:id/:user', (req, res)=> {
+//     let collectionId = req.params.id.slice(1);
+//     let currentUserId = req.params.user.slice(1);
+//     let notPunishedCollection = {};
+
+//     User.findById(currentUserId)
+//     .then(result=> {
+//         notPunishedCollection = result.userCollectionsData.find(collection => collection._id.toString() === collectionId);
+
+
+//         res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId))
+//     })
+//     .catch(err=> console.log(err))
+//     .then(()=> console.log(notPunishedCollection))
+    
+// })
 
 
 app.post('/api/sign-up', (req, res)=> {
