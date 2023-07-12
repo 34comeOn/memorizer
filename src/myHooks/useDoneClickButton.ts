@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { PUT_REPEATED_COLLECTION_ITEM_ENDPOINT } from "../constants/stringConstants";
 import { collectionDataAPI } from "../RTKApi/collectionDataApi";
 import { getUserIdSelector } from "../store/reducers/accountReduser";
+import { setTrainedCardId } from "../store/reducers/cardWindowReduser";
 import { getCurrentCollectionSelector} from "../store/reducers/userCollectionsReduser";
 import { updateTimesBeenRepeated, TcollectionItemData } from "../utils/utils";
 import { UseCurrentCollectionResponse } from "./collectionHooks/useResponses/useCurrentCollectionResponse";
@@ -28,6 +29,7 @@ export const useDoneClickButton = (currentCard: TcollectionItemData) => {
       .then(
         (currentCollection) => {
           UseCurrentCollectionResponse(currentCollection, dispatch);
+          dispatch(setTrainedCardId(currentCard._id || ''))
         },
         () => {
           alert('something went wrong DONE CLICK')

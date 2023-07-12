@@ -3,8 +3,9 @@ import { cutTitle, getPunishmentForLatePractice, TcollectionItemData } from "../
 import { StyledRepeatListItem } from "./styledRepeatListItem";
 import { MAX_REPEATLIST_ITEM_TITLE_LENGTH } from "../../../constants/stockConstants";
 import Snackbar from "@mui/material/Snackbar";
-import { ArrowUpOutlined } from '@ant-design/icons';
 import './style.scss';
+import { useAppSelector } from "../../../app/hooks";
+import { getTrainedCardIdSelector } from "../../../store/reducers/cardWindowReduser";
 
 type TrepeatListItem = {
     onClick: ()=>void,
@@ -25,6 +26,8 @@ export const RepeatListItem = ({onClick, item} :TrepeatListItem) => {
     setOpen(false);
     };
 
+    const trainedCardId = useAppSelector(getTrainedCardIdSelector);
+
     useEffect(()=> {
         setOpen(true);
     }, [])
@@ -40,11 +43,18 @@ export const RepeatListItem = ({onClick, item} :TrepeatListItem) => {
                 {timesBeenRepeatedAfterPunishment}
                 {(timesRepeatedDiffer > 0) && <Snackbar style={{position: 'absolute', top: '10px'}} 
                 open={open} 
-                autoHideDuration={3000} 
+                autoHideDuration={10000} 
                 onClose={handleClose}>
-                    <div className="update-info--box">
-                    <ArrowUpOutlined rev={undefined}/>
+                    <div className="update-info--box update-info--box__get-punishment">
                         -{timesRepeatedDiffer}
+                    </div>
+                </Snackbar>}
+                {(item._id === trainedCardId) && <Snackbar style={{position: 'absolute', top: '10px'}} 
+                open={open} 
+                autoHideDuration={2000} 
+                onClose={handleClose}>
+                    <div className="update-info--box update-info--box__done-click">
+                        +1
                     </div>
                 </Snackbar>}
             </div>

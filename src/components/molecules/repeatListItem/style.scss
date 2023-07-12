@@ -37,5 +37,21 @@
 .update-info--box {
     display: flex;
     align-items: center;
+    font-size: 19px;
+}
+
+.update-info--box__get-punishment {
     color: red;
+    text-shadow: 10px 10px 25px red, 
+    -10px 10px 25px red, 
+    -10px -10px 25px red, 
+    10px -10px 25px red;
+}
+
+.update-info--box__done-click {
+    color: #20e920;
+    text-shadow: 10px 10px 25px rgb(107 255 10), 
+    -10px 10px 25px rgb(63 255 4), 
+    -10px -10px 25px rgb(89 255 0), 
+    10px -10px 25px rgb(46 250 0);
 }
