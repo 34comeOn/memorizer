@@ -164,7 +164,7 @@ export const getPunishmentForLatePractice = (timesBeenRepeated: number, lastTime
     return (newTimesBeenRepeated <= 0? 0: newTimesBeenRepeated);
 }
 
-export const maximiseTimesBeenRepeated = (currentTimesBeenRepeated: number) => {
+export const updateTimesBeenRepeated = (currentTimesBeenRepeated: number) => {
     const HighestTimesBeenRepeatedNumber = Object.keys(REPEAT_TIMES_CONVERT_TO_POINTS).length-1;
     return currentTimesBeenRepeated >= HighestTimesBeenRepeatedNumber? HighestTimesBeenRepeatedNumber: currentTimesBeenRepeated + 1;
 }

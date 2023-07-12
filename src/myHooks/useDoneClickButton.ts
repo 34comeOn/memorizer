@@ -3,12 +3,12 @@ import { PUT_REPEATED_COLLECTION_ITEM_ENDPOINT } from "../constants/stringConsta
 import { collectionDataAPI } from "../RTKApi/collectionDataApi";
 import { getUserIdSelector } from "../store/reducers/accountReduser";
 import { getCurrentCollectionSelector} from "../store/reducers/userCollectionsReduser";
-import { getPunishmentForLatePractice, maximiseTimesBeenRepeated, TcollectionItemData } from "../utils/utils";
+import { updateTimesBeenRepeated, TcollectionItemData } from "../utils/utils";
 import { UseCurrentCollectionResponse } from "./collectionHooks/useResponses/useCurrentCollectionResponse";
 
 export const useDoneClickButton = (currentCard: TcollectionItemData) => {
-    const maximisedAndPunishedTimesBeenRepeated = maximiseTimesBeenRepeated(getPunishmentForLatePractice(currentCard.collectionItemTimesBeenRepeated, currentCard.collectionItemRepeatedTimeStamp));
-
+  const updatedTimesBeenRepeated = updateTimesBeenRepeated(currentCard.collectionItemTimesBeenRepeated);
+  
     const currentUserId = useAppSelector(getUserIdSelector);
     const currentCollectionId = useAppSelector(getCurrentCollectionSelector)._id || '';
     const dispatch = useAppDispatch();  
@@ -19,7 +19,7 @@ export const useDoneClickButton = (currentCard: TcollectionItemData) => {
         userId: currentUserId,
         cardId: currentCard._id || '',
         collectionId: currentCollectionId,
-        collectionItemTimesBeenRepeated: maximisedAndPunishedTimesBeenRepeated,
+        collectionItemTimesBeenRepeated: updatedTimesBeenRepeated,
         collectionItemRepeatedTimeStamp: Date.now(),
       }
 
