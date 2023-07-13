@@ -1,0 +1,38 @@
+@import '/src/sass/variables.module.scss';
+
+.password-input--container {
+    position: relative;
+    margin-top: 16px;
+}
+
+.password-input--label {
+    color: $colorFontWhite;
+    margin-left: 40px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.form--password-input {
+    min-height: 30px;
+    width: 390px;
+    margin-top: 10px;
+    margin-left: 5px;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $colorBackgroundLight;
+    }
+}
+
+.form--password-input::placeholder {
+    color: $colorFontPlaceholder;
+}
+
+.password-visibility--button {
+    position: absolute;
+    right: 12px;
+    top: 30px;
+}

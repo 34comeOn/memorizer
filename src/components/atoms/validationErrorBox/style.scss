@@ -1,0 +1,9 @@
+@import '/src/sass/variables.module.scss';
+
+.validation-error--box {
+    color: $colorError;
+    margin-left: 5px;
+    margin-top: 3px;
+    max-width: 380px;
+    max-height: 55px;
+}
