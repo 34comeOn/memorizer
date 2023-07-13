@@ -4,8 +4,8 @@ import { StyledRepeatListItem } from "./styledRepeatListItem";
 import { MAX_REPEATLIST_ITEM_TITLE_LENGTH } from "../../../constants/stockConstants";
 import Snackbar from "@mui/material/Snackbar";
 import './style.scss';
-import { useAppSelector } from "../../../app/hooks";
-import { getTrainedCardIdSelector } from "../../../store/reducers/cardWindowReduser";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { getTrainedCardIdSelector, setTrainedCardId } from "../../../store/reducers/cardWindowReduser";
 
 type TrepeatListItem = {
     onClick: ()=>void,
@@ -14,6 +14,7 @@ type TrepeatListItem = {
 
 export const RepeatListItem = ({onClick, item} :TrepeatListItem) => {
     const [open, setOpen] = React.useState(false);
+    const dispatch = useAppDispatch();
     const itemTitle = cutTitle(item.collectionItemTitle,MAX_REPEATLIST_ITEM_TITLE_LENGTH);
     const timesBeenRepeatedAfterPunishment = getPunishmentForLatePractice(item.collectionItemTimesBeenRepeated, item.collectionItemRepeatedTimeStamp);
     const timesRepeatedDiffer = item.collectionItemTimesBeenRepeated - timesBeenRepeatedAfterPunishment;
@@ -22,7 +23,7 @@ export const RepeatListItem = ({onClick, item} :TrepeatListItem) => {
     if (reason === 'clickaway') {
         return;
     }
-
+    dispatch(setTrainedCardId(''))
     setOpen(false);
     };
 

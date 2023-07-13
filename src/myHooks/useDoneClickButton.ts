@@ -4,11 +4,12 @@ import { collectionDataAPI } from "../RTKApi/collectionDataApi";
 import { getUserIdSelector } from "../store/reducers/accountReduser";
 import { setTrainedCardId } from "../store/reducers/cardWindowReduser";
 import { getCurrentCollectionSelector} from "../store/reducers/userCollectionsReduser";
-import { updateTimesBeenRepeated, TcollectionItemData } from "../utils/utils";
+import { updateTimesBeenRepeated, TcollectionItemData, getPunishmentForLatePractice } from "../utils/utils";
 import { UseCurrentCollectionResponse } from "./collectionHooks/useResponses/useCurrentCollectionResponse";
 
 export const useDoneClickButton = (currentCard: TcollectionItemData) => {
-  const updatedTimesBeenRepeated = updateTimesBeenRepeated(currentCard.collectionItemTimesBeenRepeated);
+  const TimesBeenRepeatedAfterPunish = getPunishmentForLatePractice(currentCard.collectionItemTimesBeenRepeated, currentCard.collectionItemRepeatedTimeStamp)
+  const updatedTimesBeenRepeated = updateTimesBeenRepeated(TimesBeenRepeatedAfterPunish);
   
     const currentUserId = useAppSelector(getUserIdSelector);
     const currentCollectionId = useAppSelector(getCurrentCollectionSelector)._id || '';

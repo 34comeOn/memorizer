@@ -53,9 +53,8 @@ app.get('/choose-collection/:id/:user', (req, res)=> {
 
     User.findById(currentUserId)
     .then(allUserData=> {
-
         const collectionBeforePunishingForLatePractice = allUserData.userCollectionsData.find(collection => collection._id.toString() === collectionId);
-        res.send(collectionBeforePunishingForLatePractice)
+        res.send(collectionBeforePunishingForLatePractice);
         
         let punishedCollectionData = collectionBeforePunishingForLatePractice.collectionData.map((card) => {
             const timesBeenRepeated = card.collectionItemTimesBeenRepeated;
@@ -70,7 +69,7 @@ app.get('/choose-collection/:id/:user', (req, res)=> {
 
             return card
         })
-
+        
         User.updateOne(
             {_id: currentUserId, 
                 'userCollectionsData': {
