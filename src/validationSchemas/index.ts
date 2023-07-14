@@ -3,6 +3,7 @@ import {
     EMAIL_INVALID_WARNING,
     FIELD_REQUIRED_WARNING,
     LOGIN_OR_PASSWORD_WRONG_WARNING,
+    MAX_COLLECTION_TITLE_LENGTH,
     MAX_LENGTH_PASSWORD, 
     MIN_LENGTH_NAME, 
     MIN_LENGTH_PASSWORD, 
@@ -13,7 +14,20 @@ import {
     PASSWORD_MAX_LENGTH_WARNING, 
     PASSWORD_MIN_LENGTH_WARNING, 
     PASSWORD_REGEX, 
-    PASSWORD_WRONG_SYMBOLS_WARNING } from '../constants/validationConstants';
+    PASSWORD_WRONG_SYMBOLS_WARNING, 
+    TITLE_REGEX,
+    TITLE_REGEX_WARNING} from '../constants/validationConstants';
+
+export const newCollectionFormValidationSchema = yup.object().shape({
+    title: yup
+    .string()
+    .required(FIELD_REQUIRED_WARNING)
+    .max(MAX_COLLECTION_TITLE_LENGTH, NAME_MIN_LENGTH_WARNING)
+    .matches(TITLE_REGEX, TITLE_REGEX_WARNING),
+    collectionColor: yup
+    .string()
+    .required(FIELD_REQUIRED_WARNING)
+});
 
 export const forgotPasswordFormValidationSchema = yup.object().shape({
     email: yup.string().email(EMAIL_INVALID_WARNING).required(FIELD_REQUIRED_WARNING), 

@@ -4,6 +4,8 @@ import { STOCK_COLLECTION_COLOR } from "../../../constants/stockConstants";
 import { useCreateNewCollection } from "../../../myHooks/collectionHooks/useCreateNewCollection";
 import { FormInput } from "../../molecules/formInput";
 import './style.scss';
+import { ValidationErrorBox } from "../../atoms/validationErrorBox";
+import { newCollectionFormValidationSchema } from "../../../validationSchemas";
 
 export const NewCollectionForm = () => {
     const onCreateNewCollection = useCreateNewCollection();
@@ -14,11 +16,14 @@ export const NewCollectionForm = () => {
                 title: '', 
                 collectionColor: STOCK_COLLECTION_COLOR, 
             }}
+            validationSchema={newCollectionFormValidationSchema}
+            validateOnBlur={false}
+            validateOnChange={false}
             onSubmit={
                 onCreateNewCollection
             }
         >
-            {()=>{
+            {({errors, touched})=>{
                 return(
                     <Form className='new-collection--form'>
                         <FormInput 
@@ -27,6 +32,9 @@ export const NewCollectionForm = () => {
                             placeholder='' 
                             labelValue='Come up with title of your new collection'
                         />
+                        {errors.title && touched.title ? (
+                            <ValidationErrorBox error={errors.title} />
+                        ) : null}
                         <FormInput 
                             width='60px'
                             type='color' 
