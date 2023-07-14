@@ -15,6 +15,10 @@ import {
     PASSWORD_REGEX, 
     PASSWORD_WRONG_SYMBOLS_WARNING } from '../constants/validationConstants';
 
+export const forgotPasswordFormValidationSchema = yup.object().shape({
+    email: yup.string().email(EMAIL_INVALID_WARNING).required(FIELD_REQUIRED_WARNING), 
+});
+
 export const signInFormValidationSchema = yup.object().shape({
     email: yup.string().email(EMAIL_INVALID_WARNING).required(FIELD_REQUIRED_WARNING), 
     password: yup

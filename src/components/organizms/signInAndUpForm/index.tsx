@@ -30,7 +30,7 @@ export const SignInAndUpForm = () => {
         >
             {({ errors, touched })=>{
                 return(
-                    <Form className='sign_in--form'>
+                    <Form className='sign-in--form'>
                         {isSignUpFormActive && <FormInput 
                             type='text' 
                             name='userName' 
@@ -64,7 +64,7 @@ export const SignInAndUpForm = () => {
                         {isSignUpFormActive && errors.confirmPassword && touched.confirmPassword ? (
                             <ValidationErrorBox error={errors.confirmPassword} />
                         ) : null}
-                        <button className='submit--button' type='submit' onClick={()=> console.log(errors)}>
+                        <button className='submit--button' type='submit'>
                             {isSignUpFormActive? 'Sign up' : 'Sign in'}
                         </ button>
                         <span className='toggle-button--span'>

@@ -34,6 +34,7 @@ export const ROUTS_CONSTANTS = {
     MAIN_PAGE: '/',
     CURRENT_COLLECTION_PAGE: 'collection',
     SIGN_IN_AND_UP_PAGE: 'sign_in&up',
+    FORGOT_PASSWORD_PAGE: 'forgot_password',
 }
 
 export const RADIO_BUTTON_NAME = {
@@ -60,4 +61,5 @@ export const REPEAT_LISTS_TITLE = [
 
 export const UNPUNISHABLE_REPEAT_TIMES = 3;
 
-export const FORGOT_PASSWORD_LINK = 'Forgot password?'
+export const FORGOT_PASSWORD_LINK = 'Forgot password?';
+export const FORGOT_PASSWORD_TEXT = 'If you do not remember password, we would send new password to your e-mail';

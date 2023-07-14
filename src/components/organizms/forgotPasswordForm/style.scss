@@ -1,6 +1,6 @@
 @import '/src/sass/variables.module.scss';
 
-.sign-in--form {
+.forgot-password--form {
     min-height: 300px;
     display: flex;
     flex-direction: column;
@@ -14,7 +14,14 @@
     border-radius: 15px;
 }
 
-.submit--button {
+.forgot-password--text {
+    color: $colorFontWhite;
+    margin: auto;
+    margin-top: 45px;
+    margin-bottom: -20px;
+}
+
+.forgot-password--submit-button {
     height: 40px;
     width: 140px;
     background-color: $colorMenuBright;
@@ -30,30 +37,4 @@
     &:active {
         background-color: $colorButtonActive;
     }
-}
-
-.toggle--sign-button {
-    height: 40px;
-    width: 140px;
-    background-color: $colorTransparent;
-    color: $colorFontWhite;
-    border-radius: 10px;
-    margin: auto;
-    margin-top: 35px;
-    cursor: pointer;
-    border: 2px solid white;
-
-    &:hover {
-        background-color: $colorButtonHover;
-    }
-    &:active {
-        background-color: $colorButtonActive;
-    }
-}
-
-.toggle-button--span {
-    color: $colorFontWhite;
-    margin: auto;
-    margin-top: 30px;
-    margin-bottom: 0px;
 }
