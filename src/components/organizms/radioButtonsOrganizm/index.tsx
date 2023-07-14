@@ -6,17 +6,22 @@ import { CategoryInput } from "../../molecules/categoryInput";
 import { FormInput } from "../../molecules/formInput";
 import { RadioButtonsContainer } from "../radioButtonsContainer";
 import { StyledCardRadioButtonsOrganizm } from "./styledCardRadioButtonsOrganizm";
+import { ValidationErrorBox } from "../../atoms/validationErrorBox";
+import { validateCollectionItemCategory } from "../../../utils/utils";
 
 export const CardRadioButtonsOrganizm = ({
     field,
     form,
     ...props
   }: FieldProps) => {
+
     const SecondRadioButtonContent = useRef(null);
     const ThirdRadioButtonContent = useRef(null);
 
     const [isSecondRadioContentShown, setIsSecondRadioContentShown] = useState(false);
     const [isThirdRadioContentShown, setIsThirdRadioContentShown] = useState(false);
+    
+    const {errors, touched} = form;
 
     return(
         <StyledCardRadioButtonsOrganizm>
@@ -51,7 +56,11 @@ export const CardRadioButtonsOrganizm = ({
                                     placeholder='phrases' 
                                     labelValue='New category title'
                                     disabled={RADIO_BUTTON_NAME.SET_CATEGORY !== field.value}
+                                    validateCallback={validateCollectionItemCategory}
                                 /> 
+                                {errors.collectionItemCategory && touched.collectionItemCategory ? (
+                                    <ValidationErrorBox error={errors.collectionItemCategory ? errors.collectionItemCategory as string: ''} />
+                                ) : null}
                                 <FormInput 
                                     width='60px'
                                     type='color' 

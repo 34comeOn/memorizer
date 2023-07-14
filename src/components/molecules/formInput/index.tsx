@@ -9,9 +9,10 @@ type TformInput = {
     placeholder?: string,
     width?: string,
     disabled?: boolean,
+    validateCallback?: (error: string) => string,
 };
 
-export const FormInput = ({labelValue, name, placeholder, type, width, disabled }: TformInput) => {
+export const FormInput = ({labelValue, name, placeholder, type, width, validateCallback, disabled }: TformInput) => {
 
     return(
         <>
@@ -25,6 +26,7 @@ export const FormInput = ({labelValue, name, placeholder, type, width, disabled 
                 type={type} 
                 placeholder={placeholder} 
                 disabled={disabled || false}
+                validate={validateCallback}
             />
         </>
     )

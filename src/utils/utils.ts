@@ -1,5 +1,6 @@
 import { MAX_PUNISHMENT_FOR_LATE_PRACTICE, REPEAT_TIMES_CONVERT_TO_POINTS, STOCK_USER } from "../constants/stockConstants";
 import { LOCAL_STORAGE_KEYS_CONSTANTS, RADIO_BUTTON_NAME, UNPUNISHABLE_REPEAT_TIMES } from "../constants/stringConstants";
+import { FIELD_REQUIRED_WARNING, MAX_LENGTH_TITLE, MAX_LENGTH_TITLE_WARNING, TITLE_REGEX, TITLE_REGEX_WARNING } from "../constants/validationConstants";
 import { InewCardForm } from "../myHooks/collectionHooks/useCreateNewCard";
 import { IsignInForm } from "../myHooks/myFormHooks/useSubmitButtonForSignUp";
 
@@ -239,4 +240,18 @@ export const checkTitleExclusivity = (
 
 export const cutTitle = (title: string, maxLength: number) => {
     return (title.length <= maxLength)? title: `${title.slice(0, maxLength)}...`;
+}
+
+export const validateCollectionItemCategory = (value: string) => {
+    let error = '';
+    if (!value) {
+      error = FIELD_REQUIRED_WARNING;
+    } else if (!TITLE_REGEX.test(value)) {
+      error = TITLE_REGEX_WARNING;
+    }
+      else if (value.length > MAX_LENGTH_TITLE) {
+      error = MAX_LENGTH_TITLE_WARNING;
+    }
+
+    return error;
 }
