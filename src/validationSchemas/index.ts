@@ -15,6 +15,16 @@ import {
 
 export const signInFormValidationSchema = yup.object().shape({
     email: yup.string().email(EMAIL_INVALID_WARNING).required(FIELD_REQUIRED_WARNING), 
+    password: yup
+    .string()
+    .required(FIELD_REQUIRED_WARNING)
+    .min(MIN_LENGTH_PASSWORD, PASSWORD_MIN_LENGTH_WARNING)
+    .max(MAX_LENGTH_PASSWORD, PASSWORD_MAX_LENGTH_WARNING)
+    .matches(PASSWORD_REGEX, PASSWORD_WRONG_SYMBOLS_WARNING),
+});
+
+export const signUpFormValidationSchema = yup.object().shape({
+    email: yup.string().email(EMAIL_INVALID_WARNING).required(FIELD_REQUIRED_WARNING), 
     userName: yup
     .string()
     .required(FIELD_REQUIRED_WARNING)
@@ -30,4 +40,4 @@ export const signInFormValidationSchema = yup.object().shape({
     .string()
     .required(FIELD_REQUIRED_WARNING)
     .oneOf([yup.ref('password')], PASSWORD_MATCH_WARNING)
-  });
+});

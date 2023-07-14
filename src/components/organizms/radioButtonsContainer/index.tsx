@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import { RadioButtonLabel } from "../../atoms/radioButtonLabel";
 import './style.scss';
 
-type TradioFormContainer = {
+type TradioButtonsContainer = {
     labelText: string, 
     labelFor: string, 
     children?: ReactElement,
@@ -11,7 +11,7 @@ type TradioFormContainer = {
     checked?: boolean,
 }
 
-export const RadioFormContainer = ({labelText, labelFor, children, drillField, drillProps, checked}: TradioFormContainer) => {
+export const RadioButtonsContainer = ({labelText, labelFor, children, drillField, drillProps, checked}: TradioButtonsContainer) => {
     return(
         <div className='form--radio-input__container'>
             <div className='inner-form--box'>

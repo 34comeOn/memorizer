@@ -4,7 +4,7 @@ import { FormInput } from "../../molecules/formInput";
 import './style.scss';
 import { UseSubmitButtonToSignUp } from "../../../myHooks/myFormHooks/useSubmitButtonForSignUp";
 import { UseSubmitButtonToSignIn } from "../../../myHooks/myFormHooks/useSubmitButtonForSignIn";
-import { signInFormValidationSchema } from "../../../validationSchemas";
+import { signInFormValidationSchema, signUpFormValidationSchema } from "../../../validationSchemas";
 import { ValidationErrorBox } from "../../atoms/validationErrorBox";
 import { PasswordInput } from "../../molecules/passwordInput";
 
@@ -20,7 +20,7 @@ export const SignInAndUpForm = () => {
                 password:'', 
                 confirmPassword:'' 
             }}
-            validationSchema={signInFormValidationSchema}
+            validationSchema={isSignUpFormActive? signUpFormValidationSchema : signInFormValidationSchema}
             validateOnBlur={false}
             validateOnChange={false}
             onSubmit={
@@ -62,7 +62,7 @@ export const SignInAndUpForm = () => {
                         {isSignUpFormActive && errors.confirmPassword && touched.confirmPassword ? (
                             <ValidationErrorBox error={errors.confirmPassword} />
                         ) : null}
-                        <button className='submit--button' type='submit'>
+                        <button className='submit--button' type='submit' onClick={()=> console.log(errors)}>
                             {isSignUpFormActive? 'Sign up' : 'Sign in'}
                         </ button>
                         <span className='toggle-button--span'>

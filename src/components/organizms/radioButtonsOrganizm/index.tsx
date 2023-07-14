@@ -4,7 +4,7 @@ import { Transition } from "react-transition-group";
 import { RADIO_BUTTON_LABEL_TEXT, RADIO_BUTTON_NAME } from "../../../constants/stringConstants";
 import { CategoryInput } from "../../molecules/categoryInput";
 import { FormInput } from "../../molecules/formInput";
-import { RadioFormContainer } from "../radioFormContainer";
+import { RadioButtonsContainer } from "../radioButtonsContainer";
 import { StyledCardRadioButtonsOrganizm } from "./styledCardRadioButtonsOrganizm";
 
 export const CardRadioButtonsOrganizm = ({
@@ -20,14 +20,14 @@ export const CardRadioButtonsOrganizm = ({
 
     return(
         <StyledCardRadioButtonsOrganizm>
-            <RadioFormContainer 
+            <RadioButtonsContainer 
                 labelText={RADIO_BUTTON_LABEL_TEXT.NO_CATEGORY} 
                 labelFor={RADIO_BUTTON_NAME.NO_CATEGORY} 
                 drillField={field}
                 drillProps={props}
                 checked={true}
             />
-            <RadioFormContainer 
+            <RadioButtonsContainer 
                 labelText={RADIO_BUTTON_LABEL_TEXT.SET_CATEGORY}  
                 labelFor={RADIO_BUTTON_NAME.SET_CATEGORY} 
                 drillField={field}
@@ -62,8 +62,8 @@ export const CardRadioButtonsOrganizm = ({
                         </div>
                     )}
                 </Transition>
-            </ RadioFormContainer>
-            <RadioFormContainer 
+            </ RadioButtonsContainer>
+            <RadioButtonsContainer 
                 labelText={RADIO_BUTTON_LABEL_TEXT.CHOOSE_CATEGORY} 
                 labelFor={RADIO_BUTTON_NAME.CHOOSE_CATEGORY} 
                 drillField={field}
@@ -85,7 +85,7 @@ export const CardRadioButtonsOrganizm = ({
                             </div>
                     )}
                 </Transition>
-            </ RadioFormContainer>
+            </ RadioButtonsContainer>
         </StyledCardRadioButtonsOrganizm>
     )
 }
