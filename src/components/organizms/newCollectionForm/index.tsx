@@ -5,7 +5,7 @@ import { useCreateNewCollection } from "../../../myHooks/collectionHooks/useCrea
 import { FormInput } from "../../molecules/formInput";
 import './style.scss';
 import { ValidationErrorBox } from "../../atoms/validationErrorBox";
-import { newCollectionFormValidationSchema } from "../../../validationSchemas";
+import { collectionFormValidationSchema } from "../../../validationSchemas";
 
 export const NewCollectionForm = () => {
     const onCreateNewCollection = useCreateNewCollection();
@@ -16,7 +16,7 @@ export const NewCollectionForm = () => {
                 title: '', 
                 collectionColor: STOCK_COLLECTION_COLOR, 
             }}
-            validationSchema={newCollectionFormValidationSchema}
+            validationSchema={collectionFormValidationSchema}
             validateOnBlur={false}
             validateOnChange={false}
             onSubmit={

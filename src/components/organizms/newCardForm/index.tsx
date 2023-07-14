@@ -8,7 +8,7 @@ import { RADIO_BUTTON_NAME } from "../../../constants/stringConstants";
 import { CardRadioButtonsOrganizm } from "../radioButtonsOrganizm";
 // import { TagInput } from "../../molecules/tagInput";
 import { TextArea } from "../../molecules/textArea";
-import { newCardFormValidationSchema } from "../../../validationSchemas";
+import { cardFormValidationSchema } from "../../../validationSchemas";
 import { ValidationErrorBox } from "../../atoms/validationErrorBox";
 
 export const NewCardForm = () => {
@@ -25,7 +25,7 @@ export const NewCardForm = () => {
                 categoryRadioButtons: RADIO_BUTTON_NAME.NO_CATEGORY,
                 cardTags: '',
             }}
-            validationSchema={newCardFormValidationSchema}
+            validationSchema={cardFormValidationSchema}
             validateOnBlur={false}
             validateOnChange={false}
             onSubmit={

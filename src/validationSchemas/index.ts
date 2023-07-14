@@ -21,7 +21,7 @@ import {
     MAX_LENGTH_ANSWER_WARNING,
     MAX_LENGTH_TITLE_WARNING} from '../constants/validationConstants';
 
-export const newCollectionFormValidationSchema = yup.object().shape({
+export const collectionFormValidationSchema = yup.object().shape({
     title: yup
     .string()
     .required(FIELD_REQUIRED_WARNING)
@@ -32,7 +32,7 @@ export const newCollectionFormValidationSchema = yup.object().shape({
     .required(FIELD_REQUIRED_WARNING)
 });
 
-export const newCardFormValidationSchema = yup.object().shape({
+export const cardFormValidationSchema = yup.object().shape({
     cardTitle: yup
     .string()
     .required(FIELD_REQUIRED_WARNING)
