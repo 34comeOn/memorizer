@@ -1,43 +1,40 @@
-import { useAppDispatch } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { PUT_REPEATED_COLLECTION_ITEM_ENDPOINT } from "../constants/stringConstants";
 import { collectionDataAPI } from "../RTKApi/collectionDataApi";
-import { hideCurrentCard } from "../store/reducers/cardWindowReduser";
-import { setFiltersList } from "../store/reducers/collectionFiltersReduser";
-import { setRepeatGroupsReduser } from "../store/reducers/collectionGroupsReduser";
-import { getPunishForLatePractice, spreadCollectionData, TcollectionItemData } from "../utils/utils";
+import { getUserIdSelector } from "../store/reducers/accountReduser";
+import { setTrainedCardId } from "../store/reducers/cardWindowReduser";
+import { getCurrentCollectionSelector} from "../store/reducers/userCollectionsReduser";
+import { updateTimesBeenRepeated, TcollectionItemData, getPunishmentForLatePractice } from "../utils/utils";
+import { UseCurrentCollectionResponse } from "./collectionHooks/useResponses/useCurrentCollectionResponse";
 
 export const useDoneClickButton = (currentCard: TcollectionItemData) => {
-    const currentCardPunishedForLatePractice = {...currentCard,timesBeenRepeated: getPunishForLatePractice(currentCard)};
+  const TimesBeenRepeatedAfterPunish = getPunishmentForLatePractice(currentCard.collectionItemTimesBeenRepeated, currentCard.collectionItemRepeatedTimeStamp)
+  const updatedTimesBeenRepeated = updateTimesBeenRepeated(TimesBeenRepeatedAfterPunish);
+  
+    const currentUserId = useAppSelector(getUserIdSelector);
+    const currentCollectionId = useAppSelector(getCurrentCollectionSelector)._id || '';
     const dispatch = useAppDispatch();  
     const [putRepeatedCollectionItemTriger] = collectionDataAPI.usePutRepeatedCollectionItemMutation();
-    
+
     return () => {
-      putRepeatedCollectionItemTriger({path:PUT_REPEATED_COLLECTION_ITEM_ENDPOINT, putObj: currentCardPunishedForLatePractice})
+      const repeatObject = {
+        userId: currentUserId,
+        cardId: currentCard._id || '',
+        collectionId: currentCollectionId,
+        collectionItemTimesBeenRepeated: updatedTimesBeenRepeated,
+        collectionItemRepeatedTimeStamp: Date.now(),
+      }
+
+      putRepeatedCollectionItemTriger({path:PUT_REPEATED_COLLECTION_ITEM_ENDPOINT, repeatObj: repeatObject})
       .unwrap()
       .then(
-        (response) => {
-          const {filtersOfCollection, orgonizedGroupsOfCollection}= spreadCollectionData(response);
-      
-          dispatch(setRepeatGroupsReduser(orgonizedGroupsOfCollection)); 
-          dispatch(setFiltersList(filtersOfCollection)); 
+        (currentCollection) => {
+          UseCurrentCollectionResponse(currentCollection, dispatch);
+          dispatch(setTrainedCardId(currentCard._id || ''))
         },
-        (error) => {
-          alert(error);
+        () => {
+          alert('something went wrong DONE CLICK')
         }
-      );
-
-      dispatch(hideCurrentCard());
+      )
     }
 }
-
-
-// const obj = {
-//     id: 75,
-// }
-
-// dispatch(hideCurrentCard());
-// fetch('http://localhost:3002/api/post-question',{
-//     method: 'POST',
-//     headers: {'Content-Type': 'application/json;charset=utf-8'},
-//     body: JSON.stringify(obj)
-// })

@@ -4,29 +4,35 @@ import { Transition } from "react-transition-group";
 import { RADIO_BUTTON_LABEL_TEXT, RADIO_BUTTON_NAME } from "../../../constants/stringConstants";
 import { CategoryInput } from "../../molecules/categoryInput";
 import { FormInput } from "../../molecules/formInput";
-import { RadioFormContainer } from "../radioFormContainer";
+import { RadioButtonsContainer } from "../radioButtonsContainer";
 import { StyledCardRadioButtonsOrganizm } from "./styledCardRadioButtonsOrganizm";
+import { ValidationErrorBox } from "../../atoms/validationErrorBox";
+import { validateCollectionItemCategory } from "../../../utils/utils";
 
 export const CardRadioButtonsOrganizm = ({
     field,
     form,
     ...props
   }: FieldProps) => {
+
     const SecondRadioButtonContent = useRef(null);
     const ThirdRadioButtonContent = useRef(null);
 
     const [isSecondRadioContentShown, setIsSecondRadioContentShown] = useState(false);
     const [isThirdRadioContentShown, setIsThirdRadioContentShown] = useState(false);
+    
+    const {errors, touched} = form;
 
     return(
         <StyledCardRadioButtonsOrganizm>
-            <RadioFormContainer 
+            <RadioButtonsContainer 
                 labelText={RADIO_BUTTON_LABEL_TEXT.NO_CATEGORY} 
                 labelFor={RADIO_BUTTON_NAME.NO_CATEGORY} 
                 drillField={field}
                 drillProps={props}
+                checked={true}
             />
-            <RadioFormContainer 
+            <RadioButtonsContainer 
                 labelText={RADIO_BUTTON_LABEL_TEXT.SET_CATEGORY}  
                 labelFor={RADIO_BUTTON_NAME.SET_CATEGORY} 
                 drillField={field}
@@ -50,7 +56,11 @@ export const CardRadioButtonsOrganizm = ({
                                     placeholder='phrases' 
                                     labelValue='New category title'
                                     disabled={RADIO_BUTTON_NAME.SET_CATEGORY !== field.value}
+                                    validateCallback={validateCollectionItemCategory}
                                 /> 
+                                {errors.collectionItemCategory && touched.collectionItemCategory ? (
+                                    <ValidationErrorBox error={errors.collectionItemCategory ? errors.collectionItemCategory as string: ''} />
+                                ) : null}
                                 <FormInput 
                                     width='60px'
                                     type='color' 
@@ -61,8 +71,8 @@ export const CardRadioButtonsOrganizm = ({
                         </div>
                     )}
                 </Transition>
-            </ RadioFormContainer>
-            <RadioFormContainer 
+            </ RadioButtonsContainer>
+            <RadioButtonsContainer 
                 labelText={RADIO_BUTTON_LABEL_TEXT.CHOOSE_CATEGORY} 
                 labelFor={RADIO_BUTTON_NAME.CHOOSE_CATEGORY} 
                 drillField={field}
@@ -84,7 +94,7 @@ export const CardRadioButtonsOrganizm = ({
                             </div>
                     )}
                 </Transition>
-            </ RadioFormContainer>
+            </ RadioButtonsContainer>
         </StyledCardRadioButtonsOrganizm>
     )
 }

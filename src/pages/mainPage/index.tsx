@@ -1,6 +1,6 @@
 import React from "react";
-import './style.scss';
 import { MainPageMenu } from "../../components/organizms/mainPageMenu";
+import './style.scss';
 
 export const MainPage = () => {
     return(

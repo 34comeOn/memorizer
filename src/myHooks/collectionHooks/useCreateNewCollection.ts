@@ -4,7 +4,7 @@ import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
 import { getUserEmailSelector, getUserIdSelector } from "../../store/reducers/accountReduser";
 import { hideModalWindow } from "../../store/reducers/modalWindowReduser";
 import { setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReduser";
-import { cutBasicUserCollectionsInfo, TuserCollectionsData } from "../../utils/utils";
+import { cutBasicUserCollectionsInfo, TuserCollectionData } from "../../utils/utils";
 
 export interface InewCollectionForm {
     title: string, 
@@ -12,7 +12,7 @@ export interface InewCollectionForm {
 }
 export type TnewCollectionPostObject = {
     id: string, 
-    newUserCollectionsData: TuserCollectionsData[], 
+    newUserCollectionsData: TuserCollectionData[], 
   }
 export const useCreateNewCollection = () => {
     const dispatch = useAppDispatch();
@@ -22,7 +22,7 @@ export const useCreateNewCollection = () => {
     
     return (values: InewCollectionForm) => {
 
-        const newCollection: TuserCollectionsData = {
+        const newCollection: TuserCollectionData = {
             collectionColor: values.collectionColor,
             collectionImage: 'none',
             collectionTitle: values.title,

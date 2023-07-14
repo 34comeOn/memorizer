@@ -14,7 +14,11 @@ const CollectionItemCommentsSchema = new Schema({
 }); 
 
 const CollectionСategoriesSchema = new Schema({
-    collectionCategoryTitle: {
+    label: {
+        type: String,
+        required: true
+    },
+    value: {
         type: String,
         required: true
     },
@@ -25,21 +29,17 @@ const CollectionСategoriesSchema = new Schema({
 });
 
 const CollectionTagsSchema = new Schema({
-    collectionTagTitle: {
+    label: {
         type: String,
         required: true
     },
-    collectionTagColor: {
+    value: {
         type: String,
         required: true
     },
 });
 
 const CollectionDataSchema = new Schema({
-    collectionItemId: {
-        type: String,
-        required: true
-    },
     collectionItemTitle: {
         type: String,
         required: true
@@ -74,10 +74,6 @@ const CollectionDataSchema = new Schema({
 });
 
 const UserCollectionsDataSchema = new Schema({
-    // collectionId: {
-    //     type: String,
-    //     required: true
-    // },
     collectionColor: {
         type: String,
         required: true
@@ -138,7 +134,5 @@ const UserSchema = new Schema({
 });
 
 const User = mongoose.model('User', UserSchema);
-// const Collection = mongoose.model('Collection', UserCollectionsDataSchema)
 
 module.exports = User;
-// module.exports = Collection;

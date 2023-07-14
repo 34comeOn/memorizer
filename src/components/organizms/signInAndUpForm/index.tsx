@@ -4,6 +4,10 @@ import { FormInput } from "../../molecules/formInput";
 import './style.scss';
 import { UseSubmitButtonToSignUp } from "../../../myHooks/myFormHooks/useSubmitButtonForSignUp";
 import { UseSubmitButtonToSignIn } from "../../../myHooks/myFormHooks/useSubmitButtonForSignIn";
+import { signInFormValidationSchema, signUpFormValidationSchema } from "../../../validationSchemas";
+import { ValidationErrorBox } from "../../atoms/validationErrorBox";
+import { PasswordInput } from "../../molecules/passwordInput";
+import { ForgotPasswordLink } from "../../atoms/forgotPasswordLink";
 
 export const SignInAndUpForm = () => {
     const [isSignUpFormActive, setIsSignUpFormActive] = useState(false);
@@ -17,37 +21,49 @@ export const SignInAndUpForm = () => {
                 password:'', 
                 confirmPassword:'' 
             }}
+            validationSchema={isSignUpFormActive? signUpFormValidationSchema : signInFormValidationSchema}
+            validateOnBlur={false}
+            validateOnChange={false}
             onSubmit={
                 isSignUpFormActive? onSignUpHandler: onSignInHandler
             }
         >
-            {()=>{
+            {({ errors, touched })=>{
                 return(
-                    <Form className='sign_in--form'>
+                    <Form className='sign-in--form'>
                         {isSignUpFormActive && <FormInput 
                             type='text' 
                             name='userName' 
-                            placeholder='Max Power' 
                             labelValue='Name'
                         />}
+                        {isSignUpFormActive && errors.userName && touched.userName ? (
+                            <ValidationErrorBox error={errors.userName} />
+                        ) : null}
                         <FormInput 
-                            type='email' 
+                            type='text' 
                             name='email' 
-                            placeholder='example@gmail.com' 
                             labelValue='E-mail'
                         />
-                        <FormInput 
+                        {errors.email && touched.email ? (
+                            <ValidationErrorBox error={errors.email} />
+                        ) : null}
+                        <PasswordInput 
                             type='password'
                             name='password' 
-                            placeholder='MyMemory1sB&st' 
                             labelValue='Password'
                         />
-                        {isSignUpFormActive && <FormInput 
+                        {errors.password && touched.password ? (
+                            <ValidationErrorBox error={errors.password} />
+                        ) : null}
+                        {!isSignUpFormActive && <ForgotPasswordLink />}
+                        {isSignUpFormActive && <PasswordInput 
                             type='password' 
                             name='confirmPassword' 
-                            placeholder='MyMemory1sB&st' 
                             labelValue='Confirm password'
                         />}
+                        {isSignUpFormActive && errors.confirmPassword && touched.confirmPassword ? (
+                            <ValidationErrorBox error={errors.confirmPassword} />
+                        ) : null}
                         <button className='submit--button' type='submit'>
                             {isSignUpFormActive? 'Sign up' : 'Sign in'}
                         </ button>

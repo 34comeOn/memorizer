@@ -1,0 +1,21 @@
+@import '/src/sass/variables.module.scss';
+
+.form--text-area {
+    font-family: $ff-main-regular;;
+    min-height: 45px;
+    width: 390px;
+    margin-top: 10px;
+    margin-left: 5px;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $colorBackgroundLight;
+    }
+}
+
+.form--text-area::placeholder {
+    color: $colorFontPlaceholder;
+}

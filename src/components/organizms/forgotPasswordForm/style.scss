@@ -1,0 +1,40 @@
+@import '/src/sass/variables.module.scss';
+
+.forgot-password--form {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 400px;
+    margin: auto;
+    background-color: $colorBackgroundRepeatList;
+    justify-content: space-evenly;
+    padding: 20px;
+    margin-top: 80px;
+    border-radius: 15px;
+}
+
+.forgot-password--text {
+    color: $colorFontWhite;
+    margin: auto;
+    margin-top: 45px;
+    margin-bottom: -20px;
+}
+
+.forgot-password--submit-button {
+    height: 40px;
+    width: 140px;
+    background-color: $colorMenuBright;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 30px;
+    cursor: pointer;
+    border: 2px solid white;
+
+    &:hover {
+        background-color: $colorButtonHover;
+    }
+    &:active {
+        background-color: $colorButtonActive;
+    }
+}

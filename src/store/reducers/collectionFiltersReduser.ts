@@ -1,5 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { MAIN_FILTER_CHECKBOX } from "../../constants/stringConstants";
+import { LOCAL_STORAGE_KEYS_CONSTANTS, MAIN_FILTER_CHECKBOX } from "../../constants/stringConstants";
+
+const getFiltersList = () => {
+    const storageFiltersList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS_CONSTANTS.FILTERS_LIST)|| JSON.stringify([]));
+    return storageFiltersList;
+};
 
 type TinitialState = {
     filtersList: string[],
@@ -7,7 +12,7 @@ type TinitialState = {
 }
 
 const initialState: TinitialState = {
-    filtersList: [],
+    filtersList: getFiltersList(),
     listOfCurrentFilters: [MAIN_FILTER_CHECKBOX],
 }
 
@@ -16,7 +21,8 @@ const collectionFiltersSlice = createSlice({
     initialState,
     reducers: {
         setFiltersList(state, action: PayloadAction<string[]>) {
-            state.filtersList = action.payload;
+            localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.FILTERS_LIST, JSON.stringify(action.payload))
+            state.filtersList = getFiltersList();
         },
         replaceListOfCurrentFilters(state, action: PayloadAction<string[]>) {
             state.listOfCurrentFilters = action.payload;

@@ -1,4 +1,5 @@
-import { maximiseTimesBeenRepeated, TcollectionItemData, Tuser, TuserCollectionsData } from '../utils/utils';
+import { TeditCollectionData } from '../myHooks/collectionHooks/useEditCollection';
+import { TcollectionItemData, Tuser, TuserCollectionData } from '../utils/utils';
 import { rootAPI } from './rootApi';
 
 export type TsignInObject = {
@@ -8,9 +9,32 @@ export type TsignInObject = {
 
 export type TnewCollectionPostObject = {
   id: string, 
-  newUserCollection: TuserCollectionsData, 
+  newUserCollection: TuserCollectionData, 
 }
-  
+
+export type TnewCardPostObject = {
+  userId: string, 
+  collectionId: string, 
+  creatingNewCategory: boolean,
+  newCard: TcollectionItemData, 
+}
+
+export type TeditCardPutObject = {
+  userId: string, 
+  collectionId: string, 
+  cardId: string, 
+  creatingNewCategory: boolean,
+  editedCard: TcollectionItemData, 
+}
+
+export type TrepeatObject = {
+  userId: string,
+  cardId: string,
+  collectionId: string,
+  collectionItemTimesBeenRepeated: number,
+  collectionItemRepeatedTimeStamp: number,
+} 
+
 export const collectionDataAPI = rootAPI.injectEndpoints({
   endpoints: (build) => ({
     getCollectionData: build.mutation<TcollectionItemData[], string>({
@@ -30,7 +54,7 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
         };
       }
     }),
-    postNewCollection: build.mutation<TuserCollectionsData[], {path: string, newCollectionObj:TnewCollectionPostObject}>({
+    postNewCollection: build.mutation<TuserCollectionData[], {path: string, newCollectionObj:TnewCollectionPostObject}>({
       query(args) {
         return {
           url: `${args.path}`,
@@ -40,7 +64,7 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
         };
       }
     }),
-    deleteCollection: build.mutation<TuserCollectionsData[], string>({
+    deleteCollection: build.mutation<TuserCollectionData[], string>({
       query(path) {
         return {
           url: `${path}`,
@@ -48,7 +72,7 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
         };
       }
     }),
-    getCurrentCollectionToTrain: build.mutation<TuserCollectionsData, string>({
+    getCurrentCollectionToTrain: build.mutation<TuserCollectionData, string>({
       query(path) {
         return {
           url: `${path}`,
@@ -66,17 +90,51 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
         };
       }
     }),
-    putRepeatedCollectionItem: build.mutation<TcollectionItemData[], {path: string, putObj:TcollectionItemData}>({
+    postNewCard: build.mutation<TuserCollectionData, {path: string, newCardObj: TnewCardPostObject}>({
+      query(args) {
+        return {
+          url: `${args.path}`,
+          method: 'POST',
+          headers: {'Content-Type': 'application/json;charset=utf-8'},
+          body: JSON.stringify(args.newCardObj)
+        };
+      }
+    }),
+    deleteCard: build.mutation<TuserCollectionData, string>({
+      query(path) {
+        return {
+          url: `${path}`,
+          method: 'DELETE',
+        };
+      }
+    }),
+    putRepeatedCollectionItem: build.mutation<TuserCollectionData, {path: string, repeatObj: TrepeatObject}>({
       query(args) {
         return {
           url: `${args.path}`,
           method: 'PUT',
           headers: {'Content-Type': 'application/json;charset=utf-8'},
-          body: JSON.stringify({
-              id: args.putObj._id,
-              timesBeenRepeated: maximiseTimesBeenRepeated(args.putObj.collectionItemTimesBeenRepeated),
-              repeatedTimeStamp: Date.now(),
-          })
+          body: JSON.stringify(args.repeatObj)
+        };
+      }
+    }),
+    putEditedCollection: build.mutation<TuserCollectionData[], {path: string, editCollectionObj: TeditCollectionData}>({
+      query(args) {
+        return {
+          url: `${args.path}`,
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json;charset=utf-8'},
+          body: JSON.stringify(args.editCollectionObj)
+        };
+      }
+    }),
+    putEditedCard: build.mutation<TuserCollectionData, {path: string, editedCardObj: TeditCardPutObject}>({
+      query(args) {
+        return {
+          url: `${args.path}`,
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json;charset=utf-8'},
+          body: JSON.stringify(args.editedCardObj)
         };
       }
     }),

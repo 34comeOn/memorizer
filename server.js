@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const User = require('./models/user');
+const getPunishmentForLatePractice = require('./server-modules/serverUtills')
 
 const db = 'mongodb+srv://barabanovm:Noway-2steal@cluster2.d7n5n2k.mongodb.net/?retryWrites=true&w=majority';
 
@@ -38,37 +39,82 @@ app.post('/api/sign-in', (req, res)=> {
 
 })
 
+
 app.get('/data', (req, res)=> {
     User.find()
     .then(result=> res.send(result))
     .catch(err=> console.log(err))
 })
 
-app.get('/:id/:user', (req, res)=> {
+
+app.get('/choose-collection/:id/:user', (req, res)=> {
     let collectionId = req.params.id.slice(1);
     let currentUserId = req.params.user.slice(1);
 
     User.findById(currentUserId)
-    .then(result=> {
-        res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId))
+    .then(allUserData=> {
+        const collectionBeforePunishingForLatePractice = allUserData.userCollectionsData.find(collection => collection._id.toString() === collectionId);
+        res.send(collectionBeforePunishingForLatePractice);
+        
+        let punishedCollectionData = collectionBeforePunishingForLatePractice.collectionData.map((card) => {
+            const timesBeenRepeated = card.collectionItemTimesBeenRepeated;
+            const timeStamp = card.collectionItemRepeatedTimeStamp;
+            const timesBeenRepeatedAfterPunish =  getPunishmentForLatePractice(timesBeenRepeated, timeStamp)
+
+            if (card.collectionItemTimesBeenRepeated !== timesBeenRepeatedAfterPunish) {
+                card.collectionItemRepeatedTimeStamp = Date.now();
+            }
+
+            card.collectionItemTimesBeenRepeated = timesBeenRepeatedAfterPunish;
+
+            return card
+        })
+        
+        User.updateOne(
+            {_id: currentUserId, 
+                'userCollectionsData': {
+                    '$elemMatch': {
+                      '_id': collectionId,
+                    }
+                }
+            },
+            {$set: 
+                { 
+                    'userCollectionsData.$[i].collectionData': punishedCollectionData,
+                }
+            },
+            {
+                arrayFilters: [
+                    {
+                      'i._id': collectionId,
+                    },
+                ],
+            },
+        )
+        .catch(err => console.log(err))
+
+
     })
     .catch(err=> console.log(err))
+    
 })
+// app.get('/choose-collection/:id/:user', (req, res)=> {
+//     let collectionId = req.params.id.slice(1);
+//     let currentUserId = req.params.user.slice(1);
+//     let notPunishedCollection = {};
 
-app.delete('/:id/:user', (req, res) => {
-    let collectionId = req.params.id.slice(1);
-    let userId = req.params.user.slice(1);
+//     User.findById(currentUserId)
+//     .then(result=> {
+//         notPunishedCollection = result.userCollectionsData.find(collection => collection._id.toString() === collectionId);
 
-    User.updateOne(
-        { _id: userId },
-        { $pull: { userCollectionsData: { _id: collectionId }  } }
-    )
-    .then(()=> {
-        User.findById(userId)
-        .then(result=> res.send(result.userCollectionsData))
-    })
-    .catch(err=> console.log(err))
-})
+
+//         res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId))
+//     })
+//     .catch(err=> console.log(err))
+//     .then(()=> console.log(notPunishedCollection))
+    
+// })
+
 
 app.post('/api/sign-up', (req, res)=> {
     const {
@@ -109,6 +155,7 @@ app.post('/api/sign-up', (req, res)=> {
     .catch(err=> console.log(err))
 })
 
+
 app.post('/api/new-collection', (req, res)=>  {
     let {
         id,
@@ -126,13 +173,236 @@ app.post('/api/new-collection', (req, res)=>  {
     })
 })
 
-app.put('/api/repeat', (req, res)=> {
-    const{id, repeatedTimeStamp, timesBeenRepeated} =req.body;
-    User.findByIdAndUpdate(id, {repeatedTimeStamp, timesBeenRepeated } )
-    .catch(err => console.log(err))
+
+app.delete('/:id/:user', (req, res) => {
+    let collectionId = req.params.id.slice(1);
+    let userId = req.params.user.slice(1);
+
+    User.updateOne(
+        { _id: userId },
+        { $pull: { userCollectionsData: { _id: collectionId }  } }
+    )
     .then(()=> {
-        User.find()
-    .then(result=> res.send(result))
-    .catch(err=> console.log(err))
+        User.findById(userId)
+        .then(result=> res.send(result.userCollectionsData))
     })
+    .catch(err=> console.log(err))
+})
+
+
+app.post('/api/new-card', (req,res) => {
+    let {
+        userId,
+        collectionId,
+        creatingNewCategory,
+        newCard,
+    } = req.body;
+
+    let newCollectionCategoryTitle= newCard.collectionItemCategory;
+    let newCollectionCategoryColor= newCard.collectionItemColor;
+
+    if (newCollectionCategoryTitle && creatingNewCategory) {
+        User.updateOne(
+            {_id: userId, 'userCollectionsData._id': collectionId},
+            {$push: {
+                'userCollectionsData.$.collectionСategories':
+                {
+                    label: newCollectionCategoryTitle,
+                    value: newCollectionCategoryTitle,
+                    collectionCategoryColor: newCollectionCategoryColor,
+                }
+            }}
+        )
+        .catch(err=> console.log(err))
+    }
+
+    User.updateOne(
+        {_id: userId, 'userCollectionsData._id': collectionId},
+        {$push: {
+            'userCollectionsData.$.collectionData':newCard
+        }}
+    )
+    .then(()=> {
+        User.findById(userId)
+        .then(result=> res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId)))
+    })
+    .catch(err=> console.log(err))
+})
+
+
+app.delete('/card/:cardId/:collectionId/:userId', (req, res) => {
+    let cardId = req.params.cardId.slice(1);
+    let collectionId = req.params.collectionId.slice(1);
+    let userId = req.params.userId.slice(1);
+
+    User.updateOne(
+        { _id: userId,
+            'userCollectionsData': {
+                '$elemMatch': {
+                  '_id': collectionId,
+                  "collectionData._id": cardId
+                }
+            }
+        },
+        {$pull: 
+            { 
+                'userCollectionsData.$[i].collectionData': { _id: cardId },
+            }
+        },
+        {
+            arrayFilters: [
+                {
+                  'i._id': collectionId,
+                },
+            ],
+        },
+    )
+    .then(()=> {
+        User.findById(userId)
+        .then(result=> res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId)))
+    })
+    .catch(err => console.log(err))
+})
+
+
+app.put('/api/repeat', (req, res)=> {
+    let {
+        userId, 
+        cardId, 
+        collectionId,
+        collectionItemTimesBeenRepeated,
+        collectionItemRepeatedTimeStamp,
+    } =req.body;
+
+    User.updateOne(
+        {_id: userId, 
+            'userCollectionsData': {
+                '$elemMatch': {
+                  '_id': collectionId,
+                  "collectionData._id": cardId
+                }
+            }
+        },
+        {$set: 
+            { 
+                'userCollectionsData.$[i].collectionData.$[k].collectionItemTimesBeenRepeated': collectionItemTimesBeenRepeated,
+                'userCollectionsData.$[i].collectionData.$[k].collectionItemRepeatedTimeStamp': collectionItemRepeatedTimeStamp,
+            }
+        },
+        {
+            arrayFilters: [
+                {
+                  'i._id': collectionId,
+                },
+                {
+                  'k._id': cardId,
+                },
+            ],
+        },
+    )
+    .then(()=> {
+        User.findById(userId)
+        .then(result=> res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId)))
+    })
+    .catch(err => console.log(err))
+})
+
+
+app.put('/api/edit-collection', (req, res)=> {
+    let {
+        userId, 
+        collectionId,
+        collectionColor,
+        collectionTitle,
+    } =req.body;
+
+    User.updateOne(
+        {_id: userId, 
+            'userCollectionsData': {
+                '$elemMatch': {
+                  '_id': collectionId,
+                }
+            }
+        },
+        {$set: 
+            { 
+                'userCollectionsData.$[i].collectionColor': collectionColor,
+                'userCollectionsData.$[i].collectionTitle': collectionTitle,
+            }
+        },
+        {
+            arrayFilters: [
+                {
+                  'i._id': collectionId,
+                },
+            ],
+        },
+    )
+    .then(()=> {
+        User.findById(userId)
+        .then(result=> res.send(result.userCollectionsData))
+    })
+    .catch(err => console.log(err))
+})
+
+app.put('/api/edit-card', (req,res) => {
+    let {
+        userId,
+        collectionId,
+        cardId,
+        creatingNewCategory,
+        editedCard,
+    } = req.body;
+
+    let newCollectionCategoryTitle= editedCard.collectionItemCategory;
+    let newCollectionCategoryColor= editedCard.collectionItemColor;
+
+    if (newCollectionCategoryTitle && creatingNewCategory) {
+        User.updateOne(
+            {_id: userId, 'userCollectionsData._id': collectionId},
+            {$push: {
+                'userCollectionsData.$.collectionСategories':
+                {
+                    label: newCollectionCategoryTitle,
+                    value: newCollectionCategoryTitle,
+                    collectionCategoryColor: newCollectionCategoryColor,
+                }
+            }}
+        )
+        .catch(err=> console.log(err))
+    }
+    
+    User.updateOne(
+        {_id: userId, 
+            'userCollectionsData': {
+                '$elemMatch': {
+                  '_id': collectionId,
+                  "collectionData._id": cardId
+                }
+            }
+        },
+        {$set: 
+            { 
+                'userCollectionsData.$[i].collectionData.$[k].collectionItemTitle': editedCard.collectionItemTitle,
+                'userCollectionsData.$[i].collectionData.$[k].collectionItemAnswer': editedCard.collectionItemAnswer,
+                'userCollectionsData.$[i].collectionData.$[k].collectionItemCategory': editedCard.collectionItemCategory,
+                'userCollectionsData.$[i].collectionData.$[k].collectionItemColor': editedCard.collectionItemColor,
+            }
+        },
+        {
+            arrayFilters: [
+                {
+                  'i._id': collectionId,
+                },
+                {
+                  'k._id': cardId,
+                },
+            ],
+        },
+    )
+    .then(()=> {
+        User.findById(userId)
+        .then(result=> res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId)))
+    })
+    .catch(err => console.log(err))
 })

@@ -9,7 +9,7 @@ export const AddNewCollectionItemButton = () => {
     
     return(
         <StyledAddNewItemButton onClick={() => {
-            dispatch(setContentForModalWindow(MODAL_WINDOW_CONTENT_STRING_CONSTANTS.CREATE_NEW_ITEM_OF_COLLECTION));
+            dispatch(setContentForModalWindow(MODAL_WINDOW_CONTENT_STRING_CONSTANTS.CREATE_NEW_CARD));
             dispatch(showModalWindow());
         }}>
             Add new card

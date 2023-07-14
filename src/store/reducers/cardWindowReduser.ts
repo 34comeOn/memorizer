@@ -6,12 +6,14 @@ type TinitialState = {
     currentCard: TcollectionItemData,
     isCurrentCardVisible: boolean,
     isAnswerVisible: boolean,
+    trainedCardId: string,
 }
 
 const initialState: TinitialState = {
     currentCard: STOCK_COLLECTION_ITEM,
     isCurrentCardVisible: false,
     isAnswerVisible: false,
+    trainedCardId: '',
 }
 
 const cardWindowSlice = createSlice({
@@ -32,7 +34,10 @@ const cardWindowSlice = createSlice({
         },
         toggleAnswerVisibility(state) {
             state.isAnswerVisible= !state.isAnswerVisible;
-        }
+        },
+        setTrainedCardId(state, action: PayloadAction<string>) {
+            state.trainedCardId = action.payload;
+        },
     }
 })
 
@@ -40,6 +45,7 @@ export default cardWindowSlice.reducer;
 
 export const {
     setCurrentCard, 
+    setTrainedCardId,
     hideCurrentCard,
     showCurrentCard,
     hideAnswer, 
@@ -47,5 +53,6 @@ export const {
 } = cardWindowSlice.actions;
 
 export const getCurrentCardSelector = (state:{cardWindowSlice: {currentCard: TcollectionItemData}}) => state.cardWindowSlice.currentCard;
+export const getTrainedCardIdSelector = (state:{cardWindowSlice: {trainedCardId: string}}) => state.cardWindowSlice.trainedCardId;
 export const getCurrentCardVisibilitySelector = (state:{cardWindowSlice: {isCurrentCardVisible: boolean}}) => state.cardWindowSlice.isCurrentCardVisible;
 export const getAnswerVisibilitySelector = (state:{cardWindowSlice: {isAnswerVisible: boolean}}) => state.cardWindowSlice.isAnswerVisible;

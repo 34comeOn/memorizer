@@ -16,39 +16,3 @@
     letter-spacing: 2px;
     font-weight: 400;
 }
-
-.list--item {
-    display: block;
-    width: max-content;
-    margin-bottom: 3px;
-    padding: 7px;
-    border-radius: 5px;
-    background-color: $colorStockItemBackground;
-    color: $colorFontDark;
-    cursor: pointer; 
-    max-width: 475px;
-}
-
-.list--filter__react {
-    background-color: rgb(90, 147, 200);
-}
-
-.list--filter__oop {
-    background-color: rgb(153, 232, 144);
-}
-
-.list--filter__typeScript {
-    background-color: rgb(141, 230, 235);
-}
-
-.list--filter__patterns {
-    background-color: rgb(149, 126, 98);
-}
-.list--filter__network {
-    background-color: rgb(233, 171, 228);
-}
-
-.list--item:hover {
-    background-color: rgb(241, 89, 89);
-    color: rgb(255, 255, 255);
-}

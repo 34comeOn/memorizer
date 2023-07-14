@@ -22,27 +22,27 @@ export const REPEAT_TIMES_CONVERT_TO_POINTS: TRepeatTimesConvertToPoints = {
 
 export const STOCK_COLLECTION_COLOR = '#0052C1';
 
-export const MAX_PUNISHMENT_FOR_LATE_PRACTICE = 3;
+export const MAX_PUNISHMENT_FOR_LATE_PRACTICE = 2;
 
 export const STOCK_COLLECTION_ITEM = {
-  collectionItemId: nanoid(),   
+  _id: nanoid(),   
   collectionItemTitle: 'Test',
   collectionItemAnswer: 'Answer',
   collectionItemRepeatedTimeStamp: 1671420000000,
   collectionItemTimesBeenRepeated: 0,
-  collectionItemCategory: 'list--filter__none',
+  collectionItemCategory: 'stock-item--category',
   collectionItemColor: 'red',
 }
 
 export const STOCK_BASIC_COLLECTION_INFO = {
-  ['_id']: '000',
+  _id: '000',
   collectionColor: 'black',
   collectionImage: 'none',
   collectionTitle: 'Basic test collection',
 }
 
 export const STOCK_COLLECTION = {
-  ['_id']: '000',
+  _id: '000',
   collectionColor:'',
   collectionImage: 'none',
   collectionTitle: 'Train stock React collection',
@@ -105,3 +105,5 @@ export const NAVIGATION_ITEMS: TnavigationItem[] = [
     loggedStatusDependent: false,
   },
 ];
+
+export const MAX_REPEATLIST_ITEM_TITLE_LENGTH = 46;

@@ -1,6 +1,6 @@
 @import '/src/sass/variables.module.scss';
 
-.sign_in--form {
+.sign-in--form {
     min-height: 300px;
     display: flex;
     flex-direction: column;
@@ -10,7 +10,7 @@
     background-color: $colorBackgroundRepeatList;
     justify-content: space-evenly;
     padding: 20px;
-    margin-top: 100px;
+    margin-top: 80px;
     border-radius: 15px;
 }
 
@@ -20,7 +20,7 @@
     background-color: $colorMenuBright;
     border-radius: 10px;
     margin: auto;
-    margin-top: 35px;
+    margin-top: 30px;
     cursor: pointer;
     border: 2px solid white;
 
@@ -54,6 +54,6 @@
 .toggle-button--span {
     color: $colorFontWhite;
     margin: auto;
-    margin-top: 45px;
-    margin-bottom: -20px;
+    margin-top: 30px;
+    margin-bottom: 0px;
 }
