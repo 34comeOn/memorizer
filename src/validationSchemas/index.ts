@@ -2,11 +2,13 @@ import * as yup from 'yup';
 import { 
     EMAIL_INVALID_WARNING,
     FIELD_REQUIRED_WARNING,
+    LOGIN_OR_PASSWORD_WRONG_WARNING,
     MAX_LENGTH_PASSWORD, 
     MIN_LENGTH_NAME, 
     MIN_LENGTH_PASSWORD, 
     NAME_MIN_LENGTH_WARNING, 
-    NAME_REGEX, NAME_REGEX_WARNING, 
+    NAME_REGEX, 
+    NAME_REGEX_WARNING, 
     PASSWORD_MATCH_WARNING, 
     PASSWORD_MAX_LENGTH_WARNING, 
     PASSWORD_MIN_LENGTH_WARNING, 
@@ -18,9 +20,7 @@ export const signInFormValidationSchema = yup.object().shape({
     password: yup
     .string()
     .required(FIELD_REQUIRED_WARNING)
-    .min(MIN_LENGTH_PASSWORD, PASSWORD_MIN_LENGTH_WARNING)
-    .max(MAX_LENGTH_PASSWORD, PASSWORD_MAX_LENGTH_WARNING)
-    .matches(PASSWORD_REGEX, PASSWORD_WRONG_SYMBOLS_WARNING),
+    .matches(PASSWORD_REGEX, LOGIN_OR_PASSWORD_WRONG_WARNING),
 });
 
 export const signUpFormValidationSchema = yup.object().shape({

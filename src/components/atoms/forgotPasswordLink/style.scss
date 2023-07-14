@@ -1,0 +1,38 @@
+@import '/src/sass/variables.module.scss';
+
+.forgot-password--link {
+    text-decoration: none;
+    color: $colorFontWhite;
+    margin: 6px;
+    margin-top: 10px;
+    font-weight: 300;
+    font-size: 15px;
+    position: relative;
+
+    &::after {
+        content: "";
+        position: absolute;
+        left: -1px;
+        display: block;
+        width: 134px;
+        height: 1px;
+        top: 18px;
+        background-color: $colorBackgroundLight;
+    }
+
+    &:hover {
+        &::after {
+            background-color: $colorButtonHover;
+        }
+
+        color: $colorButtonHover;
+    }
+
+    &:active {
+        &::after {
+            background-color: $colorButtonActive;
+        }
+
+        color: $colorButtonActive;
+    }
+}

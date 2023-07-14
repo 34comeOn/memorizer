@@ -7,6 +7,7 @@ import { UseSubmitButtonToSignIn } from "../../../myHooks/myFormHooks/useSubmitB
 import { signInFormValidationSchema, signUpFormValidationSchema } from "../../../validationSchemas";
 import { ValidationErrorBox } from "../../atoms/validationErrorBox";
 import { PasswordInput } from "../../molecules/passwordInput";
+import { ForgotPasswordLink } from "../../atoms/forgotPasswordLink";
 
 export const SignInAndUpForm = () => {
     const [isSignUpFormActive, setIsSignUpFormActive] = useState(false);
@@ -54,6 +55,7 @@ export const SignInAndUpForm = () => {
                         {errors.password && touched.password ? (
                             <ValidationErrorBox error={errors.password} />
                         ) : null}
+                        {!isSignUpFormActive && <ForgotPasswordLink />}
                         {isSignUpFormActive && <PasswordInput 
                             type='password' 
                             name='confirmPassword' 

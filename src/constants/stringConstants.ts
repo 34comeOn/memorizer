@@ -59,3 +59,5 @@ export const REPEAT_LISTS_TITLE = [
 ]
 
 export const UNPUNISHABLE_REPEAT_TIMES = 3;
+
+export const FORGOT_PASSWORD_LINK = 'Forgot password?'
