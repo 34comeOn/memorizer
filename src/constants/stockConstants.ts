@@ -20,6 +20,11 @@ export const REPEAT_TIMES_CONVERT_TO_POINTS: TRepeatTimesConvertToPoints = {
   6: 72,
 }
 
+export const AUTO_HIDE_DURATION = {
+  PUNISHMENT: 6000,
+  PROGRESS: 2000,
+};
+
 export const STOCK_COLLECTION_COLOR = '#0052C1';
 
 export const MAX_PUNISHMENT_FOR_LATE_PRACTICE = 2;

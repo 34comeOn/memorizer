@@ -1,8 +1,9 @@
 import { MAX_PUNISHMENT_FOR_LATE_PRACTICE, REPEAT_TIMES_CONVERT_TO_POINTS, STOCK_USER } from "../constants/stockConstants";
-import { LOCAL_STORAGE_KEYS_CONSTANTS, RADIO_BUTTON_NAME, UNPUNISHABLE_REPEAT_TIMES } from "../constants/stringConstants";
+import { HIGHEST_REPEAT_TIMES, LOCAL_STORAGE_KEYS_CONSTANTS, RADIO_BUTTON_NAME, UNPUNISHABLE_REPEAT_TIMES } from "../constants/stringConstants";
 import { FIELD_REQUIRED_WARNING, MAX_LENGTH_TITLE, MAX_LENGTH_TITLE_WARNING, TITLE_REGEX, TITLE_REGEX_WARNING } from "../constants/validationConstants";
 import { InewCardForm } from "../myHooks/collectionHooks/useCreateNewCard";
 import { IsignInForm } from "../myHooks/myFormHooks/useSubmitButtonForSignUp";
+import variables from '../sass/variables.module.scss';
 
 export type TbasicCollectionInfo = {
     '_id'?: string,
@@ -254,4 +255,14 @@ export const validateCollectionItemCategory = (value: string) => {
     }
 
     return error;
+}
+
+export const deliverBackgroundColorForContainer = (timesBeenRepeated: number) => {
+    if (timesBeenRepeated < UNPUNISHABLE_REPEAT_TIMES) {
+        return variables.colorLowRepeatLevel;
+    } else if (timesBeenRepeated < HIGHEST_REPEAT_TIMES - 1) {
+        return variables.colorMiddleRepeatLevel;
+    } else if (timesBeenRepeated >= HIGHEST_REPEAT_TIMES - 1) {
+        return variables.colorHighRepeatLevel;
+    }
 }

@@ -22,6 +22,10 @@ $colorBorder: #3e516c;
 
 $colorError: rgb(234, 66, 66);
 
+$colorLowRepeatLevel: rgb(218 51 51);
+$colorMiddleRepeatLevel: rgb(165, 146, 48);
+$colorHighRepeatLevel: rgb(43, 131, 59);
+
 
 :export {
     colorTransparent: $colorTransparent;
@@ -35,4 +39,8 @@ $colorError: rgb(234, 66, 66);
     colorButtonActive: $colorButtonActive;
     colorDecorBright: $colorDecorBright;
     colorFontWhite: $colorFontWhite;
+    colorBorder: $colorBorder;
+    colorLowRepeatLevel: $colorLowRepeatLevel;
+    colorMiddleRepeatLevel: $colorMiddleRepeatLevel;
+    colorHighRepeatLevel: $colorHighRepeatLevel;
 }

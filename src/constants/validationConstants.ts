@@ -7,7 +7,7 @@ export const MAX_ANSWER_LENGTH = 1500;
 
 
 export const NAME_REGEX = /^[A-Za-zA-Яа-яЁё,.'-]+$/;
-export const TITLE_REGEX = /^[0-9A-Za-zA-Яа-яЁё,.'@#$%^&*-]+$/;
+export const TITLE_REGEX = /^[0-9A-Za-zA-Яа-яЁё,.\s'@#$%^&*-]+$/;
 export const PASSWORD_REGEX = /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g;
 
 

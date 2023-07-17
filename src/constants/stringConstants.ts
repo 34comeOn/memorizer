@@ -60,6 +60,7 @@ export const REPEAT_LISTS_TITLE = [
 ]
 
 export const UNPUNISHABLE_REPEAT_TIMES = 3;
+export const HIGHEST_REPEAT_TIMES = 6;
 
 export const FORGOT_PASSWORD_LINK = 'Forgot password?';
 export const FORGOT_PASSWORD_TEXT = 'If you do not remember password, we would send new password to your e-mail';
