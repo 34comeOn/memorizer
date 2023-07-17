@@ -6,9 +6,12 @@ import { FormInput } from "../../molecules/formInput";
 import './style.scss';
 import { ValidationErrorBox } from "../../atoms/validationErrorBox";
 import { collectionFormValidationSchema } from "../../../validationSchemas";
+import { useRequestLoading } from "../../../myHooks/useRequestLoading";
+import { CustomSpinner } from "../../atoms/customSpinner";
 
 export const NewCollectionForm = () => {
-    const onCreateNewCollection = useCreateNewCollection();
+    const {isLoading, onChangeLoadingStatus} = useRequestLoading();
+    const onCreateNewCollection = useCreateNewCollection(onChangeLoadingStatus);
 
     return (
         <Formik 
@@ -35,6 +38,7 @@ export const NewCollectionForm = () => {
                         {errors.title && touched.title ? (
                             <ValidationErrorBox error={errors.title} />
                         ) : null}
+                        <CustomSpinner isLoading={isLoading} />
                         <FormInput 
                             width='60px'
                             type='color' 

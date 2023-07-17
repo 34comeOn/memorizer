@@ -9,7 +9,6 @@ import { LogOutNavButton } from "../../molecules/logOutNavButton";
 export const Header = () => {
     const hasLoged = useAppSelector(getAccountStatusSelector);
     const userName = useAppSelector(getUserNameSelector);
-
     return(
         <StyledHeader>
             <HeaderLogo />

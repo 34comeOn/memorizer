@@ -6,7 +6,6 @@ import collectionGroupsSlice from './reducers/collectionGroupsReducer';
 import cardWindowSlice from './reducers/cardWindowReducer';
 import modalWindowSlice from './reducers/modalWindowReducer';
 import userCollectionsSlice from './reducers/userCollectionsReducer';
-import utillsSlice from './reducers/utillsReducer';
 import { rootAPI } from '../RTKApi/rootApi';
 
 const rootReducer = combineReducers({
@@ -17,7 +16,6 @@ const rootReducer = combineReducers({
   cardWindowSlice,
   modalWindowSlice,
   userCollectionsSlice,
-  utillsSlice,
   [rootAPI.reducerPath]: rootAPI.reducer,
 });
 

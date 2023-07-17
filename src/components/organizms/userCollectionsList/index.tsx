@@ -8,6 +8,7 @@ import { nanoid } from "nanoid";
 
 export const UserCollectionsList = () => {
     const allUserCollections = useAppSelector(getBasicUserCollectionsInfoSelector);
+    
     return (
         <StyledUserCollectionsList>
             {allUserCollections.map(item =>

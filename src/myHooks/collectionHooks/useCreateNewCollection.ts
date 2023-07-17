@@ -13,11 +13,10 @@ export interface InewCollectionForm {
 export type TnewCollectionPostObject = {
     id: string, 
     newUserCollectionsData: TuserCollectionData[], 
-  }
-export const useCreateNewCollection = () => {
+}
+export const useCreateNewCollection = (onChangeLoadingStatus: (value: boolean)=> void) => {
     const dispatch = useAppDispatch();
-    const [getAllCollectionsAfterCreatingOneNewTriger, queryMeta] = collectionDataAPI.usePostNewCollectionMutation();
-    console.log(queryMeta.isLoading)
+    const [getAllCollectionsAfterCreatingOneNewTriger] = collectionDataAPI.usePostNewCollectionMutation();
     const currentUserId = useAppSelector(getUserIdSelector);
     const currentUserEmail = useAppSelector(getUserEmailSelector);
     
@@ -37,11 +36,13 @@ export const useCreateNewCollection = () => {
             id: currentUserId,
             newUserCollection: newCollection,
         }
+        onChangeLoadingStatus(true)
 
         getAllCollectionsAfterCreatingOneNewTriger({path:CREATE_NEW_COLLECTION_ENDPOINT, newCollectionObj: newCollectionObj})
         .unwrap()
         .then(
           (userCollections) => {
+            onChangeLoadingStatus(false)
             dispatch(setUserBasicCollectionsInfo(cutBasicUserCollectionsInfo(userCollections)));
             dispatch(hideModalWindow());
           },
