@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyledRepeatContainer } from './styledRepeatContainer';
 import { useAppSelector } from '../../../app/hooks';
-import { getRepeatGroupsSelector } from '../../../store/reducers/collectionGroupsReduser';
+import { getRepeatGroupsSelector } from '../../../store/reducers/collectionGroupsReducer';
 import { StockRepeatList } from '../../molecules/stock/repeatList';
 import { REPEAT_LISTS_TITLE } from '../../../constants/stringConstants';
 

@@ -1,9 +1,9 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { EDIT_COLLECTION_ENDPOINT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
-import { getUserIdSelector } from "../../store/reducers/accountReduser";
-import { hideModalWindow } from "../../store/reducers/modalWindowReduser";
-import { setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReduser";
+import { getUserIdSelector } from "../../store/reducers/accountReducer";
+import { hideModalWindow } from "../../store/reducers/modalWindowReducer";
+import { setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReducer";
 import { cutBasicUserCollectionsInfo } from "../../utils/utils";
 
 export interface IeditCollectionForm {

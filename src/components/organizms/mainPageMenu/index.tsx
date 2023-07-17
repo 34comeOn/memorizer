@@ -3,7 +3,7 @@ import { UserCollectionsList } from "../userCollectionsList";
 import { StyledMainPageMenu } from "./styledMainPageMenu";
 import variables from '../../../sass/variables.module.scss';
 import './style.scss';
-import { getAccountStatusSelector } from "../../../store/reducers/accountReduser";
+import { getAccountStatusSelector } from "../../../store/reducers/accountReducer";
 import { useAppSelector } from "../../../app/hooks";
 import { CreateNewCollectionButton } from "../../atoms/createNewCollectionButton";
 

@@ -1,5 +1,5 @@
 import { useAppDispatch } from "../app/hooks"
-import { hideModalWindow, removeContentFromModalWindow } from "../store/reducers/modalWindowReduser";
+import { hideModalWindow, removeContentFromModalWindow } from "../store/reducers/modalWindowReducer";
 
 export const useCloseModalWindowButton = () => {
     const dispatch = useAppDispatch();

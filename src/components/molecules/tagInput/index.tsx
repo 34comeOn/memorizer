@@ -2,7 +2,7 @@ import React from 'react';
 import CreatableSelect from 'react-select/creatable';
 import { FieldProps } from 'formik';
 import { useAppSelector } from '../../../app/hooks';
-import { getCurrentCollectionSelector } from '../../../store/reducers/userCollectionsReduser';
+import { getCurrentCollectionSelector } from '../../../store/reducers/userCollectionsReducer';
 
 export interface CardOption {
     readonly value: string;

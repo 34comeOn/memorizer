@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
-import { getUserIdSelector } from "../../store/reducers/accountReduser";
-import { setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReduser";
+import { getUserIdSelector } from "../../store/reducers/accountReducer";
+import { setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReducer";
 import { cutBasicUserCollectionsInfo} from "../../utils/utils";
 
 export const useDeleteCollectionButton = (_id: string) => {

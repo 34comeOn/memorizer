@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../app/hooks";
 import { GET_DATA_ENDPOINT } from "../constants/stringConstants";
 import { collectionDataAPI } from "../RTKApi/collectionDataApi";
-import { hideCurrentCard } from "../store/reducers/cardWindowReduser";
-import { setFiltersList } from "../store/reducers/collectionFiltersReduser";
-import { setRepeatGroupsReduser } from "../store/reducers/collectionGroupsReduser";
+import { hideCurrentCard } from "../store/reducers/cardWindowReducer";
+import { setFiltersList } from "../store/reducers/collectionFiltersReducer";
+import { setRepeatGroupsReducer } from "../store/reducers/collectionGroupsReducer";
 import { spreadCollectionData } from "../utils/utils";
 
 export const useGetDataTriger = () => {
@@ -18,7 +18,7 @@ export const useGetDataTriger = () => {
         .then((response) => {
             const {filtersOfCollection, orgonizedGroupsOfCollection}= spreadCollectionData(response);
             
-            dispatch(setRepeatGroupsReduser(orgonizedGroupsOfCollection)); 
+            dispatch(setRepeatGroupsReducer(orgonizedGroupsOfCollection)); 
             dispatch(setFiltersList(filtersOfCollection)); 
         })
         .then(() => navigate('/collection'));

@@ -1,9 +1,9 @@
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { PUT_REPEATED_COLLECTION_ITEM_ENDPOINT } from "../constants/stringConstants";
 import { collectionDataAPI } from "../RTKApi/collectionDataApi";
-import { getUserIdSelector } from "../store/reducers/accountReduser";
-import { setTrainedCardId } from "../store/reducers/cardWindowReduser";
-import { getCurrentCollectionSelector} from "../store/reducers/userCollectionsReduser";
+import { getUserIdSelector } from "../store/reducers/accountReducer";
+import { setTrainedCardId } from "../store/reducers/cardWindowReducer";
+import { getCurrentCollectionSelector} from "../store/reducers/userCollectionsReducer";
 import { updateTimesBeenRepeated, TcollectionItemData, getPunishmentForLatePractice } from "../utils/utils";
 import { UseCurrentCollectionResponse } from "./collectionHooks/useResponses/useCurrentCollectionResponse";
 

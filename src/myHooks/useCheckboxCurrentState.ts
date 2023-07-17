@@ -1,6 +1,6 @@
 import { useAppSelector } from "../app/hooks";
 import { MAIN_FILTER_CHECKBOX } from "../constants/stringConstants";
-import { getListOfCurrentFiltersSelector } from "../store/reducers/collectionFiltersReduser";
+import { getListOfCurrentFiltersSelector } from "../store/reducers/collectionFiltersReducer";
 
 export const useCheckboxCurrentState = (name: string) => {
     const currentCheckedCheckboxes = useAppSelector(getListOfCurrentFiltersSelector);

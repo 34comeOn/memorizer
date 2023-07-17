@@ -3,7 +3,7 @@ import { Snackbar } from "@mui/material";
 import { deliverBackgroundColorForContainer, getPunishmentForLatePractice, TcollectionItemData } from "../../../utils/utils";
 import { StyledRrepeatContainer } from "./styledRepeatCounter";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { getTrainedCardIdSelector, setTrainedCardId } from "../../../store/reducers/cardWindowReduser";
+import { getTrainedCardIdSelector, setTrainedCardId } from "../../../store/reducers/cardWindowReducer";
 import { AUTO_HIDE_DURATION } from "../../../constants/stockConstants";
 import './style.scss';
 

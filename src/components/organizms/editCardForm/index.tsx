@@ -6,7 +6,7 @@ import { RADIO_BUTTON_NAME } from "../../../constants/stringConstants";
 import { CardRadioButtonsOrganizm } from "../radioButtonsOrganizm";
 import { TextArea } from "../../molecules/textArea";
 import { useAppSelector } from "../../../app/hooks";
-import { getEditCardSelector } from "../../../store/reducers/editReduser";
+import { getEditCardSelector } from "../../../store/reducers/editReducer";
 import { useEditCard } from "../../../myHooks/collectionHooks/useEditCard";
 import { cardFormValidationSchema} from "../../../validationSchemas";
 import { ValidationErrorBox } from "../../atoms/validationErrorBox";

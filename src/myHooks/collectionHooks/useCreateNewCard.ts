@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { CREATE_NEW_CARD_ENDPOINT, RADIO_BUTTON_NAME } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
-import { getUserIdSelector } from "../../store/reducers/accountReduser";
-import { getCurrentCollectionSelector} from "../../store/reducers/userCollectionsReduser";
+import { getUserIdSelector } from "../../store/reducers/accountReducer";
+import { getCurrentCollectionSelector} from "../../store/reducers/userCollectionsReducer";
 import { checkTitleExclusivity, setCategoryInCardObj, TcollectionItemData, TcollectionTag } from "../../utils/utils";
 import { UseCurrentCollectionResponse } from "./useResponses/useCurrentCollectionResponse";
 

@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
 import { SIGN_IN_USER_ENDPOINT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
-import { logIn } from "../../store/reducers/accountReduser";
-import { setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReduser";
+import { logIn } from "../../store/reducers/accountReducer";
+import { setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReducer";
 import { cutBasicUserCollectionsInfo } from "../../utils/utils";
 
 export interface IsignInForm {

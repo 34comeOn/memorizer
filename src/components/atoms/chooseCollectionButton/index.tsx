@@ -4,7 +4,7 @@ import './style.scss';
 import { useGetDataTriger } from "../../../myHooks/useGetDataTriger";
 import { useChooseCollectionButton } from "../../../myHooks/collectionHooks/useChooseCollectionButton";
 import { useAppSelector } from "../../../app/hooks";
-import { getAccountStatusSelector } from "../../../store/reducers/accountReduser";
+import { getAccountStatusSelector } from "../../../store/reducers/accountReducer";
 
 type TmenuButton = {
     children: string, 

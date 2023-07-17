@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
-import { getUserIdSelector } from "../../store/reducers/accountReduser";
-import { hideCurrentCard } from "../../store/reducers/cardWindowReduser";
+import { getUserIdSelector } from "../../store/reducers/accountReducer";
+import { hideCurrentCard } from "../../store/reducers/cardWindowReducer";
 import { UseChooseCollectionResponse } from "./useResponses/useChooseCollectionResponse";
 
 export const useChooseCollectionButton = (collectionId: string) => {

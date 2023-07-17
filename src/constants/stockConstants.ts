@@ -1,6 +1,6 @@
 import { ThunkDispatch, CombinedState, AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { CombinedState as CombinedStateApi } from "@reduxjs/toolkit/dist/query/core/apiState";
-import { TgroupForRepeat } from "../store/reducers/collectionGroupsReduser";
+import { TgroupForRepeat } from "../store/reducers/collectionGroupsReducer";
 import { TcollectionItemData } from "../utils/utils";
 import { nanoid } from 'nanoid';
 

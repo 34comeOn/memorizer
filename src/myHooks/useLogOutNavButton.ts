@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../app/hooks";
-import { logOut } from "../store/reducers/accountReduser";
-import { removeRepeatGroups } from "../store/reducers/collectionGroupsReduser";
-import { removeUserBasicCollectionsInfo } from "../store/reducers/userCollectionsReduser";
+import { logOut } from "../store/reducers/accountReducer";
+import { removeRepeatGroups } from "../store/reducers/collectionGroupsReducer";
+import { removeUserBasicCollectionsInfo } from "../store/reducers/userCollectionsReducer";
 
 export const useLogOutNavButton = () => {
     const navigate = useNavigate()

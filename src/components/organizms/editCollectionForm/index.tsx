@@ -3,7 +3,7 @@ import { Form, Formik } from "formik";
 import { FormInput } from "../../molecules/formInput";
 import './style.scss';
 import { useAppSelector } from "../../../app/hooks";
-import { getEditCollectionSelector } from "../../../store/reducers/editReduser";
+import { getEditCollectionSelector } from "../../../store/reducers/editReducer";
 import { useEditCollection } from "../../../myHooks/collectionHooks/useEditCollection";
 import { collectionFormValidationSchema } from "../../../validationSchemas";
 import { ValidationErrorBox } from "../../atoms/validationErrorBox";

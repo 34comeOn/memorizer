@@ -1,9 +1,9 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { CREATE_NEW_COLLECTION_ENDPOINT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
-import { getUserEmailSelector, getUserIdSelector } from "../../store/reducers/accountReduser";
-import { hideModalWindow } from "../../store/reducers/modalWindowReduser";
-import { setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReduser";
+import { getUserEmailSelector, getUserIdSelector } from "../../store/reducers/accountReducer";
+import { hideModalWindow } from "../../store/reducers/modalWindowReducer";
+import { setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReducer";
 import { cutBasicUserCollectionsInfo, TuserCollectionData } from "../../utils/utils";
 
 export interface InewCollectionForm {
@@ -16,7 +16,8 @@ export type TnewCollectionPostObject = {
   }
 export const useCreateNewCollection = () => {
     const dispatch = useAppDispatch();
-    const [getAllCollectionsAfterCreatingOneNewTriger] = collectionDataAPI.usePostNewCollectionMutation();
+    const [getAllCollectionsAfterCreatingOneNewTriger, queryMeta] = collectionDataAPI.usePostNewCollectionMutation();
+    console.log(queryMeta.isLoading)
     const currentUserId = useAppSelector(getUserIdSelector);
     const currentUserEmail = useAppSelector(getUserEmailSelector);
     

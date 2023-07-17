@@ -4,11 +4,11 @@ import { ShowButton } from '../../../atoms/showButton';
 import { StyledCard } from './styledCard';
 import { Answer } from '../../../atoms/answer';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
-import { getAnswerVisibilitySelector, getCurrentCardSelector, toggleAnswerVisibility } from '../../../../store/reducers/cardWindowReduser';
+import { getAnswerVisibilitySelector, getCurrentCardSelector, toggleAnswerVisibility } from '../../../../store/reducers/cardWindowReducer';
 import { useDoneClickButton } from '../../../../myHooks/useDoneClickButton';
 import './style.scss';
 import { checkAdminPowers, getCurrentUserEmailFromLStorage } from '../../../../utils/utils';
-import { getCurrentCollectionSelector } from '../../../../store/reducers/userCollectionsReduser';
+import { getCurrentCollectionSelector } from '../../../../store/reducers/userCollectionsReducer';
 import { DeleteCardButton } from '../../../atoms/deleteCardButton';
 import { EditCardButton } from '../../../atoms/editCardButton';
 

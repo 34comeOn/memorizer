@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
-import { getUserIdSelector } from "../../store/reducers/accountReduser";
-import { getCurrentCollectionSelector } from "../../store/reducers/userCollectionsReduser";
+import { getUserIdSelector } from "../../store/reducers/accountReducer";
+import { getCurrentCollectionSelector } from "../../store/reducers/userCollectionsReducer";
 import { TcollectionItemData} from "../../utils/utils";
 import { UseCurrentCollectionResponse } from "./useResponses/useCurrentCollectionResponse";
 

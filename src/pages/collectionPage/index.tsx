@@ -3,8 +3,8 @@ import { useAppSelector } from "../../app/hooks";
 import { AddNewCollectionItemButton } from "../../components/atoms/addNewCollectionItemButton";
 import { CheckboxList } from "../../components/molecules/checkboxList";
 import { RepeatContainer } from "../../components/organizms/repeatContainer";
-import { getAccountStatusSelector } from "../../store/reducers/accountReduser";
-import { getCurrentCollectionSelector } from "../../store/reducers/userCollectionsReduser";
+import { getAccountStatusSelector } from "../../store/reducers/accountReducer";
+import { getCurrentCollectionSelector } from "../../store/reducers/userCollectionsReducer";
 import './style.scss';
 
 export const CollectionPage = () => {

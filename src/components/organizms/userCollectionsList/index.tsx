@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppSelector } from "../../../app/hooks";
-import { getBasicUserCollectionsInfoSelector } from "../../../store/reducers/userCollectionsReduser";
+import { getBasicUserCollectionsInfoSelector } from "../../../store/reducers/userCollectionsReducer";
 import { StyledUserCollectionsList } from "./styledUserCollectionsList";
 import { UserCollection } from "../../molecules/userCollection";
 import { STOCK_COLLECTION_COLOR } from "../../../constants/stockConstants";
