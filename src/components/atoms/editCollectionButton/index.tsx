@@ -1,11 +1,11 @@
 import React from "react"
 import { useDispatch } from "react-redux";
 import { MODAL_WINDOW_CONTENT_STRING_CONSTANTS } from "../../../constants/stringConstants";
-import { editCollection, TeditCollection } from "../../../store/reducers/editReducer";
+import { editCollection, IeditCollection } from "../../../store/reducers/editReducer";
 import { setContentForModalWindow, showModalWindow } from "../../../store/reducers/modalWindowReducer";
 import { StyledEditButton } from "../editButton/styledEditButton";
 
-export const EditCollectionButton = ({_id, color, title}: TeditCollection) => {
+export const EditCollectionButton = ({_id, color, title}: IeditCollection) => {
     const dispatch = useDispatch();
 
     return(

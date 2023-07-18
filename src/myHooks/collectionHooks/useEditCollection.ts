@@ -16,7 +16,7 @@ export type TeditCollectionData = {
     collectionColor: string,
     collectionTitle: string,
   }
-export const useEditCollection = (_id: string) => {
+export const useEditCollection = (_id: string, onChangeLoadingStatus: (value: boolean)=> void) => {
     const dispatch = useAppDispatch();
     const [getAllCollectionsAfterEditingCollectionTriger] = collectionDataAPI.usePutEditedCollectionMutation();
     const currentUserId = useAppSelector(getUserIdSelector);
@@ -30,10 +30,12 @@ export const useEditCollection = (_id: string) => {
             collectionTitle: values.title,
         }
 
+        onChangeLoadingStatus(true)
         getAllCollectionsAfterEditingCollectionTriger({path:EDIT_COLLECTION_ENDPOINT, editCollectionObj: editCollectionObj})
         .unwrap()
         .then(
           (userCollections) => {
+            onChangeLoadingStatus(false)
             dispatch(setUserBasicCollectionsInfo(cutBasicUserCollectionsInfo(userCollections)));
             dispatch(hideModalWindow());
           },

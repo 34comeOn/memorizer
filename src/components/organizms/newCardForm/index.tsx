@@ -10,9 +10,12 @@ import { CardRadioButtonsOrganizm } from "../radioButtonsOrganizm";
 import { TextArea } from "../../molecules/textArea";
 import { cardFormValidationSchema } from "../../../validationSchemas";
 import { ValidationErrorBox } from "../../atoms/validationErrorBox";
+import { CustomSpinner } from "../../atoms/customSpinner";
+import { useRequestLoading } from "../../../myHooks/useRequestLoading";
 
 export const NewCardForm = () => {
-    const onCreateNewCard = useCreateNewCard();
+    const {isLoading, onChangeLoadingStatus} = useRequestLoading();
+    const onCreateNewCard = useCreateNewCard(onChangeLoadingStatus);
 
     return (
         <Formik 
@@ -43,14 +46,15 @@ export const NewCardForm = () => {
                         />
                         {errors.cardTitle && touched.cardTitle ? (
                             <ValidationErrorBox error={errors.cardTitle} />
-                        ) : null}
+                            ) : null}
                         <label className='form--label' htmlFor='textArea'>
                             Write down your answer
                         </label>
                         <TextArea />
                         {errors.cardAnswer && touched.cardAnswer ? (
                             <ValidationErrorBox error={errors.cardAnswer} />
-                        ) : null}
+                            ) : null}
+                        <CustomSpinner isLoading={isLoading} />
                         <Field name="categoryRadioButtons" component={CardRadioButtonsOrganizm} />
                         {/* <Field name="cardTags" component={TagInput} /> */}
                         <button className='submit-item--button' type='submit' onClick={() => {

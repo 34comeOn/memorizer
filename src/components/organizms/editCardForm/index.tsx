@@ -10,10 +10,13 @@ import { getEditCardSelector } from "../../../store/reducers/editReducer";
 import { useEditCard } from "../../../myHooks/collectionHooks/useEditCard";
 import { cardFormValidationSchema} from "../../../validationSchemas";
 import { ValidationErrorBox } from "../../atoms/validationErrorBox";
+import { CustomSpinner } from "../../atoms/customSpinner";
+import { useRequestLoading } from "../../../myHooks/useRequestLoading";
 
 export const EditCardForm = () => {
+    const {isLoading, onChangeLoadingStatus} = useRequestLoading();
     const {_id, cardTitle, cardAnswer,cardCategory,cardColor} = useAppSelector(getEditCardSelector)
-    const onEditCard = useEditCard(_id);
+    const onEditCard = useEditCard(_id, onChangeLoadingStatus);
 
     return (
         <Formik 
@@ -51,6 +54,7 @@ export const EditCardForm = () => {
                         {errors.cardAnswer && touched.cardAnswer ? (
                             <ValidationErrorBox error={errors.cardAnswer} />
                         ) : null}
+                        <CustomSpinner isLoading={isLoading} />
                         <Field name="categoryRadioButtons" component={CardRadioButtonsOrganizm} />
                         <button className='submit-item--button' type='submit' onClick={() => {
                             if (values.categoryRadioButtons === RADIO_BUTTON_NAME.SET_CATEGORY) {

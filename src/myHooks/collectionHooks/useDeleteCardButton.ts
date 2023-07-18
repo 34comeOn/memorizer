@@ -5,16 +5,19 @@ import { getCurrentCollectionSelector } from "../../store/reducers/userCollectio
 import { TcollectionItemData} from "../../utils/utils";
 import { UseCurrentCollectionResponse } from "./useResponses/useCurrentCollectionResponse";
 
-export const useDeleteCardButton = (currentCard: TcollectionItemData) => {
+export const useDeleteCardButton = (currentCard: TcollectionItemData, onChangeLoadingStatus: (value: boolean)=> void) => {
   const dispatch = useAppDispatch();
   const currentUserId = useAppSelector(getUserIdSelector);
   const currentCollectionId = useAppSelector(getCurrentCollectionSelector)._id || '';
   const [deleteCardTriger] = collectionDataAPI.useDeleteCardMutation();
   return () => {
+      onChangeLoadingStatus(true)
+
       deleteCardTriger(`card/:${currentCard._id}/:${currentCollectionId}/:${currentUserId}`)
       .unwrap()
       .then(
           (currentCollection) => {
+              onChangeLoadingStatus(false)
               UseCurrentCollectionResponse(currentCollection, dispatch);
             },
             (error) => {

@@ -5,17 +5,19 @@ import { getUserIdSelector } from "../../store/reducers/accountReducer";
 import { hideCurrentCard } from "../../store/reducers/cardWindowReducer";
 import { UseChooseCollectionResponse } from "./useResponses/useChooseCollectionResponse";
 
-export const useChooseCollectionButton = (collectionId: string) => {
+export const useChooseCollectionButton = (collectionId: string, onChangeLoadingStatus: (value: boolean)=> void ) => {
     const dispatch = useAppDispatch();
     const currentUserId = useAppSelector(getUserIdSelector);
     const [currentCollectionTriger] = collectionDataAPI.useGetCurrentCollectionToTrainMutation();
     const navigate = useNavigate();
     return () => {
         dispatch(hideCurrentCard());
+        onChangeLoadingStatus(true)
         currentCollectionTriger(`choose-collection/:${collectionId}/:${currentUserId}`)
         .unwrap()
         .then(
           (currentCollection) => {
+            onChangeLoadingStatus(false)
             UseChooseCollectionResponse(currentCollection, dispatch)
           },
           (error) => {

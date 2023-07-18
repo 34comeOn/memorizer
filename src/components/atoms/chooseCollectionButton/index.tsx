@@ -11,12 +11,13 @@ type TmenuButton = {
     color: string,
     disabled?: boolean,
     _id: string,
+    onChangeLoadingStatus: (value: boolean)=> void,
 }
 
-export const ChooseCollectionButton = ({children, color, disabled, _id}: TmenuButton) => {
+export const ChooseCollectionButton = ({children, color, disabled, _id, onChangeLoadingStatus}: TmenuButton) => {
     const accountStatus = useAppSelector(getAccountStatusSelector);
     const getDataByClick = useGetDataTriger();
-    const getDataFromLocalStorageByClick = useChooseCollectionButton(_id);
+    const getDataFromLocalStorageByClick = useChooseCollectionButton(_id, onChangeLoadingStatus);
     return(
         <StyledMenuButton onClick={accountStatus? getDataFromLocalStorageByClick: getDataByClick} disabled={disabled || false} color={color}>
             {children}

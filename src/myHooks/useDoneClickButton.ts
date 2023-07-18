@@ -7,7 +7,7 @@ import { getCurrentCollectionSelector} from "../store/reducers/userCollectionsRe
 import { updateTimesBeenRepeated, TcollectionItemData, getPunishmentForLatePractice } from "../utils/utils";
 import { UseCurrentCollectionResponse } from "./collectionHooks/useResponses/useCurrentCollectionResponse";
 
-export const useDoneClickButton = (currentCard: TcollectionItemData) => {
+export const useDoneClickButton = (currentCard: TcollectionItemData, onChangeLoadingStatus: (value: boolean)=> void) => {
   const TimesBeenRepeatedAfterPunish = getPunishmentForLatePractice(currentCard.collectionItemTimesBeenRepeated, currentCard.collectionItemRepeatedTimeStamp)
   const updatedTimesBeenRepeated = updateTimesBeenRepeated(TimesBeenRepeatedAfterPunish);
   
@@ -24,11 +24,12 @@ export const useDoneClickButton = (currentCard: TcollectionItemData) => {
         collectionItemTimesBeenRepeated: updatedTimesBeenRepeated,
         collectionItemRepeatedTimeStamp: Date.now(),
       }
-
+      onChangeLoadingStatus(true)
       putRepeatedCollectionItemTriger({path:PUT_REPEATED_COLLECTION_ITEM_ENDPOINT, repeatObj: repeatObject})
       .unwrap()
       .then(
         (currentCollection) => {
+          onChangeLoadingStatus(false);
           UseCurrentCollectionResponse(currentCollection, dispatch);
           dispatch(setTrainedCardId(currentCard._id || ''))
         },

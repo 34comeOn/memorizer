@@ -16,7 +16,7 @@ export interface IeditCardForm {
     categoryRadioButtons: string,
 }
 
-export const useEditCard = (_id: string) => {
+export const useEditCard = (_id: string, onChangeLoadingStatus: (value: boolean)=> void) => {
     const dispatch = useAppDispatch();
     const [getUpdatedCollectionAfterEditingCardTriger] = collectionDataAPI.usePutEditedCardMutation();
     const currentUserId = useAppSelector(getUserIdSelector);
@@ -47,10 +47,13 @@ export const useEditCard = (_id: string) => {
             editedCard: editedCard,
         }
 
+        onChangeLoadingStatus(true)
+
         getUpdatedCollectionAfterEditingCardTriger({path: EDIT_CARD_ENDPOINT, editedCardObj: editedCardObj})
         .unwrap()
         .then(
           (currentCollection) => {
+            onChangeLoadingStatus(false)
             UseCurrentCollectionResponse(currentCollection, dispatch);
           },
           () => {

@@ -16,7 +16,7 @@ export interface InewCardForm {
     categoryRadioButtons: string,
 }
 
-export const useCreateNewCard = () => {
+export const useCreateNewCard = (onChangeLoadingStatus: (value: boolean)=> void) => {
     const dispatch = useAppDispatch();
     const currentUserId = useAppSelector(getUserIdSelector);
     const currentCollectionCategories = useAppSelector(getCurrentCollectionSelector).collectionСategories;
@@ -46,10 +46,13 @@ export const useCreateNewCard = () => {
             newCard: newCard,
         }
 
+        onChangeLoadingStatus(true)
+
         getCurrentCollectionAfterCreatingNewCardTriger({path:CREATE_NEW_CARD_ENDPOINT, newCardObj: newCardObj})
         .unwrap()
         .then(
           (currentCollection) => {
+            onChangeLoadingStatus(false)
             UseCurrentCollectionResponse(currentCollection, dispatch);
           },
           () => {

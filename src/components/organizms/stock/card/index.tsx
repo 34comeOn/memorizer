@@ -11,15 +11,18 @@ import { checkAdminPowers, getCurrentUserEmailFromLStorage } from '../../../../u
 import { getCurrentCollectionSelector } from '../../../../store/reducers/userCollectionsReducer';
 import { DeleteCardButton } from '../../../atoms/deleteCardButton';
 import { EditCardButton } from '../../../atoms/editCardButton';
+import { useRequestLoading } from '../../../../myHooks/useRequestLoading';
+import { CustomSpinner } from '../../../atoms/customSpinner';
 
 export const StockCardWindow = () => {
+    const {isLoading, onChangeLoadingStatus} = useRequestLoading();
     const currentUserEmailFromLStorage = getCurrentUserEmailFromLStorage();
     const currentCollectionAdminlist = useAppSelector(getCurrentCollectionSelector).collectionAdminList || '';
     const userHasAdminPowersForCollection = checkAdminPowers(currentUserEmailFromLStorage?? '', currentCollectionAdminlist?? []);
 
     const dispatch = useAppDispatch();
     const currentCard = useAppSelector(getCurrentCardSelector);
-    const onDoneClickHandle = useDoneClickButton(currentCard);
+    const onDoneClickHandle = useDoneClickButton(currentCard,onChangeLoadingStatus);
     const isAnswerVisible = useAppSelector(getAnswerVisibilitySelector);
 
     const onShowClickHandle= ()=> {
@@ -43,7 +46,8 @@ export const StockCardWindow = () => {
                 cardCategory={currentCard.collectionItemCategory?? ''} 
                 cardColor={currentCard.collectionItemColor?? ''} 
             />}
-                {userHasAdminPowersForCollection && <DeleteCardButton currentCard={currentCard} />}
+                <CustomSpinner isLoading={isLoading} />
+                {userHasAdminPowersForCollection && <DeleteCardButton currentCard={currentCard} onChangeLoadingStatus={onChangeLoadingStatus}/>}
             </div>
             <DoneButton onClick={onDoneClickHandle}/>
         </StyledCard>
