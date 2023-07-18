@@ -3,8 +3,8 @@ import { useDeleteCardButton } from "../../../myHooks/collectionHooks/useDeleteC
 import { TcollectionItemData } from "../../../utils/utils";
 import { StyledDeleteButton } from "../deleteButton/styledDeleteButton";
 
-export const DeleteCardButton = ({currentCard, onChangeLoadingStatus}: {currentCard: TcollectionItemData, onChangeLoadingStatus: (value: boolean)=> void}) => {
-    const onDeleteClickHandler = useDeleteCardButton(currentCard, onChangeLoadingStatus);
+export const DeleteCardButton = ({currentCard, onChangeLoadingStatus, openNotification}: {currentCard: TcollectionItemData, onChangeLoadingStatus: (value: boolean)=> void, openNotification: ((descriptionText: string) => void)}) => {
+    const onDeleteClickHandler = useDeleteCardButton(currentCard, onChangeLoadingStatus, openNotification);
     return(
         <StyledDeleteButton onClick={onDeleteClickHandler} />
     )

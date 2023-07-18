@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { EDIT_CARD_ENDPOINT, RADIO_BUTTON_NAME } from "../../constants/stringConstants";
+import { EDIT_CARD_ENDPOINT, RADIO_BUTTON_NAME, RESPONSE_ERROR_TEXT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
 import { getUserIdSelector } from "../../store/reducers/accountReducer";
 import { getCurrentCollectionSelector } from "../../store/reducers/userCollectionsReducer";
@@ -16,7 +16,7 @@ export interface IeditCardForm {
     categoryRadioButtons: string,
 }
 
-export const useEditCard = (_id: string, onChangeLoadingStatus: (value: boolean)=> void) => {
+export const useEditCard = (_id: string, onChangeLoadingStatus: (value: boolean)=> void, openNotification: ((descriptionText: string) => void)) => {
     const dispatch = useAppDispatch();
     const [getUpdatedCollectionAfterEditingCardTriger] = collectionDataAPI.usePutEditedCardMutation();
     const currentUserId = useAppSelector(getUserIdSelector);
@@ -57,7 +57,8 @@ export const useEditCard = (_id: string, onChangeLoadingStatus: (value: boolean)
             UseCurrentCollectionResponse(currentCollection, dispatch);
           },
           () => {
-            alert('something went wrong NEW COLLECTION')
+            onChangeLoadingStatus(false)
+            openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG)
           }
         );
     }

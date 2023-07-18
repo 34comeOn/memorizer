@@ -9,11 +9,14 @@ import { collectionFormValidationSchema } from "../../../validationSchemas";
 import { ValidationErrorBox } from "../../atoms/validationErrorBox";
 import { CustomSpinner } from "../../atoms/customSpinner";
 import { useRequestLoading } from "../../../myHooks/useRequestLoading";
+import { useWarningNotification } from "../../../myHooks/utillsHooks/useWarningNotification";
+import { RESPONSE_ERROR_TITLE } from "../../../constants/stringConstants";
 
 export const EditCollectionForm = () => {
     const {isLoading, onChangeLoadingStatus} = useRequestLoading();
+    const [contextHolder, openNotification] = useWarningNotification(RESPONSE_ERROR_TITLE.EDIT);
     const {_id, title, color} = useAppSelector(getEditCollectionSelector);
-    const onEditCollection = useEditCollection(_id, onChangeLoadingStatus);
+    const onEditCollection = useEditCollection(_id, onChangeLoadingStatus, openNotification as ((descriptionText: string) => void));
 
     return (
         <Formik 
@@ -31,25 +34,28 @@ export const EditCollectionForm = () => {
             {({errors, touched})=>{
                 return(
                     <Form className='edit-collection--form'>
-                        <FormInput 
-                            type='text' 
-                            name='title' 
-                            placeholder='' 
-                            labelValue='Change collection title'
-                        />
-                        {errors.title && touched.title ? (
-                            <ValidationErrorBox error={errors.title} />
-                        ) : null}
-                        <CustomSpinner isLoading={isLoading} />
-                        <FormInput 
-                            width='60px'
-                            type='color' 
-                            name='collectionColor' 
-                            labelValue='Change collection color'
-                        />
-                        <button className='edit-submit--button' type='submit'>
-                            Save changes
-                        </ button>
+                        <>
+                            {contextHolder}
+                            <FormInput 
+                                type='text' 
+                                name='title' 
+                                placeholder='' 
+                                labelValue='Change collection title'
+                            />
+                            {errors.title && touched.title ? (
+                                <ValidationErrorBox error={errors.title} />
+                            ) : null}
+                            <CustomSpinner isLoading={isLoading} />
+                            <FormInput 
+                                width='60px'
+                                type='color' 
+                                name='collectionColor' 
+                                labelValue='Change collection color'
+                            />
+                            <button className='edit-submit--button' type='submit'>
+                                Save changes
+                            </ button>
+                        </>
                     </Form>
                 )
             }}

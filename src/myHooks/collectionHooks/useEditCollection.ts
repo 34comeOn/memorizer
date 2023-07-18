@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { EDIT_COLLECTION_ENDPOINT } from "../../constants/stringConstants";
+import { EDIT_COLLECTION_ENDPOINT, RESPONSE_ERROR_TEXT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
 import { getUserIdSelector } from "../../store/reducers/accountReducer";
 import { hideModalWindow } from "../../store/reducers/modalWindowReducer";
@@ -16,7 +16,7 @@ export type TeditCollectionData = {
     collectionColor: string,
     collectionTitle: string,
   }
-export const useEditCollection = (_id: string, onChangeLoadingStatus: (value: boolean)=> void) => {
+export const useEditCollection = (_id: string, onChangeLoadingStatus: (value: boolean)=> void, openNotification: ((descriptionText: string) => void)) => {
     const dispatch = useAppDispatch();
     const [getAllCollectionsAfterEditingCollectionTriger] = collectionDataAPI.usePutEditedCollectionMutation();
     const currentUserId = useAppSelector(getUserIdSelector);
@@ -39,9 +39,9 @@ export const useEditCollection = (_id: string, onChangeLoadingStatus: (value: bo
             dispatch(setUserBasicCollectionsInfo(cutBasicUserCollectionsInfo(userCollections)));
             dispatch(hideModalWindow());
           },
-          (error) => {
-            alert('something went wrong NEW COLLECTION')
-            // error.status === 403? alert('E-mail or password does not match!') : alert('Ops! something went wrong')
+          () => {
+            onChangeLoadingStatus(false)
+            openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG)
           }
         );
     }

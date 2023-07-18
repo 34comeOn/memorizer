@@ -50,9 +50,8 @@ export const useCreateNewCollection = (onChangeLoadingStatus: (value: boolean) =
             dispatch(hideModalWindow());
           },
           (error) => {
-            // alert('something went wrong NEW COLLECTION')
-            onChangeLoadingStatus(false)
-            openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG)
+            onChangeLoadingStatus(false);
+            openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG);
             // error.status === 403? alert('E-mail or password does not match!') : alert('Ops! something went wrong')
           }
         );

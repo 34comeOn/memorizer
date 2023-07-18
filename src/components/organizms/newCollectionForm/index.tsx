@@ -13,7 +13,7 @@ import './style.scss';
 
 export const NewCollectionForm = () => {
     const {isLoading, onChangeLoadingStatus} = useRequestLoading();
-    const [contextHolder, openNotification] = useWarningNotification(RESPONSE_ERROR_TITLE.CREATE_NEW_COLLECTION, )
+    const [contextHolder, openNotification] = useWarningNotification(RESPONSE_ERROR_TITLE.CREATE_NEW_COLLECTION)
     
     const onCreateNewCollection = useCreateNewCollection(onChangeLoadingStatus, openNotification as ((descriptionText: string) => void));
 

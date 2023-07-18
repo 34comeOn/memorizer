@@ -66,9 +66,18 @@ export const FORGOT_PASSWORD_LINK = 'Forgot password?';
 export const FORGOT_PASSWORD_TEXT = 'If you do not remember password, we would send new password to your e-mail';
 
 export const RESPONSE_ERROR_TITLE = {
-    CREATE_NEW_COLLECTION: 'Не получилось создать новую коллекцию'
+    CREATE_NEW_COLLECTION: 'Не получилось создать новую коллекцию',
+    CREATE_NEW_CARD: 'Не получилось создать новую карточку',
+    EDIT: 'Изменения не сохранились',
+    CHOOSE_COLLECTION: 'Не удалось загрузить коллекцию',
+    DELETE: 'Не удалось удалить',
+    DONE: 'Не удалось сохранить прогресс',
+    SIGN_IN: 'Вход не выполнен',
+    SIGN_UP: 'Регистрация не выполнена',
 }
 
 export const RESPONSE_ERROR_TEXT = {
-    SOMETHING_WENT_WRONG: 'Что-то пошло не так...'
+    SOMETHING_WENT_WRONG: 'Что-то пошло не так...',
+    PASS_OR_EMAIL_NOT_MATCH: 'E-mail или пароль введен не верно',
+    EMAIL_ALREADY_EXIST: 'Пользователь с таким e-mail уже зарегистрирован',
 }

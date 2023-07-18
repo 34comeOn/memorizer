@@ -8,7 +8,7 @@ export const CustomSpinner = ({isLoading}: {isLoading: boolean}) => {
             {isLoading && <Spin 
             style={{position: 'absolute', top: '-30px', left: '190px', transform: 'scale(3)'}} 
             indicator={
-                <LoadingOutlined style={{ color: 'red' }} rev={undefined} />
+                <LoadingOutlined style={{ color: 'white' }} rev={undefined} />
             }
             size="large"/>}
         </div>

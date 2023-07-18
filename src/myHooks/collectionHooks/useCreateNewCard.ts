@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { CREATE_NEW_CARD_ENDPOINT, RADIO_BUTTON_NAME } from "../../constants/stringConstants";
+import { CREATE_NEW_CARD_ENDPOINT, RADIO_BUTTON_NAME, RESPONSE_ERROR_TEXT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
 import { getUserIdSelector } from "../../store/reducers/accountReducer";
 import { getCurrentCollectionSelector} from "../../store/reducers/userCollectionsReducer";
@@ -16,7 +16,7 @@ export interface InewCardForm {
     categoryRadioButtons: string,
 }
 
-export const useCreateNewCard = (onChangeLoadingStatus: (value: boolean)=> void) => {
+export const useCreateNewCard = (onChangeLoadingStatus: (value: boolean)=> void, openNotification: ((descriptionText: string) => void)) => {
     const dispatch = useAppDispatch();
     const currentUserId = useAppSelector(getUserIdSelector);
     const currentCollectionCategories = useAppSelector(getCurrentCollectionSelector).collectionСategories;
@@ -56,7 +56,8 @@ export const useCreateNewCard = (onChangeLoadingStatus: (value: boolean)=> void)
             UseCurrentCollectionResponse(currentCollection, dispatch);
           },
           () => {
-            alert('something went wrong NEW CARD')
+            onChangeLoadingStatus(false)
+            openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG)
           }
         );
     }

@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { RESPONSE_ERROR_TEXT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
 import { getUserIdSelector } from "../../store/reducers/accountReducer";
 import { hideCurrentCard } from "../../store/reducers/cardWindowReducer";
 import { UseChooseCollectionResponse } from "./useResponses/useChooseCollectionResponse";
 
-export const useChooseCollectionButton = (collectionId: string, onChangeLoadingStatus: (value: boolean)=> void ) => {
+export const useChooseCollectionButton = (collectionId: string, onChangeLoadingStatus: (value: boolean)=> void, openNotification: ((descriptionText: string) => void) ) => {
     const dispatch = useAppDispatch();
     const currentUserId = useAppSelector(getUserIdSelector);
     const [currentCollectionTriger] = collectionDataAPI.useGetCurrentCollectionToTrainMutation();
@@ -17,14 +18,17 @@ export const useChooseCollectionButton = (collectionId: string, onChangeLoadingS
         .unwrap()
         .then(
           (currentCollection) => {
-            onChangeLoadingStatus(false)
-            UseChooseCollectionResponse(currentCollection, dispatch)
+            onChangeLoadingStatus(false);
+            UseChooseCollectionResponse(currentCollection, dispatch);
           },
-          (error) => {
-            alert('something went wrongwith GET current COLLECTION')
-            // error.status === 403? alert('E-mail or password does not match!') : alert('Ops! something went wrong')
+          () => {
+            onChangeLoadingStatus(false);
+            openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG);
+            throw new Error();
           }
         )
-        .then(()=> navigate('/collection'))
+        .then(
+          () => navigate('/collection')
+        )
     }
 }    
