@@ -64,3 +64,11 @@ export const HIGHEST_REPEAT_TIMES = 6;
 
 export const FORGOT_PASSWORD_LINK = 'Forgot password?';
 export const FORGOT_PASSWORD_TEXT = 'If you do not remember password, we would send new password to your e-mail';
+
+export const RESPONSE_ERROR_TITLE = {
+    CREATE_NEW_COLLECTION: 'Не получилось создать новую коллекцию'
+}
+
+export const RESPONSE_ERROR_TEXT = {
+    SOMETHING_WENT_WRONG: 'Что-то пошло не так...'
+}

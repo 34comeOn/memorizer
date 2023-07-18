@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { CREATE_NEW_COLLECTION_ENDPOINT } from "../../constants/stringConstants";
+import { CREATE_NEW_COLLECTION_ENDPOINT, RESPONSE_ERROR_TEXT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
 import { getUserEmailSelector, getUserIdSelector } from "../../store/reducers/accountReducer";
 import { hideModalWindow } from "../../store/reducers/modalWindowReducer";
@@ -10,15 +10,18 @@ export interface InewCollectionForm {
     title: string, 
     collectionColor: string, 
 }
+
 export type TnewCollectionPostObject = {
     id: string, 
     newUserCollectionsData: TuserCollectionData[], 
 }
-export const useCreateNewCollection = (onChangeLoadingStatus: (value: boolean)=> void) => {
+
+export const useCreateNewCollection = (onChangeLoadingStatus: (value: boolean) => void, openNotification: ((descriptionText: string) => void)) => {
     const dispatch = useAppDispatch();
     const [getAllCollectionsAfterCreatingOneNewTriger] = collectionDataAPI.usePostNewCollectionMutation();
     const currentUserId = useAppSelector(getUserIdSelector);
     const currentUserEmail = useAppSelector(getUserEmailSelector);
+    
     
     return (values: InewCollectionForm) => {
 
@@ -47,7 +50,9 @@ export const useCreateNewCollection = (onChangeLoadingStatus: (value: boolean)=>
             dispatch(hideModalWindow());
           },
           (error) => {
-            alert('something went wrong NEW COLLECTION')
+            // alert('something went wrong NEW COLLECTION')
+            onChangeLoadingStatus(false)
+            openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG)
             // error.status === 403? alert('E-mail or password does not match!') : alert('Ops! something went wrong')
           }
         );
