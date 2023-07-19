@@ -19,7 +19,9 @@ import {
     TITLE_REGEX_WARNING,
     MAX_ANSWER_LENGTH,
     MAX_LENGTH_ANSWER_WARNING,
-    MAX_LENGTH_TITLE_WARNING} from '../constants/validationConstants';
+    MAX_LENGTH_TITLE_WARNING,
+    TEXT_AREA_REGEX,
+    TEXT_AREA_REGEX_WARNING} from '../constants/validationConstants';
 
 export const collectionFormValidationSchema = yup.object().shape({
     title: yup
@@ -42,7 +44,7 @@ export const cardFormValidationSchema = yup.object().shape({
     .string()
     .required(FIELD_REQUIRED_WARNING)
     .max(MAX_ANSWER_LENGTH, MAX_LENGTH_ANSWER_WARNING)
-    .matches(TITLE_REGEX, TITLE_REGEX_WARNING),
+    .matches(TEXT_AREA_REGEX, TEXT_AREA_REGEX_WARNING),
     collectionItemColor: yup
     .string(),
     cardSelectInput: yup

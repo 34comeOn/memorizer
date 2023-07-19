@@ -329,7 +329,7 @@ app.put('/api/edit-collection', (req, res)=> {
     .catch(err => console.log(err))
 })
 
-app.put('/api/edit-car', (req,res) => {
+app.put('/api/edit-card', (req,res) => {
     let {
         userId,
         collectionId,
