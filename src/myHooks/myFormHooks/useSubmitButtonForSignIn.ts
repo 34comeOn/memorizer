@@ -38,7 +38,7 @@ export const UseSubmitButtonToSignIn = (onChangeLoadingStatus: (value: boolean)=
           },
           (error) => {
             onChangeLoadingStatus(false)
-            if (error.status === 403) {
+            if (error.status === 400) {
               openNotification(RESPONSE_ERROR_TEXT.PASS_OR_EMAIL_NOT_MATCH)
             } else {
               openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG)

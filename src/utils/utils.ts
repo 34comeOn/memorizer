@@ -266,3 +266,58 @@ export const deliverBackgroundColorForContainer = (timesBeenRepeated: number) =>
         return variables.colorHighRepeatLevel;
     }
 }
+
+// const validateString = (str: string) => typeof str === 'string';
+// const validateBoolean = (bool: boolean) => typeof bool === 'boolean';
+// const validateWithRegEx = (str: string, regEx: RegExp) => regEx.test(str);
+
+// type TvalidationSchemaItem = [any, ((value: any) => boolean) | (( str: string, regEx: RegExp) => boolean), RegExp?];
+// type TvalidationSchema = TvalidationSchemaItem[];
+
+// const validationSchema: TvalidationSchema = [[' ',validateString],['rewr',validateWithRegEx, /^[A-Za-zA-Яа-яЁё,\s.'-]+$/],[true, validateBoolean] ]
+
+// export const validateAllRequestData = (validationSchema: TvalidationSchema) => {
+//     return validationSchema.every(validationItem => {
+//         const value = validationItem[0];
+//         const funcToValidateValue = validationItem[1];
+//         const regEx = validationItem[2]
+
+//         return regEx? funcToValidateValue( value, regEx): funcToValidateValue(value);
+//     })
+// }
+
+
+// console.log(validateAllRequestData(validationSchema))
+
+
+export function escapeJS(code: string) {
+    let escapeMap = {
+      "'": "\\'",
+      '"': '\\"',
+      '\\': '\\\\',
+      '\n': '\\n',
+      '\r': '\\r',
+      '\u2028': '\\u2028',
+      '\u2029': '\\u2029',
+    }
+    
+    return code.replace(
+      new RegExp(`[${Object.keys(escapeMap).join('')}]`, 'g'),
+      (character) => escapeMap[character as keyof typeof escapeMap]
+    )
+}
+
+export function escapeHtml(code: string) {
+    let escapeMap = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+      "/": '&#x2F;'
+    }
+    return code.replace(
+      new RegExp(`[${Object.keys(escapeMap).join('')}]`, 'g'),
+      (character) => escapeMap[character as keyof typeof escapeMap]
+    )
+}

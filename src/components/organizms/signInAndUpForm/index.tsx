@@ -37,7 +37,7 @@ export const SignInAndUpForm = () => {
                 isSignUpFormActive? onSignUpHandler: onSignInHandler
             }
         >
-            {({ errors, touched })=>{
+            {({ errors, touched, values })=>{
                 return(
                     <Form className='sign-in--form'>
                         <>
@@ -66,6 +66,7 @@ export const SignInAndUpForm = () => {
                             type='password'
                             name='password' 
                             labelValue='Password'
+                            value = {values.password}
                         />
                         <CustomSpinner isLoading={isLoading} />
                         {errors.password && touched.password ? (
@@ -76,6 +77,7 @@ export const SignInAndUpForm = () => {
                             type='password' 
                             name='confirmPassword' 
                             labelValue='Confirm password'
+                            value = {values.confirmPassword}
                         />}
                         {isSignUpFormActive && errors.confirmPassword && touched.confirmPassword ? (
                             <ValidationErrorBox error={errors.confirmPassword} />

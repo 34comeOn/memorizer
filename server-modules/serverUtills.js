@@ -1,15 +1,8 @@
-const UNPUNISHABLE_REPEAT_TIMES = 3;
-const MAX_PUNISHMENT_FOR_LATE_PRACTICE = 2;
-
-const REPEAT_TIMES_CONVERT_TO_POINTS = {
-    0: 0,
-    1: 1,
-    2: 4,
-    3: 8,
-    4: 12,
-    5: 24,
-    6: 72,
-  }
+const {
+    UNPUNISHABLE_REPEAT_TIMES,
+    REPEAT_TIMES_CONVERT_TO_POINTS,
+    MAX_PUNISHMENT_FOR_LATE_PRACTICE,
+} = require('./serverConstants');
 
 const getHoursSinceRepeat = (repeatedTimeStamp) => {
     const timeSinceRepeat = Date.now() - repeatedTimeStamp;
@@ -26,7 +19,7 @@ const countPunishmentPoints = (timesBeenRepeated, lastTimeRepeted) => {
     return punishPoints;
 }
 
-const getPunishmentForLatePractice = (timesBeenRepeated, lastTimeRepeted) => {
+exports.getPunishmentForLatePractice = (timesBeenRepeated, lastTimeRepeted) => {
     const newTimesBeenRepeated = timesBeenRepeated - countPunishmentPoints(timesBeenRepeated, lastTimeRepeted);
     if (timesBeenRepeated >= UNPUNISHABLE_REPEAT_TIMES) {
         return (newTimesBeenRepeated <= UNPUNISHABLE_REPEAT_TIMES? UNPUNISHABLE_REPEAT_TIMES: newTimesBeenRepeated); 
@@ -35,4 +28,18 @@ const getPunishmentForLatePractice = (timesBeenRepeated, lastTimeRepeted) => {
     return (newTimesBeenRepeated <= 0? 0: newTimesBeenRepeated);
 }
 
-module.exports = getPunishmentForLatePractice;
+exports.validateAllRequestData = (validationSchema) => {
+    return validationSchema.every(validationItem => {
+        const value = validationItem[0];
+        const funcToValidateValue = validationItem[1];
+        const regEx = validationItem[2]
+        console.log(regEx? funcToValidateValue( value, regEx): funcToValidateValue(value))
+        return regEx? funcToValidateValue( value, regEx): funcToValidateValue(value);
+    })
+}
+
+exports.validateString = (str) => typeof str === 'string';
+exports.validateBoolean = (bool) => typeof bool === 'boolean';
+exports.validateNumber = (number) => typeof number === 'number';
+exports.validateIsArray = (array) => Array.isArray(array);
+exports.validateWithRegEx = (val, regEx) => regEx.test(val);

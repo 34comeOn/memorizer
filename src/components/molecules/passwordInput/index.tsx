@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Field} from "formik";
+import { Field } from "formik";
 import './style.scss';
 import { IconButton } from "@mui/material";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
@@ -11,9 +11,10 @@ type TformInput = {
     placeholder?: string,
     width?: string,
     disabled?: boolean,
+    value: string
 };
 
-export const PasswordInput = ({labelValue, name, placeholder, type, width, disabled }: TformInput) => {
+export const PasswordInput = ({labelValue, name, placeholder, type, width, disabled, value }: TformInput) => {
     const [isPasswordShown, setIsPasswordShown] = useState(false);
     const handleMouseDown = (event: React.MouseEvent<HTMLButtonElement>) => event.preventDefault();
     const handleClickShowPassword = () => setIsPasswordShown(!isPasswordShown);
@@ -31,7 +32,7 @@ export const PasswordInput = ({labelValue, name, placeholder, type, width, disab
                 placeholder={placeholder} 
                 disabled={disabled || false}
                 />
-            <IconButton
+           {value && <IconButton
                   aria-label='toggle password visibility'
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDown}
@@ -44,7 +45,7 @@ export const PasswordInput = ({labelValue, name, placeholder, type, width, disab
                       ) : (
                           <EyeInvisibleOutlined rev={undefined}/>
                           )}
-            </IconButton>
+            </IconButton>}
         </ div>
     )
 }
