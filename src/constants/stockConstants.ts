@@ -39,6 +39,7 @@ export const STOCK_COLLECTION_ITEM = {
   collectionItemColor: 'red',
 }
 
+
 export const STOCK_BASIC_COLLECTION_INFO = {
   _id: '000',
   collectionColor: 'black',
@@ -50,13 +51,41 @@ export const STOCK_COLLECTION = {
   _id: '000',
   collectionColor:'',
   collectionImage: 'none',
-  collectionTitle: 'Train stock React collection',
+  collectionTitle: 'Testing',
   collectionAdminList: [],
   collectionСategories: [],
   collectionTags: [],
   collectionData: [STOCK_COLLECTION_ITEM],
 }
 
+export const STOCK_COLLECTION_ITEM_LOCAL_STORAGE = {
+  _id: '000',   
+  collectionItemTitle: 'What is the biggest lake in Africa?',
+  collectionItemAnswer: 'It is...',
+  collectionItemRepeatedTimeStamp: 1671420000000,
+  collectionItemTimesBeenRepeated: 0,
+  collectionItemCategory: 'africa',
+  collectionItemColor: 'red',
+}
+
+
+export const STOCK_BASIC_COLLECTION_INFO_LOCAL_STORAGE = {
+  _id: '000',
+  collectionColor: 'red',
+  collectionImage: 'none',
+  collectionTitle: 'Geography',
+}
+
+export const STOCK_COLLECTION_LOCAL_STORAGE = {
+  _id: '000',
+  collectionColor:'red',
+  collectionImage: 'none',
+  collectionTitle: 'Geography',
+  collectionAdminList: ['none'],
+  collectionСategories: [ {label:'africa', value:'africa',collectionCategoryColor: 'red'}, {label:'europe', value:'europe',collectionCategoryColor: 'green'}],
+  collectionTags: [],
+  collectionData: [STOCK_COLLECTION_ITEM_LOCAL_STORAGE],
+}
 
 export const STOCK_COLLECTIONS_DATA = [
   STOCK_COLLECTION
