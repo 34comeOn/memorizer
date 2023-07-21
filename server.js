@@ -193,7 +193,8 @@ app.post('/api/new-collection', (req, res)=>  {
 
     const validationSchema = [
         [id, validateString],
-        [newUserCollection, validateIsArray],
+        [newUserCollection.collectionColor, validateString],
+        [newUserCollection.collectionTitle, validateWithRegEx, TITLE_REGEX],
     ];
     
     if (!validateAllRequestData(validationSchema)) {

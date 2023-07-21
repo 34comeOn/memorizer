@@ -267,29 +267,6 @@ export const deliverBackgroundColorForContainer = (timesBeenRepeated: number) =>
     }
 }
 
-// const validateString = (str: string) => typeof str === 'string';
-// const validateBoolean = (bool: boolean) => typeof bool === 'boolean';
-// const validateWithRegEx = (str: string, regEx: RegExp) => regEx.test(str);
-
-// type TvalidationSchemaItem = [any, ((value: any) => boolean) | (( str: string, regEx: RegExp) => boolean), RegExp?];
-// type TvalidationSchema = TvalidationSchemaItem[];
-
-// const validationSchema: TvalidationSchema = [[' ',validateString],['rewr',validateWithRegEx, /^[A-Za-zA-Яа-яЁё,\s.'-]+$/],[true, validateBoolean] ]
-
-// export const validateAllRequestData = (validationSchema: TvalidationSchema) => {
-//     return validationSchema.every(validationItem => {
-//         const value = validationItem[0];
-//         const funcToValidateValue = validationItem[1];
-//         const regEx = validationItem[2]
-
-//         return regEx? funcToValidateValue( value, regEx): funcToValidateValue(value);
-//     })
-// }
-
-
-// console.log(validateAllRequestData(validationSchema))
-
-
 export function escapeJS(code: string) {
     let escapeMap = {
       "'": "\\'",
