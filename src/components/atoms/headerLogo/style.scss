@@ -1,0 +1,31 @@
+@import '/src/sass/variables.module.scss';
+@import '/src/sass/mixins.scss';
+
+.header--logo {
+    background-image: url('../../../accets/headerLogo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 2px solid white;
+    border-radius: 27%;
+    position: relative;
+}
+
+.header--logo::after  {
+    content: "";
+    position: absolute;
+    left: 105px;
+    display: block;
+    width: 268px;
+    height: 58px;
+    top: 24px;
+    background-image: url('../../../accets/logoText.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    @include vp-1023 {
+        width: 180px;
+        height: 20px;
+        top: 27px;
+        left: 86px;
+    } 
+}

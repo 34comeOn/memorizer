@@ -11,12 +11,12 @@ export const CollectionPage = () => {
     const accountStatus = useAppSelector(getAccountStatusSelector);
     const currentCollection = useAppSelector(getCurrentCollectionSelector);
     return(
-        <div style={{display: 'flex', flexDirection: 'column'}}>
+        <div className="collection-page--container">
             <h1 className='collection-page--caption'>
                 Now you are training {currentCollection.collectionTitle} collection
             </h1>
             {accountStatus && <AddNewCollectionItemButton />}
-            <div className='collection-page--container'>
+            <div className='collection-data--container'>
                 <div className='App--button__wrapper'>
                     <CheckboxList />
                 </div>
