@@ -266,35 +266,3 @@ export const deliverBackgroundColorForContainer = (timesBeenRepeated: number) =>
         return variables.colorHighRepeatLevel;
     }
 }
-
-export function escapeJS(code: string) {
-    let escapeMap = {
-      "'": "\\'",
-      '"': '\\"',
-      '\\': '\\\\',
-      '\n': '\\n',
-      '\r': '\\r',
-      '\u2028': '\\u2028',
-      '\u2029': '\\u2029',
-    }
-    
-    return code.replace(
-      new RegExp(`[${Object.keys(escapeMap).join('')}]`, 'g'),
-      (character) => escapeMap[character as keyof typeof escapeMap]
-    )
-}
-
-export function escapeHtml(code: string) {
-    let escapeMap = {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#39;',
-      "/": '&#x2F;'
-    }
-    return code.replace(
-      new RegExp(`[${Object.keys(escapeMap).join('')}]`, 'g'),
-      (character) => escapeMap[character as keyof typeof escapeMap]
-    )
-}

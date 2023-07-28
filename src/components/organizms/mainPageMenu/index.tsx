@@ -11,10 +11,10 @@ export const MainPageMenu = () => {
     const accountStatus = useAppSelector(getAccountStatusSelector);
     return(
         <StyledMainPageMenu className='menu-options--box' >
+                    <CreateNewCollectionButton disabled={!accountStatus} color={variables.colorDecorBright}>
+                        Create a new collection
+                    </ CreateNewCollectionButton>
                 <UserCollectionsList />
-                <CreateNewCollectionButton disabled={!accountStatus} color={variables.colorMenuDark}>
-                    Create a new collection
-                </ CreateNewCollectionButton>
         </ StyledMainPageMenu>
     )
 }

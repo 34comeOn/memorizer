@@ -19,6 +19,7 @@ const modalStyles = {
         transform: 'translate(-50%, -50%)',
         maxWidth: '800px',
         minHeight: 'min-content',
+        minWidth: 'min-content',
         backgroundColor: `${variables.colorBackgroundDark}`,
         borderRadius: '15px',
         padding: '20px',

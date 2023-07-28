@@ -10,4 +10,10 @@ export const StyledHeaderLogo = styled.div`
         width: 75px;
         height: 75px;
     }
+
+    @media ${device.tablet} { 
+        width: 60px;
+        height: 60px;
+        margin-bottom: 14px;
+    }
 `

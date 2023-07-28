@@ -1,4 +1,5 @@
 @import '/src/sass/variables.module.scss';
+@import '/src/sass/mixins.scss';
 
 .collection-page--container {
     display: flex;
@@ -16,4 +17,10 @@
     font-size: 52px;
     font-weight: 300;
     margin: 40px auto;
+    text-align: center;
+
+    @include vp-1023 {
+        font-size: 32px;
+        margin: 22px auto;
+    } 
 }

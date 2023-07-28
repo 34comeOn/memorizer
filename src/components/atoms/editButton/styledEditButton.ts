@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import variables from '../../../sass/variables.module.scss';
 import url from '../../../accets/buttons/edit.png';
+import { device } from '../../../global/theme/index';
 
 export const StyledEditButton = styled.button`
     height: 32px;
@@ -14,6 +15,12 @@ export const StyledEditButton = styled.button`
     top: 11px;
     left: 180px;
 
+    @media ${device.laptop} { 
+        height: 23px;
+        width: 23px;
+        left: 126px;
+    }
+
     &::after {
         content: "";
         position: absolute;
@@ -25,6 +32,12 @@ export const StyledEditButton = styled.button`
         background-image: url('${url}');
         background-size: contain;
         background-repeat: no-repeat;
+
+        @media ${device.laptop} { 
+            left: 2px;
+            width: 18px;
+            height: 18px;
+        }
     }
 
     &:hover {
