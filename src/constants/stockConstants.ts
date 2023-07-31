@@ -2,7 +2,6 @@ import { ThunkDispatch, CombinedState, AnyAction, Dispatch } from "@reduxjs/tool
 import { CombinedState as CombinedStateApi } from "@reduxjs/toolkit/dist/query/core/apiState";
 import { TgroupForRepeat } from "../store/reducers/collectionGroupsReducer";
 import { TcollectionItemData } from "../utils/utils";
-import { nanoid } from 'nanoid';
 
 type TRepeatTimesConvertToPoints = {
   [key: number]: number,
@@ -40,7 +39,7 @@ export const STOCK_COLLECTION_COLOR = '#0052C1';
 export const MAX_PUNISHMENT_FOR_LATE_PRACTICE = 2;
 
 export const STOCK_COLLECTION_ITEM = {
-  _id: nanoid(),   
+  _id: '000',   
   collectionItemTitle: 'Test',
   collectionItemAnswer: 'Answer',
   collectionItemRepeatedTimeStamp: 1671420000000,

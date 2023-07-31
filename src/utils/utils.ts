@@ -4,6 +4,9 @@ import { FIELD_REQUIRED_WARNING, MAX_LENGTH_TITLE, MAX_LENGTH_TITLE_WARNING, TIT
 import { InewCardForm } from "../myHooks/collectionHooks/useCreateNewCard";
 import { IsignInForm } from "../myHooks/myFormHooks/useSubmitButtonForSignUp";
 import variables from '../sass/variables.module.scss';
+import { countItemPoints } from "./countItemPoints";
+import { getHoursSinceRepeat } from "./getHoursSinceRepeat";
+import { getItemPoints } from "./getItemPoints";
 
 export type TbasicCollectionInfo = {
     '_id'?: string,
@@ -64,20 +67,6 @@ export type Tuser = {
     userCollectionsData: TuserCollectionData[],
 }
 
-const getHoursSinceRepeat = (repeatedTimeStamp: number) => {
-    const timeSinceRepeat = Date.now() - repeatedTimeStamp;
-    return Math.floor(timeSinceRepeat/ (1000*60*60));
-}
-
-const countItemPoints = (repeatPoints: number, hours: number) => repeatPoints - hours;
-
-const getItemPoints = (item: TcollectionItemData) => {
-  const itemHours: number = getHoursSinceRepeat(item.collectionItemRepeatedTimeStamp ?? 0)
-  console.log(REPEAT_TIMES_CONVERT_TO_POINTS[item.collectionItemTimesBeenRepeated])
-  console.log(countItemPoints(REPEAT_TIMES_CONVERT_TO_POINTS[item.collectionItemTimesBeenRepeated], itemHours))
-  return countItemPoints(REPEAT_TIMES_CONVERT_TO_POINTS[item.collectionItemTimesBeenRepeated], itemHours)
-}
-
 const pullFiltersTitlesFromData = (item: TcollectionItemData,filtersArray: string[]) => {
     if (item.collectionItemCategory && !filtersArray.includes(item.collectionItemCategory)) {
         filtersArray.push(item.collectionItemCategory)
@@ -93,18 +82,20 @@ const sortItemInGroup = (item: TcollectionItemData,
     repeatIn24HoursGroup: TcollectionItemData[],
     repeatIn3DaysGroup: TcollectionItemData[],
     ) => {
-    console.log(getItemPoints(item))
-    if (getItemPoints(item) <= 0) {
+    
+    const itemPoints = getItemPoints(item.collectionItemRepeatedTimeStamp, item.collectionItemTimesBeenRepeated)
+
+    if (itemPoints <= 0) {
         repeatNowGroup.push(item)
-    } else if (getItemPoints(item) <= 1) {
+    } else if (itemPoints <= 1) {
         repeatIn1HourGroup.push(item)
-    } else if (getItemPoints(item) <= 4) {
+    } else if (itemPoints <= 4) {
         repeatIn4HoursGroup.push(item)
-    } else if (getItemPoints(item) <= 8) {
+    } else if (itemPoints <= 8) {
         repeatIn8HoursGroup.push(item)
-    } else if (getItemPoints(item) <= 12) {
+    } else if (itemPoints <= 12) {
         repeatIn12HoursGroup.push(item)
-    } else if (getItemPoints(item) <= 24) {
+    } else if (itemPoints <= 24) {
         repeatIn24HoursGroup.push(item)
     } else {
         repeatIn3DaysGroup.push(item)

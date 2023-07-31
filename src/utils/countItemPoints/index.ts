@@ -1,0 +1,1 @@
+export const countItemPoints = (repeatPoints: number, hours: number) => repeatPoints - hours;
