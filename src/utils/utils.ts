@@ -1,4 +1,4 @@
-import { MAX_PUNISHMENT_FOR_LATE_PRACTICE, REPEAT_TIMES_CONVERT_TO_POINTS, STOCK_USER } from "../constants/stockConstants";
+import { MAX_PUNISHMENT_FOR_LATE_PRACTICE, PUNISHMENT_REPEAT_TIMES_CONVERT_TO_POINTS, REPEAT_TIMES_CONVERT_TO_POINTS, STOCK_USER } from "../constants/stockConstants";
 import { HIGHEST_REPEAT_TIMES, LOCAL_STORAGE_KEYS_CONSTANTS, RADIO_BUTTON_NAME, UNPUNISHABLE_REPEAT_TIMES } from "../constants/stringConstants";
 import { FIELD_REQUIRED_WARNING, MAX_LENGTH_TITLE, MAX_LENGTH_TITLE_WARNING, TITLE_REGEX, TITLE_REGEX_WARNING } from "../constants/validationConstants";
 import { InewCardForm } from "../myHooks/collectionHooks/useCreateNewCard";
@@ -73,6 +73,8 @@ const countItemPoints = (repeatPoints: number, hours: number) => repeatPoints - 
 
 const getItemPoints = (item: TcollectionItemData) => {
   const itemHours: number = getHoursSinceRepeat(item.collectionItemRepeatedTimeStamp ?? 0)
+  console.log(REPEAT_TIMES_CONVERT_TO_POINTS[item.collectionItemTimesBeenRepeated])
+  console.log(countItemPoints(REPEAT_TIMES_CONVERT_TO_POINTS[item.collectionItemTimesBeenRepeated], itemHours))
   return countItemPoints(REPEAT_TIMES_CONVERT_TO_POINTS[item.collectionItemTimesBeenRepeated], itemHours)
 }
 
@@ -91,7 +93,7 @@ const sortItemInGroup = (item: TcollectionItemData,
     repeatIn24HoursGroup: TcollectionItemData[],
     repeatIn3DaysGroup: TcollectionItemData[],
     ) => {
-    
+    console.log(getItemPoints(item))
     if (getItemPoints(item) <= 0) {
         repeatNowGroup.push(item)
     } else if (getItemPoints(item) <= 1) {
@@ -150,7 +152,7 @@ export const spreadCollectionData = (dataBase: TcollectionItemData[]) => {
 export const countPunishmentPoints = (timesBeenRepeated: number, lastTimeRepeted: number) => {
     let punishPoints = 0;
     for (let i = 0; i <= MAX_PUNISHMENT_FOR_LATE_PRACTICE; i++) {
-        if ((getHoursSinceRepeat(lastTimeRepeted) - REPEAT_TIMES_CONVERT_TO_POINTS[timesBeenRepeated - i]?? 0) >= 1) {
+        if ((getHoursSinceRepeat(lastTimeRepeted) - PUNISHMENT_REPEAT_TIMES_CONVERT_TO_POINTS[timesBeenRepeated - i]?? 0) >= 1) {
             punishPoints += 1;
         } 
     }
@@ -170,6 +172,36 @@ export const updateTimesBeenRepeated = (currentTimesBeenRepeated: number) => {
     const HighestTimesBeenRepeatedNumber = Object.keys(REPEAT_TIMES_CONVERT_TO_POINTS).length-1;
     return currentTimesBeenRepeated >= HighestTimesBeenRepeatedNumber? HighestTimesBeenRepeatedNumber: currentTimesBeenRepeated + 1;
 }
+
+// type TRepeatTimesConvertToPoints = {
+//     [key: number]: number,
+//   }
+
+// const convertHoursToSeconds = (hours: number) => {
+//     return hours*1000*60*60;
+// }
+
+// const PUNISHMENT_REPEAT_POINTS:TRepeatTimesConvertToPoints = {
+//     0: 1,
+//     1: 2,
+//     2: 8,
+//     3: 16,
+//     4: 30,
+//     5: 60,
+//     6: 140,
+//   }
+
+// export const countCompensationTimeDueToPunishment = (timesBeenRepeated: number, punishPoints: number) => {
+//     let payOffTime: number = 0;
+
+//     for (let k = 1; k <= punishPoints; k++) {
+//         payOffTime += PUNISHMENT_REPEAT_POINTS[timesBeenRepeated + 1 - k]
+//     }
+
+//     return convertHoursToSeconds(payOffTime);
+// }
+
+// countCompensationTimeDueToPunishment(2,1)
 
 export const modifyUserSignUpInfoForDataBase = (valuesFromForm: IsignInForm) => {
     return {

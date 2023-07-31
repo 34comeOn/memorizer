@@ -20,6 +20,16 @@ export const REPEAT_TIMES_CONVERT_TO_POINTS: TRepeatTimesConvertToPoints = {
   6: 72,
 }
 
+export const PUNISHMENT_REPEAT_TIMES_CONVERT_TO_POINTS: TRepeatTimesConvertToPoints = {
+  0: 1,
+  1: 2,
+  2: 8,
+  3: 16,
+  4: 30,
+  5: 60,
+  6: 140,
+}
+
 export const AUTO_HIDE_DURATION = {
   PUNISHMENT: 6000,
   PROGRESS: 2000,

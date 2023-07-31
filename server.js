@@ -10,6 +10,7 @@ const {
     validateNumber,
     validateIsArray,
     validateWithRegEx,
+    countCompensationTimeDueToPunishment,
 } = require('./server-modules/serverUtills');
 const { 
     NAME_REGEX,
@@ -92,7 +93,7 @@ app.get('/choose-collection/:id/:user', (req, res)=> {
                 const timesBeenRepeatedAfterPunish =  getPunishmentForLatePractice(timesBeenRepeated, timeStamp)
 
                 if (card.collectionItemTimesBeenRepeated !== timesBeenRepeatedAfterPunish) {
-                    card.collectionItemRepeatedTimeStamp = Date.now();
+                    card.collectionItemRepeatedTimeStamp += countCompensationTimeDueToPunishment(card.collectionItemTimesBeenRepeated,card.collectionItemTimesBeenRepeated - timesBeenRepeatedAfterPunish);
                 }
 
                 card.collectionItemTimesBeenRepeated = timesBeenRepeatedAfterPunish;

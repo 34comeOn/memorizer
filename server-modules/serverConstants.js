@@ -15,3 +15,13 @@ exports.REPEAT_TIMES_CONVERT_TO_POINTS = {
     5: 24,
     6: 72,
 }
+
+exports.PUNISHMENT_REPEAT_TIMES_CONVERT_TO_POINTS = {
+    0: 1,
+    1: 2,
+    2: 8,
+    3: 16,
+    4: 30,
+    5: 60,
+    6: 140,
+}
