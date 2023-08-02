@@ -20,13 +20,13 @@ export const REPEAT_TIMES_CONVERT_TO_POINTS: TRepeatTimesConvertToPoints = {
 }
 
 export const PUNISHMENT_REPEAT_TIMES_CONVERT_TO_POINTS: TRepeatTimesConvertToPoints = {
-  0: 1,
-  1: 2,
-  2: 8,
-  3: 16,
-  4: 30,
-  5: 60,
-  6: 140,
+  0: 0,
+  1: 0,
+  2: 2,
+  3: 3,
+  4: 3,
+  5: 11,
+  6: 46,
 }
 
 export const AUTO_HIDE_DURATION = {
@@ -150,3 +150,5 @@ export const NAVIGATION_ITEMS: TnavigationItem[] = [
 ];
 
 export const MAX_REPEATLIST_ITEM_TITLE_LENGTH = 46;
+
+export const ONE_HOUR_IN_MILLISECONDS = 3600000

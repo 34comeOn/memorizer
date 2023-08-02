@@ -143,7 +143,8 @@ export const spreadCollectionData = (dataBase: TcollectionItemData[]) => {
 export const countPunishmentPoints = (timesBeenRepeated: number, lastTimeRepeted: number) => {
     let punishPoints = 0;
     for (let i = 0; i <= MAX_PUNISHMENT_FOR_LATE_PRACTICE; i++) {
-        if ((getHoursSinceRepeat(lastTimeRepeted) - PUNISHMENT_REPEAT_TIMES_CONVERT_TO_POINTS[timesBeenRepeated - i]?? 0) >= 1) {
+        if ((getHoursSinceRepeat(lastTimeRepeted) - (PUNISHMENT_REPEAT_TIMES_CONVERT_TO_POINTS[timesBeenRepeated - i]?? 0)) >= 1) {
+            console.log(PUNISHMENT_REPEAT_TIMES_CONVERT_TO_POINTS[timesBeenRepeated - i]?? 0)
             punishPoints += 1;
         } 
     }
@@ -193,16 +194,6 @@ export const updateTimesBeenRepeated = (currentTimesBeenRepeated: number) => {
 // }
 
 // countCompensationTimeDueToPunishment(2,1)
-
-export const modifyUserSignUpInfoForDataBase = (valuesFromForm: IsignInForm) => {
-    return {
-        email: valuesFromForm.email,
-        password: valuesFromForm.password,
-        name: valuesFromForm.userName,
-        currentCollection: '',
-        userCollectionsData: [], 
-    }
-}
 
 export const getAllCurrentUserData = (userEmail: string) => {
     return JSON.parse(localStorage.getItem(userEmail)?? JSON.stringify(STOCK_USER));

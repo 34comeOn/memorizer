@@ -13,7 +13,7 @@ const getHoursSinceRepeat = (repeatedTimeStamp) => {
 const countPunishmentPoints = (timesBeenRepeated, lastTimeRepeted) => {
     let punishPoints = 0;
     for (let i = 0; i <= MAX_PUNISHMENT_FOR_LATE_PRACTICE; i++) {
-        if ((getHoursSinceRepeat(lastTimeRepeted) - PUNISHMENT_REPEAT_TIMES_CONVERT_TO_POINTS[timesBeenRepeated - i]?? 0) >= 1) {
+        if ((getHoursSinceRepeat(lastTimeRepeted) - (REPEAT_TIMES_CONVERT_TO_POINTS[timesBeenRepeated - i]?? 0)) >= 1) {
             punishPoints += 1;
         } 
     }
@@ -48,7 +48,7 @@ exports.countCompensationTimeDueToPunishment = (timesBeenRepeated, punishPoints)
     let compensationTime = 0;
 
     for (let k = 1; k <= punishPoints; k++) {
-        compensationTime += REPEAT_TIMES_CONVERT_TO_POINTS[timesBeenRepeated + 1 - k]
+        compensationTime += PUNISHMENT_REPEAT_TIMES_CONVERT_TO_POINTS[timesBeenRepeated + 1 - k]
     }
     
     return convertHoursToSeconds(compensationTime);
