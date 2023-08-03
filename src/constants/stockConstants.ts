@@ -3,31 +3,43 @@ import { CombinedState as CombinedStateApi } from "@reduxjs/toolkit/dist/query/c
 import { TgroupForRepeat } from "../store/reducers/collectionGroupsReducer";
 import { TcollectionItemData } from "../utils/utils";
 
+export type Tdispatch = ThunkDispatch<CombinedState<{ accountSlice: { isAuthorized: boolean; userName: string; userEmail: string; }; collectionFiltersSlice: { filtersList: string[]; listOfCurrentFilters: string[]; }; collectionGroupsSlice: { repeatGroups: TgroupForRepeat[]; }; cardWindowSlice: { currentCard: TcollectionItemData; isCurrentCardVisible: boolean; isAnswerVisible: boolean; }; userCollectionsSlice: { allUserCollections: { _id: string; title: string; data: TcollectionItemData[]; }[]; }; rootAPI: CombinedStateApi<{}, never, "rootAPI">; }>, undefined, AnyAction> & Dispatch<AnyAction>
+
+
 type TRepeatTimesConvertToPoints = {
   [key: number]: number,
 }
 
-export type Tdispatch = ThunkDispatch<CombinedState<{ accountSlice: { isAuthorized: boolean; userName: string; userEmail: string; }; collectionFiltersSlice: { filtersList: string[]; listOfCurrentFilters: string[]; }; collectionGroupsSlice: { repeatGroups: TgroupForRepeat[]; }; cardWindowSlice: { currentCard: TcollectionItemData; isCurrentCardVisible: boolean; isAnswerVisible: boolean; }; userCollectionsSlice: { allUserCollections: { _id: string; title: string; data: TcollectionItemData[]; }[]; }; rootAPI: CombinedStateApi<{}, never, "rootAPI">; }>, undefined, AnyAction> & Dispatch<AnyAction>
+export const PERIODS_OF_PRACRICE = {
+  NO_PRACTICE: 0,
+  FIRST_PRACRICE: 1, 
+  SECOND_PRACRICE: 4, 
+  THIRD_PRACRICE: 8, 
+  FOURTH_PRACRICE: 12, 
+  FIFTH_PRACRICE: 24, 
+  SIXTH_PRACRICE: 72, 
+}
 
 export const REPEAT_TIMES_CONVERT_TO_POINTS: TRepeatTimesConvertToPoints = {
-  0: 0,
-  1: 1,
-  2: 4,
-  3: 8,
-  4: 12,
-  5: 24,
-  6: 72,
+  0: PERIODS_OF_PRACRICE.NO_PRACTICE,
+  1: PERIODS_OF_PRACRICE.FIRST_PRACRICE,
+  2: PERIODS_OF_PRACRICE.SECOND_PRACRICE,
+  3: PERIODS_OF_PRACRICE.THIRD_PRACRICE,
+  4: PERIODS_OF_PRACRICE.FOURTH_PRACRICE,
+  5: PERIODS_OF_PRACRICE.FIFTH_PRACRICE,
+  6: PERIODS_OF_PRACRICE.SIXTH_PRACRICE,
 }
 
-export const PUNISHMENT_REPEAT_TIMES_CONVERT_TO_POINTS: TRepeatTimesConvertToPoints = {
-  0: 0,
-  1: 0,
-  2: 2,
-  3: 3,
-  4: 3,
-  5: 11,
-  6: 46,
+export const PUNISHMENT_POINTS_CONVERTED_FROM_REPEAT_TIMES: TRepeatTimesConvertToPoints = {
+  0: PERIODS_OF_PRACRICE.NO_PRACTICE,
+  1: PERIODS_OF_PRACRICE.FIRST_PRACRICE,
+  2: PERIODS_OF_PRACRICE.FIRST_PRACRICE + PERIODS_OF_PRACRICE.SECOND_PRACRICE,
+  3: PERIODS_OF_PRACRICE.FIRST_PRACRICE + PERIODS_OF_PRACRICE.SECOND_PRACRICE + PERIODS_OF_PRACRICE.THIRD_PRACRICE,
+  4: PERIODS_OF_PRACRICE.FIRST_PRACRICE + PERIODS_OF_PRACRICE.SECOND_PRACRICE + PERIODS_OF_PRACRICE.THIRD_PRACRICE + PERIODS_OF_PRACRICE.FOURTH_PRACRICE,
+  5: PERIODS_OF_PRACRICE.FIRST_PRACRICE + PERIODS_OF_PRACRICE.SECOND_PRACRICE + PERIODS_OF_PRACRICE.THIRD_PRACRICE + PERIODS_OF_PRACRICE.FOURTH_PRACRICE + PERIODS_OF_PRACRICE.FIFTH_PRACRICE,
+  6: PERIODS_OF_PRACRICE.FIRST_PRACRICE + PERIODS_OF_PRACRICE.SECOND_PRACRICE + PERIODS_OF_PRACRICE.THIRD_PRACRICE + PERIODS_OF_PRACRICE.FOURTH_PRACRICE + PERIODS_OF_PRACRICE.FIFTH_PRACRICE + PERIODS_OF_PRACRICE.SIXTH_PRACRICE,
 }
+
 
 export const AUTO_HIDE_DURATION = {
   PUNISHMENT: 6000,
