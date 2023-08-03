@@ -29,6 +29,7 @@ export const useEditCard = (_id: string, onChangeLoadingStatus: (value: boolean)
             collectionItemAnswer: values.cardAnswer,
             collectionItemRepeatedTimeStamp: 1671420000000,
             collectionItemTimesBeenRepeated: 0,
+            collectionItemPenaltyCount: 0,
             collectionItemCategory: '',
             collectionItemColor: '',
             collectionItemTags: values.cardTags,

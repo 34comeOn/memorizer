@@ -4,20 +4,27 @@ const mongoose = require('mongoose');
 const User = require('./models/user');
 const {
     validateAllRequestData, 
-    getPunishmentForLatePractice,
+    // getPunishmentForLatePractice,
     validateString,
     validateBoolean,
     validateNumber,
     validateIsArray,
     validateWithRegEx,
-    countCompensationTimeDueToPunishment,
+    getPenaltyForLatePractice,
+    convertHoursToSeconds,
 } = require('./server-modules/serverUtills');
 const { 
     NAME_REGEX,
     SERVER_PASSWORD_REGEX, 
     TITLE_REGEX,
     TEXT_AREA_REGEX,
+    UNPUNISHABLE_REPEAT_TIMES,
 } = require('./server-modules/serverConstants');
+
+const getHoursSinceRepeat = (repeatedTimeStamp) => {
+    const timeSinceRepeat = Date.now() - repeatedTimeStamp;
+    return Math.floor(timeSinceRepeat/ (1000*60*60));
+}
 
 const db = 'mongodb+srv://barabanovm:Noway-2steal@cluster2.d7n5n2k.mongodb.net/?retryWrites=true&w=majority';
 
@@ -85,19 +92,18 @@ app.get('/choose-collection/:id/:user', (req, res)=> {
         User.findById(currentUserId)
         .then(allUserData=> {
             const collectionBeforePunishingForLatePractice = allUserData.userCollectionsData.find(collection => collection._id.toString() === collectionId);
-            res.send(collectionBeforePunishingForLatePractice);
             
             let punishedCollectionData = collectionBeforePunishingForLatePractice.collectionData.map((card) => {
                 const timesBeenRepeated = card.collectionItemTimesBeenRepeated;
-                const timeStamp = card.collectionItemRepeatedTimeStamp;
-                const timesBeenRepeatedAfterPunish =  getPunishmentForLatePractice(timesBeenRepeated, timeStamp)
+                const hoursSinceLastPractice = getHoursSinceRepeat(card.collectionItemRepeatedTimeStamp);
+                const {penaltyCount, addingHoursDueToPenalty} = getPenaltyForLatePractice(hoursSinceLastPractice, timesBeenRepeated, UNPUNISHABLE_REPEAT_TIMES);
+                
+                
+                card.collectionItemTimesBeenRepeated = timesBeenRepeated - penaltyCount;
+                card.collectionItemRepeatedTimeStamp += convertHoursToSeconds(addingHoursDueToPenalty);
 
-                if (card.collectionItemTimesBeenRepeated !== timesBeenRepeatedAfterPunish) {
-                    card.collectionItemRepeatedTimeStamp += countCompensationTimeDueToPunishment(card.collectionItemTimesBeenRepeated,card.collectionItemTimesBeenRepeated - timesBeenRepeatedAfterPunish);
-                }
-
-                card.collectionItemTimesBeenRepeated = timesBeenRepeatedAfterPunish;
-
+                card.collectionItemPenaltyCount = penaltyCount;
+                
                 return card
             })
 
@@ -105,7 +111,7 @@ app.get('/choose-collection/:id/:user', (req, res)=> {
                 {_id: currentUserId, 
                     'userCollectionsData': {
                         '$elemMatch': {
-                        '_id': collectionId,
+                            '_id': collectionId,
                         }
                     }
                 },
@@ -125,6 +131,10 @@ app.get('/choose-collection/:id/:user', (req, res)=> {
             .catch(err => console.log(err))
 
 
+        })
+        .then(()=> {
+            User.findById(currentUserId)
+            .then(result=> res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId)))
         })
         .catch(err=> console.log(err))
     }    

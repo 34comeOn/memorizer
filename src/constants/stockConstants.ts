@@ -56,6 +56,7 @@ export const STOCK_COLLECTION_ITEM = {
   collectionItemAnswer: 'Answer',
   collectionItemRepeatedTimeStamp: 1671420000000,
   collectionItemTimesBeenRepeated: 0,
+  collectionItemPenaltyCount: 0,
   collectionItemCategory: 'stock-item--category',
   collectionItemColor: 'red',
 }
@@ -85,6 +86,7 @@ export const STOCK_COLLECTION_ITEM_LOCAL_STORAGE = {
   collectionItemAnswer: 'It is...',
   collectionItemRepeatedTimeStamp: 1671420000000,
   collectionItemTimesBeenRepeated: 0,
+  collectionItemPenaltyCount: 0,
   collectionItemCategory: 'africa',
   collectionItemColor: 'red',
 }

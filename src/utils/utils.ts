@@ -28,6 +28,7 @@ export type TcollectionItemData = {
     collectionItemAnswer: string,
     collectionItemRepeatedTimeStamp: number,
     collectionItemTimesBeenRepeated: number,
+    collectionItemPenaltyCount: number,
     collectionItemCategory?: string,
     collectionItemColor?: string,
     collectionItemPriority?: number,

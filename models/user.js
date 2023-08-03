@@ -56,6 +56,10 @@ const CollectionDataSchema = new Schema({
         type: Number,
         required: true
     },
+    collectionItemPenaltyCount: {
+        type: Number,
+        required: true
+    },
     collectionItemCategory: {
         type: String,
     },

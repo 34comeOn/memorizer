@@ -11,8 +11,9 @@ export const RepeatCounter = ({item}: {item: TcollectionItemData}) => {
     const [open, setOpen] = useState(false);
     const dispatch = useAppDispatch();
 
-    const timesBeenRepeatedAfterPunishment = getPunishmentForLatePractice(item.collectionItemTimesBeenRepeated, item.collectionItemRepeatedTimeStamp);
-    const timesRepeatedDiffer = item.collectionItemTimesBeenRepeated - timesBeenRepeatedAfterPunishment;
+    const penaltyCount = item.collectionItemPenaltyCount;
+    // const timesBeenRepeatedAfterPunishment = getPunishmentForLatePractice(item.collectionItemTimesBeenRepeated, item.collectionItemRepeatedTimeStamp);
+    // const timesRepeatedDiffer = item.collectionItemTimesBeenRepeated - timesBeenRepeatedAfterPunishment;
     const trainedCardId = useAppSelector(getTrainedCardIdSelector);
 
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
@@ -28,14 +29,14 @@ export const RepeatCounter = ({item}: {item: TcollectionItemData}) => {
     }, [])
 
     return(
-        <StyledRrepeatContainer containerBackgroundColor={deliverBackgroundColorForContainer(timesBeenRepeatedAfterPunishment) || 'rgb(218 51 51)'}>
-            {timesBeenRepeatedAfterPunishment}
-                {(timesRepeatedDiffer > 0) && <Snackbar style={{position: 'absolute', top: '10px'}} 
+        <StyledRrepeatContainer containerBackgroundColor={deliverBackgroundColorForContainer(item.collectionItemTimesBeenRepeated) || 'rgb(218 51 51)'}>
+            {item.collectionItemTimesBeenRepeated}
+                {(penaltyCount > 0) && <Snackbar style={{position: 'absolute', top: '10px'}} 
                 open={open} 
                 autoHideDuration={AUTO_HIDE_DURATION.PUNISHMENT} 
                 onClose={handleClose}>
                     <div className="update-info--box update-info--box__get-punishment">
-                        -{timesRepeatedDiffer}
+                        -{penaltyCount}
                     </div>
                 </Snackbar>}
                 {(item._id === trainedCardId) && <Snackbar style={{position: 'absolute', top: '10px'}} 
