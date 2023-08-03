@@ -5,7 +5,12 @@ import { editCard, TeditCard } from "../../../store/reducers/editReducer";
 import { setContentForModalWindow, showModalWindow } from "../../../store/reducers/modalWindowReducer";
 import { StyledEditButton } from "../editButton/styledEditButton";
 
-export const EditCardButton = ({_id, cardTitle, cardAnswer, cardCategory, cardColor}: TeditCard) => {
+export const EditCardButton = ({
+    _id, 
+    cardTitle, 
+    cardAnswer, 
+    cardCategory, 
+    cardColor}: TeditCard) => {
     const dispatch = useDispatch();
 
     return(

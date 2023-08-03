@@ -3,7 +3,7 @@ import { EDIT_CARD_ENDPOINT, RADIO_BUTTON_NAME, RESPONSE_ERROR_TEXT } from "../.
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
 import { getUserIdSelector } from "../../store/reducers/accountReducer";
 import { getCurrentCollectionSelector } from "../../store/reducers/userCollectionsReducer";
-import { checkTitleExclusivity, setCategoryInCardObj, TcollectionItemData, TcollectionTag } from "../../utils/utils";
+import { checkTitleExclusivity, setCategoryInCardObj, TcollectionTag, TeditCollectionItemData } from "../../utils/utils";
 import { UseCurrentCollectionResponse } from "./useResponses/useCurrentCollectionResponse";
 
 export interface IeditCardForm {
@@ -24,12 +24,9 @@ export const useEditCard = (_id: string, onChangeLoadingStatus: (value: boolean)
     const currentCollectionCategories = useAppSelector(getCurrentCollectionSelector).collectionСategories;
     
     return (values: IeditCardForm) => {
-        const editedCard: TcollectionItemData = {
+        const editedCard: TeditCollectionItemData = {
             collectionItemTitle: values.cardTitle,
             collectionItemAnswer: values.cardAnswer,
-            collectionItemRepeatedTimeStamp: 1671420000000,
-            collectionItemTimesBeenRepeated: 0,
-            collectionItemPenaltyCount: 0,
             collectionItemCategory: '',
             collectionItemColor: '',
             collectionItemTags: values.cardTags,

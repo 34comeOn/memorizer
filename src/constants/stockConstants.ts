@@ -57,6 +57,7 @@ export const STOCK_COLLECTION_ITEM = {
   collectionItemRepeatedTimeStamp: 1671420000000,
   collectionItemTimesBeenRepeated: 0,
   collectionItemPenaltyCount: 0,
+  collectionItemInvincibleCount: 0,
   collectionItemCategory: 'stock-item--category',
   collectionItemColor: 'red',
 }
@@ -87,6 +88,7 @@ export const STOCK_COLLECTION_ITEM_LOCAL_STORAGE = {
   collectionItemRepeatedTimeStamp: 1671420000000,
   collectionItemTimesBeenRepeated: 0,
   collectionItemPenaltyCount: 0,
+  collectionItemInvincibleCount: 0,
   collectionItemCategory: 'africa',
   collectionItemColor: 'red',
 }
@@ -165,4 +167,6 @@ export const NAVIGATION_ITEMS: TnavigationItem[] = [
 
 export const MAX_REPEATLIST_ITEM_TITLE_LENGTH = 46;
 
-export const ONE_HOUR_IN_MILLISECONDS = 3600000
+export const ONE_HOUR_IN_MILLISECONDS = 3600000;
+
+export const REPEAT_TIMES_MAY_BE_LOST = 2;

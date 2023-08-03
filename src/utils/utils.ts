@@ -2,9 +2,7 @@ import { MAX_PUNISHMENT_FOR_LATE_PRACTICE, PERIODS_OF_PRACRICE, PUNISHMENT_POINT
 import { HIGHEST_REPEAT_TIMES, LOCAL_STORAGE_KEYS_CONSTANTS, RADIO_BUTTON_NAME, UNPUNISHABLE_REPEAT_TIMES } from "../constants/stringConstants";
 import { FIELD_REQUIRED_WARNING, MAX_LENGTH_TITLE, MAX_LENGTH_TITLE_WARNING, TITLE_REGEX, TITLE_REGEX_WARNING } from "../constants/validationConstants";
 import { InewCardForm } from "../myHooks/collectionHooks/useCreateNewCard";
-import { IsignInForm } from "../myHooks/myFormHooks/useSubmitButtonForSignUp";
 import variables from '../sass/variables.module.scss';
-import { countItemPoints } from "./countItemPoints";
 import { getHoursSinceRepeat } from "./getHoursSinceRepeat";
 import { getItemPoints } from "./getItemPoints";
 
@@ -29,12 +27,20 @@ export type TcollectionItemData = {
     collectionItemRepeatedTimeStamp: number,
     collectionItemTimesBeenRepeated: number,
     collectionItemPenaltyCount: number,
+    collectionItemInvincibleCount: number,
     collectionItemCategory?: string,
     collectionItemColor?: string,
     collectionItemPriority?: number,
     collectionItemTags?: string | TcollectionTag[],
     collectionItemComments?: TcollectionItemComment[],
 }
+
+export type TeditCollectionItemData = Omit<TcollectionItemData, 
+    'collectionItemRepeatedTimeStamp' | 
+    'collectionItemTimesBeenRepeated' |
+    'collectionItemPenaltyCount' |
+    'collectionItemInvincibleCount' 
+>
 
 export type TcollectionTag = {
     label: string,
@@ -141,24 +147,24 @@ export const spreadCollectionData = (dataBase: TcollectionItemData[]) => {
     return {filtersOfCollection,orgonizedGroupsOfCollection};
 };
 
-export const countPunishmentPoints = (timesBeenRepeated: number, lastTimeRepeted: number) => {
-    let punishPoints = 0;
-    for (let i = 0; i <= MAX_PUNISHMENT_FOR_LATE_PRACTICE; i++) {
-        if ((getHoursSinceRepeat(lastTimeRepeted) - (PUNISHMENT_POINTS_CONVERTED_FROM_REPEAT_TIMES[timesBeenRepeated - i]?? 0)) >= 1) {
-            punishPoints += 1;
-        } 
-    }
-    return punishPoints;
-}
+// export const countPunishmentPoints = (timesBeenRepeated: number, lastTimeRepeted: number) => {
+//     let punishPoints = 0;
+//     for (let i = 0; i <= MAX_PUNISHMENT_FOR_LATE_PRACTICE; i++) {
+//         if ((getHoursSinceRepeat(lastTimeRepeted) - (PUNISHMENT_POINTS_CONVERTED_FROM_REPEAT_TIMES[timesBeenRepeated - i]?? 0)) >= 1) {
+//             punishPoints += 1;
+//         } 
+//     }
+//     return punishPoints;
+// }
 
-export const getPunishmentForLatePractice = (timesBeenRepeated: number, lastTimeRepeted: number) => {
-    const newTimesBeenRepeated = timesBeenRepeated - countPunishmentPoints(timesBeenRepeated, lastTimeRepeted);
-    if (timesBeenRepeated >= UNPUNISHABLE_REPEAT_TIMES) {
-        return (newTimesBeenRepeated <= UNPUNISHABLE_REPEAT_TIMES? UNPUNISHABLE_REPEAT_TIMES: newTimesBeenRepeated); 
-    }
+// export const getPunishmentForLatePractice = (timesBeenRepeated: number, lastTimeRepeted: number) => {
+//     const newTimesBeenRepeated = timesBeenRepeated - countPunishmentPoints(timesBeenRepeated, lastTimeRepeted);
+//     if (timesBeenRepeated >= UNPUNISHABLE_REPEAT_TIMES) {
+//         return (newTimesBeenRepeated <= UNPUNISHABLE_REPEAT_TIMES? UNPUNISHABLE_REPEAT_TIMES: newTimesBeenRepeated); 
+//     }
 
-    return (newTimesBeenRepeated <= 0? 0: newTimesBeenRepeated);
-}
+//     return (newTimesBeenRepeated <= 0? 0: newTimesBeenRepeated);
+// }
 
 
 export const updateTimesBeenRepeated = (currentTimesBeenRepeated: number) => {
@@ -198,7 +204,7 @@ export const cutBasicUserCollectionsInfo = (allUserCollections: TuserCollectionD
 }
 
 export const setCategoryInCardObj = (
-    newCard: TcollectionItemData,
+    newCard: TeditCollectionItemData,
     values: InewCardForm, 
     currentCollectionCategories: TcollectionСategory[] | undefined) => {
     if (values.categoryRadioButtons === RADIO_BUTTON_NAME.SET_CATEGORY) {

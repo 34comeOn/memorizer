@@ -1,15 +1,17 @@
 import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { REPEAT_TIMES_MAY_BE_LOST } from "../constants/stockConstants";
 import { PUT_REPEATED_COLLECTION_ITEM_ENDPOINT, RESPONSE_ERROR_TEXT } from "../constants/stringConstants";
 import { collectionDataAPI } from "../RTKApi/collectionDataApi";
 import { getUserIdSelector } from "../store/reducers/accountReducer";
 import { setTrainedCardId } from "../store/reducers/cardWindowReducer";
 import { getCurrentCollectionSelector} from "../store/reducers/userCollectionsReducer";
-import { updateTimesBeenRepeated, TcollectionItemData, getPunishmentForLatePractice } from "../utils/utils";
+import { getInvincibleCount } from "../utils/getInvincibleCount";
+import { updateTimesBeenRepeated, TcollectionItemData } from "../utils/utils";
 import { UseCurrentCollectionResponse } from "./collectionHooks/useResponses/useCurrentCollectionResponse";
 
 export const useDoneClickButton = (currentCard: TcollectionItemData, onChangeLoadingStatus: (value: boolean)=> void, openDoneNotification: ((descriptionText: string) => void)) => {
-  const TimesBeenRepeatedAfterPunish = getPunishmentForLatePractice(currentCard.collectionItemTimesBeenRepeated, currentCard.collectionItemRepeatedTimeStamp)
-  const updatedTimesBeenRepeated = updateTimesBeenRepeated(TimesBeenRepeatedAfterPunish);
+  // const TimesBeenRepeatedAfterPunish = getPunishmentForLatePractice(currentCard.collectionItemTimesBeenRepeated, currentCard.collectionItemRepeatedTimeStamp)
+  const updatedTimesBeenRepeated = updateTimesBeenRepeated(currentCard.collectionItemTimesBeenRepeated);
   
     const currentUserId = useAppSelector(getUserIdSelector);
     const currentCollectionId = useAppSelector(getCurrentCollectionSelector)._id || '';
@@ -23,6 +25,7 @@ export const useDoneClickButton = (currentCard: TcollectionItemData, onChangeLoa
         collectionId: currentCollectionId,
         collectionItemTimesBeenRepeated: updatedTimesBeenRepeated,
         collectionItemRepeatedTimeStamp: Date.now(),
+        collectionItemInvincibleCount: getInvincibleCount(updatedTimesBeenRepeated, REPEAT_TIMES_MAY_BE_LOST),
       }
       onChangeLoadingStatus(true)
       putRepeatedCollectionItemTriger({path:PUT_REPEATED_COLLECTION_ITEM_ENDPOINT, repeatObj: repeatObject})

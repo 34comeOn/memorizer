@@ -96,7 +96,8 @@ app.get('/choose-collection/:id/:user', (req, res)=> {
             let punishedCollectionData = collectionBeforePunishingForLatePractice.collectionData.map((card) => {
                 const timesBeenRepeated = card.collectionItemTimesBeenRepeated;
                 const hoursSinceLastPractice = getHoursSinceRepeat(card.collectionItemRepeatedTimeStamp);
-                const {penaltyCount, addingHoursDueToPenalty} = getPenaltyForLatePractice(hoursSinceLastPractice, timesBeenRepeated, UNPUNISHABLE_REPEAT_TIMES);
+                const maximumPenalty = timesBeenRepeated - card.collectionItemInvincibleCount;
+                const {penaltyCount, addingHoursDueToPenalty} = getPenaltyForLatePractice(hoursSinceLastPractice, timesBeenRepeated, maximumPenalty);
                 
                 
                 card.collectionItemTimesBeenRepeated = timesBeenRepeated - penaltyCount;
@@ -365,6 +366,7 @@ app.put('/api/repeat', (req, res)=> {
         collectionId,
         collectionItemTimesBeenRepeated,
         collectionItemRepeatedTimeStamp,
+        collectionItemInvincibleCount,
     } =req.body;
 
     const validationSchema = [
@@ -373,6 +375,7 @@ app.put('/api/repeat', (req, res)=> {
         [collectionId, validateString],
         [collectionItemTimesBeenRepeated, validateNumber],
         [collectionItemRepeatedTimeStamp, validateNumber],
+        [collectionItemInvincibleCount, validateNumber],
     ]
 
     if (!validateAllRequestData(validationSchema)) {
@@ -392,6 +395,7 @@ app.put('/api/repeat', (req, res)=> {
                 { 
                     'userCollectionsData.$[i].collectionData.$[k].collectionItemTimesBeenRepeated': collectionItemTimesBeenRepeated,
                     'userCollectionsData.$[i].collectionData.$[k].collectionItemRepeatedTimeStamp': collectionItemRepeatedTimeStamp,
+                    'userCollectionsData.$[i].collectionData.$[k].collectionItemInvincibleCount': collectionItemInvincibleCount,
                 }
             },
             {

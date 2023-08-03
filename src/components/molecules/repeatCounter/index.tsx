@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Snackbar } from "@mui/material";
-import { deliverBackgroundColorForContainer, getPunishmentForLatePractice, TcollectionItemData } from "../../../utils/utils";
+import { deliverBackgroundColorForContainer, TcollectionItemData } from "../../../utils/utils";
 import { StyledRrepeatContainer } from "./styledRepeatCounter";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { getTrainedCardIdSelector, setTrainedCardId } from "../../../store/reducers/cardWindowReducer";
@@ -12,8 +12,6 @@ export const RepeatCounter = ({item}: {item: TcollectionItemData}) => {
     const dispatch = useAppDispatch();
 
     const penaltyCount = item.collectionItemPenaltyCount;
-    // const timesBeenRepeatedAfterPunishment = getPunishmentForLatePractice(item.collectionItemTimesBeenRepeated, item.collectionItemRepeatedTimeStamp);
-    // const timesRepeatedDiffer = item.collectionItemTimesBeenRepeated - timesBeenRepeatedAfterPunishment;
     const trainedCardId = useAppSelector(getTrainedCardIdSelector);
 
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {

@@ -60,6 +60,10 @@ const CollectionDataSchema = new Schema({
         type: Number,
         required: true
     },
+    collectionItemInvincibleCount: {
+        type: Number,
+        required: true
+    },
     collectionItemCategory: {
         type: String,
     },
