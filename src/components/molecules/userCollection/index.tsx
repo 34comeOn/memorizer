@@ -20,10 +20,11 @@ type TuserCollection = {
 
 export const UserCollection = ({title, color, adminList, _id}: TuserCollection) => {
     const {isLoading, onChangeLoadingStatus} = useRequestLoading();
-    const [contextHolder, openNotification] = useWarningNotification(RESPONSE_ERROR_TITLE.CHOOSE_COLLECTION);
+    const [notificationContextHolder, openNotification] = useWarningNotification(RESPONSE_ERROR_TITLE.CHOOSE_COLLECTION);
     const [deleteContextHolder, openDeleteNotification] = useWarningNotification(RESPONSE_ERROR_TITLE.DELETE);
     const currentUserEmailFromLStorage = getCurrentUserEmailFromLStorage();
     const userHasAdminPowersForCollection = checkAdminPowers(currentUserEmailFromLStorage?? '', adminList?? []);
+
     return(
         <StyledUserCollection color={color}>
             {userHasAdminPowersForCollection && <EditCollectionButton _id={_id} title={title} color={color} />}
@@ -35,9 +36,9 @@ export const UserCollection = ({title, color, adminList, _id}: TuserCollection) 
             <span className='collection--title'> 
                 {title}
             </span>
-            <CustomSpinner isLoading={isLoading} />
+            {isLoading && <CustomSpinner isLoading={isLoading} />}
             <>
-                {contextHolder}
+                {notificationContextHolder}
             </>
             <>
                 {deleteContextHolder}

@@ -34,7 +34,7 @@ const validateAllRequestData = (validationSchema) => {
         const value = validationItem[0];
         const funcToValidateValue = validationItem[1];
         const regEx = validationItem[2]
-        console.log(regEx? funcToValidateValue( value, regEx): funcToValidateValue(value))
+        
         return regEx? funcToValidateValue( value, regEx): funcToValidateValue(value);
     })
 }

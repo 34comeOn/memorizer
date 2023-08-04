@@ -128,14 +128,16 @@ app.get('/choose-collection/:id/:user', (req, res)=> {
                     ],
                 },
             )
+            .then(()=> {
+                User.findById(currentUserId)
+                .then(result=> res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId)))
+            })
             .catch(err => console.log(err))
-
-
         })
-        .then(()=> {
-            User.findById(currentUserId)
-            .then(result=> res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId)))
-        })
+        // .then(()=> {
+        //     User.findById(currentUserId)
+        //     .then(result=> res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId)))
+        // })
         .catch(err=> console.log(err))
     }    
 })
