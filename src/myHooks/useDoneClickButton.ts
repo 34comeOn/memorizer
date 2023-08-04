@@ -10,7 +10,6 @@ import { updateTimesBeenRepeated, TcollectionItemData } from "../utils/utils";
 import { UseCurrentCollectionResponse } from "./collectionHooks/useResponses/useCurrentCollectionResponse";
 
 export const useDoneClickButton = (currentCard: TcollectionItemData, onChangeLoadingStatus: (value: boolean)=> void, openDoneNotification: ((descriptionText: string) => void)) => {
-  // const TimesBeenRepeatedAfterPunish = getPunishmentForLatePractice(currentCard.collectionItemTimesBeenRepeated, currentCard.collectionItemRepeatedTimeStamp)
   const updatedTimesBeenRepeated = updateTimesBeenRepeated(currentCard.collectionItemTimesBeenRepeated);
   
     const currentUserId = useAppSelector(getUserIdSelector);

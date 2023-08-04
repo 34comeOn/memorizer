@@ -1,9 +1,8 @@
-import { MAX_PUNISHMENT_FOR_LATE_PRACTICE, PERIODS_OF_PRACRICE, PUNISHMENT_POINTS_CONVERTED_FROM_REPEAT_TIMES, REPEAT_TIMES_CONVERT_TO_POINTS, STOCK_USER } from "../constants/stockConstants";
+import { PERIODS_OF_PRACRICE, REPEAT_TIMES_CONVERT_TO_POINTS, STOCK_USER } from "../constants/stockConstants";
 import { HIGHEST_REPEAT_TIMES, LOCAL_STORAGE_KEYS_CONSTANTS, RADIO_BUTTON_NAME, UNPUNISHABLE_REPEAT_TIMES } from "../constants/stringConstants";
 import { FIELD_REQUIRED_WARNING, MAX_LENGTH_TITLE, MAX_LENGTH_TITLE_WARNING, TITLE_REGEX, TITLE_REGEX_WARNING } from "../constants/validationConstants";
 import { InewCardForm } from "../myHooks/collectionHooks/useCreateNewCard";
 import variables from '../sass/variables.module.scss';
-import { getHoursSinceRepeat } from "./getHoursSinceRepeat";
 import { getItemPoints } from "./getItemPoints";
 
 export type TbasicCollectionInfo = {

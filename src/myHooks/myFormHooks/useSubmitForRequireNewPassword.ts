@@ -16,9 +16,9 @@ export const UseSubmitForRequireNewPassword = () => {
     // const [getAllUserDataAfterSignUpTriger] = collectionDataAPI.usePostNewUserMutation();
 
     return (values: IforgotPasswordForm) => {
-        const newUserObject = {
-            email: values.email,
-        }
+        // const newUserObject = {
+        //     email: values.email,
+        // }
 
         // getAllUserDataAfterSignUpTriger({path:SIGN_UP_USER_ENDPOINT, putObj: newUserObject})
         // .unwrap()

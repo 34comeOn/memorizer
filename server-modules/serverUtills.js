@@ -20,7 +20,7 @@ const countPunishmentPoints = (timesBeenRepeated, lastTimeRepeted) => {
     return punishPoints;
 }
 
-exports.getPunishmentForLatePractice = (timesBeenRepeated, lastTimeRepeted) => {
+const getPunishmentForLatePractice = (timesBeenRepeated, lastTimeRepeted) => {
     const newTimesBeenRepeated = timesBeenRepeated - countPunishmentPoints(timesBeenRepeated, lastTimeRepeted);
     if (timesBeenRepeated >= UNPUNISHABLE_REPEAT_TIMES) {
         return (newTimesBeenRepeated <= UNPUNISHABLE_REPEAT_TIMES? UNPUNISHABLE_REPEAT_TIMES: newTimesBeenRepeated); 
@@ -29,7 +29,7 @@ exports.getPunishmentForLatePractice = (timesBeenRepeated, lastTimeRepeted) => {
     return (newTimesBeenRepeated <= 0? 0: newTimesBeenRepeated);
 }
 
-exports.validateAllRequestData = (validationSchema) => {
+const validateAllRequestData = (validationSchema) => {
     return validationSchema.every(validationItem => {
         const value = validationItem[0];
         const funcToValidateValue = validationItem[1];
@@ -40,25 +40,15 @@ exports.validateAllRequestData = (validationSchema) => {
 }
 
 
-exports.convertHoursToSeconds = (hours) => {
+const convertHoursToSeconds = (hours) => {
     return hours*1000*60*60;
 }
 
-// exports.countCompensationTimeDueToPunishment = (timesBeenRepeated, punishPoints) => {
-//     let compensationTime = 0;
-
-//     for (let k = 1; k <= punishPoints; k++) {
-//         compensationTime += PUNISHMENT_POINTS_CONVERTED_FROM_REPEAT_TIMES[timesBeenRepeated + 1 - k]
-//     }
-    
-//     return convertHoursToSeconds(compensationTime);
-// }
-
-exports.validateString = (str) => typeof str === 'string';
-exports.validateBoolean = (bool) => typeof bool === 'boolean';
-exports.validateNumber = (number) => typeof number === 'number';
-exports.validateIsArray = (array) => Array.isArray(array);
-exports.validateWithRegEx = (val, regEx) => regEx.test(val);
+const validateString = (str) => typeof str === 'string';
+const validateBoolean = (bool) => typeof bool === 'boolean';
+const validateNumber = (number) => typeof number === 'number';
+const validateIsArray = (array) => Array.isArray(array);
+const validateWithRegEx = (val, regEx) => regEx.test(val);
 
 
 const countPenalty = (hoursSinceLastPractice, practiceCount, maximumPenalty) => {
@@ -89,7 +79,21 @@ const countPenalty = (hoursSinceLastPractice, practiceCount, maximumPenalty) => 
     return [0, 0];
 }
 
-exports.getPenaltyForLatePractice = (hoursSinceLastPractice, practiceCount, maximumPenalty) => {
+const getPenaltyForLatePractice = (hoursSinceLastPractice, practiceCount, maximumPenalty) => {
     const [addingHoursDueToPenalty, penaltyCount] = countPenalty(hoursSinceLastPractice, practiceCount, maximumPenalty);
     return {penaltyCount: penaltyCount, addingHoursDueToPenalty: addingHoursDueToPenalty}
+}
+
+module.exports = {
+    getHoursSinceRepeat,
+    countPunishmentPoints,
+    getPunishmentForLatePractice,
+    validateAllRequestData,
+    convertHoursToSeconds,
+    validateString,
+    validateBoolean,
+    validateNumber,
+    validateIsArray,
+    validateWithRegEx,
+    getPenaltyForLatePractice
 }

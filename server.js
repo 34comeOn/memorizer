@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const User = require('./models/user');
 const {
     validateAllRequestData, 
-    // getPunishmentForLatePractice,
+    getHoursSinceRepeat,
     validateString,
     validateBoolean,
     validateNumber,
@@ -18,13 +18,12 @@ const {
     SERVER_PASSWORD_REGEX, 
     TITLE_REGEX,
     TEXT_AREA_REGEX,
-    UNPUNISHABLE_REPEAT_TIMES,
 } = require('./server-modules/serverConstants');
 
-const getHoursSinceRepeat = (repeatedTimeStamp) => {
-    const timeSinceRepeat = Date.now() - repeatedTimeStamp;
-    return Math.floor(timeSinceRepeat/ (1000*60*60));
-}
+// const getHoursSinceRepeat = (repeatedTimeStamp) => {
+//     const timeSinceRepeat = Date.now() - repeatedTimeStamp;
+//     return Math.floor(timeSinceRepeat/ (1000*60*60));
+// }
 
 const db = 'mongodb+srv://barabanovm:Noway-2steal@cluster2.d7n5n2k.mongodb.net/?retryWrites=true&w=majority';
 
@@ -96,7 +95,7 @@ app.get('/choose-collection/:id/:user', (req, res)=> {
             let punishedCollectionData = collectionBeforePunishingForLatePractice.collectionData.map((card) => {
                 const timesBeenRepeated = card.collectionItemTimesBeenRepeated;
                 const hoursSinceLastPractice = getHoursSinceRepeat(card.collectionItemRepeatedTimeStamp);
-                const maximumPenalty = timesBeenRepeated - card.collectionItemInvincibleCount;
+                const maximumPenalty = timesBeenRepeated - (card.collectionItemInvincibleCount?? 0);
                 const {penaltyCount, addingHoursDueToPenalty} = getPenaltyForLatePractice(hoursSinceLastPractice, timesBeenRepeated, maximumPenalty);
                 
                 
