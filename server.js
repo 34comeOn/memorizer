@@ -134,10 +134,6 @@ app.get('/choose-collection/:id/:user', (req, res)=> {
             })
             .catch(err => console.log(err))
         })
-        // .then(()=> {
-        //     User.findById(currentUserId)
-        //     .then(result=> res.send(result.userCollectionsData.find(collection => collection._id.toString() === collectionId)))
-        // })
         .catch(err=> console.log(err))
     }    
 })
@@ -367,6 +363,7 @@ app.put('/api/repeat', (req, res)=> {
         collectionId,
         collectionItemTimesBeenRepeated,
         collectionItemRepeatedTimeStamp,
+        collectionItemPenaltyCount,
         collectionItemInvincibleCount,
     } =req.body;
 
@@ -376,6 +373,7 @@ app.put('/api/repeat', (req, res)=> {
         [collectionId, validateString],
         [collectionItemTimesBeenRepeated, validateNumber],
         [collectionItemRepeatedTimeStamp, validateNumber],
+        [collectionItemPenaltyCount, validateNumber],
         [collectionItemInvincibleCount, validateNumber],
     ]
 
@@ -396,6 +394,7 @@ app.put('/api/repeat', (req, res)=> {
                 { 
                     'userCollectionsData.$[i].collectionData.$[k].collectionItemTimesBeenRepeated': collectionItemTimesBeenRepeated,
                     'userCollectionsData.$[i].collectionData.$[k].collectionItemRepeatedTimeStamp': collectionItemRepeatedTimeStamp,
+                    'userCollectionsData.$[i].collectionData.$[k].collectionItemPenaltyCount': collectionItemPenaltyCount,
                     'userCollectionsData.$[i].collectionData.$[k].collectionItemInvincibleCount': collectionItemInvincibleCount,
                 }
             },

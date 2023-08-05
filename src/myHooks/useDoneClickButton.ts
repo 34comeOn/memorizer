@@ -24,6 +24,7 @@ export const useDoneClickButton = (currentCard: TcollectionItemData, onChangeLoa
         collectionId: currentCollectionId,
         collectionItemTimesBeenRepeated: updatedTimesBeenRepeated,
         collectionItemRepeatedTimeStamp: Date.now(),
+        collectionItemPenaltyCount: 0,
         collectionItemInvincibleCount: getInvincibleCount(updatedTimesBeenRepeated, REPEAT_TIMES_MAY_BE_LOST),
       }
       onChangeLoadingStatus(true)
