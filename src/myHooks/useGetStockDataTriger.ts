@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../app/hooks";
 import { STOCK_COLLECTION_LOCAL_STORAGE } from "../constants/stockConstants";
-// import { GET_DATA_ENDPOINT } from "../constants/stringConstants";
+import { GET_STOCK_COLLECTION_ENG_ENDPOINT } from "../constants/stringConstants";
 // import { collectionDataAPI } from "../RTKApi/collectionDataApi";
 import { hideCurrentCard } from "../store/reducers/cardWindowReducer";
 import { setFiltersList } from "../store/reducers/collectionFiltersReducer";
@@ -10,7 +10,7 @@ import { spreadCollectionData } from "../utils/utils";
 
 export const useGetStockDataTriger = () => {
     const dispatch = useAppDispatch();
-    // const [getCollectionDataTriger] = collectionDataAPI.useGetCollectionDataMutation();
+    // const [getStockCollectionsDataTriger] = collectionDataAPI.useGetStockCollectionsMutation();
     const navigate = useNavigate();
     return () => {
 
@@ -21,7 +21,7 @@ export const useGetStockDataTriger = () => {
         navigate('/collection');
 
 
-        // getCollectionDataTriger(GET_DATA_ENDPOINT)
+        // getStockCollectionsDataTriger(GET_DATA_ENDPOINT)
         // .unwrap()
         // .then((response) => {
         //     const {filtersOfCollection, orgonizedGroupsOfCollection}= spreadCollectionData(response);

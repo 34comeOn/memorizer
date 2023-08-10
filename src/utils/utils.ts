@@ -65,7 +65,7 @@ export type TuserCollectionData = {
 export type Tuser = {
     '_id'?: string,
     email: string,
-    password: string,
+    // password: string,
     userName: string,
     subscription: string,
     currentToken: string,
@@ -145,26 +145,6 @@ export const spreadCollectionData = (dataBase: TcollectionItemData[]) => {
 
     return {filtersOfCollection,orgonizedGroupsOfCollection};
 };
-
-// export const countPunishmentPoints = (timesBeenRepeated: number, lastTimeRepeted: number) => {
-//     let punishPoints = 0;
-//     for (let i = 0; i <= MAX_PUNISHMENT_FOR_LATE_PRACTICE; i++) {
-//         if ((getHoursSinceRepeat(lastTimeRepeted) - (PUNISHMENT_POINTS_CONVERTED_FROM_REPEAT_TIMES[timesBeenRepeated - i]?? 0)) >= 1) {
-//             punishPoints += 1;
-//         } 
-//     }
-//     return punishPoints;
-// }
-
-// export const getPunishmentForLatePractice = (timesBeenRepeated: number, lastTimeRepeted: number) => {
-//     const newTimesBeenRepeated = timesBeenRepeated - countPunishmentPoints(timesBeenRepeated, lastTimeRepeted);
-//     if (timesBeenRepeated >= UNPUNISHABLE_REPEAT_TIMES) {
-//         return (newTimesBeenRepeated <= UNPUNISHABLE_REPEAT_TIMES? UNPUNISHABLE_REPEAT_TIMES: newTimesBeenRepeated); 
-//     }
-
-//     return (newTimesBeenRepeated <= 0? 0: newTimesBeenRepeated);
-// }
-
 
 export const updateTimesBeenRepeated = (currentTimesBeenRepeated: number) => {
     const HighestTimesBeenRepeatedNumber = Object.keys(REPEAT_TIMES_CONVERT_TO_POINTS).length-1;

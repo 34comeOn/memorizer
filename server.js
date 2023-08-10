@@ -18,12 +18,8 @@ const {
     SERVER_PASSWORD_REGEX, 
     TITLE_REGEX,
     TEXT_AREA_REGEX,
+    STOCK_DATA_USER_ID,
 } = require('./server-modules/serverConstants');
-
-// const getHoursSinceRepeat = (repeatedTimeStamp) => {
-//     const timeSinceRepeat = Date.now() - repeatedTimeStamp;
-//     return Math.floor(timeSinceRepeat/ (1000*60*60));
-// }
 
 const db = 'mongodb+srv://barabanovm:Noway-2steal@cluster2.d7n5n2k.mongodb.net/?retryWrites=true&w=majority';
 
@@ -59,7 +55,15 @@ app.post('/api/sign-in', (req, res)=> {
         User.where({ email: email, password: password }).find()
         .then(result=> {
             if (result[0]) {
-                res.send(result[0])
+                res.json({
+                    _id: result[0]._id,
+                    email: result[0].email,
+                    userName: result[0].userName,
+                    subscription: result[0].subscription,
+                    currentToken: result[0].currentToken,
+                    currentCollection: result[0].currentCollection,
+                    userCollectionsData: result[0].userCollectionsData,
+                })
             } else {
                 console.log('pass or email does not match')
                 res.status(400).end();
@@ -69,6 +73,12 @@ app.post('/api/sign-in', (req, res)=> {
     }
 })
 
+
+app.get('/stock-collection-eng', (req, res)=> {
+    User.findById(STOCK_DATA_USER_ID)
+    .then(result=> res.send(result.userCollectionsData))
+    .catch(err=> console.log(err))
+})
 
 app.get('/data', (req, res)=> {
     res.status(403).end();

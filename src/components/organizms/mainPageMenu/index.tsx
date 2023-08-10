@@ -6,6 +6,7 @@ import './style.scss';
 import { getAccountStatusSelector } from "../../../store/reducers/accountReducer";
 import { useAppSelector } from "../../../app/hooks";
 import { CreateNewCollectionButton } from "../../atoms/createNewCollectionButton";
+import { StockCollectionsList } from "../stockCollectionsList";
 
 export const MainPageMenu = () => {
     const accountStatus = useAppSelector(getAccountStatusSelector);
@@ -14,7 +15,8 @@ export const MainPageMenu = () => {
                     <CreateNewCollectionButton disabled={!accountStatus} color={variables.colorDecorBright}>
                         Create a new collection
                     </ CreateNewCollectionButton>
-                <UserCollectionsList />
+                {accountStatus && <UserCollectionsList />}
+                {!accountStatus && <StockCollectionsList />}
         </ StyledMainPageMenu>
     )
 }
