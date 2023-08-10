@@ -7,7 +7,6 @@ import { useAppSelector } from "../../../app/hooks";
 import { getModalWindowContentTitleSelector, getModalWindowViewSelector } from "../../../store/reducers/modalWindowReducer";
 import ReactModal from "react-modal";
 import { useCloseModalWindowButton } from "../../../myHooks/useCloseModalWindowButton";
-import { getAccountStatusSelector } from "../../../store/reducers/accountReducer";
 import { getReactElementForModalWindowContent } from "../../../myHooks/useCurrentContentForModalWindow";
 
 ReactModal.setAppElement('#root');
@@ -31,7 +30,6 @@ export const EditModalWindow = () => {
     const modalViewState = useAppSelector(getModalWindowViewSelector);
     const modalWindowContent = useAppSelector(getModalWindowContentTitleSelector);
     const closeModalWindow = useCloseModalWindowButton();
-    const accountStatus = useAppSelector(getAccountStatusSelector);
     const renderingComponentAsWindowContent = getReactElementForModalWindowContent(modalWindowContent)
     return(
         <Modal
@@ -40,7 +38,7 @@ export const EditModalWindow = () => {
             // overlayClassName='modal--overlay'
         >
             <CloseButton onClick={closeModalWindow}/>
-            {accountStatus && renderingComponentAsWindowContent}
+            {renderingComponentAsWindowContent}
         </ Modal>
     )
 }

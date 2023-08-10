@@ -17,7 +17,7 @@ type TmenuButton = {
 
 export const ChooseCollectionButton = ({children, color, disabled, _id, onChangeLoadingStatus, openNotification}: TmenuButton) => {
     const accountStatus = useAppSelector(getAccountStatusSelector);
-    const getDataFromLocalStorageByClick = useGetStockDataTriger();
+    const getDataFromLocalStorageByClick = useGetStockDataTriger(_id, onChangeLoadingStatus, openNotification);
     const getDataByClick = useChooseCollectionButton(_id, onChangeLoadingStatus, openNotification);
     return(
         <StyledMenuButton onClick={accountStatus? getDataByClick: getDataFromLocalStorageByClick} disabled={disabled || false} color={color}>

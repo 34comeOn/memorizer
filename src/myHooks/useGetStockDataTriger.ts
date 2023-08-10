@@ -1,34 +1,33 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../app/hooks";
-import { STOCK_COLLECTION_LOCAL_STORAGE } from "../constants/stockConstants";
-import { GET_STOCK_COLLECTION_ENG_ENDPOINT } from "../constants/stringConstants";
-// import { collectionDataAPI } from "../RTKApi/collectionDataApi";
+import { RESPONSE_ERROR_TEXT } from "../constants/stringConstants";
+import { collectionDataAPI } from "../RTKApi/collectionDataApi";
 import { hideCurrentCard } from "../store/reducers/cardWindowReducer";
-import { setFiltersList } from "../store/reducers/collectionFiltersReducer";
-import { setRepeatGroupsReducer } from "../store/reducers/collectionGroupsReducer";
-import { spreadCollectionData } from "../utils/utils";
+import { UseChooseCollectionResponse } from "./collectionHooks/useResponses/useChooseCollectionResponse";
 
-export const useGetStockDataTriger = () => {
+export const useGetStockDataTriger = (collectionId: string, onChangeLoadingStatus: (value: boolean)=> void, openNotification: ((descriptionText: string) => void) ) => {
     const dispatch = useAppDispatch();
-    // const [getStockCollectionsDataTriger] = collectionDataAPI.useGetStockCollectionsMutation();
+    const currentUserId = localStorage.getItem('stockDataUserId')?? '';
+    const [currentCollectionTriger] = collectionDataAPI.useGetCurrentCollectionToTrainMutation();
     const navigate = useNavigate();
     return () => {
-
         dispatch(hideCurrentCard());
-        const {filtersOfCollection, orgonizedGroupsOfCollection}= spreadCollectionData(STOCK_COLLECTION_LOCAL_STORAGE.collectionData);
-        dispatch(setRepeatGroupsReducer(orgonizedGroupsOfCollection)); 
-        dispatch(setFiltersList(filtersOfCollection)); 
-        navigate('/collection');
-
-
-        // getStockCollectionsDataTriger(GET_DATA_ENDPOINT)
-        // .unwrap()
-        // .then((response) => {
-        //     const {filtersOfCollection, orgonizedGroupsOfCollection}= spreadCollectionData(response);
-            
-        //     dispatch(setRepeatGroupsReducer(orgonizedGroupsOfCollection)); 
-        //     dispatch(setFiltersList(filtersOfCollection)); 
-        // })
-        // .then(() => navigate('/collection'));
+        onChangeLoadingStatus(true)
+        currentCollectionTriger(`choose-collection/:${collectionId}/:${currentUserId}`)
+        .unwrap()
+        .then(
+          (currentCollection) => {
+            onChangeLoadingStatus(false);
+            UseChooseCollectionResponse(currentCollection, dispatch);
+          },
+          () => {
+            onChangeLoadingStatus(false);
+            openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG);
+            throw new Error();
+          }
+        )
+        .then(
+          () => navigate('/collection')
+        )
     }
 }

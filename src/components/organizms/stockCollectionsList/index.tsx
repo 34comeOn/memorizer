@@ -4,7 +4,7 @@ import { STOCK_COLLECTION_COLOR } from "../../../constants/stockConstants";
 import { nanoid } from "nanoid";
 import { StyledUserCollectionsList } from "../userCollectionsList/styledUserCollectionsList";
 import { collectionDataAPI } from "../../../RTKApi/collectionDataApi";
-import { GET_STOCK_COLLECTION_ENG_ENDPOINT, RESPONSE_ERROR_TEXT } from "../../../constants/stringConstants";
+import { GET_STOCK_COLLECTION_ENG_ENDPOINT, RESPONSE_ERROR_TEXT, STOCK_DATA_USER_ID } from "../../../constants/stringConstants";
 import { CustomSpinner } from "../../atoms/customSpinner";
 import { notification } from "antd";
 
@@ -27,6 +27,7 @@ export const StockCollectionsList = () => {
         return  <CustomSpinner isLoading={isLoading} />
     }
     if (isSuccess) {
+        localStorage.setItem('stockDataUserId', STOCK_DATA_USER_ID)
         return (
             <StyledUserCollectionsList>
                 {Array.isArray(allStockCollections) && allStockCollections.map(item =>

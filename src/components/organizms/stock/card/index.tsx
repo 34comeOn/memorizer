@@ -33,7 +33,7 @@ export const StockCardWindow = () => {
     const onShowClickHandle= ()=> {
         dispatch(toggleAnswerVisibility())
     }
-
+    
     return (  
         <StyledCard>
             <span className='card--title'>{currentCard.collectionItemTitle}</span>

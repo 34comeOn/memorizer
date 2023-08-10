@@ -83,3 +83,5 @@ export const RESPONSE_ERROR_TEXT = {
     STOCK_COLLECTION_HAS_NOT_LOADED: 'Пробная коллекция не загрузилась',
     // STOCK_COLLECTION_HAS_NOT_LOADED: 'Stock collection hasn`t loaded',
 }
+
+export const STOCK_DATA_USER_ID = '64ce107a5c8837e38afd5a99';
