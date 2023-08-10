@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type TeditCollection = {
+export interface IeditCollection {
     _id: string,
     title: string,
     color: string,
@@ -15,7 +15,7 @@ export type TeditCard = {
 }
 
 type TeditState = {
-    editCollection: TeditCollection;
+    editCollection: IeditCollection;
     editCard: TeditCard,
 };
 const initialState: TeditState = {
@@ -37,7 +37,7 @@ const editSlice = createSlice({
   name: 'editState',
   initialState,
   reducers: {
-    editCollection(state, action: PayloadAction<TeditCollection>) {
+    editCollection(state, action: PayloadAction<IeditCollection>) {
       state.editCollection = {
         _id:action.payload._id, 
         title: action.payload.title, 
@@ -60,7 +60,7 @@ export default editSlice.reducer;
 
 export const { editCollection, editCard } = editSlice.actions;
 
-export const getEditCollectionSelector = (state: { editSlice: { editCollection: TeditCollection } }) =>
+export const getEditCollectionSelector = (state: { editSlice: { editCollection: IeditCollection } }) =>
   state.editSlice.editCollection;
 
 export const getEditCardSelector = (state: { editSlice: { editCard: TeditCard } }) =>

@@ -1,0 +1,22 @@
+@import '/src/sass/variables.module.scss';
+@import '/src/sass/mixins.scss';
+
+.spinner-container {
+    position: relative;
+    z-index: 10;
+    margin: auto;
+}
+
+.spinner {
+    transform: scale(3);
+    position: absolute;
+    margin-left: -20px;
+    margin-top: -20px;
+
+    @include vp-1023 {
+        transform: scale(2);
+    } 
+    @include vp-767 {
+        transform: scale(1);
+    } 
+}

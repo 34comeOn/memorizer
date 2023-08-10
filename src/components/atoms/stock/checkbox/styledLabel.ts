@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from '../../../../global/theme/index';
 
 export const StyledLabel = styled.label`
     font-size: 18px;
@@ -9,6 +10,10 @@ export const StyledLabel = styled.label`
     align-items: flex-start;
     flex-direction: row;
     line-height: 18px;
+
+    @media ${device.laptop} { 
+        font-size: 12px;
+    }
 
     :hover {
         text-decoration: underline;

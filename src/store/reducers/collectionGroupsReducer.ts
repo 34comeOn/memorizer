@@ -22,7 +22,7 @@ const collectionGroupsSlice = createSlice({
     name: 'collectionGroupsSlice',
     initialState,
     reducers: {
-        setRepeatGroupsReduser(state, action: PayloadAction<TcollectionItemData[][]>) {
+        setRepeatGroupsReducer(state, action: PayloadAction<TcollectionItemData[][]>) {
             localStorage.setItem(LOCAL_STORAGE_KEYS_CONSTANTS.USER_REPEAT_GROUPS, JSON.stringify(action.payload))
             state.repeatGroups = getUserRepeatGroups();
         },
@@ -36,7 +36,7 @@ const collectionGroupsSlice = createSlice({
 export default collectionGroupsSlice.reducer;
 
 export const {
-    setRepeatGroupsReduser, 
+    setRepeatGroupsReducer, 
     removeRepeatGroups, 
 } = collectionGroupsSlice.actions;
 

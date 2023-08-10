@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import variables from '../../../sass/variables.module.scss';
 import url from '../../../accets/buttons/trash-can.png';
+import { device } from '../../../global/theme/index';
 
 export const StyledDeleteButton = styled.button`
 height: 32px;
@@ -14,6 +15,12 @@ position: absolute;
 top: 10px;
 left: 220px;
 
+@media ${device.laptop} { 
+    height: 23px;
+    width: 23px;
+    left: 152px;
+}
+
 &::after {
     content: "";
     position: absolute;
@@ -25,6 +32,12 @@ left: 220px;
     background-image: url('${url}');
     background-size: contain;
     background-repeat: no-repeat;
+
+    @media ${device.laptop} { 
+        left: 2px;
+        width: 18px;
+        height: 18px;
+    }
 }
 
 &:hover {

@@ -4,10 +4,10 @@ import variables from '../../../sass/variables.module.scss';
 import './style.scss';
 import { CloseButton } from "../../atoms/closeButton";
 import { useAppSelector } from "../../../app/hooks";
-import { getModalWindowContentTitleSelector, getModalWindowViewSelector } from "../../../store/reducers/modalWindowReduser";
+import { getModalWindowContentTitleSelector, getModalWindowViewSelector } from "../../../store/reducers/modalWindowReducer";
 import ReactModal from "react-modal";
 import { useCloseModalWindowButton } from "../../../myHooks/useCloseModalWindowButton";
-import { getAccountStatusSelector } from "../../../store/reducers/accountReduser";
+import { getAccountStatusSelector } from "../../../store/reducers/accountReducer";
 import { getReactElementForModalWindowContent } from "../../../myHooks/useCurrentContentForModalWindow";
 
 ReactModal.setAppElement('#root');
@@ -19,6 +19,7 @@ const modalStyles = {
         transform: 'translate(-50%, -50%)',
         maxWidth: '800px',
         minHeight: 'min-content',
+        minWidth: 'min-content',
         backgroundColor: `${variables.colorBackgroundDark}`,
         borderRadius: '15px',
         padding: '20px',

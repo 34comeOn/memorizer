@@ -8,11 +8,20 @@ import { signInFormValidationSchema, signUpFormValidationSchema } from "../../..
 import { ValidationErrorBox } from "../../atoms/validationErrorBox";
 import { PasswordInput } from "../../molecules/passwordInput";
 import { ForgotPasswordLink } from "../../atoms/forgotPasswordLink";
+import { CustomSpinner } from "../../atoms/customSpinner";
+import { useWarningNotification } from "../../../myHooks/utillsHooks/useWarningNotification";
+import { useRequestLoading } from "../../../myHooks/useRequestLoading";
+import { RESPONSE_ERROR_TITLE } from "../../../constants/stringConstants";
 
 export const SignInAndUpForm = () => {
     const [isSignUpFormActive, setIsSignUpFormActive] = useState(false);
-    const onSignUpHandler = UseSubmitButtonToSignUp();
-    const onSignInHandler = UseSubmitButtonToSignIn();
+
+    const [signUpcontextHolder, openSignUpNotification] = useWarningNotification(RESPONSE_ERROR_TITLE.SIGN_UP);
+    const [contextHolder, openNotification] = useWarningNotification(RESPONSE_ERROR_TITLE.SIGN_IN);
+    const {isLoading, onChangeLoadingStatus} = useRequestLoading();
+
+    const onSignUpHandler = UseSubmitButtonToSignUp(onChangeLoadingStatus, openSignUpNotification as ((descriptionText: string) => void));
+    const onSignInHandler = UseSubmitButtonToSignIn(onChangeLoadingStatus, openNotification as ((descriptionText: string) => void));
     return(
         <Formik 
             initialValues={{ 
@@ -28,9 +37,15 @@ export const SignInAndUpForm = () => {
                 isSignUpFormActive? onSignUpHandler: onSignInHandler
             }
         >
-            {({ errors, touched })=>{
+            {({ errors, touched, values })=>{
                 return(
                     <Form className='sign-in--form'>
+                        <>
+                            {signUpcontextHolder}
+                        </>
+                        <>
+                            {contextHolder}
+                        </>
                         {isSignUpFormActive && <FormInput 
                             type='text' 
                             name='userName' 
@@ -51,7 +66,9 @@ export const SignInAndUpForm = () => {
                             type='password'
                             name='password' 
                             labelValue='Password'
+                            value = {values.password}
                         />
+                        <CustomSpinner isLoading={isLoading} />
                         {errors.password && touched.password ? (
                             <ValidationErrorBox error={errors.password} />
                         ) : null}
@@ -60,6 +77,7 @@ export const SignInAndUpForm = () => {
                             type='password' 
                             name='confirmPassword' 
                             labelValue='Confirm password'
+                            value = {values.confirmPassword}
                         />}
                         {isSignUpFormActive && errors.confirmPassword && touched.confirmPassword ? (
                             <ValidationErrorBox error={errors.confirmPassword} />

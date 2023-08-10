@@ -2,8 +2,8 @@
 // import { useAppDispatch } from "../../app/hooks";
 // import { SIGN_UP_USER_ENDPOINT } from "../../constants/stringConstants";
 // import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
-// import { logIn } from "../../store/reducers/accountReduser";
-// import { setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReduser";
+// import { logIn } from "../../store/reducers/accountReducer";
+// import { setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReducer";
 // import { cutBasicUserCollectionsInfo } from "../../utils/utils";
 
 export interface IforgotPasswordForm {
@@ -16,9 +16,9 @@ export const UseSubmitForRequireNewPassword = () => {
     // const [getAllUserDataAfterSignUpTriger] = collectionDataAPI.usePostNewUserMutation();
 
     return (values: IforgotPasswordForm) => {
-        const newUserObject = {
-            email: values.email,
-        }
+        // const newUserObject = {
+        //     email: values.email,
+        // }
 
         // getAllUserDataAfterSignUpTriger({path:SIGN_UP_USER_ENDPOINT, putObj: newUserObject})
         // .unwrap()

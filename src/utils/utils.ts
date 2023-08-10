@@ -1,8 +1,9 @@
-import { MAX_PUNISHMENT_FOR_LATE_PRACTICE, REPEAT_TIMES_CONVERT_TO_POINTS, STOCK_USER } from "../constants/stockConstants";
-import { LOCAL_STORAGE_KEYS_CONSTANTS, RADIO_BUTTON_NAME, UNPUNISHABLE_REPEAT_TIMES } from "../constants/stringConstants";
+import { PERIODS_OF_PRACRICE, REPEAT_TIMES_CONVERT_TO_POINTS, STOCK_USER } from "../constants/stockConstants";
+import { HIGHEST_REPEAT_TIMES, LOCAL_STORAGE_KEYS_CONSTANTS, RADIO_BUTTON_NAME, UNPUNISHABLE_REPEAT_TIMES } from "../constants/stringConstants";
 import { FIELD_REQUIRED_WARNING, MAX_LENGTH_TITLE, MAX_LENGTH_TITLE_WARNING, TITLE_REGEX, TITLE_REGEX_WARNING } from "../constants/validationConstants";
 import { InewCardForm } from "../myHooks/collectionHooks/useCreateNewCard";
-import { IsignInForm } from "../myHooks/myFormHooks/useSubmitButtonForSignUp";
+import variables from '../sass/variables.module.scss';
+import { getItemPoints } from "./getItemPoints";
 
 export type TbasicCollectionInfo = {
     '_id'?: string,
@@ -24,12 +25,21 @@ export type TcollectionItemData = {
     collectionItemAnswer: string,
     collectionItemRepeatedTimeStamp: number,
     collectionItemTimesBeenRepeated: number,
+    collectionItemPenaltyCount: number,
+    collectionItemInvincibleCount: number,
     collectionItemCategory?: string,
     collectionItemColor?: string,
     collectionItemPriority?: number,
     collectionItemTags?: string | TcollectionTag[],
     collectionItemComments?: TcollectionItemComment[],
 }
+
+export type TeditCollectionItemData = Omit<TcollectionItemData, 
+    'collectionItemRepeatedTimeStamp' | 
+    'collectionItemTimesBeenRepeated' |
+    'collectionItemPenaltyCount' |
+    'collectionItemInvincibleCount' 
+>
 
 export type TcollectionTag = {
     label: string,
@@ -55,24 +65,12 @@ export type TuserCollectionData = {
 export type Tuser = {
     '_id'?: string,
     email: string,
-    password: string,
+    // password: string,
     userName: string,
     subscription: string,
     currentToken: string,
     currentCollection: string,
     userCollectionsData: TuserCollectionData[],
-}
-
-const getHoursSinceRepeat = (repeatedTimeStamp: number) => {
-    const timeSinceRepeat = Date.now() - repeatedTimeStamp;
-    return Math.floor(timeSinceRepeat/ (1000*60*60));
-}
-
-const countItemPoints = (repeatPoints: number, hours: number) => repeatPoints - hours;
-
-const getItemPoints = (item: TcollectionItemData) => {
-  const itemHours: number = getHoursSinceRepeat(item.collectionItemRepeatedTimeStamp ?? 0)
-  return countItemPoints(REPEAT_TIMES_CONVERT_TO_POINTS[item.collectionItemTimesBeenRepeated], itemHours)
 }
 
 const pullFiltersTitlesFromData = (item: TcollectionItemData,filtersArray: string[]) => {
@@ -91,17 +89,19 @@ const sortItemInGroup = (item: TcollectionItemData,
     repeatIn3DaysGroup: TcollectionItemData[],
     ) => {
     
-    if (getItemPoints(item) <= 0) {
+    const itemPoints = getItemPoints(item.collectionItemRepeatedTimeStamp, item.collectionItemTimesBeenRepeated)
+
+    if (itemPoints <= PERIODS_OF_PRACRICE.NO_PRACTICE) {
         repeatNowGroup.push(item)
-    } else if (getItemPoints(item) <= 1) {
+    } else if (itemPoints <= PERIODS_OF_PRACRICE.FIRST_PRACRICE) {
         repeatIn1HourGroup.push(item)
-    } else if (getItemPoints(item) <= 4) {
+    } else if (itemPoints <= PERIODS_OF_PRACRICE.SECOND_PRACRICE) {
         repeatIn4HoursGroup.push(item)
-    } else if (getItemPoints(item) <= 8) {
+    } else if (itemPoints <= PERIODS_OF_PRACRICE.THIRD_PRACRICE) {
         repeatIn8HoursGroup.push(item)
-    } else if (getItemPoints(item) <= 12) {
+    } else if (itemPoints <= PERIODS_OF_PRACRICE.FOURTH_PRACRICE) {
         repeatIn12HoursGroup.push(item)
-    } else if (getItemPoints(item) <= 24) {
+    } else if (itemPoints <= PERIODS_OF_PRACRICE.FIFTH_PRACRICE) {
         repeatIn24HoursGroup.push(item)
     } else {
         repeatIn3DaysGroup.push(item)
@@ -146,39 +146,11 @@ export const spreadCollectionData = (dataBase: TcollectionItemData[]) => {
     return {filtersOfCollection,orgonizedGroupsOfCollection};
 };
 
-export const countPunishmentPoints = (timesBeenRepeated: number, lastTimeRepeted: number) => {
-    let punishPoints = 0;
-    for (let i = 0; i <= MAX_PUNISHMENT_FOR_LATE_PRACTICE; i++) {
-        if ((getHoursSinceRepeat(lastTimeRepeted) - REPEAT_TIMES_CONVERT_TO_POINTS[timesBeenRepeated - i]?? 0) >= 1) {
-            punishPoints += 1;
-        } 
-    }
-    return punishPoints;
-}
-
-export const getPunishmentForLatePractice = (timesBeenRepeated: number, lastTimeRepeted: number) => {
-    const newTimesBeenRepeated = timesBeenRepeated - countPunishmentPoints(timesBeenRepeated, lastTimeRepeted);
-    if (timesBeenRepeated >= UNPUNISHABLE_REPEAT_TIMES) {
-        return (newTimesBeenRepeated <= UNPUNISHABLE_REPEAT_TIMES? UNPUNISHABLE_REPEAT_TIMES: newTimesBeenRepeated); 
-    }
-
-    return (newTimesBeenRepeated <= 0? 0: newTimesBeenRepeated);
-}
-
 export const updateTimesBeenRepeated = (currentTimesBeenRepeated: number) => {
     const HighestTimesBeenRepeatedNumber = Object.keys(REPEAT_TIMES_CONVERT_TO_POINTS).length-1;
     return currentTimesBeenRepeated >= HighestTimesBeenRepeatedNumber? HighestTimesBeenRepeatedNumber: currentTimesBeenRepeated + 1;
 }
 
-export const modifyUserSignUpInfoForDataBase = (valuesFromForm: IsignInForm) => {
-    return {
-        email: valuesFromForm.email,
-        password: valuesFromForm.password,
-        name: valuesFromForm.userName,
-        currentCollection: '',
-        userCollectionsData: [], 
-    }
-}
 
 export const getAllCurrentUserData = (userEmail: string) => {
     return JSON.parse(localStorage.getItem(userEmail)?? JSON.stringify(STOCK_USER));
@@ -211,7 +183,7 @@ export const cutBasicUserCollectionsInfo = (allUserCollections: TuserCollectionD
 }
 
 export const setCategoryInCardObj = (
-    newCard: TcollectionItemData,
+    newCard: TeditCollectionItemData,
     values: InewCardForm, 
     currentCollectionCategories: TcollectionСategory[] | undefined) => {
     if (values.categoryRadioButtons === RADIO_BUTTON_NAME.SET_CATEGORY) {
@@ -254,4 +226,14 @@ export const validateCollectionItemCategory = (value: string) => {
     }
 
     return error;
+}
+
+export const deliverBackgroundColorForContainer = (timesBeenRepeated: number) => {
+    if (timesBeenRepeated < UNPUNISHABLE_REPEAT_TIMES) {
+        return variables.colorLowRepeatLevel;
+    } else if (timesBeenRepeated < HIGHEST_REPEAT_TIMES - 1) {
+        return variables.colorMiddleRepeatLevel;
+    } else if (timesBeenRepeated >= HIGHEST_REPEAT_TIMES - 1) {
+        return variables.colorHighRepeatLevel;
+    }
 }

@@ -22,6 +22,24 @@ $colorBorder: #3e516c;
 
 $colorError: rgb(234, 66, 66);
 
+$colorLowRepeatLevel: rgb(218 51 51);
+$colorMiddleRepeatLevel: rgb(165, 146, 48);
+$colorHighRepeatLevel: rgb(43, 131, 59);
+
+// Viewports
+// ---------------------------------
+
+$vp-320:                            320px;
+$vp-375:                            375px;
+$vp-768:                            768px;
+$vp-830:                            830px;
+$vp-1024:                           1024px;
+$vp-1095:                           1095px;
+$vp-1170:                           1170px;
+$vp-1280:                           1280px;
+$vp-1366:                           1366px;
+$vp-1440:                           1440px;
+$vp-1920:                           1920px;
 
 :export {
     colorTransparent: $colorTransparent;
@@ -35,4 +53,14 @@ $colorError: rgb(234, 66, 66);
     colorButtonActive: $colorButtonActive;
     colorDecorBright: $colorDecorBright;
     colorFontWhite: $colorFontWhite;
+    colorBorder: $colorBorder;
+    colorLowRepeatLevel: $colorLowRepeatLevel;
+    colorMiddleRepeatLevel: $colorMiddleRepeatLevel;
+    colorHighRepeatLevel: $colorHighRepeatLevel;
+    colorError: $colorError;
+    ffMainRegular: $ff-main-regular;
+    colorItemHover: $colorItemHover;
+
+
+    vp-1024: $vp-1024;
 }

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import variables from '../../../sass/variables.module.scss';
 import url from '../../../accets/signLogo/sign-out-logo.png';
+import { device } from '../../../global/theme/index';
 
 export const StyledLogOutNavButton = styled.button`
     height: 32px;
@@ -23,6 +24,11 @@ export const StyledLogOutNavButton = styled.button`
         background-image: url('${url}');
         background-size: contain;
         background-repeat: no-repeat;
+
+        @media ${device.laptop} { 
+            top: 4px;
+            left: -4px;
+        }
     }
 
     &:hover {

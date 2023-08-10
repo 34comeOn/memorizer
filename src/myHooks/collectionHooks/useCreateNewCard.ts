@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { CREATE_NEW_CARD_ENDPOINT, RADIO_BUTTON_NAME } from "../../constants/stringConstants";
+import { CREATE_NEW_CARD_ENDPOINT, RADIO_BUTTON_NAME, RESPONSE_ERROR_TEXT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
-import { getUserIdSelector } from "../../store/reducers/accountReduser";
-import { getCurrentCollectionSelector} from "../../store/reducers/userCollectionsReduser";
+import { getUserIdSelector } from "../../store/reducers/accountReducer";
+import { getCurrentCollectionSelector} from "../../store/reducers/userCollectionsReducer";
 import { checkTitleExclusivity, setCategoryInCardObj, TcollectionItemData, TcollectionTag } from "../../utils/utils";
 import { UseCurrentCollectionResponse } from "./useResponses/useCurrentCollectionResponse";
 
@@ -16,7 +16,7 @@ export interface InewCardForm {
     categoryRadioButtons: string,
 }
 
-export const useCreateNewCard = () => {
+export const useCreateNewCard = (onChangeLoadingStatus: (value: boolean)=> void, openNotification: ((descriptionText: string) => void)) => {
     const dispatch = useAppDispatch();
     const currentUserId = useAppSelector(getUserIdSelector);
     const currentCollectionCategories = useAppSelector(getCurrentCollectionSelector).collectionСategories;
@@ -29,6 +29,8 @@ export const useCreateNewCard = () => {
             collectionItemAnswer: values.cardAnswer,
             collectionItemRepeatedTimeStamp: 1671420000000,
             collectionItemTimesBeenRepeated: 0,
+            collectionItemPenaltyCount: 0,
+            collectionItemInvincibleCount: 0,
             collectionItemCategory: '',
             collectionItemColor: '',
             collectionItemTags: values.cardTags,
@@ -46,14 +48,18 @@ export const useCreateNewCard = () => {
             newCard: newCard,
         }
 
+        onChangeLoadingStatus(true)
+
         getCurrentCollectionAfterCreatingNewCardTriger({path:CREATE_NEW_CARD_ENDPOINT, newCardObj: newCardObj})
         .unwrap()
         .then(
           (currentCollection) => {
+            onChangeLoadingStatus(false)
             UseCurrentCollectionResponse(currentCollection, dispatch);
           },
           () => {
-            alert('something went wrong NEW CARD')
+            onChangeLoadingStatus(false)
+            openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG)
           }
         );
     }

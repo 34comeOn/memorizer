@@ -4,7 +4,7 @@ import { FieldProps } from 'formik';
 import { StyledErrorMessage } from './styledErrorMessage';
 import './style.scss';
 import { useAppSelector } from '../../../app/hooks';
-import { getRefreshedFiltersSelector } from '../../../store/reducers/collectionFiltersReduser';
+import { getRefreshedFiltersSelector } from '../../../store/reducers/collectionFiltersReducer';
 
 export const CategoryInput = ({ field,form: { touched, errors, setFieldValue },...props}: FieldProps) => {
   const existingCategoriesInCurrrentCollection = useAppSelector(getRefreshedFiltersSelector).map(option => ({value: option, label: option}));

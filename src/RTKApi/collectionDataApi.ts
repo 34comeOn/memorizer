@@ -1,5 +1,5 @@
 import { TeditCollectionData } from '../myHooks/collectionHooks/useEditCollection';
-import { TcollectionItemData, Tuser, TuserCollectionData } from '../utils/utils';
+import { TcollectionItemData, TeditCollectionItemData, Tuser, TuserCollectionData } from '../utils/utils';
 import { rootAPI } from './rootApi';
 
 export type TsignInObject = {
@@ -24,7 +24,7 @@ export type TeditCardPutObject = {
   collectionId: string, 
   cardId: string, 
   creatingNewCategory: boolean,
-  editedCard: TcollectionItemData, 
+  editedCard: TeditCollectionItemData, 
 }
 
 export type TrepeatObject = {
@@ -37,7 +37,7 @@ export type TrepeatObject = {
 
 export const collectionDataAPI = rootAPI.injectEndpoints({
   endpoints: (build) => ({
-    getCollectionData: build.mutation<TcollectionItemData[], string>({
+    getStockCollectionData: build.mutation<TuserCollectionData[], string>({
       query(path) {
         return {
           url: `${path}`

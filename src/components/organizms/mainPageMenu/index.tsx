@@ -3,18 +3,20 @@ import { UserCollectionsList } from "../userCollectionsList";
 import { StyledMainPageMenu } from "./styledMainPageMenu";
 import variables from '../../../sass/variables.module.scss';
 import './style.scss';
-import { getAccountStatusSelector } from "../../../store/reducers/accountReduser";
+import { getAccountStatusSelector } from "../../../store/reducers/accountReducer";
 import { useAppSelector } from "../../../app/hooks";
 import { CreateNewCollectionButton } from "../../atoms/createNewCollectionButton";
+import { StockCollectionsList } from "../stockCollectionsList";
 
 export const MainPageMenu = () => {
     const accountStatus = useAppSelector(getAccountStatusSelector);
     return(
         <StyledMainPageMenu className='menu-options--box' >
-                <UserCollectionsList />
-                <CreateNewCollectionButton disabled={!accountStatus} color={variables.colorMenuDark}>
-                    Create a new collection
-                </ CreateNewCollectionButton>
+                    <CreateNewCollectionButton disabled={!accountStatus} color={variables.colorDecorBright}>
+                        Create a new collection
+                    </ CreateNewCollectionButton>
+                {accountStatus && <UserCollectionsList />}
+                {!accountStatus && <StockCollectionsList />}
         </ StyledMainPageMenu>
     )
 }

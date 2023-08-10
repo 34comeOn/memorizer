@@ -6,7 +6,7 @@ import { addItemInListOfCurrentFilters,
     getRefreshedFiltersSelector,
     replaceListOfCurrentFilters, 
     removeItemFromListOfCurrentFilters 
-} from "../../../store/reducers/collectionFiltersReduser";
+} from "../../../store/reducers/collectionFiltersReducer";
 import { useCheckboxCurrentState } from "../../../myHooks/useCheckboxCurrentState";
 import { MAIN_FILTER_CHECKBOX } from "../../../constants/stringConstants";
 

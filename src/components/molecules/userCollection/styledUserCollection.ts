@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import variables from '../../../sass/variables.module.scss';
+import { device } from '../../../global/theme/index';
 
 type TcollectionColor = {
     color: string;
@@ -17,4 +18,11 @@ export const StyledUserCollection = styled.li<TcollectionColor>`
     flex-direction: column;
     justify-content: space-between;
     position: relative;
+
+    @media ${device.laptop} { 
+      min-width: 200px;
+      width: 200px;
+      height: 170px;
+      margin: 8px;
+    }
 `;

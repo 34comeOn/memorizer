@@ -3,12 +3,12 @@ import { TcollectionItemData } from '../../../../utils/utils';
 import { StyledRepeatList } from './styledRepeatList';
 import './style.scss';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
-import { getListOfCurrentFiltersSelector } from '../../../../store/reducers/collectionFiltersReduser';
+import { getListOfCurrentFiltersSelector } from '../../../../store/reducers/collectionFiltersReducer';
 import { MAIN_FILTER_CHECKBOX, MODAL_WINDOW_CONTENT_STRING_CONSTANTS } from '../../../../constants/stringConstants';
-import { hideAnswer, setCurrentCard, showCurrentCard } from '../../../../store/reducers/cardWindowReduser';
+import { hideAnswer, setCurrentCard, showCurrentCard } from '../../../../store/reducers/cardWindowReducer';
 import { RepeatListItem } from '../../repeatListItem';
 import { nanoid } from 'nanoid';
-import { setContentForModalWindow, showModalWindow } from '../../../../store/reducers/modalWindowReduser';
+import { setContentForModalWindow, showModalWindow } from '../../../../store/reducers/modalWindowReducer';
 
 export type ThandleOpenCard = (id: string) => void
 

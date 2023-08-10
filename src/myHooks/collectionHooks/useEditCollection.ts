@@ -1,9 +1,9 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { EDIT_COLLECTION_ENDPOINT } from "../../constants/stringConstants";
+import { EDIT_COLLECTION_ENDPOINT, RESPONSE_ERROR_TEXT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
-import { getUserIdSelector } from "../../store/reducers/accountReduser";
-import { hideModalWindow } from "../../store/reducers/modalWindowReduser";
-import { setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReduser";
+import { getUserIdSelector } from "../../store/reducers/accountReducer";
+import { hideModalWindow } from "../../store/reducers/modalWindowReducer";
+import { setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReducer";
 import { cutBasicUserCollectionsInfo } from "../../utils/utils";
 
 export interface IeditCollectionForm {
@@ -16,7 +16,7 @@ export type TeditCollectionData = {
     collectionColor: string,
     collectionTitle: string,
   }
-export const useEditCollection = (_id: string) => {
+export const useEditCollection = (_id: string, onChangeLoadingStatus: (value: boolean)=> void, openNotification: ((descriptionText: string) => void)) => {
     const dispatch = useAppDispatch();
     const [getAllCollectionsAfterEditingCollectionTriger] = collectionDataAPI.usePutEditedCollectionMutation();
     const currentUserId = useAppSelector(getUserIdSelector);
@@ -30,16 +30,18 @@ export const useEditCollection = (_id: string) => {
             collectionTitle: values.title,
         }
 
+        onChangeLoadingStatus(true)
         getAllCollectionsAfterEditingCollectionTriger({path:EDIT_COLLECTION_ENDPOINT, editCollectionObj: editCollectionObj})
         .unwrap()
         .then(
           (userCollections) => {
+            onChangeLoadingStatus(false)
             dispatch(setUserBasicCollectionsInfo(cutBasicUserCollectionsInfo(userCollections)));
             dispatch(hideModalWindow());
           },
-          (error) => {
-            alert('something went wrong NEW COLLECTION')
-            // error.status === 403? alert('E-mail or password does not match!') : alert('Ops! something went wrong')
+          () => {
+            onChangeLoadingStatus(false)
+            openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG)
           }
         );
     }

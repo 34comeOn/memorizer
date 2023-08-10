@@ -1,6 +1,6 @@
 export const MAIN_FILTER_CHECKBOX = 'all';
 
-export const GET_DATA_ENDPOINT = '/data';
+export const GET_STOCK_COLLECTION_ENG_ENDPOINT = '/stock-collection-eng';
 export const GET_CURRENT_COLLECTION_ENDPOINT = '/traing-collection';
 export const SIGN_IN_USER_ENDPOINT = 'api/sign-in';
 export const SIGN_UP_USER_ENDPOINT = 'api/sign-up';
@@ -60,6 +60,26 @@ export const REPEAT_LISTS_TITLE = [
 ]
 
 export const UNPUNISHABLE_REPEAT_TIMES = 3;
+export const HIGHEST_REPEAT_TIMES = 6;
 
 export const FORGOT_PASSWORD_LINK = 'Forgot password?';
 export const FORGOT_PASSWORD_TEXT = 'If you do not remember password, we would send new password to your e-mail';
+
+export const RESPONSE_ERROR_TITLE = {
+    CREATE_NEW_COLLECTION: 'Не получилось создать новую коллекцию',
+    CREATE_NEW_CARD: 'Не получилось создать новую карточку',
+    EDIT: 'Изменения не сохранились',
+    CHOOSE_COLLECTION: 'Не удалось загрузить коллекцию',
+    DELETE: 'Не удалось удалить',
+    DONE: 'Не удалось сохранить прогресс',
+    SIGN_IN: 'Вход не выполнен',
+    SIGN_UP: 'Регистрация не выполнена',
+}
+
+export const RESPONSE_ERROR_TEXT = {
+    SOMETHING_WENT_WRONG: 'Что-то пошло не так...',
+    PASS_OR_EMAIL_NOT_MATCH: 'E-mail или пароль введен не верно',
+    EMAIL_ALREADY_EXIST: 'Пользователь с таким e-mail уже зарегистрирован',
+    STOCK_COLLECTION_HAS_NOT_LOADED: 'Пробная коллекция не загрузилась',
+    // STOCK_COLLECTION_HAS_NOT_LOADED: 'Stock collection hasn`t loaded',
+}

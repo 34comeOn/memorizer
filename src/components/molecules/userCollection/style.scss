@@ -1,4 +1,5 @@
 @import '/src/sass/variables.module.scss';
+@import '/src/sass/mixins.scss';
 
 .collection--title {
     text-align: left; 
@@ -9,6 +10,12 @@
     color: $colorFontWhite;
     font-size: 22px;
     font-weight: 500;
+
+    @include vp-1023 {
+        font-size: 18px;
+        margin-top: 43px;
+        margin-left: 26px;
+    } 
 }
 
 .collection--title::before {
@@ -20,6 +27,12 @@
     position: absolute;
     top: 46px;
     left: 39px;
+
+    @include vp-1023 {
+        width: 164px;
+        top: 38px;
+        left: 19px;
+    } 
 }
 
 .collection--title::after {
@@ -32,4 +45,11 @@
     position: absolute;
     top: 70px;
     left: 38px;
+
+    @include vp-1023 {
+        width: 5px;
+        height: 5px;
+        top: 52px;
+        left: 18px;
+    } 
 }

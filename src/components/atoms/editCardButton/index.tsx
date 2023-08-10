@@ -1,11 +1,16 @@
 import React from "react"
 import { useDispatch } from "react-redux";
 import { MODAL_WINDOW_CONTENT_STRING_CONSTANTS } from "../../../constants/stringConstants";
-import { editCard, TeditCard } from "../../../store/reducers/editReduser";
-import { setContentForModalWindow, showModalWindow } from "../../../store/reducers/modalWindowReduser";
+import { editCard, TeditCard } from "../../../store/reducers/editReducer";
+import { setContentForModalWindow, showModalWindow } from "../../../store/reducers/modalWindowReducer";
 import { StyledEditButton } from "../editButton/styledEditButton";
 
-export const EditCardButton = ({_id, cardTitle, cardAnswer, cardCategory, cardColor}: TeditCard) => {
+export const EditCardButton = ({
+    _id, 
+    cardTitle, 
+    cardAnswer, 
+    cardCategory, 
+    cardColor}: TeditCard) => {
     const dispatch = useDispatch();
 
     return(

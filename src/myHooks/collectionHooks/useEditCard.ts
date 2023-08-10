@@ -1,9 +1,9 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { EDIT_CARD_ENDPOINT, RADIO_BUTTON_NAME } from "../../constants/stringConstants";
+import { EDIT_CARD_ENDPOINT, RADIO_BUTTON_NAME, RESPONSE_ERROR_TEXT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
-import { getUserIdSelector } from "../../store/reducers/accountReduser";
-import { getCurrentCollectionSelector } from "../../store/reducers/userCollectionsReduser";
-import { checkTitleExclusivity, setCategoryInCardObj, TcollectionItemData, TcollectionTag } from "../../utils/utils";
+import { getUserIdSelector } from "../../store/reducers/accountReducer";
+import { getCurrentCollectionSelector } from "../../store/reducers/userCollectionsReducer";
+import { checkTitleExclusivity, setCategoryInCardObj, TcollectionTag, TeditCollectionItemData } from "../../utils/utils";
 import { UseCurrentCollectionResponse } from "./useResponses/useCurrentCollectionResponse";
 
 export interface IeditCardForm {
@@ -16,7 +16,7 @@ export interface IeditCardForm {
     categoryRadioButtons: string,
 }
 
-export const useEditCard = (_id: string) => {
+export const useEditCard = (_id: string, onChangeLoadingStatus: (value: boolean)=> void, openNotification: ((descriptionText: string) => void)) => {
     const dispatch = useAppDispatch();
     const [getUpdatedCollectionAfterEditingCardTriger] = collectionDataAPI.usePutEditedCardMutation();
     const currentUserId = useAppSelector(getUserIdSelector);
@@ -24,11 +24,9 @@ export const useEditCard = (_id: string) => {
     const currentCollectionCategories = useAppSelector(getCurrentCollectionSelector).collectionСategories;
     
     return (values: IeditCardForm) => {
-        const editedCard: TcollectionItemData = {
+        const editedCard: TeditCollectionItemData = {
             collectionItemTitle: values.cardTitle,
             collectionItemAnswer: values.cardAnswer,
-            collectionItemRepeatedTimeStamp: 1671420000000,
-            collectionItemTimesBeenRepeated: 0,
             collectionItemCategory: '',
             collectionItemColor: '',
             collectionItemTags: values.cardTags,
@@ -47,14 +45,18 @@ export const useEditCard = (_id: string) => {
             editedCard: editedCard,
         }
 
+        onChangeLoadingStatus(true)
+
         getUpdatedCollectionAfterEditingCardTriger({path: EDIT_CARD_ENDPOINT, editedCardObj: editedCardObj})
         .unwrap()
         .then(
           (currentCollection) => {
+            onChangeLoadingStatus(false)
             UseCurrentCollectionResponse(currentCollection, dispatch);
           },
           () => {
-            alert('something went wrong NEW COLLECTION')
+            onChangeLoadingStatus(false)
+            openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG)
           }
         );
     }
