@@ -19,22 +19,22 @@ import { getAccountStatusSelector } from '../../../../store/reducers/accountRedu
 import { useDoneClickButtonStockItem } from '../../../../myHooks/useDoneClickButtonStockItem';
 
 export const StockCardWindow = () => {
+    const dispatch = useAppDispatch();
     const accountStatus = useAppSelector(getAccountStatusSelector);
+
     const {isLoading, onChangeLoadingStatus} = useRequestLoading();
     const [contextHolder, openNotification] = useWarningNotification(RESPONSE_ERROR_TITLE.DELETE);
     const [doneContextHolder, openDoneNotification] = useWarningNotification(RESPONSE_ERROR_TITLE.DONE);
 
     const currentUserEmailFromLStorage = getCurrentUserEmailFromLStorage();
-    const currentCollectionAdminlist = useAppSelector(getCurrentCollectionSelector).collectionAdminList || '';
-    const currentCollectionId = useAppSelector(getCurrentCollectionSelector)._id || '';
+    const currentCollectionAdminlist = useAppSelector(getCurrentCollectionSelector).collectionAdminList;
+    const currentCollection = useAppSelector(getCurrentCollectionSelector);
     const userHasAdminPowersForCollection = checkAdminPowers(currentUserEmailFromLStorage?? '', currentCollectionAdminlist?? []);
-
-    const dispatch = useAppDispatch();
     const currentCard = useAppSelector(getCurrentCardSelector);
-    // console.log(currentCard)
-    const onDoneClickHandle = useDoneClickButton(currentCard,onChangeLoadingStatus, openDoneNotification as ((descriptionText: string) => void));
-    const onDoneClickStockItem = useDoneClickButtonStockItem(currentCard, currentCollectionId);
     const isAnswerVisible = useAppSelector(getAnswerVisibilitySelector);
+    
+    const onDoneClickHandle = useDoneClickButton(currentCard,onChangeLoadingStatus, openDoneNotification as ((descriptionText: string) => void));
+    const onDoneClickStockItem = useDoneClickButtonStockItem(currentCard, currentCollection);
 
     const onShowClickHandle= ()=> {
         dispatch(toggleAnswerVisibility())
