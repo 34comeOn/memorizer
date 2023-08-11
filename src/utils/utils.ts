@@ -2,8 +2,8 @@ import { PERIODS_OF_PRACRICE, REPEAT_TIMES_CONVERT_TO_POINTS, STOCK_USER } from 
 import { HIGHEST_REPEAT_TIMES, LOCAL_STORAGE_KEYS_CONSTANTS, RADIO_BUTTON_NAME, UNPUNISHABLE_REPEAT_TIMES } from "../constants/stringConstants";
 import { FIELD_REQUIRED_WARNING, MAX_LENGTH_TITLE, MAX_LENGTH_TITLE_WARNING, TITLE_REGEX, TITLE_REGEX_WARNING } from "../constants/validationConstants";
 import { InewCardForm } from "../myHooks/collectionHooks/useCreateNewCard";
-import variables from '../sass/variables.module.scss';
 import { getItemPoints } from "./getItemPoints";
+import variables from '../sass/variables.module.scss';
 
 export type TbasicCollectionInfo = {
     '_id'?: string,
@@ -74,7 +74,6 @@ export type TuserCollectionData = {
 export type Tuser = {
     '_id'?: string,
     email: string,
-    // password: string,
     userName: string,
     subscription: string,
     currentToken: string,
@@ -282,7 +281,7 @@ export const makeOverlayProgress = (currentCollectionId: string, currentCardId: 
 
     if (itemOverlay) {
         itemOverlay.collectionItemRepeatedTimeStamp = Date.now();
-        itemOverlay.collectionItemTimesBeenRepeated++;
+        itemOverlay.collectionItemTimesBeenRepeated = updateTimesBeenRepeated(itemOverlay.collectionItemTimesBeenRepeated);
 
         localStorage.setItem(currentCollectionId, JSON.stringify(collectionDataOverlay))
     } else {

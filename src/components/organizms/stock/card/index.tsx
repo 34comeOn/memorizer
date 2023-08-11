@@ -70,7 +70,7 @@ export const StockCardWindow = () => {
                 openNotification={openNotification as ((descriptionText: string) => void)}
                 />}
             </div>
-            <DoneButton onClick={accountStatus? onDoneClickHandle: onDoneClickStockItem}/>
+            <DoneButton disabled={currentCard.collectionItemTimesBeenRepeated >= 6} onClick={accountStatus? onDoneClickHandle: onDoneClickStockItem}/>
         </StyledCard>
     )
 }

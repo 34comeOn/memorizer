@@ -12,12 +12,12 @@ export const useDoneClickButtonStockItem = (currentCard: TcollectionItemData, cu
     const {getForceRender} =  useForceRender();
 
     return () => {
-        const {orgonizedGroupsOfCollection}= spreadCollectionData(addOverlay(currentCollection).collectionData);
-
+        
         dispatch(setTrainedCardId(currentCard._id || ''))
         dispatch(removeContentFromModalWindow()); 
         dispatch(hideModalWindow()); 
         dispatch(setCurrentCollection(addOverlay(currentCollection))); 
+        const {orgonizedGroupsOfCollection}= spreadCollectionData(addOverlay(currentCollection).collectionData);
         dispatch(setRepeatGroupsReducer(orgonizedGroupsOfCollection)); 
 
         makeOverlayProgress(currentCollection._id?? '', currentCard._id?? '');

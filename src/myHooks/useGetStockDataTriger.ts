@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../app/hooks";
 import { RESPONSE_ERROR_TEXT } from "../constants/stringConstants";
 import { collectionDataAPI } from "../RTKApi/collectionDataApi";
-import { hideCurrentCard } from "../store/reducers/cardWindowReducer";
+import { hideCurrentCard, setTrainedCardId } from "../store/reducers/cardWindowReducer";
 import { addOverlay } from "../utils/utils";
 import { UseChooseCollectionResponse } from "./collectionHooks/useResponses/useChooseCollectionResponse";
 
@@ -12,6 +12,7 @@ export const useGetStockDataTriger = (collectionId: string, onChangeLoadingStatu
     const [currentCollectionTriger] = collectionDataAPI.useGetCurrentCollectionToTrainMutation();
     const navigate = useNavigate();
     return () => {
+        dispatch(setTrainedCardId(''))
         dispatch(hideCurrentCard());
         onChangeLoadingStatus(true);
         currentCollectionTriger(`choose-collection/:${collectionId}/:${currentUserId}`)
