@@ -15,25 +15,31 @@ import { useRequestLoading } from '../../../../myHooks/useRequestLoading';
 import { CustomSpinner } from '../../../atoms/customSpinner';
 import { useWarningNotification } from '../../../../myHooks/utillsHooks/useWarningNotification';
 import { RESPONSE_ERROR_TITLE } from '../../../../constants/stringConstants';
+import { getAccountStatusSelector } from '../../../../store/reducers/accountReducer';
+import { useDoneClickButtonStockItem } from '../../../../myHooks/useDoneClickButtonStockItem';
 
 export const StockCardWindow = () => {
+    const accountStatus = useAppSelector(getAccountStatusSelector);
     const {isLoading, onChangeLoadingStatus} = useRequestLoading();
     const [contextHolder, openNotification] = useWarningNotification(RESPONSE_ERROR_TITLE.DELETE);
     const [doneContextHolder, openDoneNotification] = useWarningNotification(RESPONSE_ERROR_TITLE.DONE);
 
     const currentUserEmailFromLStorage = getCurrentUserEmailFromLStorage();
     const currentCollectionAdminlist = useAppSelector(getCurrentCollectionSelector).collectionAdminList || '';
+    const currentCollectionId = useAppSelector(getCurrentCollectionSelector)._id || '';
     const userHasAdminPowersForCollection = checkAdminPowers(currentUserEmailFromLStorage?? '', currentCollectionAdminlist?? []);
 
     const dispatch = useAppDispatch();
     const currentCard = useAppSelector(getCurrentCardSelector);
+    // console.log(currentCard)
     const onDoneClickHandle = useDoneClickButton(currentCard,onChangeLoadingStatus, openDoneNotification as ((descriptionText: string) => void));
+    const onDoneClickStockItem = useDoneClickButtonStockItem(currentCard, currentCollectionId);
     const isAnswerVisible = useAppSelector(getAnswerVisibilitySelector);
 
     const onShowClickHandle= ()=> {
         dispatch(toggleAnswerVisibility())
     }
-    
+
     return (  
         <StyledCard>
             <span className='card--title'>{currentCard.collectionItemTitle}</span>
@@ -64,7 +70,7 @@ export const StockCardWindow = () => {
                 openNotification={openNotification as ((descriptionText: string) => void)}
                 />}
             </div>
-            <DoneButton onClick={onDoneClickHandle}/>
+            <DoneButton onClick={accountStatus? onDoneClickHandle: onDoneClickStockItem}/>
         </StyledCard>
     )
 }

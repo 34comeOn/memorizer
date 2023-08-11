@@ -3,6 +3,7 @@ import { useAppDispatch } from "../app/hooks";
 import { RESPONSE_ERROR_TEXT } from "../constants/stringConstants";
 import { collectionDataAPI } from "../RTKApi/collectionDataApi";
 import { hideCurrentCard } from "../store/reducers/cardWindowReducer";
+import { addOverlay } from "../utils/utils";
 import { UseChooseCollectionResponse } from "./collectionHooks/useResponses/useChooseCollectionResponse";
 
 export const useGetStockDataTriger = (collectionId: string, onChangeLoadingStatus: (value: boolean)=> void, openNotification: ((descriptionText: string) => void) ) => {
@@ -12,13 +13,13 @@ export const useGetStockDataTriger = (collectionId: string, onChangeLoadingStatu
     const navigate = useNavigate();
     return () => {
         dispatch(hideCurrentCard());
-        onChangeLoadingStatus(true)
+        onChangeLoadingStatus(true);
         currentCollectionTriger(`choose-collection/:${collectionId}/:${currentUserId}`)
         .unwrap()
         .then(
           (currentCollection) => {
             onChangeLoadingStatus(false);
-            UseChooseCollectionResponse(currentCollection, dispatch);
+            UseChooseCollectionResponse(addOverlay(currentCollection), dispatch);
           },
           () => {
             onChangeLoadingStatus(false);

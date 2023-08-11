@@ -40,7 +40,7 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
     getStockCollectionData: build.mutation<TuserCollectionData[], string>({
       query(path) {
         return {
-          url: `${path}`
+          url: `${path}`,
         };
       }
     }),

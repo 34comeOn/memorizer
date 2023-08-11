@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { RESPONSE_ERROR_TEXT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
 import { getUserIdSelector } from "../../store/reducers/accountReducer";
-import { hideCurrentCard } from "../../store/reducers/cardWindowReducer";
+import { hideCurrentCard, setTrainedCardId } from "../../store/reducers/cardWindowReducer";
 import { UseChooseCollectionResponse } from "./useResponses/useChooseCollectionResponse";
 
 export const useChooseCollectionButton = (collectionId: string, onChangeLoadingStatus: (value: boolean)=> void, openNotification: ((descriptionText: string) => void) ) => {
@@ -12,6 +12,7 @@ export const useChooseCollectionButton = (collectionId: string, onChangeLoadingS
   const [currentCollectionTriger] = collectionDataAPI.useGetCurrentCollectionToTrainMutation();
   const navigate = useNavigate();
   return () => {
+      dispatch(setTrainedCardId(''))
       dispatch(hideCurrentCard());
       onChangeLoadingStatus(true)
       currentCollectionTriger(`choose-collection/:${collectionId}/:${currentUserId}`)

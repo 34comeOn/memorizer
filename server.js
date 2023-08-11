@@ -76,7 +76,7 @@ app.post('/api/sign-in', (req, res)=> {
 
 app.get('/stock-collection-eng', (req, res)=> {
     User.findById(STOCK_DATA_USER_ID)
-    .then(result=> res.send(result.userCollectionsData))
+    .then(result=> res.append('Cache-Control', 'private, max-age=15000').send(result.userCollectionsData))
     .catch(err=> console.log(err))
 })
 

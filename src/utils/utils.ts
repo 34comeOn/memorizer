@@ -34,6 +34,15 @@ export type TcollectionItemData = {
     collectionItemComments?: TcollectionItemComment[],
 }
 
+
+
+export type TstockCollectionItemData = Omit<TcollectionItemData, 
+    'collectionItemTitle' | 
+    'collectionItemAnswer' | 
+    'collectionItemPenaltyCount' | 
+    'collectionItemInvincibleCount' 
+>
+
 export type TeditCollectionItemData = Omit<TcollectionItemData, 
     'collectionItemRepeatedTimeStamp' | 
     'collectionItemTimesBeenRepeated' |
@@ -235,5 +244,48 @@ export const deliverBackgroundColorForContainer = (timesBeenRepeated: number) =>
         return variables.colorMiddleRepeatLevel;
     } else if (timesBeenRepeated >= HIGHEST_REPEAT_TIMES - 1) {
         return variables.colorHighRepeatLevel;
+    }
+}
+
+export const addOverlay = (currentCollection: TuserCollectionData) => {
+    const collectionDataOverlay = JSON.parse(localStorage.getItem(currentCollection._id?? '')?? JSON.stringify([]));
+    const collectionData = currentCollection.collectionData;
+    let newCollectionData: TcollectionItemData[] = [];
+
+    if (collectionDataOverlay.length > 0) {
+        newCollectionData = collectionData.map(card => {
+            const itemOverlay = collectionDataOverlay.find((item: TstockCollectionItemData) => item._id === card._id);
+            if (itemOverlay) {
+                return {...card, 
+                    collectionItemRepeatedTimeStamp: itemOverlay.collectionItemRepeatedTimeStamp,
+                    collectionItemTimesBeenRepeated: itemOverlay.collectionItemTimesBeenRepeated
+                }
+            }
+            return card
+        })
+
+        return {...currentCollection, collectionData: newCollectionData};
+    }
+
+    return currentCollection;
+}
+
+export const makeOverlayProgress = (currentCollectionId: string, currentCardId: string) => {
+    const collectionDataOverlay = JSON.parse(localStorage.getItem(currentCollectionId)?? JSON.stringify([]));
+    const newItemOverlay = {
+        '_id': currentCardId,
+        collectionItemRepeatedTimeStamp: Date.now(),
+        collectionItemTimesBeenRepeated: 1,
+    }
+
+    const itemOverlay = collectionDataOverlay.find((item: TcollectionItemData) => item._id === currentCardId);
+
+    if (itemOverlay) {
+        itemOverlay.collectionItemRepeatedTimeStamp = Date.now();
+        itemOverlay.collectionItemTimesBeenRepeated++;
+
+        localStorage.setItem(currentCollectionId, JSON.stringify(collectionDataOverlay))
+    } else {
+        localStorage.setItem(currentCollectionId, JSON.stringify([...collectionDataOverlay, newItemOverlay]));
     }
 }
