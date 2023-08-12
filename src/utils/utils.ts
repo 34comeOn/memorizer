@@ -82,6 +82,8 @@ export type Tuser = {
     email: string,
     userName: string,
     subscription: string,
+    isActivated: boolean,
+    activationLink: string,
     currentToken: string,
     currentCollection: string,
     userCollectionsData: TuserCollectionData[],

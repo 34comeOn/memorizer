@@ -113,6 +113,7 @@ const UserCollectionsDataSchema = new Schema({
 const UserSchema = new Schema({
     email: {
         type: String,
+        unique: true,
         required: true
     },
     password: {
@@ -127,6 +128,13 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    isActivated: {
+        type: Boolean,
+        default: false
+    },
+    activationLink: {
+        type: String,
+    }, 
     currentToken: {
         type: String,
         required: true

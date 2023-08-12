@@ -1,5 +1,8 @@
+require('dotenv').config();
+ 
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');  
 const mongoose = require('mongoose');
 const User = require('./models/user');
 const {
@@ -10,7 +13,7 @@ const {
     validateIsArray,
     validateWithRegEx,
     applyPunishmentForCollection,
-} = require('./server-modules/serverUtills');
+} = require('./server-modules/serverUtills'); 
 const { 
     NAME_REGEX,
     SERVER_PASSWORD_REGEX, 
@@ -19,17 +22,19 @@ const {
     STOCK_DATA_USER_ID,
 } = require('./server-modules/serverConstants');
 
-const db = 'mongodb+srv://barabanovm:Noway-2steal@cluster2.d7n5n2k.mongodb.net/?retryWrites=true&w=majority';
+// const db = 'mongodb+srv://barabanovm:Noway-2steal@cluster2.d7n5n2k.mongodb.net/?retryWrites=true&w=majority';
 
 mongoose
-    .connect(db)
+    // .connect(db)
+    .connect(process.env.DB_URL)
     .then((res)=> console.log('Connected to DB'))
     .catch((err)=> console.log(err))
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-const PORT = 3002;
+app.use(cookieParser());
+const PORT = process.env.PORT || 3002;
 
 app.listen(PORT, (error) => {
     error? console.log(error): console.log(`listen localhost${PORT}`)
