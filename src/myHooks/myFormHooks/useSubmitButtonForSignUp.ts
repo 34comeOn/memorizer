@@ -23,6 +23,8 @@ export const UseSubmitButtonToSignUp = (onChangeLoadingStatus: (value: boolean)=
             email: values.email,
             password: values.password,
             userName: values.userName,
+            isActivated: false,
+            activationLink: '',
             subscription: 'none',
             currentToken: 'none',
             currentCollection: 'none',

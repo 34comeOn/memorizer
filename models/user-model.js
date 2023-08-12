@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const {Schema, model} = require('mongoose');
 
 const CollectionItemCommentsSchema = new Schema({
     collectionItemCommentText: {
@@ -149,6 +148,4 @@ const UserSchema = new Schema({
     },
 });
 
-const User = mongoose.model('User', UserSchema);
-
-module.exports = User;
+module.exports = model('User', UserSchema);
