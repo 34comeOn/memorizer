@@ -15,7 +15,7 @@ export const useChooseCollectionButton = (collectionId: string, onChangeLoadingS
       dispatch(setTrainedCardId(''))
       dispatch(hideCurrentCard());
       onChangeLoadingStatus(true)
-      currentCollectionTriger(`choose-collection/:${collectionId}/:${currentUserId}`)
+      currentCollectionTriger(`api/choose-collection/:${collectionId}/:${currentUserId}`)
       .unwrap()
       .then(
         (currentCollection) => {

@@ -15,7 +15,7 @@ export const useGetStockDataTriger = (collectionId: string, onChangeLoadingStatu
         dispatch(setTrainedCardId(''))
         dispatch(hideCurrentCard());
         onChangeLoadingStatus(true);
-        currentCollectionTriger(`choose-collection/:${collectionId}/:${currentUserId}`)
+        currentCollectionTriger(`api/choose-collection/:${collectionId}/:${currentUserId}`)
         .unwrap()
         .then(
           (currentCollection) => {

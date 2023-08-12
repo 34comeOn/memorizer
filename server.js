@@ -1,5 +1,3 @@
-require('dotenv').config();
- 
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');  
@@ -21,11 +19,10 @@ const {
     TEXT_AREA_REGEX,
     STOCK_DATA_USER_ID,
 } = require('./server-modules/serverConstants');
-
-// const db = 'mongodb+srv://barabanovm:Noway-2steal@cluster2.d7n5n2k.mongodb.net/?retryWrites=true&w=majority';
+const router = require('./router/index'); 
+require('dotenv').config();
 
 mongoose
-    // .connect(db)
     .connect(process.env.DB_URL)
     .then((res)=> console.log('Connected to DB'))
     .catch((err)=> console.log(err))
@@ -34,6 +31,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+app.use('/api', router);
 const PORT = process.env.PORT || 3002;
 
 app.listen(PORT, (error) => {
@@ -77,18 +75,18 @@ app.post('/api/sign-in', (req, res)=> {
 })
 
 
-app.get('/stock-collection-eng', (req, res)=> {
+app.get('/api/stock-collection-eng', (req, res)=> {
     User.findById(STOCK_DATA_USER_ID)
     .then(result=> res.append('Cache-Control', 'private, max-age=15000').send(result.userCollectionsData))
     .catch(err=> console.log(err))
 })
 
-app.get('/data', (req, res)=> {
+app.get('/api/data', (req, res)=> {
     res.status(403).end();
 })
 
 
-app.get('/choose-collection/:id/:user', (req, res)=> {
+app.get('/api/choose-collection/:id/:user', (req, res)=> {
     let collectionId = req.params.id.slice(1);
     let currentUserId = req.params.user.slice(1);
 
@@ -221,7 +219,7 @@ app.post('/api/new-collection', (req, res)=>  {
 })
 
 
-app.delete('/:id/:user', (req, res) => {
+app.delete('/api/delete-collection/:id/:user', (req, res) => {
     let collectionId = req.params.id.slice(1);
     let userId = req.params.user.slice(1);
 
@@ -308,7 +306,7 @@ app.post('/api/new-card', (req,res) => {
 })
 
 
-app.delete('/card/:cardId/:collectionId/:userId', (req, res) => {
+app.delete('/api/delete-card/:cardId/:collectionId/:userId', (req, res) => {
     let cardId = req.params.cardId.slice(1);
     let collectionId = req.params.collectionId.slice(1);
     let userId = req.params.userId.slice(1);

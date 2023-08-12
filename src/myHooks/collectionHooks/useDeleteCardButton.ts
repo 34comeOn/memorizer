@@ -14,7 +14,7 @@ export const useDeleteCardButton = (currentCard: TcollectionItemData, onChangeLo
   return () => {
       onChangeLoadingStatus(true)
 
-      deleteCardTriger(`card/:${currentCard._id}/:${currentCollectionId}/:${currentUserId}`)
+      deleteCardTriger(`api/delete-card/:${currentCard._id}/:${currentCollectionId}/:${currentUserId}`)
       .unwrap()
       .then(
           (currentCollection) => {
