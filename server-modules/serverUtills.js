@@ -84,6 +84,23 @@ const getPenaltyForLatePractice = (hoursSinceLastPractice, practiceCount, maximu
     return {penaltyCount: penaltyCount, addingHoursDueToPenalty: addingHoursDueToPenalty}
 }
 
+const applyPunishmentForCollection = (collectionBeforePunishing) => {
+    return (collectionBeforePunishing.collectionData.map((card) => {
+        const timesBeenRepeated = card.collectionItemTimesBeenRepeated;
+        const hoursSinceLastPractice = getHoursSinceRepeat(card.collectionItemRepeatedTimeStamp);
+        const maximumPenalty = timesBeenRepeated - (card.collectionItemInvincibleCount?? 0);
+        const {penaltyCount, addingHoursDueToPenalty} = getPenaltyForLatePractice(hoursSinceLastPractice, timesBeenRepeated, maximumPenalty);
+        
+        
+        card.collectionItemTimesBeenRepeated = timesBeenRepeated - penaltyCount;
+        card.collectionItemRepeatedTimeStamp += convertHoursToSeconds(addingHoursDueToPenalty);
+
+        card.collectionItemPenaltyCount = penaltyCount;
+        
+        return card
+    }))
+}
+
 module.exports = {
     getHoursSinceRepeat,
     countPunishmentPoints,
@@ -95,5 +112,6 @@ module.exports = {
     validateNumber,
     validateIsArray,
     validateWithRegEx,
-    getPenaltyForLatePractice
+    getPenaltyForLatePractice,
+    applyPunishmentForCollection
 }

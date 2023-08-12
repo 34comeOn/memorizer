@@ -4,14 +4,12 @@ const mongoose = require('mongoose');
 const User = require('./models/user');
 const {
     validateAllRequestData, 
-    getHoursSinceRepeat,
     validateString,
     validateBoolean,
     validateNumber,
     validateIsArray,
     validateWithRegEx,
-    getPenaltyForLatePractice,
-    convertHoursToSeconds,
+    applyPunishmentForCollection,
 } = require('./server-modules/serverUtills');
 const { 
     NAME_REGEX,
@@ -102,21 +100,6 @@ app.get('/choose-collection/:id/:user', (req, res)=> {
         .then(allUserData=> {
             const collectionBeforePunishingForLatePractice = allUserData.userCollectionsData.find(collection => collection._id.toString() === collectionId);
             
-            let punishedCollectionData = collectionBeforePunishingForLatePractice.collectionData.map((card) => {
-                const timesBeenRepeated = card.collectionItemTimesBeenRepeated;
-                const hoursSinceLastPractice = getHoursSinceRepeat(card.collectionItemRepeatedTimeStamp);
-                const maximumPenalty = timesBeenRepeated - (card.collectionItemInvincibleCount?? 0);
-                const {penaltyCount, addingHoursDueToPenalty} = getPenaltyForLatePractice(hoursSinceLastPractice, timesBeenRepeated, maximumPenalty);
-                
-                
-                card.collectionItemTimesBeenRepeated = timesBeenRepeated - penaltyCount;
-                card.collectionItemRepeatedTimeStamp += convertHoursToSeconds(addingHoursDueToPenalty);
-
-                card.collectionItemPenaltyCount = penaltyCount;
-                
-                return card
-            })
-
             User.updateOne(
                 {_id: currentUserId, 
                     'userCollectionsData': {
@@ -127,7 +110,7 @@ app.get('/choose-collection/:id/:user', (req, res)=> {
                 },
                 {$set: 
                     { 
-                        'userCollectionsData.$[i].collectionData': punishedCollectionData,
+                        'userCollectionsData.$[i].collectionData': applyPunishmentForCollection(collectionBeforePunishingForLatePractice),
                     }
                 },
                 {

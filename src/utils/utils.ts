@@ -4,6 +4,12 @@ import { FIELD_REQUIRED_WARNING, MAX_LENGTH_TITLE, MAX_LENGTH_TITLE_WARNING, TIT
 import { InewCardForm } from "../myHooks/collectionHooks/useCreateNewCard";
 import { getItemPoints } from "./getItemPoints";
 import variables from '../sass/variables.module.scss';
+import { getHoursSinceRepeat } from "./getHoursSinceRepeat";
+import { getPenaltyForLatePractice } from "./refactorsPunishment/getPenaltyForLatePractice";
+
+const convertHoursToSeconds = (hours: number) => {
+    return hours*1000*60*60;
+}
 
 export type TbasicCollectionInfo = {
     '_id'?: string,
@@ -246,18 +252,55 @@ export const deliverBackgroundColorForContainer = (timesBeenRepeated: number) =>
     }
 }
 
+const applyPunishmentForOverlay = (overlayBeforePunishing: TcollectionItemData[]) => {
+    return (overlayBeforePunishing.map((card) => {
+        const timesBeenRepeated = card.collectionItemTimesBeenRepeated;
+        const hoursSinceLastPractice = getHoursSinceRepeat(card.collectionItemRepeatedTimeStamp);
+        const maximumPenalty = timesBeenRepeated - (card.collectionItemInvincibleCount?? 0);
+        const {penaltyCount, addingHoursDueToPenalty} = getPenaltyForLatePractice(hoursSinceLastPractice, timesBeenRepeated, maximumPenalty);
+        
+        
+        card.collectionItemTimesBeenRepeated = timesBeenRepeated - penaltyCount;
+        card.collectionItemRepeatedTimeStamp += convertHoursToSeconds(addingHoursDueToPenalty);
+
+        card.collectionItemPenaltyCount = penaltyCount;
+        
+        return card
+    }))
+}
+
 export const addOverlay = (currentCollection: TuserCollectionData) => {
     const collectionDataOverlay = JSON.parse(localStorage.getItem(currentCollection._id?? '')?? JSON.stringify([]));
+    
+    // let punishedCollectionData = collectionDataOverlay.map((card: TcollectionItemData) => {
+    //     const timesBeenRepeated = card.collectionItemTimesBeenRepeated;
+    //     const hoursSinceLastPractice = getHoursSinceRepeat(card.collectionItemRepeatedTimeStamp);
+    //     const maximumPenalty = timesBeenRepeated - (card.collectionItemInvincibleCount?? 0);
+    //     const {penaltyCount, addingHoursDueToPenalty} = getPenaltyForLatePractice(hoursSinceLastPractice, timesBeenRepeated, maximumPenalty);
+        
+        
+    //     card.collectionItemTimesBeenRepeated = timesBeenRepeated - penaltyCount;
+    //     card.collectionItemRepeatedTimeStamp += convertHoursToSeconds(addingHoursDueToPenalty);
+        
+    //     card.collectionItemPenaltyCount = penaltyCount;
+        
+    //     return card
+    // })
+    
+    localStorage.setItem(currentCollection._id?? '', JSON.stringify(applyPunishmentForOverlay(collectionDataOverlay)))
+    
+    const collectionDataOverlayAfterPunishment = JSON.parse(localStorage.getItem(currentCollection._id?? '')?? JSON.stringify([]));
     const collectionData = currentCollection.collectionData;
     let newCollectionData: TcollectionItemData[] = [];
-
+    
     if (collectionDataOverlay.length > 0) {
         newCollectionData = collectionData.map(card => {
-            const itemOverlay = collectionDataOverlay.find((item: TstockCollectionItemData) => item._id === card._id);
+            const itemOverlay = collectionDataOverlayAfterPunishment.find((item: TstockCollectionItemData) => item._id === card._id);
             if (itemOverlay) {
                 return {...card, 
                     collectionItemRepeatedTimeStamp: itemOverlay.collectionItemRepeatedTimeStamp,
-                    collectionItemTimesBeenRepeated: itemOverlay.collectionItemTimesBeenRepeated
+                    collectionItemTimesBeenRepeated: itemOverlay.collectionItemTimesBeenRepeated,
+                    collectionItemPenaltyCount: itemOverlay.collectionItemPenaltyCount,
                 }
             }
             return card
