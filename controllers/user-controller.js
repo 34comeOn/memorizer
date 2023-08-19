@@ -15,6 +15,11 @@ const {
     STOCK_DATA_USER_ID,
 } = require('../server-modules/serverConstants');
 const User = require('../models/user-model');
+const bcrypt = require('bcrypt'); 
+const uuid = require('uuid');
+const mailService = require('../service/mail-service');
+const tokenService = require('../service/token-service');
+const UserDto = require('../dtos/user-dto');
 
 class UserController {
     async signIn(req, res, next) {
@@ -27,29 +32,36 @@ class UserController {
             [email, validateString],
             [password, validateWithRegEx, SERVER_PASSWORD_REGEX],
         ]
-    
+
         if (!validateAllRequestData(validationSchema)) {
             res.status(403).end();
             console.log('request has not passed validation')
         } else {
-            User.where({ email: email, password: password }).find()
-            .then(result=> {
-                if (result[0]) {
+
+            try {
+                const userData = await User.where({email}).find();
+
+                if (userData[0]) {
                     res.json({
-                        _id: result[0]._id,
-                        email: result[0].email,
-                        userName: result[0].userName,
-                        subscription: result[0].subscription,
-                        currentToken: result[0].currentToken,
-                        currentCollection: result[0].currentCollection,
-                        userCollectionsData: result[0].userCollectionsData,
+                        _id: userData[0]._id,
+                        email: userData[0].email,
+                        userName: userData[0].userName,
+                        subscription: userData[0].subscription,
+                        currentToken: userData[0].currentToken,
+                        currentCollection: userData[0].currentCollection,
+                        userCollectionsData: userData[0].userCollectionsData,
+                        activationLink: userData[0].activationLink,
+                        isActivated: userData[0].isActivated,
                     })
                 } else {
                     console.log('pass or email does not match')
                     res.status(400).end();
                 }
-            })
-            .catch(err=> console.log(err))
+
+            } catch (e) {
+                console.log(e);
+            }
+            // User.where({ email: email, password: password }).find()
         }
     } 
     async signUp(req, res, next) {
@@ -77,32 +89,48 @@ class UserController {
             res.status(403).end();
             console.log('request has not passed validation')
         } else {
-            const user = new User({
-                email,
-                password,
-                userName,
-                subscription,
-                currentToken,
-                currentCollection,
-                userCollectionsData
-            });
-    
-            User.where({ email: email }).find()
-            .then(result=> {
-                if (!result[0]) {
-                    user.save()
-                    .catch(err=> console.log(err))
-                    .then(()=> {
-                        User.where({ email: email }).find()
-                        .then(result=> res.send(result[0]))
-                        .catch(err=> console.log(err))
-                    })
-                } else {
-                    console.log('user exists')
+            try {
+                const candidate = await User.findOne({email});
+
+                if (candidate) {
+                    console.log('user exists');
                     res.status(400).end();
+                } else {
+                    const hashedPassword = await bcrypt.hash(password, 3); 
+                    const activationLink = await uuid.v4();
+
+                    const user = await User.create({
+                        email,
+                        password: hashedPassword,
+                        userName,
+                        subscription,
+                        activationLink,
+                        currentToken,
+                        currentCollection,
+                        userCollectionsData
+                    })
+
+                    await mailService.sendActivationMail(email, `${process.env.API_URL}/api/activate/${activationLink}`);
+                    
+                    const userDto = new UserDto(user); 
+                    const tokens = tokenService.generateTokens({...userDto });
+                    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+                    await res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+                    // res.redirect('http://localhost:3003/sign_in&up');
+                    res.json(tokens.accessToken)
+
+                    // User.where({ email }).find()
+                    // .then(result=> {
+                        // res.send(result[0]);
+                    // })
+                    // .catch(err=> console.log(err))
+
+                //     return res.json(User.findOne({email}))
                 }
-            })
-            .catch(err=> console.log(err))
+            } catch(e) {
+                console.log(e)
+            }
         }
     } 
     async logout(req, res, next) {
@@ -316,7 +344,30 @@ class UserController {
     } 
     async activate(req, res, next) {
         try {
+            let link = req.params.link;
+
+            const validationSchema = [
+                [link, validateString],
+            ]
+
+            if (!validateAllRequestData(validationSchema)) {
+                res.status(400).end();
+                console.log('request has not passed validation')
+            } else {
+                const user = await User.findOne({activationLink: link});
+    
+                if (!user) {
+                    throw new Error('Bad activation link');
+                }
+    
+                user.isActivated = true;
+                await user.save();
+    
+                res.redirect(process.env.CLIENT_URL);
+            }
+
         } catch (e) {
+            console.log(e)
         }
     } 
     async repeat(req, res, next) {

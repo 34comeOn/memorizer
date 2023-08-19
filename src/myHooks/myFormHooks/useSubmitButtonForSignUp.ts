@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../app/hooks";
+// import { useAppDispatch } from "../../app/hooks";
 import { RESPONSE_ERROR_TEXT, SIGN_UP_USER_ENDPOINT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
-import { logIn } from "../../store/reducers/accountReducer";
-import { setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReducer";
-import { cutBasicUserCollectionsInfo } from "../../utils/utils";
+// import { logIn } from "../../store/reducers/accountReducer";
+// import { setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReducer";
+// import { cutBasicUserCollectionsInfo } from "../../utils/utils";
 
 export interface IsignInForm {
     email: string, 
@@ -14,7 +14,7 @@ export interface IsignInForm {
 }
 
 export const UseSubmitButtonToSignUp = (onChangeLoadingStatus: (value: boolean)=> void, openSignUpNotification: ((descriptionText: string) => void)) => {
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [getAllUserDataAfterSignUpTriger] = collectionDataAPI.usePostNewUserMutation();
 
@@ -38,8 +38,8 @@ export const UseSubmitButtonToSignUp = (onChangeLoadingStatus: (value: boolean)=
         .then(
           (userData) => {
             onChangeLoadingStatus(false);
-            dispatch(logIn({userName: userData.userName, userEmail: userData.email, userId: userData._id || ' '}));
-            dispatch(setUserBasicCollectionsInfo(cutBasicUserCollectionsInfo(userData.userCollectionsData)));
+            // dispatch(logIn({userName: userData.userName, userEmail: userData.email, userId: userData._id || ' '}));
+            // dispatch(setUserBasicCollectionsInfo(cutBasicUserCollectionsInfo(userData.userCollectionsData)));
             navigate('/');
           },
           (error) => {
