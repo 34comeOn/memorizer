@@ -17,6 +17,7 @@ class MailService {
     }
 
     async sendActivationMail(to, link) {
+        console.log(link)
         await this.transporter.sendMail({
             from: 'memorizer.app.data@gmail.com',
             to,

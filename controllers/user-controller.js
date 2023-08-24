@@ -41,7 +41,10 @@ class UserController {
             try {
                 const userData = await User.where({email}).find();
 
-                if (userData[0]) {
+                if (userData[0] && !userData[0].isActivated) {
+                    console.log('account not activated')
+                    res.status(401).end();
+                } else if (userData[0] && userData[0].isActivated) {
                     res.json({
                         _id: userData[0]._id,
                         email: userData[0].email,
@@ -117,16 +120,7 @@ class UserController {
                     await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
                     await res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
-                    // res.redirect('http://localhost:3003/sign_in&up');
                     res.json(tokens.accessToken)
-
-                    // User.where({ email }).find()
-                    // .then(result=> {
-                        // res.send(result[0]);
-                    // })
-                    // .catch(err=> console.log(err))
-
-                //     return res.json(User.findOne({email}))
                 }
             } catch(e) {
                 console.log(e)
@@ -355,7 +349,7 @@ class UserController {
                 console.log('request has not passed validation')
             } else {
                 const user = await User.findOne({activationLink: link});
-    
+                console.log(user)
                 if (!user) {
                     throw new Error('Bad activation link');
                 }
@@ -363,7 +357,8 @@ class UserController {
                 user.isActivated = true;
                 await user.save();
     
-                res.redirect(process.env.CLIENT_URL);
+                // res.redirect(process.env.CLIENT_URL);
+                res.redirect('http://localhost:3003');
             }
 
         } catch (e) {
