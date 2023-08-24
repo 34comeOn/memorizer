@@ -1,27 +1,25 @@
 const nodeMailer = require('nodemailer');
+require('dotenv').config();
 
 class MailService {
 
     constructor() {
         this.transporter = nodeMailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 587,
+            host: process.env.SMTP_HOST,
+            port: process.env.SMTP_PORT,
             secure: false,
             auth: {
-                user: 'memorizer.app.data@gmail.com',
-                pass: 'ruxxsatfjuogceev',
-                // user: process.env.SMTP_USER,
-                // pass: process.env.SMTP_PASSWORD,
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASSWORD,
             }
         })
     }
 
     async sendActivationMail(to, link) {
-        console.log(link)
         await this.transporter.sendMail({
-            from: 'memorizer.app.data@gmail.com',
+            from: process.env.SMTP_USER,
             to,
-            subject: `Активация аккаунта на Memorizer`,
+            subject: `Активация аккаунта `,
             html:
             `
                 <div>

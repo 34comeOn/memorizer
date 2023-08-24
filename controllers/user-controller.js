@@ -20,6 +20,7 @@ const uuid = require('uuid');
 const mailService = require('../service/mail-service');
 const tokenService = require('../service/token-service');
 const UserDto = require('../dtos/user-dto');
+require('dotenv').config();
 
 class UserController {
     async signIn(req, res, next) {
@@ -349,7 +350,7 @@ class UserController {
                 console.log('request has not passed validation')
             } else {
                 const user = await User.findOne({activationLink: link});
-                console.log(user)
+               
                 if (!user) {
                     throw new Error('Bad activation link');
                 }
@@ -357,8 +358,7 @@ class UserController {
                 user.isActivated = true;
                 await user.save();
     
-                // res.redirect(process.env.CLIENT_URL);
-                res.redirect('http://localhost:3003');
+                res.redirect(process.env.CLIENT_URL);
             }
 
         } catch (e) {
