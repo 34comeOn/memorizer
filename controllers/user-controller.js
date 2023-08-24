@@ -19,7 +19,8 @@ const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const mailService = require('../service/mail-service');
 const tokenService = require('../service/token-service');
-const UserDto = require('../dtos/user-dto');
+const RegistrationDto = require('../dtos/registration-dto');
+const LogInDto = require('../dtos/logIn-dto');
 require('dotenv').config();
 
 class UserController {
@@ -46,17 +47,16 @@ class UserController {
                     console.log('account not activated')
                     res.status(401).end();
                 } else if (userData[0] && userData[0].isActivated) {
-                    res.json({
-                        _id: userData[0]._id,
-                        email: userData[0].email,
-                        userName: userData[0].userName,
-                        subscription: userData[0].subscription,
-                        currentToken: userData[0].currentToken,
-                        currentCollection: userData[0].currentCollection,
-                        userCollectionsData: userData[0].userCollectionsData,
-                        activationLink: userData[0].activationLink,
-                        isActivated: userData[0].isActivated,
-                    })
+                    const logInDto = new LogInDto(userData[0]);
+
+                    const tokens = tokenService.generateTokens({id: logInDto.id});
+                    await tokenService.saveToken(logInDto.id, tokens.refreshToken);
+                    logInDto.currentToken = tokens.accessToken;
+
+                    await res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+
+                    res.json(logInDto);
+
                 } else {
                     console.log('pass or email does not match')
                     res.status(400).end();
@@ -116,7 +116,7 @@ class UserController {
 
                     await mailService.sendActivationMail(email, `${process.env.API_URL}/api/activate/${activationLink}`);
                     
-                    const userDto = new UserDto(user); 
+                    const userDto = new RegistrationDto(user); 
                     const tokens = tokenService.generateTokens({...userDto });
                     await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
