@@ -21,6 +21,7 @@ const mailService = require('../service/mail-service');
 const tokenService = require('../service/token-service');
 const RegistrationDto = require('../dtos/registration-dto');
 const LogInDto = require('../dtos/logIn-dto');
+const ApiError = require('../exeptions/api-error');
 require('dotenv').config();
 
 class UserController {
@@ -36,8 +37,8 @@ class UserController {
         ]
 
         if (!validateAllRequestData(validationSchema)) {
-            res.status(403).end();
             console.log('request has not passed validation')
+            throw ApiError.BadRequest();
         } else {
 
             try {
@@ -46,8 +47,7 @@ class UserController {
 
                 if (userData[0] && isPassEquals) {
                     if (!userData[0].isActivated){
-                        console.log('account not activated')
-                        res.status(401).end();
+                        throw ApiError.NotActivated();
                     } else {
                         const logInDto = new LogInDto(userData[0]);
 
@@ -60,12 +60,11 @@ class UserController {
                         res.json(logInDto);
                     }
                 } else {
-                    console.log('pass or email does not match')
-                    res.status(400).end();
+                    throw ApiError.LoginOrPassNotMatch();
                 }
 
             } catch (e) {
-                console.log(e);
+                next(e);
             }
         }
     } 
@@ -125,7 +124,7 @@ class UserController {
                     res.json(tokens.accessToken)
                 }
             } catch(e) {
-                console.log(e)
+                next(e);
             }
         }
     } 
@@ -137,7 +136,7 @@ class UserController {
 
             return token? res.status(200).json(true): res.status(500).json(false);
         } catch (e) {
-            console.log(e);
+            next(e)
         }
     } 
     async newCollection(req, res, next) {
@@ -565,6 +564,7 @@ class UserController {
     
             res.json(tokens.accessToken);
         } catch (e) {
+            next(e)
         }
     } 
 }
