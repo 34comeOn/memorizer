@@ -42,21 +42,23 @@ class UserController {
 
             try {
                 const userData = await User.where({email}).find();
+                const isPassEquals = await bcrypt.compare(password, userData[0].password);
 
-                if (userData[0] && !userData[0].isActivated) {
-                    console.log('account not activated')
-                    res.status(401).end();
-                } else if (userData[0] && userData[0].isActivated) {
-                    const logInDto = new LogInDto(userData[0]);
+                if (userData[0] && isPassEquals) {
+                    if (!userData[0].isActivated){
+                        console.log('account not activated')
+                        res.status(401).end();
+                    } else {
+                        const logInDto = new LogInDto(userData[0]);
 
-                    const tokens = tokenService.generateTokens({id: logInDto.id});
-                    await tokenService.saveToken(logInDto.id, tokens.refreshToken);
-                    logInDto.currentToken = tokens.accessToken;
-
-                    await res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
-
-                    res.json(logInDto);
-
+                        const tokens = tokenService.generateTokens({id: logInDto.id});
+                        await tokenService.saveToken(logInDto.id, tokens.refreshToken);
+                        logInDto.currentToken = tokens.accessToken;
+    
+                        await res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+    
+                        res.json(logInDto);
+                    }
                 } else {
                     console.log('pass or email does not match')
                     res.status(400).end();
@@ -65,7 +67,6 @@ class UserController {
             } catch (e) {
                 console.log(e);
             }
-            // User.where({ email: email, password: password }).find()
         }
     } 
     async signUp(req, res, next) {
