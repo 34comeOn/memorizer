@@ -15,20 +15,26 @@ import { useRequestLoading } from '../../../../myHooks/useRequestLoading';
 import { CustomSpinner } from '../../../atoms/customSpinner';
 import { useWarningNotification } from '../../../../myHooks/utillsHooks/useWarningNotification';
 import { RESPONSE_ERROR_TITLE } from '../../../../constants/stringConstants';
+import { getAccountStatusSelector } from '../../../../store/reducers/accountReducer';
+import { useDoneClickButtonStockItem } from '../../../../myHooks/useDoneClickButtonStockItem';
 
 export const StockCardWindow = () => {
+    const dispatch = useAppDispatch();
+    const accountStatus = useAppSelector(getAccountStatusSelector);
+
     const {isLoading, onChangeLoadingStatus} = useRequestLoading();
     const [contextHolder, openNotification] = useWarningNotification(RESPONSE_ERROR_TITLE.DELETE);
     const [doneContextHolder, openDoneNotification] = useWarningNotification(RESPONSE_ERROR_TITLE.DONE);
 
     const currentUserEmailFromLStorage = getCurrentUserEmailFromLStorage();
-    const currentCollectionAdminlist = useAppSelector(getCurrentCollectionSelector).collectionAdminList || '';
+    const currentCollectionAdminlist = useAppSelector(getCurrentCollectionSelector).collectionAdminList;
+    const currentCollection = useAppSelector(getCurrentCollectionSelector);
     const userHasAdminPowersForCollection = checkAdminPowers(currentUserEmailFromLStorage?? '', currentCollectionAdminlist?? []);
-
-    const dispatch = useAppDispatch();
     const currentCard = useAppSelector(getCurrentCardSelector);
-    const onDoneClickHandle = useDoneClickButton(currentCard,onChangeLoadingStatus, openDoneNotification as ((descriptionText: string) => void));
     const isAnswerVisible = useAppSelector(getAnswerVisibilitySelector);
+    
+    const onDoneClickHandle = useDoneClickButton(currentCard,onChangeLoadingStatus, openDoneNotification as ((descriptionText: string) => void));
+    const onDoneClickStockItem = useDoneClickButtonStockItem(currentCard, currentCollection);
 
     const onShowClickHandle= ()=> {
         dispatch(toggleAnswerVisibility())
@@ -64,7 +70,7 @@ export const StockCardWindow = () => {
                 openNotification={openNotification as ((descriptionText: string) => void)}
                 />}
             </div>
-            <DoneButton onClick={onDoneClickHandle}/>
+            <DoneButton disabled={currentCard.collectionItemTimesBeenRepeated >= 6} onClick={accountStatus? onDoneClickHandle: onDoneClickStockItem}/>
         </StyledCard>
     )
 }

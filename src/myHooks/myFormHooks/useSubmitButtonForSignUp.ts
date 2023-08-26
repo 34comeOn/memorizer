@@ -1,10 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../app/hooks";
 import { RESPONSE_ERROR_TEXT, SIGN_UP_USER_ENDPOINT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
-import { logIn } from "../../store/reducers/accountReducer";
-import { setUserBasicCollectionsInfo } from "../../store/reducers/userCollectionsReducer";
-import { cutBasicUserCollectionsInfo } from "../../utils/utils";
 
 export interface IsignInForm {
     email: string, 
@@ -14,7 +10,6 @@ export interface IsignInForm {
 }
 
 export const UseSubmitButtonToSignUp = (onChangeLoadingStatus: (value: boolean)=> void, openSignUpNotification: ((descriptionText: string) => void)) => {
-    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [getAllUserDataAfterSignUpTriger] = collectionDataAPI.usePostNewUserMutation();
 
@@ -23,6 +18,8 @@ export const UseSubmitButtonToSignUp = (onChangeLoadingStatus: (value: boolean)=
             email: values.email,
             password: values.password,
             userName: values.userName,
+            isActivated: false,
+            activationLink: '',
             subscription: 'none',
             currentToken: 'none',
             currentCollection: 'none',
@@ -34,10 +31,9 @@ export const UseSubmitButtonToSignUp = (onChangeLoadingStatus: (value: boolean)=
         getAllUserDataAfterSignUpTriger({path:SIGN_UP_USER_ENDPOINT, putObj: newUserObject})
         .unwrap()
         .then(
-          (userData) => {
+          (aceessToken) => {
+            console.log(aceessToken)
             onChangeLoadingStatus(false);
-            dispatch(logIn({userName: userData.userName, userEmail: userData.email, userId: userData._id || ' '}));
-            dispatch(setUserBasicCollectionsInfo(cutBasicUserCollectionsInfo(userData.userCollectionsData)));
             navigate('/');
           },
           (error) => {
@@ -47,6 +43,6 @@ export const UseSubmitButtonToSignUp = (onChangeLoadingStatus: (value: boolean)=
               openSignUpNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG)
             }
           }
-        );
+        )
     }
 }

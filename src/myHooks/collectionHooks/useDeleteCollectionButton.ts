@@ -12,7 +12,7 @@ export const useDeleteCollectionButton = (_id: string, onChangeLoadingStatus: (v
     return () => {
         onChangeLoadingStatus(true)
 
-        deleteCollectionTriger(`/:${_id}/:${currentUserId}`)
+        deleteCollectionTriger(`api/delete-collection/:${_id}/:${currentUserId}`)
         .unwrap()
         .then(
             (userCollectionsData) => {

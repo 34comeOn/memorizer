@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { Header } from './components/organizms/header';
 import { EditModalWindow } from './components/organizms/editModal';
 
-const App = () => 
+const App = () =>
 <>
     <Header />
     <Outlet />

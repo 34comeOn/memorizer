@@ -18,7 +18,6 @@ export const UseSubmitButtonToSignIn = (onChangeLoadingStatus: (value: boolean)=
     const navigate = useNavigate();
 
     const [getAllUserDataAfterSignInTriger] = collectionDataAPI.useSignInUserMutation();
-    
     return (values: IsignInForm) => {
         const signInObject = {
             email: values.email,
@@ -38,8 +37,11 @@ export const UseSubmitButtonToSignIn = (onChangeLoadingStatus: (value: boolean)=
           },
           (error) => {
             onChangeLoadingStatus(false)
+
             if (error.status === 400) {
               openNotification(RESPONSE_ERROR_TEXT.PASS_OR_EMAIL_NOT_MATCH)
+            } else if (error.status === 401) {
+              openNotification(RESPONSE_ERROR_TEXT.ACCOUNT_NOT_ACTIVATED)
             } else {
               openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG)
             }

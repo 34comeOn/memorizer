@@ -1,7 +1,7 @@
 export const MAIN_FILTER_CHECKBOX = 'all';
 
-export const GET_STOCK_COLLECTION_ENG_ENDPOINT = '/stock-collection-eng';
-export const GET_CURRENT_COLLECTION_ENDPOINT = '/traing-collection';
+export const GET_STOCK_COLLECTION_ENG_ENDPOINT = 'api/stock-collection-eng';
+export const GET_CURRENT_COLLECTION_ENDPOINT = 'api/traing-collection';
 export const SIGN_IN_USER_ENDPOINT = 'api/sign-in';
 export const SIGN_UP_USER_ENDPOINT = 'api/sign-up';
 export const CREATE_NEW_COLLECTION_ENDPOINT = 'api/new-collection';
@@ -66,20 +66,41 @@ export const FORGOT_PASSWORD_LINK = 'Forgot password?';
 export const FORGOT_PASSWORD_TEXT = 'If you do not remember password, we would send new password to your e-mail';
 
 export const RESPONSE_ERROR_TITLE = {
-    CREATE_NEW_COLLECTION: 'Не получилось создать новую коллекцию',
-    CREATE_NEW_CARD: 'Не получилось создать новую карточку',
-    EDIT: 'Изменения не сохранились',
-    CHOOSE_COLLECTION: 'Не удалось загрузить коллекцию',
-    DELETE: 'Не удалось удалить',
-    DONE: 'Не удалось сохранить прогресс',
-    SIGN_IN: 'Вход не выполнен',
-    SIGN_UP: 'Регистрация не выполнена',
+    CREATE_NEW_COLLECTION: 'New collection not created.',
+    CREATE_NEW_CARD: 'New card not created',
+    EDIT: 'Edit failed',
+    CHOOSE_COLLECTION: 'Collection not loaded',
+    DELETE: 'Delete failed',
+    DONE: 'Progress not saved',
+    SIGN_IN: 'Sign in failed',
+    SIGN_UP: 'Sign up failed',
 }
 
+// export const RESPONSE_ERROR_TITLE = {
+//     CREATE_NEW_COLLECTION: 'Не получилось создать новую коллекцию',
+//     CREATE_NEW_CARD: 'Не получилось создать новую карточку',
+//     EDIT: 'Изменения не сохранились',
+//     CHOOSE_COLLECTION: 'Не удалось загрузить коллекцию',
+//     DELETE: 'Не удалось удалить',
+//     DONE: 'Не удалось сохранить прогресс',
+//     SIGN_IN: 'Вход не выполнен',
+//     SIGN_UP: 'Регистрация не выполнена',
+// }
+
+// export const RESPONSE_ERROR_TEXT = {
+//     SOMETHING_WENT_WRONG: 'Что-то пошло не так...',
+//     PASS_OR_EMAIL_NOT_MATCH: 'E-mail или пароль введен не верно',
+//     EMAIL_ALREADY_EXIST: 'Пользователь с таким e-mail уже зарегистрирован',
+//     STOCK_COLLECTION_HAS_NOT_LOADED: 'Пробная коллекция не загрузилась',
+//     ACCOUNT_NOT_ACTIVATED: 'Аккаунт не активирован. Пожалуйста подтвердите свой адрес электронной почты.',
+// }
+
 export const RESPONSE_ERROR_TEXT = {
-    SOMETHING_WENT_WRONG: 'Что-то пошло не так...',
-    PASS_OR_EMAIL_NOT_MATCH: 'E-mail или пароль введен не верно',
-    EMAIL_ALREADY_EXIST: 'Пользователь с таким e-mail уже зарегистрирован',
-    STOCK_COLLECTION_HAS_NOT_LOADED: 'Пробная коллекция не загрузилась',
-    // STOCK_COLLECTION_HAS_NOT_LOADED: 'Stock collection hasn`t loaded',
+    SOMETHING_WENT_WRONG: 'Something went wrong...',
+    PASS_OR_EMAIL_NOT_MATCH: 'E-mail or password doesn`t match.',
+    EMAIL_ALREADY_EXIST: 'User with such e-mail already registred',
+    ACCOUNT_NOT_ACTIVATED: 'Please verify your e-mail. Account not activated.',
+    STOCK_COLLECTION_HAS_NOT_LOADED: 'Stock collection hasn`t loaded',
 }
+
+export const STOCK_DATA_USER_ID = '64e0dee9748fbea4c268073f';

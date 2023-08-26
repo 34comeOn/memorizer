@@ -4,9 +4,9 @@ exports.MAX_PUNISHMENT_FOR_LATE_PRACTICE = 2;
 exports.NAME_REGEX = /^[A-Za-zA-Яа-яЁё,\s.'-]+$/;
 exports.TITLE_REGEX = /^[0-9A-Za-zA-Яа-яЁё,.\s'@#?$!%^&*-]+$/;
 exports.TEXT_AREA_REGEX = /^[0-9A-Za-zA-Яа-яЁё,.\s!"'<>/=@#;:)($%^&*-]+$/;
-exports.SERVER_PASSWORD_REGEX = /^[0-9A-Za-zA,!@#$%^&*]+$/;
+exports.SERVER_PASSWORD_REGEX = /^[0-9A-Za-zA,!-@#$%^&*]+$/;
 
-exports.STOCK_DATA_USER_ID = '64ce107a5c8837e38afd5a99';
+exports.STOCK_DATA_USER_ID = '64e0dee9748fbea4c268073f';
 
 const PERIODS_OF_PRACRICE = {
     NO_PRACTICE: 0,

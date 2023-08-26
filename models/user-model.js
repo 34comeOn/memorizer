@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const {Schema, model} = require('mongoose');
 
 const CollectionItemCommentsSchema = new Schema({
     collectionItemCommentText: {
@@ -113,6 +112,7 @@ const UserCollectionsDataSchema = new Schema({
 const UserSchema = new Schema({
     email: {
         type: String,
+        unique: true,
         required: true
     },
     password: {
@@ -127,6 +127,13 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    isActivated: {
+        type: Boolean,
+        default: false
+    },
+    activationLink: {
+        type: String,
+    }, 
     currentToken: {
         type: String,
         required: true
@@ -141,6 +148,4 @@ const UserSchema = new Schema({
     },
 });
 
-const User = mongoose.model('User', UserSchema);
-
-module.exports = User;
+module.exports = model('User', UserSchema);
