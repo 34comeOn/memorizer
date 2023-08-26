@@ -25,7 +25,6 @@ export const UseSubmitButtonToSignIn = (onChangeLoadingStatus: (value: boolean)=
         }
 
         onChangeLoadingStatus(true)
-
         getAllUserDataAfterSignInTriger({path:SIGN_IN_USER_ENDPOINT, signInObject: signInObject})
         .unwrap()
         .then(

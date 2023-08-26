@@ -4,7 +4,6 @@ const userController = require('../controllers/user-controller');
 
 router.post('/sign-in', userController.signIn);
 router.post('/sign-up', userController.signUp);
-router.post('/logout', userController.logout);
 router.post('/new-collection', userController.newCollection);
 router.post('/new-card', userController.newCard);
 
@@ -15,6 +14,7 @@ router.get('/stock-collection-eng', userController.stockCollectionEng);
 router.get('/choose-collection/:id/:user', userController.chooseCollection);
 router.get('/activate/:link', userController.activate);
 router.get('/refresh', userController.refresh);
+router.get('/logout', userController.logout);
 
 router.put('/repeat', userController.repeat);
 router.put('/edit-collection', userController.editCollection);

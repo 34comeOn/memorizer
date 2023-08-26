@@ -22,7 +22,6 @@ export const useCreateNewCollection = (onChangeLoadingStatus: (value: boolean) =
     const currentUserId = useAppSelector(getUserIdSelector);
     const currentUserEmail = useAppSelector(getUserEmailSelector);
     
-    
     return (values: InewCollectionForm) => {
 
         const newCollection: TuserCollectionData = {

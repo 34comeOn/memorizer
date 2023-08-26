@@ -15,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use('/api', router);
+
 const PORT = process.env.PORT || 3002;
 
 app.listen(PORT, (error) => {

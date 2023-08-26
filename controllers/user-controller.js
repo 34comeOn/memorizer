@@ -131,7 +131,13 @@ class UserController {
     } 
     async logout(req, res, next) {
         try {
+            const {refreshToken} = req.cookies;
+            const token = await tokenService.removeToken(refreshToken);
+            res.clearCookie('refreshToken');
+
+            return token? res.status(200).json(true): res.status(500).json(false);
         } catch (e) {
+            console.log(e);
         }
     } 
     async newCollection(req, res, next) {
@@ -145,7 +151,8 @@ class UserController {
             [newUserCollection.collectionColor, validateString],
             [newUserCollection.collectionTitle, validateWithRegEx, TITLE_REGEX],
         ];
-        
+        const {refreshToken} = req.cookies;
+        console.log('req.cookies', refreshToken)
         if (!validateAllRequestData(validationSchema)) {
             res.status(403).end();
             console.log('request has not passed validation')

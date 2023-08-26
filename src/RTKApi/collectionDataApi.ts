@@ -37,6 +37,13 @@ export type TrepeatObject = {
 
 export const collectionDataAPI = rootAPI.injectEndpoints({
   endpoints: (build) => ({
+    logOut: build.mutation<boolean, string>({
+      query(path) {
+        return {
+          url: `${path}`,
+        };
+      }
+    }),
     getStockCollectionData: build.mutation<TuserCollectionData[], string>({
       query(path) {
         return {
