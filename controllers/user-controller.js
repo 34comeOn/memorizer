@@ -51,8 +51,8 @@ class UserController {
                     } else {
                         const logInDto = new LogInDto(userData[0]);
 
-                        const tokens = tokenService.generateTokens({id: logInDto.id});
-                        await tokenService.saveToken(logInDto.id, tokens.refreshToken);
+                        const tokens = tokenService.generateTokens({_id: logInDto._id});
+                        await tokenService.saveToken(logInDto._id, tokens.refreshToken);
                         logInDto.currentToken = tokens.accessToken;
     
                         await res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
@@ -558,6 +558,12 @@ class UserController {
     } 
     async refresh(req, res, next) {
         try {
+            const {refreshToken} = req.cookies;
+
+            const tokens = await tokenService.refresh(refreshToken);
+            await res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+    
+            res.json(tokens.accessToken);
         } catch (e) {
         }
     } 
