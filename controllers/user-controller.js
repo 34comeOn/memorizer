@@ -40,10 +40,9 @@ class UserController {
             console.log('request has not passed validation')
             throw ApiError.BadRequest();
         } else {
-
             try {
                 const userData = await User.where({email}).find();
-                const isPassEquals = await bcrypt.compare(password, userData[0].password);
+                const isPassEquals = await bcrypt.compare(password, userData[0]?.password || '');
 
                 if (userData[0] && isPassEquals) {
                     if (!userData[0].isActivated){
