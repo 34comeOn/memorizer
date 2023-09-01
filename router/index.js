@@ -13,6 +13,7 @@ router.delete('/delete-card/:cardId/:collectionId/:userId', userController.delet
 
 router.get('/stock-collection-eng', userController.stockCollectionEng);
 router.get('/choose-collection/:id/:user', authMiddleware, userController.chooseCollection);
+router.get('/choose-stock-collection/:id/:user', userController.chooseCollection);
 router.get('/activate/:link', userController.activate);
 router.get('/refresh', userController.refresh);
 router.get('/logout', userController.logout);
