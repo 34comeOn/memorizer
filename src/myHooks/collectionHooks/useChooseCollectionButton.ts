@@ -11,21 +11,28 @@ export const useChooseCollectionButton = (collectionId: string, onChangeLoadingS
   const currentUserId = useAppSelector(getUserIdSelector);
   const [currentCollectionTriger] = collectionDataAPI.useGetCurrentCollectionToTrainMutation();
   const navigate = useNavigate();
+  const accessToken = localStorage.getItem('accessToken') || '';
+  
   return () => {
       dispatch(setTrainedCardId(''))
       dispatch(hideCurrentCard());
       onChangeLoadingStatus(true)
-      currentCollectionTriger(`api/choose-collection/:${collectionId}/:${currentUserId}`)
+      currentCollectionTriger({path: `api/choose-collection/:${collectionId}/:${currentUserId}`,accessToken})
       .unwrap()
       .then(
         (currentCollection) => {
           onChangeLoadingStatus(false);
           UseChooseCollectionResponse(currentCollection, dispatch);
         },
-        () => {
+        (error) => {
           onChangeLoadingStatus(false);
-          openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG);
-          throw new Error();
+
+          if (error.status === 403) {
+            openNotification(RESPONSE_ERROR_TEXT.AUTHORIZATION_FAILED)
+          } else {
+            openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG);
+          }
+          throw new Error(error);
         }
       )
       .then(

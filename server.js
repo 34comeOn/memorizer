@@ -12,7 +12,7 @@ mongoose
     .catch((err)=> console.log(err))
 
 const app = express();
-app.use(cors());
+app.use(cors({credentials: true, origin: 'http://localhost:3003'}));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/api', router);

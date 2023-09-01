@@ -103,6 +103,7 @@ export const RESPONSE_ERROR_TEXT = {
     EMAIL_ALREADY_EXIST: 'User with such e-mail already registred',
     ACCOUNT_NOT_ACTIVATED: 'Please verify your e-mail. Account not activated.',
     STOCK_COLLECTION_HAS_NOT_LOADED: 'Stock collection hasn`t loaded',
+    AUTHORIZATION_FAILED: 'Authorization went wrong',
 }
 
 export const STOCK_DATA_USER_ID = '64e0dee9748fbea4c268073f';

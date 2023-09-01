@@ -29,6 +29,7 @@ export const UseSubmitButtonToSignIn = (onChangeLoadingStatus: (value: boolean)=
         .unwrap()
         .then(
           (userData) => {
+            localStorage.setItem('accessToken', JSON.stringify(userData.currentToken));
             onChangeLoadingStatus(false);
             dispatch(logIn({userName: userData.userName, userEmail: userData.email,userId: userData._id || ' '}));
             dispatch(setUserBasicCollectionsInfo(cutBasicUserCollectionsInfo(userData.userCollectionsData)));

@@ -31,8 +31,7 @@ export const UseSubmitButtonToSignUp = (onChangeLoadingStatus: (value: boolean)=
         getAllUserDataAfterSignUpTriger({path:SIGN_UP_USER_ENDPOINT, putObj: newUserObject})
         .unwrap()
         .then(
-          (aceessToken) => {
-            console.log(aceessToken)
+          () => {
             onChangeLoadingStatus(false);
             navigate('/');
           },

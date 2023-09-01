@@ -136,7 +136,6 @@ const UserSchema = new Schema({
     }, 
     currentToken: {
         type: String,
-        required: true
     },
     currentCollection: {
         type: String,

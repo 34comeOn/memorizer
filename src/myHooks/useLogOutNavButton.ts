@@ -10,13 +10,14 @@ export const useLogOutNavButton = (onChangeLoadingStatus: (value: boolean)=> voi
     const navigate = useNavigate()
     const dispatch = useAppDispatch();
     const [getLogOutTriger] = collectionDataAPI.useLogOutMutation();
-
+    
     return () => {
         onChangeLoadingStatus(true)
         getLogOutTriger(GET_LOGOUT)
         .unwrap()
         .then(
           () => {
+            localStorage.removeItem('accessToken');
             onChangeLoadingStatus(false);
             dispatch(logOut());
             dispatch(removeUserBasicCollectionsInfo());

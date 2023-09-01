@@ -53,9 +53,9 @@ class UserController {
                         const tokens = tokenService.generateTokens({_id: logInDto._id});
                         await tokenService.saveToken(logInDto._id, tokens.refreshToken);
                         logInDto.currentToken = tokens.accessToken;
-    
-                        await res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
-    
+                        
+                        res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+                        
                         res.json(logInDto);
                     }
                 } else {
@@ -108,7 +108,6 @@ class UserController {
                         userName,
                         subscription,
                         activationLink,
-                        currentToken,
                         currentCollection,
                         userCollectionsData
                     })
@@ -119,8 +118,8 @@ class UserController {
                     const tokens = tokenService.generateTokens({...userDto });
                     await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
-                    await res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
-                    res.json(tokens.accessToken)
+                    res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+                    res.json('Hello, new user!')
                 }
             } catch(e) {
                 next(e);
@@ -130,6 +129,7 @@ class UserController {
     async logout(req, res, next) {
         try {
             const {refreshToken} = req.cookies;
+            console.log(refreshToken)
             const token = await tokenService.removeToken(refreshToken);
             res.clearCookie('refreshToken');
 
@@ -364,7 +364,7 @@ class UserController {
                 user.isActivated = true;
                 await user.save();
     
-                res.redirect(process.env.CLIENT_URL);
+                res.redirect(process.env.CLIENT_SIGN_URL);
             }
 
         } catch (e) {
@@ -559,7 +559,7 @@ class UserController {
             const {refreshToken} = req.cookies;
 
             const tokens = await tokenService.refresh(refreshToken);
-            await res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+            res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
     
             res.json(tokens.accessToken);
         } catch (e) {
