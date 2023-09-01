@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const tokenModel = require('../models/token-model');
+const ApiError = require('../exeptions/api-error');
 // const userModel = require('../models/user-model');
 // const LogInDto = require('../dtos/logIn-dto');
 require('dotenv').config();
@@ -27,8 +28,6 @@ class TokenService {
 
     async removeToken(refreshToken) {
         const result = await tokenModel.deleteOne({refreshToken});
-        console.log('del refr', refreshToken)
-        console.log('delete', result)
         return result;
     }
 
@@ -56,14 +55,16 @@ class TokenService {
 
     async refresh(refreshToken){
         if(!refreshToken ){
-            console.log('bad refresh token')
+            console.log('bad refresh token');
+            throw ApiError.BadRequest ();
         }
 
         const tokenData = this.validateRefreshToken(refreshToken);
         const tokenFromDb = await this.findToken(refreshToken);
 
         if (!tokenData && !tokenFromDb) {
-            console.log('token issue unauthorized user')
+            console.log('token issue, unauthorized user');
+            throw ApiError.UnauthorizedUser();
         } else {
             // const user = await userModel.findById(tokenFromDb.user)
 

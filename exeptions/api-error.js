@@ -19,4 +19,8 @@ module.exports = class ApiError extends Error {
     static NotActivated () {
         return new ApiError(401, 'Account not activated')
     }
+
+    static UnauthorizedUser () {
+        return new ApiError(401, 'Unauthorized user')
+    }
 }
