@@ -13,11 +13,12 @@ export const useChooseCollectionButton = (collectionId: string, onChangeLoadingS
   const [refreshTriger] = collectionDataAPI.useRefreshMutation();
   const navigate = useNavigate();
   const accessToken = localStorage.getItem('accessToken') || '';
-  
-  return () => {
+
+  return async () => {
       dispatch(setTrainedCardId(''))
       dispatch(hideCurrentCard());
       onChangeLoadingStatus(true)
+
       currentCollectionTriger({path: `api/choose-collection/:${collectionId}/:${currentUserId}`,accessToken})
       .unwrap()
       .then(
@@ -26,47 +27,46 @@ export const useChooseCollectionButton = (collectionId: string, onChangeLoadingS
           UseChooseCollectionResponse(currentCollection, dispatch);
         },
         (error) => {
-          onChangeLoadingStatus(false);
-
           if (error.status === 403) {
-            console.log('trying to refresh')
-            onChangeLoadingStatus(true)
-            openNotification(RESPONSE_ERROR_TEXT.AUTHORIZATION_FAILED)
-            refreshTriger(REFRESH)
+            return refreshTriger(REFRESH)
             .unwrap()
             .then(
               (accessToken) => {
-
                 localStorage.setItem('accessToken', JSON.stringify(accessToken));
-                console.log('refresh response good')
                 const refreshedAccessToken = localStorage.getItem('accessToken') || '';
-                currentCollectionTriger({path: `api/choose-collection/:${collectionId}/:${currentUserId}`, accessToken: refreshedAccessToken})
+                return currentCollectionTriger({path: `api/choose-collection/:${collectionId}/:${currentUserId}`, accessToken: refreshedAccessToken})
                 .unwrap()
                 .then(
                   (currentCollection) => {
                     onChangeLoadingStatus(false);
                     UseChooseCollectionResponse(currentCollection, dispatch);
-                  },
+                  }
+                )
+                .catch(
                   () => {
                     onChangeLoadingStatus(false);
                     openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG);
+                    throw new Error();
                   }
                 )
-
-              },
+              }
+            )
+            .catch(
               () => {
-                onChangeLoadingStatus(false)
-                openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG)
+                onChangeLoadingStatus(false);
+                openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG);
+                throw new Error();
               }
             )
           } else {
             openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG);
+            throw new Error();
           }
-          // throw new Error(error);
         }
       )
       .then(
         () => navigate('/collection')
       )
+
   }
 }    
