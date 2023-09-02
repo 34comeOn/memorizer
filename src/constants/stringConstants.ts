@@ -10,6 +10,7 @@ export const CREATE_NEW_CARD_ENDPOINT = 'api/new-card';
 export const EDIT_CARD_ENDPOINT = 'api/edit-card';
 export const PUT_REPEATED_COLLECTION_ITEM_ENDPOINT = 'api/repeat';
 export const GET_LOGOUT = 'api/logout';
+export const REFRESH = 'api/refresh';
 
 export const LOCAL_STORAGE_KEYS_CONSTANTS = {
     HAS_USER_ACCESS: 'hasAccess',

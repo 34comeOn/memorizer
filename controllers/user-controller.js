@@ -132,7 +132,7 @@ class UserController {
             const token = await tokenService.removeToken(refreshToken);
             res.clearCookie('refreshToken');
 
-            return token? res.status(200).json(true): res.status(500).json(false);
+            return token? res.status(200).end(): res.status(500).end();
         } catch (e) {
             next(e)
         }
