@@ -11,11 +11,13 @@ export const useGetStockDataTriger = (collectionId: string, onChangeLoadingStatu
     const currentUserId = localStorage.getItem('stockDataUserId')?? '';
     const [currentCollectionTriger] = collectionDataAPI.useGetCurrentCollectionToTrainMutation();
     const navigate = useNavigate();
+    const accessToken = localStorage.getItem('accessToken') || '';
+
     return () => {
         dispatch(setTrainedCardId(''))
         dispatch(hideCurrentCard());
         onChangeLoadingStatus(true);
-        currentCollectionTriger(`api/choose-collection/:${collectionId}/:${currentUserId}`)
+        currentCollectionTriger({path: `api/choose-stock-collection/:${collectionId}/:${currentUserId}`,accessToken})
         .unwrap()
         .then(
           (currentCollection) => {

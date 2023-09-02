@@ -9,6 +9,8 @@ export const EDIT_COLLECTION_ENDPOINT = 'api/edit-collection';
 export const CREATE_NEW_CARD_ENDPOINT = 'api/new-card';
 export const EDIT_CARD_ENDPOINT = 'api/edit-card';
 export const PUT_REPEATED_COLLECTION_ITEM_ENDPOINT = 'api/repeat';
+export const GET_LOGOUT = 'api/logout';
+export const REFRESH = 'api/refresh';
 
 export const LOCAL_STORAGE_KEYS_CONSTANTS = {
     HAS_USER_ACCESS: 'hasAccess',
@@ -72,6 +74,7 @@ export const RESPONSE_ERROR_TITLE = {
     CHOOSE_COLLECTION: 'Collection not loaded',
     DELETE: 'Delete failed',
     DONE: 'Progress not saved',
+    LOGOUT: 'Log out failed',
     SIGN_IN: 'Sign in failed',
     SIGN_UP: 'Sign up failed',
 }
@@ -101,6 +104,7 @@ export const RESPONSE_ERROR_TEXT = {
     EMAIL_ALREADY_EXIST: 'User with such e-mail already registred',
     ACCOUNT_NOT_ACTIVATED: 'Please verify your e-mail. Account not activated.',
     STOCK_COLLECTION_HAS_NOT_LOADED: 'Stock collection hasn`t loaded',
+    AUTHORIZATION_FAILED: 'Authorization went wrong',
 }
 
 export const STOCK_DATA_USER_ID = '64e0dee9748fbea4c268073f';

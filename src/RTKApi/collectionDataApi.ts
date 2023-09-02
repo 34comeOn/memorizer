@@ -37,6 +37,22 @@ export type TrepeatObject = {
 
 export const collectionDataAPI = rootAPI.injectEndpoints({
   endpoints: (build) => ({
+    refresh: build.mutation<string, string>({
+      query(path) {
+        return {
+          url: `${path}`,
+          credentials: 'include'
+        };
+      }
+    }),
+    logOut: build.mutation<void, string>({
+      query(path) {
+        return {
+          url: `${path}`,
+          credentials: 'include'
+        };
+      }
+    }),
     getStockCollectionData: build.mutation<TuserCollectionData[], string>({
       query(path) {
         return {
@@ -48,6 +64,7 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
       query(args) {
         return {
           url: `${args.path}`,
+          credentials: 'include',
           method: 'POST',
           headers: {'Content-Type': 'application/json;charset=utf-8'},
           body: JSON.stringify(args.signInObject)
@@ -72,11 +89,13 @@ export const collectionDataAPI = rootAPI.injectEndpoints({
         };
       }
     }),
-    getCurrentCollectionToTrain: build.mutation<TuserCollectionData, string>({
-      query(path) {
+    getCurrentCollectionToTrain: build.mutation<TuserCollectionData, {path:string, accessToken: string}>({
+      query(args) {
         return {
-          url: `${path}`,
+          url: `${args.path}`,
           method: 'GET',
+          credentials: 'include',
+          headers: {'Authorization': `Bearer ${args.accessToken}`},
         };
       }
     }),

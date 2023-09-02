@@ -1,5 +1,5 @@
 module.exports = class LogInDto {
-    id;
+    _id;
     email;
     userName;
     subscription;
@@ -9,7 +9,7 @@ module.exports = class LogInDto {
     isActivated;
 
     constructor(model) {
-        this.id = model._id;
+        this._id = model._id;
         this.email = model.email;
         this.userName = model.userName;
         this.subscription = model.subscription;

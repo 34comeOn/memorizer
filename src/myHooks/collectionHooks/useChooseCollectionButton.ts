@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { RESPONSE_ERROR_TEXT } from "../../constants/stringConstants";
+import { REFRESH, RESPONSE_ERROR_TEXT } from "../../constants/stringConstants";
 import { collectionDataAPI } from "../../RTKApi/collectionDataApi";
 import { getUserIdSelector } from "../../store/reducers/accountReducer";
 import { hideCurrentCard, setTrainedCardId } from "../../store/reducers/cardWindowReducer";
@@ -10,26 +10,63 @@ export const useChooseCollectionButton = (collectionId: string, onChangeLoadingS
   const dispatch = useAppDispatch();
   const currentUserId = useAppSelector(getUserIdSelector);
   const [currentCollectionTriger] = collectionDataAPI.useGetCurrentCollectionToTrainMutation();
+  const [refreshTriger] = collectionDataAPI.useRefreshMutation();
   const navigate = useNavigate();
-  return () => {
+  const accessToken = localStorage.getItem('accessToken') || '';
+
+  return async () => {
       dispatch(setTrainedCardId(''))
       dispatch(hideCurrentCard());
       onChangeLoadingStatus(true)
-      currentCollectionTriger(`api/choose-collection/:${collectionId}/:${currentUserId}`)
+
+      currentCollectionTriger({path: `api/choose-collection/:${collectionId}/:${currentUserId}`,accessToken})
       .unwrap()
       .then(
         (currentCollection) => {
           onChangeLoadingStatus(false);
           UseChooseCollectionResponse(currentCollection, dispatch);
         },
-        () => {
-          onChangeLoadingStatus(false);
-          openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG);
-          throw new Error();
+        (error) => {
+          if (error.status === 403) {
+            return refreshTriger(REFRESH)
+            .unwrap()
+            .then(
+              (accessToken) => {
+                localStorage.setItem('accessToken', JSON.stringify(accessToken));
+                const refreshedAccessToken = localStorage.getItem('accessToken') || '';
+                return currentCollectionTriger({path: `api/choose-collection/:${collectionId}/:${currentUserId}`, accessToken: refreshedAccessToken})
+                .unwrap()
+                .then(
+                  (currentCollection) => {
+                    onChangeLoadingStatus(false);
+                    UseChooseCollectionResponse(currentCollection, dispatch);
+                  }
+                )
+                .catch(
+                  () => {
+                    onChangeLoadingStatus(false);
+                    openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG);
+                    throw new Error();
+                  }
+                )
+              }
+            )
+            .catch(
+              () => {
+                onChangeLoadingStatus(false);
+                openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG);
+                throw new Error();
+              }
+            )
+          } else {
+            openNotification(RESPONSE_ERROR_TEXT.SOMETHING_WENT_WRONG);
+            throw new Error();
+          }
         }
       )
       .then(
         () => navigate('/collection')
       )
+
   }
 }    

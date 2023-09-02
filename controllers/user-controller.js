@@ -21,6 +21,7 @@ const mailService = require('../service/mail-service');
 const tokenService = require('../service/token-service');
 const RegistrationDto = require('../dtos/registration-dto');
 const LogInDto = require('../dtos/logIn-dto');
+const ApiError = require('../exeptions/api-error');
 require('dotenv').config();
 
 class UserController {
@@ -36,36 +37,33 @@ class UserController {
         ]
 
         if (!validateAllRequestData(validationSchema)) {
-            res.status(403).end();
             console.log('request has not passed validation')
+            throw ApiError.BadRequest();
         } else {
-
             try {
                 const userData = await User.where({email}).find();
-                const isPassEquals = await bcrypt.compare(password, userData[0].password);
+                const isPassEquals = await bcrypt.compare(password, userData[0]?.password || '');
 
                 if (userData[0] && isPassEquals) {
                     if (!userData[0].isActivated){
-                        console.log('account not activated')
-                        res.status(401).end();
+                        throw ApiError.NotActivated();
                     } else {
                         const logInDto = new LogInDto(userData[0]);
 
-                        const tokens = tokenService.generateTokens({id: logInDto.id});
-                        await tokenService.saveToken(logInDto.id, tokens.refreshToken);
+                        const tokens = tokenService.generateTokens({_id: logInDto._id});
+                        await tokenService.saveToken(logInDto._id, tokens.refreshToken);
                         logInDto.currentToken = tokens.accessToken;
-    
-                        await res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
-    
+                        
+                        res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+                        
                         res.json(logInDto);
                     }
                 } else {
-                    console.log('pass or email does not match')
-                    res.status(400).end();
+                    throw ApiError.LoginOrPassNotMatch();
                 }
 
             } catch (e) {
-                console.log(e);
+                next(e);
             }
         }
     } 
@@ -110,7 +108,6 @@ class UserController {
                         userName,
                         subscription,
                         activationLink,
-                        currentToken,
                         currentCollection,
                         userCollectionsData
                     })
@@ -121,17 +118,23 @@ class UserController {
                     const tokens = tokenService.generateTokens({...userDto });
                     await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
-                    await res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
-                    res.json(tokens.accessToken)
+                    res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+                    res.json('Hello, new user!')
                 }
             } catch(e) {
-                console.log(e)
+                next(e);
             }
         }
     } 
     async logout(req, res, next) {
         try {
+            const {refreshToken} = req.cookies;
+            const token = await tokenService.removeToken(refreshToken);
+            res.clearCookie('refreshToken');
+
+            return token? res.status(200).end(): res.status(500).end();
         } catch (e) {
+            next(e)
         }
     } 
     async newCollection(req, res, next) {
@@ -145,7 +148,8 @@ class UserController {
             [newUserCollection.collectionColor, validateString],
             [newUserCollection.collectionTitle, validateWithRegEx, TITLE_REGEX],
         ];
-        
+        const {refreshToken} = req.cookies;
+        console.log('req.cookies', refreshToken)
         if (!validateAllRequestData(validationSchema)) {
             res.status(403).end();
             console.log('request has not passed validation')
@@ -359,7 +363,7 @@ class UserController {
                 user.isActivated = true;
                 await user.save();
     
-                res.redirect(process.env.CLIENT_URL);
+                res.redirect(process.env.CLIENT_SIGN_URL);
             }
 
         } catch (e) {
@@ -551,7 +555,14 @@ class UserController {
     } 
     async refresh(req, res, next) {
         try {
+            const {refreshToken} = req.cookies;
+
+            const tokens = await tokenService.refresh(refreshToken);
+            res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+    
+            res.json(tokens.accessToken);
         } catch (e) {
+            next(e)
         }
     } 
 }
